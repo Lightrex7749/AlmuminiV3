@@ -94,6 +94,9 @@ from routes.alumni_card import admin_router as alumni_card_admin_router
 # Import middleware
 from middleware.rate_limit import rate_limiter
 
+# Get CORS origins from environment or use defaults
+CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:3000').split(',')
+
 # Background task for rate limiter cleanup
 async def periodic_cleanup():
     """Periodic cleanup of rate limiter entries"""
