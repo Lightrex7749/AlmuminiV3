@@ -9,5 +9,5 @@
   publish = "frontend/build"
 [build.environment]
   NODE_VERSION = "20"
-  # Railway Backend URL - Production
-  REACT_APP_BACKEND_URL = "https://web-production-85a0c.up.railway.app"
+  # Render Backend URL - Production
+  REACT_APP_BACKEND_URL = "https://alumunity-backend-v3.onrender.com"
