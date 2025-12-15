@@ -7,5 +7,8 @@ cmds = [
     "/opt/venv/bin/pip install -r backend/requirements.txt"
 ]
 
+[phases.build]
+cmds = ["echo 'No build step needed for backend'"]
+
 [start]
 cmd = "cd backend && /opt/venv/bin/uvicorn server:app --host 0.0.0.0 --port $PORT"
