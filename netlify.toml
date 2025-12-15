@@ -10,6 +10,5 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # IMPORTANT: Update this with your Railway backend URL after deployment
-  # Example: REACT_APP_BACKEND_URL = "https://your-project.up.railway.app"
-  REACT_APP_BACKEND_URL = "http://localhost:8001"
+  # Railway Backend URL - Production
+  REACT_APP_BACKEND_URL = "https://web-production-85a0c.up.railway.app"
