@@ -10,4 +10,4 @@
 [build.environment]
   NODE_VERSION = "20"
   # Render Backend URL - Production
-  REACT_APP_BACKEND_URL = "https://alumunity-backend-v3.onrender.com"
+  REACT_APP_BACKEND_URL = "https://alumunity-backendv3.onrender.com"
