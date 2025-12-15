@@ -299,10 +299,12 @@ app.include_router(alumni_card_admin_router)
 app.include_router(api_router)
 
 # Add CORS middleware
+cors_origins = ["*"]  # Allow all origins for development
+logger.info(f"🌐 CORS Origins configured: {cors_origins}")
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )

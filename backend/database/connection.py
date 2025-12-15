@@ -4,6 +4,11 @@ import pymysql
 import os
 from typing import Optional
 import logging
+from dotenv import load_dotenv
+from pathlib import Path
+
+# Load environment variables immediately
+load_dotenv(Path(__file__).parent.parent / '.env')
 
 logger = logging.getLogger(__name__)
 

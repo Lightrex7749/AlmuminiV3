@@ -11,6 +11,7 @@ import logging
 import hashlib
 from datetime import datetime
 import shutil
+import tempfile
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +22,9 @@ class StorageConfig:
     # Storage type: 's3' or 'local'
     STORAGE_TYPE = os.getenv('STORAGE_TYPE', 'local')
     
-    # Local Storage Settings
-    LOCAL_STORAGE_PATH = os.getenv('LOCAL_STORAGE_PATH', '/app/storage')
+    # Local Storage Settings - use temp directory for ephemeral filesystems (Render, Railway)
+    # Fall back to /tmp on Unix/Linux, temp dir on Windows
+    LOCAL_STORAGE_PATH = os.getenv('LOCAL_STORAGE_PATH', os.path.join(tempfile.gettempdir(), 'alumunity_storage'))
     
     # S3 Settings
     S3_BUCKET = os.getenv('S3_BUCKET', 'alumunity-storage')
@@ -54,23 +56,37 @@ class FileStorage:
     
     def _init_local_storage(self):
         """Initialize local file storage"""
-        base_path = Path(StorageConfig.LOCAL_STORAGE_PATH)
-        
-        # Create directories
-        self.paths = {
-            'datasets': base_path / 'datasets',
-            'ml_models': base_path / 'ml_models',
-            'photos': base_path / 'photos',
-            'cvs': base_path / 'cvs',
-            'documents': base_path / 'documents',
-            'qr_codes': base_path / 'qr_codes',
-            'temp': base_path / 'temp'
-        }
-        
-        for path in self.paths.values():
-            path.mkdir(parents=True, exist_ok=True)
-        
-        logger.info("✅ Local storage initialized")
+        try:
+            base_path = Path(StorageConfig.LOCAL_STORAGE_PATH)
+            
+            # Create directories
+            self.paths = {
+                'datasets': base_path / 'datasets',
+                'ml_models': base_path / 'ml_models',
+                'photos': base_path / 'photos',
+                'cvs': base_path / 'cvs',
+                'documents': base_path / 'documents',
+                'qr_codes': base_path / 'qr_codes',
+                'temp': base_path / 'temp'
+            }
+            
+            for path in self.paths.values():
+                path.mkdir(parents=True, exist_ok=True)
+            
+            logger.info(f"✅ Local storage initialized at {base_path}")
+        except (PermissionError, OSError) as e:
+            logger.warning(f"⚠️ Cannot create local storage directories: {e}")
+            logger.warning("Using in-memory storage fallback - files will be lost on restart")
+            # Create dummy paths for compatibility
+            self.paths = {
+                'datasets': Path('/tmp/alumunity/datasets'),
+                'ml_models': Path('/tmp/alumunity/ml_models'),
+                'photos': Path('/tmp/alumunity/photos'),
+                'cvs': Path('/tmp/alumunity/cvs'),
+                'documents': Path('/tmp/alumunity/documents'),
+                'qr_codes': Path('/tmp/alumunity/qr_codes'),
+                'temp': Path('/tmp/alumunity/temp')
+            }
     
     def _init_s3_storage(self):
         """Initialize S3 storage"""
