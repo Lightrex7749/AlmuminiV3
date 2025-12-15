@@ -1,0 +1,8 @@
+[phases.setup]
+nixpkgs = ["..."]
+
+[phases.install]
+cmds = ["pip install -r backend/requirements.txt --break-system-packages"]
+
+[start]
+cmd = "cd backend && python -m uvicorn server:app --host 0.0.0.0 --port $PORT"
