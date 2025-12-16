@@ -40,8 +40,8 @@ const Login = () => {
   const roleCredentials = [
     {
       role: 'Admin',
-      email: 'admin@test.com',
-      password: 'admin123',
+      email: 'admin@alumni.edu',
+      password: 'password123',
       icon: ShieldCheck,
       color: 'from-red-500 to-red-600',
       bgColor: 'bg-red-50 hover:bg-red-100',
@@ -49,7 +49,7 @@ const Login = () => {
     },
     {
       role: 'Alumni',
-      email: 'alumni@test.com',
+      email: 'sarah.johnson@alumni.edu',
       password: 'password123',
       icon: GraduationCap,
       color: 'from-blue-500 to-blue-600',
@@ -58,7 +58,7 @@ const Login = () => {
     },
     {
       role: 'Student',
-      email: 'student@test.com',
+      email: 'emily.rodriguez@alumni.edu',
       password: 'password123',
       icon: Users,
       color: 'from-green-500 to-green-600',
@@ -67,7 +67,7 @@ const Login = () => {
     },
     {
       role: 'Recruiter',
-      email: 'recruiter@test.com',
+      email: 'david.kim@techcorp.com',
       password: 'password123',
       icon: Briefcase,
       color: 'from-purple-500 to-purple-600',

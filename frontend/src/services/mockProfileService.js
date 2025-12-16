@@ -1,3 +1,7 @@
+// Get mentor profile (alias for compatibility)
+export const getMentorProfile = async (userId) => {
+  return getMentorProfileByUserId(userId);
+};
 import mockData from '../mockdata.json';
 
 // Storage keys
@@ -16,11 +20,13 @@ const getStoredData = (key, fallback) => {
   try {
     const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : fallback;
+
   } catch (error) {
     console.error(`Error reading ${key} from localStorage:`, error);
     return fallback;
   }
-};
+}
+
 
 // Helper to save data to localStorage
 const saveData = (key, data) => {
@@ -551,5 +557,6 @@ export const mockProfileService = {
   }
 };
 
-// Default export
 export default mockProfileService;
+// Attach getMentorProfile for compatibility (must be after export default)
+mockProfileService.getMentorProfile = getMentorProfileByUserId;

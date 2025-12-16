@@ -308,7 +308,9 @@ const KnowledgeCapsules = () => {
                   <SelectContent>
                     <SelectItem value="all">All Categories</SelectItem>
                     {categories.map(cat => (
-                      <SelectItem key={cat} value={cat} className="capitalize">{cat}</SelectItem>
+                      <SelectItem key={cat.name} value={cat.name} className="capitalize">
+                        {cat.name} ({cat.count})
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>

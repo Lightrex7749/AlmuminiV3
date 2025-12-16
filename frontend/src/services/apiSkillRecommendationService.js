@@ -51,7 +51,7 @@ export const apiSkillRecommendationService = {
   // Get skill recommendations for a user
   async getRecommendations(userId) {
     try {
-      const response = await axios.get(`/api/skill-recommendations/recommendations/${userId}`);
+      const response = await axios.post(`/api/skill-recommendations/recommendations/${userId}`);
       return {
         success: true,
         data: response.data.data || response.data || [],

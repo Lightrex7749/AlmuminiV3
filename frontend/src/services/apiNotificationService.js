@@ -12,6 +12,23 @@ class ApiNotificationService {
     }
   }
 
+  // Get recent notifications (limited count)
+  async getRecentNotifications(limit = 5) {
+    try {
+      const response = await axios.get('/api/notifications', {
+        params: { limit }
+      });
+      if (response.data.success) {
+        // Return only the most recent notifications
+        const recent = response.data.data.slice(0, limit);
+        return { success: true, data: recent };
+      }
+      return response.data;
+    } catch (error) {
+      return { success: false, message: error.message, data: [] };
+    }
+  }
+
   // Get unread notification count
   async getUnreadCount() {
     try {

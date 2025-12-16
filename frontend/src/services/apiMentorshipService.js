@@ -11,6 +11,36 @@ const mentorshipService = {
   // ============================================================================
 
   /**
+   * Get all available mentors (simplified method)
+   */
+  getMentors: async (params = {}) => {
+    try {
+      const response = await api.get('/api/mentors', { params });
+      const data = response.data;
+      
+      // Handle different response formats
+      if (Array.isArray(data)) {
+        return {
+          success: true,
+          data: data
+        };
+      }
+      
+      return data || {
+        success: true,
+        data: []
+      };
+    } catch (error) {
+      console.error('Error getting mentors:', error);
+      return {
+        success: false,
+        error: error.response?.data?.detail || 'Failed to get mentors',
+        data: []
+      };
+    }
+  },
+
+  /**
    * Get all available mentors with filtering and pagination
    */
   filterMentors: async (params) => {

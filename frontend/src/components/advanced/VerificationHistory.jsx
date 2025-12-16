@@ -32,7 +32,11 @@ const VerificationHistory = ({ cardId = null, isAdmin = false }) => {
       if (cardId) {
         // Get history for specific card
         res = await alumniCardService.getCardVerificationHistory(cardId);
-        setVerifications(res.data);
+        if (res.success || Array.isArray(res.data)) {
+          setVerifications(Array.isArray(res.data) ? res.data : res.data || []);
+        } else if (res.message) {
+          toast.error('Failed to load verification history');
+        }
       } else if (isAdmin) {
         // Get all verifications (admin view)
         const filterParams = {};
@@ -41,8 +45,15 @@ const VerificationHistory = ({ cardId = null, isAdmin = false }) => {
         if (filter.suspicious) filterParams.suspicious = true;
         
         res = await alumniCardService.getVerificationHistory(filterParams);
-        setVerifications(res.data.verifications);
-        setStats(res.data.stats);
+        if (res.success && res.data && res.data.verifications) {
+          setVerifications(res.data.verifications);
+          setStats(res.data.stats);
+        } else if (res.data && typeof res.data === 'object' && res.data.verifications) {
+          setVerifications(res.data.verifications);
+          setStats(res.data.stats);
+        } else {
+          toast.error('Failed to load verification history');
+        }
       }
     } catch (error) {
       toast.error('Failed to load verification history');

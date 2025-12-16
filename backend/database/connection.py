@@ -43,7 +43,8 @@ async def get_db_pool() -> Optional[aiomysql.Pool]:
                 charset='utf8mb4',
                 autocommit=False,
                 minsize=1,
-                maxsize=10
+                maxsize=10,
+                connect_timeout=10
             )
             logger.info("✅ Database connection pool created successfully")
             USE_MOCK_DB = False
@@ -55,6 +56,28 @@ async def get_db_pool() -> Optional[aiomysql.Pool]:
             _auto_mock_mode = True
             db_pool = None
             return None
+    
+    # Check if pool connection is still alive, reconnect if needed
+    if db_pool is not None:
+        try:
+            async with db_pool.acquire() as conn:
+                async with conn.cursor() as cursor:
+                    await cursor.execute("SELECT 1")
+                    await cursor.fetchone()
+        except Exception as e:
+            logger.warning(f"⚠️ Database connection lost: {str(e)}")
+            logger.info("🔄 Reconnecting to database...")
+            # Reset and try to reconnect
+            _db_connection_attempted = False
+            if db_pool:
+                try:
+                    db_pool.close()
+                    await db_pool.wait_closed()
+                except:
+                    pass
+            db_pool = None
+            return await get_db_pool()
+    
     return db_pool
 
 

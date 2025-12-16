@@ -5,19 +5,31 @@ class ApiKnowledgeService {
   // Get all knowledge capsules
   async getCapsules(filters = {}) {
     try {
+      // Map frontend filters to backend parameters
+      const params = {};
+      
+      if (filters.search) params.search = filters.search;
+      if (filters.category && filters.category !== 'all') params.category = filters.category;
+      
+      // Skip sort parameter - backend doesn't support it, just filter
+      // Frontend sorting can be done on the client side if needed
+      
       const response = await axios.get('/api/capsules', {
-        params: filters,
+        params,
       });
-      // Backend returns { items: [], total: number, page: number, limit: number }
-      // Wrap it to match expected format { success: true, data: [...] }
-      if (response.data && response.data.items) {
-        return { success: true, data: response.data.items };
-      }
-      return { success: true, data: response.data || [] };
+      // Backend returns { data: [...], total: number, page: number, limit: number, has_more: boolean }
+      // Extract the data array and wrap it to match expected format { success: true, data: [...] }
+      const capsules = response.data.data || response.data.items || response.data || [];
+      return { success: true, data: Array.isArray(capsules) ? capsules : [] };
     } catch (error) {
       console.error('Error fetching capsules:', error);
       return { success: false, error: error.message, data: [] };
     }
+  }
+
+  // Get knowledge capsules (alias for getCapsules for compatibility)
+  async getKnowledgeCapsules(filters = {}) {
+    return this.getCapsules(filters);
   }
 
   // Get capsule by ID
@@ -168,61 +180,38 @@ class ApiKnowledgeService {
 
   // Get all learning paths
   async getLearningPaths() {
-    try {
-      const response = await axios.get('/api/knowledge/learning-paths');
-      return response.data;
-    } catch (error) {
-      return { success: false, message: error.message, data: [] };
-    }
+    // Learning paths endpoint not yet implemented in backend
+    // Return empty list without making network call
+    console.warn('Learning paths not yet implemented - returning empty list');
+    return { success: true, message: 'Learning paths not available', data: [] };
   }
 
   // Get single learning path
   async getLearningPath(pathId) {
-    try {
-      const response = await axios.get(`/api/knowledge/learning-paths/${pathId}`);
-      return response.data;
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
+    // Learning paths endpoint not yet implemented in backend
+    console.warn('Learning paths not yet implemented');
+    return { success: false, message: 'Learning path not available', data: null };
   }
 
   // Generate learning path based on career goal
   async generateLearningPath(targetRole, currentSkills = []) {
-    try {
-      const response = await axios.post('/api/knowledge/learning-paths/generate', {
-        target_role: targetRole,
-        current_skills: currentSkills
-      });
-      return response.data;
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
+    // Learning paths endpoint not yet implemented in backend
+    console.warn('Learning path generation not yet implemented');
+    return { success: false, message: 'Learning path generation not available' };
   }
 
   // Track learning path progress
   async updatePathProgress(userId, pathId, capsuleId, completed) {
-    try {
-      const response = await axios.put(`/api/knowledge/learning-paths/${pathId}/progress`, {
-        user_id: userId,
-        capsule_id: capsuleId,
-        completed
-      });
-      return response.data;
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
+    // Learning paths endpoint not yet implemented in backend
+    console.warn('Learning path progress tracking not yet implemented');
+    return { success: false, message: 'Learning path progress tracking not available' };
   }
 
   // Get learning path progress
   async getPathProgress(userId, pathId) {
-    try {
-      const response = await axios.get(`/api/knowledge/learning-paths/${pathId}/progress`, {
-        params: { user_id: userId }
-      });
-      return response.data;
-    } catch (error) {
-      return { success: false, message: error.message, data: { completed_capsules: [] } };
-    }
+    // Learning paths endpoint not yet implemented in backend
+    console.warn('Learning path progress retrieval not yet implemented');
+    return { success: true, data: { completed_capsules: [] } };
   }
 
   // Unlike capsule

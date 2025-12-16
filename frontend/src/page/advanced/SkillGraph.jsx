@@ -255,7 +255,7 @@ const SkillGraph = () => {
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-semibold text-lg">{rec.skill_name}</h4>
                         <Badge className={getDemandColor(rec.job_demand)} data-testid="demand-badge">
-                          {rec.job_demand.replace('-', ' ')} demand
+                          {(rec.job_demand || 'medium').replace('-', ' ')} demand
                         </Badge>
                       </div>
                       

@@ -23,7 +23,6 @@ except ImportError:
 class CareerLLMAdvisor:
     """
     Generates personalized career advice using Gemini AI
-    Falls back to Emergent LLM if Gemini is unavailable
     """
     
     def __init__(self):
@@ -42,13 +41,8 @@ class CareerLLMAdvisor:
                 logger.error(f"Failed to configure Gemini: {str(e)}")
                 self.gemini_model = None
         
-        # Fallback to Emergent LLM (legacy)
-        self.emergent_key = os.getenv('EMERGENT_LLM_KEY')
-        self.emergent_url = os.getenv('EMERGENT_LLM_API_URL', 'https://api.emergent.ai/v1/chat/completions')
-        self.emergent_model = os.getenv('EMERGENT_LLM_MODEL', 'gpt-4')
-        
-        if not self.gemini_model and not self.emergent_key:
-            logger.warning("No LLM API configured (Gemini or Emergent). LLM advice will be disabled")
+        if not self.gemini_model:
+            logger.warning("Gemini not available. LLM advice will use fallback")
     
     async def generate_career_advice(
         self,
@@ -67,22 +61,16 @@ class CareerLLMAdvisor:
         Returns:
             str: Personalized career advice
         """
-        # Check if any LLM is available
-        if not self.gemini_model and not self.emergent_key:
+        # Check if Gemini is available
+        if not self.gemini_model:
             return self._generate_fallback_advice(user_profile, predictions)
         
         try:
             # Prepare context for LLM
             prompt = self._build_prompt(user_profile, predictions, similar_alumni)
             
-            # Try Gemini first, then Emergent LLM as fallback
-            if self.gemini_model:
-                advice = await self._call_gemini_api(prompt)
-            elif self.emergent_key:
-                advice = await self._call_emergent_api(prompt)
-            else:
-                return self._generate_fallback_advice(user_profile, predictions)
-            
+            # Call Gemini API
+            advice = await self._call_gemini_api(prompt)
             return advice
         
         except Exception as e:
@@ -144,7 +132,7 @@ Keep the tone encouraging and professional. Focus on actionable next steps."""
     
     async def _call_gemini_api(self, prompt: str) -> str:
         """
-        Call Gemini AI API (Primary method)
+        Call Gemini AI API
         """
         try:
             # Run sync Gemini call in executor to avoid blocking
@@ -176,56 +164,6 @@ Keep the tone encouraging and professional. Focus on actionable next steps."""
         except Exception as e:
             logger.error(f"Gemini API error: {str(e)}")
             raise
-    
-    async def _call_emergent_api(self, prompt: str) -> str:
-        """
-        Call Emergent LLM API (Fallback method)
-        """
-        import aiohttp
-        
-        headers = {
-            'Authorization': f'Bearer {self.emergent_key}',
-            'Content-Type': 'application/json'
-        }
-        
-        payload = {
-            'model': self.emergent_model,
-            'messages': [
-                {
-                    'role': 'system',
-                    'content': 'You are a professional career advisor specializing in alumni career development.'
-                },
-                {
-                    'role': 'user',
-                    'content': prompt
-                }
-            ],
-            'temperature': 0.7,
-            'max_tokens': 300
-        }
-        
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                self.emergent_url,
-                headers=headers,
-                json=payload,
-                timeout=aiohttp.ClientTimeout(total=30)
-            ) as response:
-                if response.status != 200:
-                    error_text = await response.text()
-                    logger.error(f"Emergent LLM API error: {response.status} - {error_text}")
-                    raise Exception(f"Emergent LLM API returned status {response.status}")
-                
-                data = await response.json()
-                
-                # Extract advice from response
-                advice = data.get('choices', [{}])[0].get('message', {}).get('content', '')
-                
-                if not advice:
-                    raise Exception("Empty response from Emergent LLM API")
-                
-                logger.info("✅ Generated career advice using Emergent LLM (fallback)")
-                return advice.strip()
     
     def _generate_fallback_advice(
         self,

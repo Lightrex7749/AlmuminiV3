@@ -8,6 +8,7 @@ from datetime import datetime
 import aiomysql
 
 from database.connection import get_db_pool
+from services.mock_data_provider import get_mock_applications_by_user
 
 # Mock mode flag
 USE_MOCK_DB = os.getenv('USE_MOCK_DB', 'false').lower() == 'true'
@@ -443,6 +444,9 @@ class JobService:
     @staticmethod
     async def get_user_applications(user_id: str) -> List[Dict[str, Any]]:
         """Get all applications submitted by a user with job details"""
+        if USE_MOCK_DB:
+            return get_mock_applications_by_user(user_id)
+        
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:

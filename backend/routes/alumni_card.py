@@ -8,6 +8,7 @@ from typing import Optional
 from typing import Optional, List
 from datetime import datetime
 import logging
+import json
 
 from middleware.auth_middleware import get_current_user, require_role
 from database.connection import get_db_pool
@@ -522,9 +523,39 @@ async def get_all_verifications_admin(
                 
                 total_count = (await cursor.fetchone())[0]
                 
+                # Calculate stats
+                valid_count = 0
+                invalid_count = 0
+                suspicious_count = 0
+                
+                for v in verifications:
+                    if v['is_valid']:
+                        valid_count += 1
+                    else:
+                        invalid_count += 1
+                    # Check if suspicious (implement logic based on rules)
+                    if v.get('rule_validations'):
+                        try:
+                            rules = json.loads(v['rule_validations']) if isinstance(v['rule_validations'], str) else v['rule_validations']
+                            if rules.get('suspicious') or rules.get('suspicious_score', 0) > 0.5:
+                                suspicious_count += 1
+                        except:
+                            pass
+                
+                success_rate = int((valid_count / total_count * 100)) if total_count > 0 else 0
+                
                 return {
                     "success": True,
-                    "data": verifications,
+                    "data": {
+                        "verifications": verifications,
+                        "stats": {
+                            "total": total_count,
+                            "valid": valid_count,
+                            "invalid": invalid_count,
+                            "suspicious": suspicious_count,
+                            "successRate": success_rate
+                        }
+                    },
                     "total": total_count,
                     "limit": limit,
                     "offset": offset

@@ -22,26 +22,26 @@ router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 _MOCK_CREATED_AT = datetime(2024, 1, 1, 0, 0, 0, tzinfo=UTC)
 
 MOCK_USERS = {
-    "alumni@test.com": {
-        "id": "1", "email": "alumni@test.com", "password": "password123",
-        "name": "John Alumni", "role": "alumni", "is_verified": True,
+    "sarah.johnson@alumni.edu": {
+        "id": "660e8400-e29b-41d4-a716-446655440001", "email": "sarah.johnson@alumni.edu", "password": "password123",
+        "name": "Sarah Johnson", "role": "alumni", "is_verified": True,
         "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=John"
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
-    "student@test.com": {
-        "id": "2", "email": "student@test.com", "password": "password123",
-        "name": "Jane Student", "role": "student", "is_verified": True,
+    "emily.rodriguez@alumni.edu": {
+        "id": "880e8400-e29b-41d4-a716-446655440003", "email": "emily.rodriguez@alumni.edu", "password": "password123",
+        "name": "Emily Rodriguez", "role": "student", "is_verified": True,
         "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane"
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
     },
-    "recruiter@test.com": {
-        "id": "3", "email": "recruiter@test.com", "password": "password123",
-        "name": "Bob Recruiter", "role": "recruiter", "is_verified": True,
+    "david.kim@techcorp.com": {
+        "id": "990e8400-e29b-41d4-a716-446655440004", "email": "david.kim@techcorp.com", "password": "password123",
+        "name": "David Kim", "role": "recruiter", "is_verified": True,
         "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
     },
-    "admin@test.com": {
-        "id": "4", "email": "admin@test.com", "password": "admin123",
+    "admin@alumni.edu": {
+        "id": "550e8400-e29b-41d4-a716-446655440000", "email": "admin@alumni.edu", "password": "password123",
         "name": "Admin User", "role": "admin", "is_verified": True,
         "is_active": True, "created_at": _MOCK_CREATED_AT,
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"

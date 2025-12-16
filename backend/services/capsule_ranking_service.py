@@ -21,12 +21,11 @@ class CapsuleRankingService:
     def __init__(self):
         self.redis = get_redis_client()
         self.cache_ttl = 1800  # 30 minutes
-        self.llm_enabled = self._check_llm_availability()
+        self.llm_enabled = False  # Keep LLM disabled - only keyword relevance
     
     def _check_llm_availability(self) -> bool:
-        """Check if Emergent LLM Key is configured"""
-        emergent_key = os.getenv('EMERGENT_LLM_KEY')
-        return emergent_key is not None and emergent_key.strip() != ''
+        """LLM features disabled - using keyword-based relevance only"""
+        return False
     
     async def calculate_skill_match_score(
         self, 
@@ -142,68 +141,10 @@ class CapsuleRankingService:
         capsule: Dict
     ) -> float:
         """
-        Use Emergent LLM Key for semantic relevance calculation
+        Semantic relevance using keyword-based approach (no external APIs)
         """
-        try:
-            from openai import AsyncOpenAI
-            
-            client = AsyncOpenAI(api_key=os.getenv('EMERGENT_LLM_KEY'))
-            
-            # Prepare user context
-            user_context = f"""
-            User Profile:
-            - Skills: {', '.join(user_profile.get('skills', []))}
-            - Role: {user_profile.get('current_role', 'N/A')}
-            - Industry: {user_profile.get('industry', 'N/A')}
-            """
-            
-            # Prepare capsule context
-            capsule_context = f"""
-            Knowledge Capsule:
-            - Title: {capsule.get('title', '')}
-            - Category: {capsule.get('category', '')}
-            - Tags: {', '.join(capsule.get('tags', []))}
-            - Excerpt: {capsule.get('content', '')[:200]}...
-            """
-            
-            prompt = f"""
-            Analyze the relevance of this knowledge capsule to the user's profile.
-            
-            {user_context}
-            
-            {capsule_context}
-            
-            Rate the relevance on a scale of 0.0 to 1.0, where:
-            - 1.0 = Highly relevant to user's skills and career
-            - 0.5 = Moderately relevant
-            - 0.0 = Not relevant
-            
-            Respond with ONLY a number between 0.0 and 1.0.
-            """
-            
-            response = await client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": "You are a career relevance analyzer. Return only a relevance score as a decimal number."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=10,
-                temperature=0.3
-            )
-            
-            # Extract score from response
-            relevance_str = response.choices[0].message.content.strip()
-            relevance = float(relevance_str)
-            
-            # Ensure score is in valid range
-            relevance = max(0.0, min(1.0, relevance))
-            
-            return round(relevance, 4)
-            
-        except Exception as e:
-            logger.error(f"LLM semantic relevance error: {e}")
-            # Fallback to keyword scoring
-            return await self._calculate_keyword_relevance(user_profile, capsule)
+        # Fallback to keyword scoring
+        return await self._calculate_keyword_relevance(user_profile, capsule)
     
     async def _calculate_keyword_relevance(
         self, 

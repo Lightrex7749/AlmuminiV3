@@ -69,7 +69,7 @@ from routes.capsules import router as capsules_router
 from routes.aes import router as aes_router
 # from routes.skill_graph import router as skill_graph_router  # Temporarily disabled - AI model download hangs
 # from routes.skill_recommendations import router as skill_recommendations_router  # Temporarily disabled - AI model download hangs
-# from routes.career_paths import router as career_router, career_paths_router  # Temporarily disabled due to Python 3.13 compatibility
+from routes.career_paths import router as career_router, career_paths_router
 # from routes.career_predictions_router import router as career_predictions_router  # Temporarily disabled due to Python 3.13 compatibility
 from routes.career_data_collection import router as career_data_collection_router
 from routes.alumni_card import router as alumni_card_router
@@ -77,7 +77,8 @@ from routes.heatmap import router as heatmap_router
 
 # Import wrapper routes for frontend compatibility
 from routes.knowledge_routes import router as knowledge_router
-# from routes.skills_routes import router as skills_router  # Temporarily disabled - AI model download hangs
+# Use fallback skills routes to avoid AI model import issues
+from routes.skills_fallback import router as skills_router
 from routes.wrapper_routes import router as wrapper_router
 
 # Import Phase 10.2 routes - Admin Dataset Upload
@@ -85,6 +86,7 @@ from routes.datasets import router as datasets_router
 
 # Import Phase 10.7 routes - Knowledge Capsules Ranking Engine
 from routes.capsule_ranking import router as capsule_ranking_router
+from routes.capsule_ranking_wrapper import router as capsule_ranking_wrapper_router
 
 # Import NEW wrapper routes for advanced features (Phase 10.8)
 from routes.recommendations_wrapper import router as recommendations_wrapper_router
@@ -272,7 +274,7 @@ app.include_router(capsules_router)
 app.include_router(aes_router)
 # app.include_router(skill_graph_router)  # Temporarily disabled - AI model download hangs
 # app.include_router(skill_recommendations_router)  # Temporarily disabled - AI model download hangs
-# app.include_router(career_router)  # Temporarily disabled due to Python 3.13 compatibility
+app.include_router(career_router)
 # app.include_router(career_predictions_router)  # Temporarily disabled due to Python 3.13 compatibility
 app.include_router(career_data_collection_router)
 app.include_router(alumni_card_router)
@@ -280,15 +282,16 @@ app.include_router(heatmap_router)
 
 # Include wrapper routes for frontend compatibility
 app.include_router(knowledge_router)
-# app.include_router(skills_router)  # Temporarily disabled - AI model download hangs
+app.include_router(skills_router)
 app.include_router(wrapper_router)
-# app.include_router(career_paths_router)  # Temporarily disabled due to Python 3.13 compatibility
+app.include_router(career_paths_router)
 
 # Include Phase 10.2 routes - Admin Dataset Upload
 app.include_router(datasets_router)
 
 # Include Phase 10.7 routes - Knowledge Capsules Ranking Engine
 app.include_router(capsule_ranking_router)
+app.include_router(capsule_ranking_wrapper_router)
 
 # Include Phase 10.8 routes - Advanced Features Wrapper Routes
 app.include_router(recommendations_wrapper_router)

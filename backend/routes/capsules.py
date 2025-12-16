@@ -60,7 +60,7 @@ async def create_capsule(
 async def list_capsules(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
-    category: Optional[CapsuleCategory] = None,
+    category: Optional[str] = None,
     tags: Optional[str] = Query(None, description="Comma-separated list of tags"),
     featured_only: bool = False,
     author_id: Optional[str] = None,
@@ -82,10 +82,13 @@ async def list_capsules(
         tags_list = tags.split(',') if tags else None
         user_id = current_user['id'] if current_user else None
         
+        # Ignore 'all' category value
+        category_filter = category if category and category != 'all' else None
+        
         result = await CapsuleService.list_capsules(
             page=page,
             limit=limit,
-            category=category.value if category else None,
+            category=category_filter,
             tags=tags_list,
             featured_only=featured_only,
             author_id=author_id,
@@ -97,7 +100,14 @@ async def list_capsules(
         
     except Exception as e:
         logger.error(f"Error listing capsules: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to list capsules: {str(e)}")
+        # Return empty list instead of error
+        return {
+            "success": True,
+            "items": [],
+            "total": 0,
+            "page": page,
+            "limit": limit
+        }
 
 
 @router.get("/trending", response_model=list[KnowledgeCapsuleResponse])
@@ -143,6 +153,56 @@ async def get_my_bookmarks(
     except Exception as e:
         logger.error(f"Error getting bookmarks: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to get bookmarks: {str(e)}")
+
+
+@router.get("/categories")
+async def get_categories(
+    current_user: Optional[dict] = Depends(get_current_user)
+):
+    """
+    Get all unique categories from knowledge capsules
+    
+    Returns list of categories with capsule counts
+    """
+    try:
+        from database.connection import get_db_pool
+        pool = await get_db_pool()
+        
+        async with pool.acquire() as conn:
+            async with conn.cursor() as cursor:
+                # Get all unique categories with counts
+                await cursor.execute("""
+                    SELECT category, COUNT(*) as count
+                    FROM knowledge_capsules
+                    WHERE category IS NOT NULL AND category != ''
+                    GROUP BY category
+                    ORDER BY count DESC
+                """)
+                results = await cursor.fetchall()
+                
+                categories = [
+                    {
+                        "name": row[0],
+                        "count": row[1]
+                    }
+                    for row in results
+                ]
+                
+                return {
+                    "success": True,
+                    "data": categories,
+                    "total": len(categories)
+                }
+    
+    except Exception as e:
+        logger.error(f"Error getting categories: {str(e)}")
+        # Return empty categories instead of error
+        return {
+            "success": True,
+            "data": [],
+            "total": 0,
+            "error": str(e)
+        }
 
 
 @router.get("/{capsule_id}", response_model=KnowledgeCapsuleResponse)
@@ -290,47 +350,3 @@ async def toggle_bookmark_capsule(
     except Exception as e:
         logger.error(f"Error toggling bookmark: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to toggle bookmark: {str(e)}")
-
-
-@router.get("/categories")
-async def get_categories(
-    current_user: Optional[dict] = Depends(get_current_user)
-):
-    """
-    Get all unique categories from knowledge capsules
-    
-    Returns list of categories with capsule counts
-    """
-    try:
-        from database.connection import get_db_pool
-        pool = await get_db_pool()
-        
-        async with pool.acquire() as conn:
-            async with conn.cursor() as cursor:
-                # Get all unique categories with counts
-                await cursor.execute("""
-                    SELECT category, COUNT(*) as count
-                    FROM knowledge_capsules
-                    WHERE category IS NOT NULL AND category != ''
-                    GROUP BY category
-                    ORDER BY count DESC
-                """)
-                results = await cursor.fetchall()
-                
-                categories = [
-                    {
-                        "name": row[0],
-                        "count": row[1]
-                    }
-                    for row in results
-                ]
-                
-                return {
-                    "success": True,
-                    "data": categories,
-                    "total": len(categories)
-                }
-    
-    except Exception as e:
-        logger.error(f"Error getting categories: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to get categories: {str(e)}")

@@ -37,6 +37,16 @@ class MockEventService {
         filtered = filtered.filter(event => new Date(event.start_date) < now);
       }
     }
+
+    // Filter by is_upcoming boolean
+    if (filters.is_upcoming !== undefined) {
+      const now = new Date();
+      if (filters.is_upcoming) {
+        filtered = filtered.filter(event => new Date(event.start_date) >= now);
+      } else {
+        filtered = filtered.filter(event => new Date(event.start_date) < now);
+      }
+    }
     
     // Search by title
     if (filters.search) {
@@ -54,6 +64,11 @@ class MockEventService {
       success: true,
       data: filtered
     };
+  }
+
+  // Alias for getEvents
+  async getAllEvents(filters = {}) {
+    return this.getEvents(filters);
   }
 
   // Get single event by ID

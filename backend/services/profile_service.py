@@ -14,6 +14,12 @@ from database.models import (
     ProfileSearchParams,
     ProfileFilterOptions
 )
+from services.mock_data_provider import (
+    get_mock_profile_by_user_id,
+    get_mock_applications_by_user,
+    get_mock_mentorship_requests_by_student,
+    get_mock_profile_directory
+)
 
 # Mock mode flag
 USE_MOCK_DB = os.getenv('USE_MOCK_DB', 'false').lower() == 'true'
@@ -80,6 +86,9 @@ class ProfileService:
     @staticmethod
     async def get_profile_by_user_id(user_id: str) -> Optional[Dict[str, Any]]:
         """Get profile by user ID"""
+        if USE_MOCK_DB:
+            return get_mock_profile_by_user_id(user_id)
+        
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
@@ -271,13 +280,7 @@ class ProfileService:
         """Search alumni profiles with filters"""
         if USE_MOCK_DB:
             # Return mock data in mock mode
-            return {
-                "profiles": [],
-                "total": 0,
-                "page": search_params.page,
-                "limit": search_params.limit,
-                "total_pages": 0
-            }
+            return get_mock_profile_directory(search_params.page, search_params.limit)
         
         pool = await get_db_pool()
         async with pool.acquire() as conn:

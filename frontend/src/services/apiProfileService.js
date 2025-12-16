@@ -68,9 +68,19 @@ class ApiProfileService {
   async getProfileByUserId(userId) {
     try {
       const response = await axios.get(`/api/profiles/${userId}`);
-      return response.data?.data || { success: false, message: 'Profile not found' };
+      return response.data?.data || response.data || { success: false, message: 'Profile not found' };
     } catch (error) {
-      return { success: false, message: error.message };
+      console.warn(`Profile not found for user ${userId}, returning empty profile`);
+      // Return a fallback empty profile instead of error
+      return {
+        user_id: userId,
+        name: 'User',
+        bio: '',
+        headline: '',
+        current_company: '',
+        current_role: '',
+        profile_completion_percentage: 0
+      };
     }
   }
 

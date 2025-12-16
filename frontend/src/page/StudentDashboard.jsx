@@ -45,15 +45,24 @@ const StudentDashboard = () => {
 
       setProfile(profileData?.data || profileData);
       setApplications(appsData || []);
-      setMentorshipRequests(mentorRequests || []);
+      
+      // Handle mentorship requests - could be array or object with data property
+      const requests = Array.isArray(mentorRequests) ? mentorRequests : (mentorRequests?.data || []);
+      setMentorshipRequests(requests);
+      
       if (scoreData.success) setEngagementScore(scoreData.data);
       
       // Get upcoming events
       const events = eventsData?.data?.slice(0, 3) || [];
       setUpcomingEvents(events);
 
-      // Get recommended mentors
-      const mentors = mentorsData?.data?.slice(0, 3) || [];
+      // Get recommended mentors - handle both array and object responses
+      let mentors = [];
+      if (Array.isArray(mentorsData)) {
+        mentors = mentorsData.slice(0, 3);
+      } else if (Array.isArray(mentorsData?.data)) {
+        mentors = mentorsData.data.slice(0, 3);
+      }
       setRecommendedMentors(mentors);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
@@ -114,7 +123,9 @@ const StudentDashboard = () => {
 
   const profileCompletion = profile?.profile_completion_percentage || 0;
   const recentApplications = applications.slice(0, 3);
-  const upcomingSessions = mentorshipRequests.filter(r => r.status === 'accepted').slice(0, 2);
+  const upcomingSessions = (Array.isArray(mentorshipRequests) ? mentorshipRequests : [])
+    .filter(r => r.status === 'accepted')
+    .slice(0, 2);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">

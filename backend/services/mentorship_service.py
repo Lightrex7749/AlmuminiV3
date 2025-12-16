@@ -8,6 +8,7 @@ from datetime import datetime
 import aiomysql
 
 from database.connection import get_db_pool
+from services.mock_data_provider import get_mock_mentorship_requests_by_student
 
 # Mock mode flag
 USE_MOCK_DB = os.getenv('USE_MOCK_DB', 'false').lower() == 'true'
@@ -654,6 +655,12 @@ class MentorshipService:
     @staticmethod
     async def get_sent_requests(student_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get mentorship requests sent by student - Returns enriched nested structure"""
+        if USE_MOCK_DB:
+            requests = get_mock_mentorship_requests_by_student(student_id)
+            if status:
+                requests = [r for r in requests if r.get('status') == status]
+            return requests
+        
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
