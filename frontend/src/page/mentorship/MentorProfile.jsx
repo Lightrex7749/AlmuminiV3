@@ -61,6 +61,9 @@ const MentorProfile = () => {
       const mentorData = mentorResult.data;
       setMentor(mentorData);
 
+      // Extract the actual profile from the nested structure
+      const profileData = mentorData?.profile || mentorData;
+
       // Get reviews from completed sessions
       const requestsResult = await mentorshipService.getAllMentorshipRequests();
       if (requestsResult.success) {

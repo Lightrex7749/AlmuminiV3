@@ -9,6 +9,9 @@ import axios from 'axios';
 // Get backend URL from environment
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
+// Cache for failed profile lookups (404s) to prevent repeated requests
+const failedProfileCache = new Map();
+
 // Create axios instance with default config
 const axiosInstance = axios.create({
   baseURL: BACKEND_URL,
@@ -21,6 +24,17 @@ const axiosInstance = axios.create({
 // Request Interceptor - Add authentication token to all requests
 axiosInstance.interceptors.request.use(
   (config) => {
+    // Check if this is a profile lookup request that previously failed (404)
+    if (config.url.match(/\/api\/profiles\/[a-f0-9-]+$/) && config.method === 'get') {
+      const userId = config.url.split('/').pop();
+      if (failedProfileCache.has(userId)) {
+        // Cancel the request since we know this profile doesn't exist
+        const source = axios.CancelToken.source();
+        config.cancelToken = source.token;
+        source.cancel('Profile not found (cached 404)');
+      }
+    }
+    
     // Get token from localStorage
     const token = localStorage.getItem('token');
     
@@ -61,6 +75,12 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const { status, data } = error.response;
       
+      // Cache 404s for profile lookups to prevent repeated requests
+      if (status === 404 && error.config.url.match(/\/api\/profiles\/[a-f0-9-]+$/)) {
+        const userId = error.config.url.split('/').pop();
+        failedProfileCache.set(userId, true);
+      }
+      
       // Handle 401 Unauthorized - Token expired or invalid
       if (status === 401) {
         console.error('🔒 401 Unauthorized Response:', {
@@ -86,9 +106,9 @@ axiosInstance.interceptors.response.use(
         console.warn('🚫 Forbidden: Access denied');
       }
       
-      // Handle 404 Not Found
+      // Handle 404 Not Found - suppress logging for expected 404s (like missing profiles)
       if (status === 404) {
-        console.warn('🔍 Not Found:', error.config.url);
+        // Don't log 404s - they're expected when profiles/data don't exist yet
       }
       
       // Handle 500 Server Error
@@ -96,8 +116,8 @@ axiosInstance.interceptors.response.use(
         console.error('🔥 Server Error:', status);
       }
       
-      // Log error details in development
-      if (process.env.NODE_ENV === 'development') {
+      // Log error details in development (skip 404s as they're expected)
+      if (process.env.NODE_ENV === 'development' && status !== 404) {
         console.error(`❌ API Error: ${error.config.method.toUpperCase()} ${error.config.url}`, {
           status,
           data,
@@ -105,11 +125,15 @@ axiosInstance.interceptors.response.use(
         });
       }
     } else if (error.request) {
-      // Request was made but no response received
-      console.error('📡 Network Error: No response from server');
+      // Request was made but no response received (skip logging if it was a cancelled request)
+      if (error.message !== 'Profile not found (cached 404)') {
+        console.error('📡 Network Error: No response from server');
+      }
     } else {
       // Something else happened
-      console.error('⚠️ Error:', error.message);
+      if (error.message !== 'Profile not found (cached 404)') {
+        console.error('⚠️ Error:', error.message);
+      }
     }
     
     return Promise.reject(error);

@@ -227,7 +227,7 @@ async def get_mentor_by_user_id(user_id: str):
     Returns mentor profile with nested alumni profile data
     """
     try:
-        mentor = await MentorshipService.get_mentor_profile(user_id)
+        mentor = await MentorshipService.get_mentor_with_details(user_id)
         
         if not mentor:
             return {
@@ -248,9 +248,9 @@ async def get_mentor_by_user_id(user_id: str):
         )
 
 
-@router.post("/mentors/filter", response_model=dict)
+@router.post("/mentors/filter")
 async def filter_mentors(
-    filter_params: dict = Body(...),
+    request_body: dict = Body(None),
     current_user: dict = Depends(get_current_user) if False else None
 ):
     """
@@ -266,6 +266,9 @@ async def filter_mentors(
     - pageSize: int - Results per page
     """
     try:
+        # Use request_body or empty dict if None
+        filter_params = request_body or {}
+        
         # Mock mode - return empty results
         if USE_MOCK_DB:
             page = filter_params.get('page', 1)

@@ -10,36 +10,47 @@ import { useState, useEffect } from 'react';
 const JobCard = ({ job, onApply }) => {
   const navigate = useNavigate();
   const [matchData, setMatchData] = useState(null);
+  const [profileFetched, setProfileFetched] = useState(false);
   
   // Get current user
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
   
   useEffect(() => {
+    // Only calculate match once, and only if we haven't already tried
+    if (profileFetched) return;
+    
     const calculateMatch = async () => {
       if (!currentUser.id || !job.skills_required || job.skills_required.length === 0) {
+        setProfileFetched(true);
         return;
       }
 
       try {
         // Get user's profile from service layer
         const profileData = await profileService.getProfileByUserId(currentUser.id);
-        const userProfile = profileData?.data || profileData;
         
-        if (userProfile && userProfile.skills) {
-          const match = skillRecommendationService.calculateJobMatch(
-            userProfile.skills,
-            job.skills_required || []
-          );
-          setMatchData(match);
+        // Handle both successful and failed responses
+        if (!profileData || !profileData.skills) {
+          // Profile not found or incomplete - skip match calculation
+          setProfileFetched(true);
+          return;
         }
+        
+        const match = skillRecommendationService.calculateJobMatch(
+          profileData.skills,
+          job.skills_required || []
+        );
+        setMatchData(match);
+        setProfileFetched(true);
       } catch (error) {
-        console.error('Error calculating job match:', error);
-        // Don't show match data if there's an error
+        // Silently handle errors - profile might not exist yet
+        // Don't log 404 errors, they're normal when profile hasn't been created
+        setProfileFetched(true);
       }
     };
 
     calculateMatch();
-  }, [currentUser.id, job.skills_required]);
+  }, [currentUser.id, job.skills_required, profileFetched]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
