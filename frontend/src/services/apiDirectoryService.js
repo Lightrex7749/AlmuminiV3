@@ -16,7 +16,7 @@ class ApiDirectoryService {
   async getAllAlumniProfiles() {
     try {
       const response = await axios.get('/api/profiles/directory');
-      return response.data?.data || [];
+      return response.data?.data?.profiles || [];
     } catch (error) {
       console.error('Error fetching alumni profiles:', error);
       return [];
