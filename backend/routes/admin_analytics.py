@@ -500,13 +500,21 @@ async def get_mentorship_analytics():
         cursor.close()
         connection.close()
         
-        # Convert basic_stats to dict if it's a tuple
-        stats_dict = dict(basic_stats) if basic_stats else {
-            "totalRequests": 0,
-            "activeMentors": 0,
-            "completedSessions": 0,
-            "averageRating": 0
-        }
+        # Convert basic_stats to dict if it's a tuple and convert Decimal to float
+        stats_dict = {}
+        if basic_stats:
+            stats_dict = dict(basic_stats)
+            # Convert Decimal types to float
+            for key in stats_dict:
+                if hasattr(stats_dict[key], '__float__'):  # Handle Decimal types
+                    stats_dict[key] = float(stats_dict[key])
+        else:
+            stats_dict = {
+                "totalRequests": 0,
+                "activeMentors": 0,
+                "completedSessions": 0,
+                "averageRating": 0
+            }
         
         return {
             "success": True,
