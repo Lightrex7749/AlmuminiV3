@@ -55,14 +55,21 @@ async def get_dashboard_stats():
         cursor.close()
         connection.close()
         
+        # Convert stats tuples to dicts if needed
+        user_stats_dict = dict(user_stats) if user_stats else {"totalUsers": 0, "activeUsers": 0, "totalStudents": 0, "totalAlumni": 0, "totalRecruiters": 0}
+        verified_stats_dict = dict(verified_stats) if verified_stats else {"verifiedAlumni": 0}
+        job_stats_dict = dict(job_stats) if job_stats else {"totalJobs": 0, "openJobs": 0}
+        event_stats_dict = dict(event_stats) if event_stats else {"totalEvents": 0, "publishedEvents": 0}
+        forum_stats_dict = dict(forum_stats) if forum_stats else {"totalPosts": 0}
+        
         return {
             "success": True,
             "data": {
-                **user_stats,
-                **verified_stats,
-                **job_stats,
-                **event_stats,
-                "forumPosts": forum_stats['totalPosts']
+                **user_stats_dict,
+                **verified_stats_dict,
+                **job_stats_dict,
+                **event_stats_dict,
+                "forumPosts": forum_stats_dict['totalPosts']
             }
         }
     
@@ -384,10 +391,18 @@ async def get_job_analytics():
         cursor.close()
         connection.close()
         
+        # Convert basic_stats to dict if it's a tuple
+        stats_dict = dict(basic_stats) if basic_stats else {
+            "totalJobs": 0,
+            "activeJobs": 0,
+            "totalApplications": 0,
+            "averageSalary": 0
+        }
+        
         return {
             "success": True,
             "data": {
-                **basic_stats,
+                **stats_dict,
                 "averageDaysToHire": 0,  # TODO: Calculate from application status changes
                 "jobsByType": jobs_by_type,
                 "jobsByLocation": jobs_by_location,
@@ -485,10 +500,18 @@ async def get_mentorship_analytics():
         cursor.close()
         connection.close()
         
+        # Convert basic_stats to dict if it's a tuple
+        stats_dict = dict(basic_stats) if basic_stats else {
+            "totalRequests": 0,
+            "activeMentors": 0,
+            "completedSessions": 0,
+            "averageRating": 0
+        }
+        
         return {
             "success": True,
             "data": {
-                **basic_stats,
+                **stats_dict,
                 "requestsByStatus": requests_by_status,
                 "sessionsOverTime": sessions_over_time,
                 "topExpertiseAreas": top_expertise,
@@ -564,10 +587,18 @@ async def get_event_analytics():
         cursor.close()
         connection.close()
         
+        # Convert basic_stats to dict if it's a tuple
+        stats_dict = dict(basic_stats) if basic_stats else {
+            "totalEvents": 0,
+            "upcomingEvents": 0,
+            "totalParticipants": 0,
+            "averageAttendance": 0
+        }
+        
         return {
             "success": True,
             "data": {
-                **basic_stats,
+                **stats_dict,
                 "eventsByType": events_by_type,
                 "participationTrend": participation_trend,
                 "eventsByFormat": events_by_format,
