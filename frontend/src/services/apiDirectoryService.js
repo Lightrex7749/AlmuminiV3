@@ -324,7 +324,7 @@ class ApiDirectoryService {
   async getProfileByUserId(userId) {
     try {
       const response = await axios.get(`/api/profiles/${userId}`);
-      return response.data;
+      return response.data?.data || null;
     } catch (error) {
       console.error('Error getting profile by user ID:', error);
       return null;

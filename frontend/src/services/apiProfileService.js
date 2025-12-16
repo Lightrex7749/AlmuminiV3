@@ -68,7 +68,7 @@ class ApiProfileService {
   async getProfileByUserId(userId) {
     try {
       const response = await axios.get(`/api/profiles/${userId}`);
-      return response.data;
+      return response.data?.data || { success: false, message: 'Profile not found' };
     } catch (error) {
       return { success: false, message: error.message };
     }
