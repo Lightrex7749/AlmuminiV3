@@ -11,10 +11,11 @@ from datetime import datetime
 from pathlib import Path
 from collections import Counter
 
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder, MultiLabelBinarizer
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import accuracy_score, classification_report
+# sklearn imports moved to lazy loading in methods
+# from sklearn.ensemble import RandomForestClassifier
+# from sklearn.preprocessing import LabelEncoder, MultiLabelBinarizer
+# from sklearn.model_selection import train_test_split, GridSearchCV
+# from sklearn.metrics import accuracy_score, classification_report
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,7 @@ class CareerModelTrainer:
             self.model_dir = Path(model_dir)
         self.model_dir.mkdir(parents=True, exist_ok=True)
         
+        from sklearn.preprocessing import LabelEncoder, MultiLabelBinarizer
         self.role_encoder = LabelEncoder()
         self.skill_encoder = MultiLabelBinarizer()
         self.industry_encoder = LabelEncoder()
@@ -89,6 +91,7 @@ class CareerModelTrainer:
             if not use_stratify:
                 logger.warning(f"Stratification disabled: some classes have only {min_class_count} sample(s)")
             
+            from sklearn.model_selection import train_test_split
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=0.2, random_state=42, stratify=y if use_stratify else None
             )
@@ -250,12 +253,15 @@ class CareerModelTrainer:
         
         return np.array(features), np.array(labels)
     
-    async def _train_model(self, X_train: np.ndarray, y_train: np.ndarray) -> RandomForestClassifier:
+    async def _train_model(self, X_train: np.ndarray, y_train: np.ndarray): # -> RandomForestClassifier
         """
         Train Random Forest classifier with hyperparameter tuning
         """
         logger.info("Training Random Forest model...")
         
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.model_selection import GridSearchCV
+
         # Check if dataset is large enough for cross-validation
         # CV requires at least 2*n_splits samples per class
         y_train_counts = Counter(y_train)
@@ -322,6 +328,8 @@ class CareerModelTrainer:
         """
         Evaluate model performance
         """
+        from sklearn.metrics import accuracy_score, classification_report
+        
         y_pred = self.model.predict(X_test)
         
         accuracy = accuracy_score(y_test, y_pred)
