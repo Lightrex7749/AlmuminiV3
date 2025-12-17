@@ -22,6 +22,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Check database configuration
+print(f"📊 Database Configuration:")
+print(f"   DB_HOST: {os.getenv('DB_HOST', 'NOT SET')}")
+print(f"   DB_PORT: {os.getenv('DB_PORT', 'NOT SET')}")
+print(f"   DB_USER: {os.getenv('DB_USER', 'NOT SET')}")
+print(f"   DB_NAME: {os.getenv('DB_NAME', 'NOT SET')}")
+print(f"   USE_MOCK_DB: {os.getenv('USE_MOCK_DB', 'NOT SET')}")
+
 # Import database connection
 from database.connection import get_db_pool, close_db_pool, USE_MOCK_DB
 
