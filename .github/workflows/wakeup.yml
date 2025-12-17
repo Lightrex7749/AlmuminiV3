@@ -13,5 +13,5 @@ jobs:
       - name: Ping Server
         run: |
           # Replace with your actual deployed URL
-          curl -I https://alumunity-v3.onrender.com/api/ || echo "Ping failed"
+          curl -s https://alumunity-v3.onrender.com/api/ > /dev/null || echo "Ping failed"
           echo "Ping sent to keep server awake"
