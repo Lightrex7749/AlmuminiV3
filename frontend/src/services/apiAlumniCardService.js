@@ -37,7 +37,7 @@ class ApiAlumniCardService {
   // Generate new card
   async generateCard(userId) {
     try {
-      const response = await axios.post(`/api/alumni-card/${userId}/generate`);
+      const response = await axios.post('/api/alumni-card/generate');
       return response.data;
     } catch (error) {
       return { success: false, message: error.message };

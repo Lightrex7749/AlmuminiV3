@@ -20,6 +20,7 @@ from database.models import (
     EmailQueueCreate
 )
 from services.email_service import EmailService
+from services.mock_data_provider import load_mock_data
 
 logger = logging.getLogger(__name__)
 
@@ -126,6 +127,54 @@ class NotificationService:
         """
         try:
             pool = await get_db_pool()
+            if pool is None:
+                mock_data = load_mock_data()
+                notifications = mock_data.get('notifications', [])
+                
+                # Filter by user
+                user_notifs = [n for n in notifications if n.get('user_id') == user_id]
+                
+                if unread_only:
+                    user_notifs = [n for n in user_notifs if not n.get('is_read')]
+                
+                total = len(user_notifs)
+                unread_count = sum(1 for n in notifications if n.get('user_id') == user_id and not n.get('is_read'))
+                
+                # Sort by created_at desc
+                user_notifs.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+                
+                # Paginate
+                start = (page - 1) * limit
+                end = start + limit
+                paginated = user_notifs[start:end]
+                
+                # Convert to response objects
+                # Note: row_to_notification expects a tuple/list, but here we have dicts
+                # We should construct NotificationResponse directly from dict
+                response_objects = []
+                for n in paginated:
+                    response_objects.append(NotificationResponse(
+                        id=n.get('id'),
+                        user_id=n.get('user_id'),
+                        type=NotificationType(n.get('type')),
+                        title=n.get('title'),
+                        message=n.get('message'),
+                        link=n.get('link'),
+                        is_read=n.get('is_read', False),
+                        priority=NotificationPriority(n.get('priority', 'medium')),
+                        metadata=n.get('metadata'),
+                        read_at=n.get('read_at'),
+                        created_at=n.get('created_at')
+                    ))
+                
+                return NotificationListResponse(
+                    notifications=response_objects,
+                    total=total,
+                    page=page,
+                    limit=limit,
+                    unread_count=unread_count
+                )
+
             async with pool.acquire() as conn:
                 async with conn.cursor() as cursor:
                     # Build query
@@ -194,6 +243,12 @@ class NotificationService:
         """
         try:
             pool = await get_db_pool()
+            if pool is None:
+                mock_data = load_mock_data()
+                notifications = mock_data.get('notifications', [])
+                count = sum(1 for n in notifications if n.get('user_id') == user_id and not n.get('is_read'))
+                return count
+
             async with pool.acquire() as conn:
                 async with conn.cursor() as cursor:
                     await cursor.execute(

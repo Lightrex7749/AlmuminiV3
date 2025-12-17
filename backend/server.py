@@ -67,7 +67,7 @@ from routes.engagement import router as engagement_router
 # Import Phase 9 routes - Innovative Features
 from routes.capsules import router as capsules_router
 from routes.aes import router as aes_router
-# from routes.skill_graph import router as skill_graph_router  # Temporarily disabled - AI model download hangs
+from routes.skill_graph import router as skill_graph_router
 # from routes.skill_recommendations import router as skill_recommendations_router  # Temporarily disabled - AI model download hangs
 from routes.career_paths import router as career_router, career_paths_router
 # from routes.career_predictions_router import router as career_predictions_router  # Temporarily disabled due to Python 3.13 compatibility
@@ -77,6 +77,7 @@ from routes.heatmap import router as heatmap_router
 
 # Import wrapper routes for frontend compatibility
 from routes.knowledge_routes import router as knowledge_router
+from routes.messaging import router as messaging_router
 # Use fallback skills routes to avoid AI model import issues
 from routes.skills_fallback import router as skills_router
 from routes.wrapper_routes import router as wrapper_router
@@ -272,7 +273,7 @@ app.include_router(engagement_router)
 # Include Phase 9 routes - Innovative Features
 app.include_router(capsules_router)
 app.include_router(aes_router)
-# app.include_router(skill_graph_router)  # Temporarily disabled - AI model download hangs
+app.include_router(skill_graph_router)
 # app.include_router(skill_recommendations_router)  # Temporarily disabled - AI model download hangs
 app.include_router(career_router)
 # app.include_router(career_predictions_router)  # Temporarily disabled due to Python 3.13 compatibility
@@ -282,6 +283,7 @@ app.include_router(heatmap_router)
 
 # Include wrapper routes for frontend compatibility
 app.include_router(knowledge_router)
+app.include_router(messaging_router)
 app.include_router(skills_router)
 app.include_router(wrapper_router)
 app.include_router(career_paths_router)

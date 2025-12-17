@@ -193,7 +193,7 @@ const QRScanner = ({ onScan, onClose }) => {
         </CardContent>
       </Card>
 
-      <style jsx>{`
+      <style>{`
         @keyframes scan-line {
           0% {
             transform: translateY(0);

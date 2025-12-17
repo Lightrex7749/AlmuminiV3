@@ -15,6 +15,7 @@ const ProfileView = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -33,6 +34,28 @@ const ProfileView = () => {
       fetchProfile();
     }
   }, [userId]);
+
+  const handleSendMessage = async () => {
+    setSendingMessage(true);
+    try {
+      // Navigate to messages page with recipient ID
+      navigate(`/messages/${userId}`, { state: { recipientName: profile.name } });
+    } catch (error) {
+      console.error('Error opening message:', error);
+    } finally {
+      setSendingMessage(false);
+    }
+  };
+
+  const handleDownloadCV = () => {
+    if (profile?.cv_url) {
+      window.open(profile.cv_url, '_blank');
+    }
+  };
+
+  const handleRequestMentorship = () => {
+    navigate(`/mentorship/request/${userId}`, { state: { mentor: profile } });
+  };
 
   const getInitials = (name) => {
     return name
@@ -139,16 +162,16 @@ const ProfileView = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <Button>
+                    <Button onClick={handleSendMessage} disabled={sendingMessage}>
                       <MessageSquare className="h-4 w-4 mr-2" />
-                      Send Message
+                      {sendingMessage ? 'Opening...' : 'Send Message'}
                     </Button>
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={handleRequestMentorship}>
                       <UserPlus className="h-4 w-4 mr-2" />
                       Request Mentorship
                     </Button>
                     {profile.cv_url && (
-                      <Button variant="outline">
+                      <Button variant="outline" onClick={handleDownloadCV}>
                         <Download className="h-4 w-4 mr-2" />
                         Download CV
                       </Button>

@@ -5,6 +5,7 @@ Phase 10.3: Enhanced with AI/ML embeddings and FAISS similarity (FULLY ENABLED)
 """
 import logging
 import json
+import os
 import numpy as np
 from typing import Dict, List, Optional, Set
 from collections import Counter
@@ -46,6 +47,12 @@ class SkillGraphService:
         self.faiss_index = None
         self.dimension = 384  # all-MiniLM-L6-v2 embedding dimension
         self.model_name = 'all-MiniLM-L6-v2'
+        
+        # Check if model loading should be skipped
+        if os.getenv('SKIP_AI_MODEL_LOAD', 'true').lower() == 'true':
+            logger.info("ℹ️ Skipping AI model load (SKIP_AI_MODEL_LOAD=true)")
+            self.embedding_model = None
+            return
         
         # Try to initialize the model with error handling
         if EMBEDDINGS_AVAILABLE:

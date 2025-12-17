@@ -94,6 +94,24 @@ const AlumniCard = () => {
     return <Badge className="bg-red-100 text-red-800">Low Confidence ({score}%)</Badge>;
   };
 
+  const handleGenerate = async () => {
+    try {
+      setLoading(true);
+      const res = await alumniCardService.generateCard(currentUser?.id);
+      
+      if (res.success) {
+        toast.success('Alumni card generated successfully!');
+        setCardData(res.data);
+      } else {
+        toast.error(res.message || 'Failed to generate card');
+      }
+    } catch (error) {
+      toast.error('Failed to generate card');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDownload = async () => {
     try {
       const response = await alumniCardService.downloadCard(cardData.id);
@@ -192,7 +210,10 @@ const AlumniCard = () => {
                 <CardContent className="py-20 text-center">
                   <CreditCard className="h-16 w-16 mx-auto text-gray-300 mb-4" />
                   <h3 className="text-xl font-semibold mb-2">No Card Found</h3>
-                  <p className="text-gray-600">Please contact the admin to issue your alumni card.</p>
+                  <p className="text-gray-600 mb-6">You don't have a digital alumni card yet.</p>
+                  <Button onClick={handleGenerate} size="lg">
+                    Generate Digital ID Card
+                  </Button>
                 </CardContent>
               </Card>
             ) : (
@@ -565,7 +586,7 @@ const AlumniCard = () => {
       </div>
 
       {/* Print Styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           body * {
             visibility: hidden;

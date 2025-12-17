@@ -31,6 +31,17 @@ const ProfileModal = ({ profile, open, onClose }) => {
     navigate(`/profile/${profile.user_id}`);
   };
 
+  const handleSendMessage = () => {
+    onClose();
+    navigate(`/messages/${profile.user_id}`, { state: { recipientName: profile.name } });
+  };
+
+  const handleDownloadCV = () => {
+    if (profile?.cv_url) {
+      window.open(profile.cv_url, '_blank');
+    }
+  };
+
   const socialLinks = profile.social_links || {};
 
   return (
@@ -92,12 +103,12 @@ const ProfileModal = ({ profile, open, onClose }) => {
                   <Button size="sm" onClick={handleViewFullProfile}>
                     View Full Profile
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={handleSendMessage}>
                     <MessageSquare className="h-4 w-4 mr-1" />
                     Message
                   </Button>
                   {profile.cv_url && (
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" onClick={handleDownloadCV}>
                       <Download className="h-4 w-4 mr-1" />
                       Download CV
                     </Button>

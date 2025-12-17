@@ -1774,3 +1774,14 @@ class CapsuleLikeResponse(BaseModel):
     is_liked: bool
     likes_count: int
 
+# ============================================================================
+# PHASE 11: MESSAGING MODELS
+# ============================================================================
+
+class MessageCreate(BaseModel):
+    """Request model for sending a message"""
+    recipient_id: str = Field(..., description="ID of the user to receive the message")
+    message_text: str = Field(..., min_length=1, max_length=2000, description="Content of the message")
+
+
+

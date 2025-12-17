@@ -117,6 +117,21 @@ class ApiEventService {
       return handleApiError(error, []);
     }
   }
+
+  // Get upcoming events
+  async getUpcomingEvents(limit = 10) {
+    try {
+      const response = await axios.get('/api/events', { 
+        params: { 
+          is_upcoming: true,
+          limit 
+        } 
+      });
+      return response.data;
+    } catch (error) {
+      return handleApiError(error, []);
+    }
+  }
 }
 
 export default new ApiEventService();

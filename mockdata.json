@@ -186,6 +186,54 @@
       "updated_at": "2024-12-15T14:20:00Z"
     },
     {
+      "id": "profile-880e8400-e29b-41d4-a716",
+      "user_id": "880e8400-e29b-41d4-a716-446655440003",
+      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+      "name": "Emily Rodriguez",
+      "bio": "Aspiring data scientist and recent graduate passionate about AI, analytics, and education.",
+      "headline": "Data Science Student | AI Enthusiast",
+      "current_company": "University of Data Science",
+      "current_role": "Student",
+      "location": "Austin, TX",
+      "batch_year": 2024,
+      "experience_timeline": [
+        {
+          "company": "University of Data Science",
+          "role": "Research Assistant",
+          "start_date": "2023-09-01",
+          "end_date": null,
+          "description": "Assisting in machine learning research and student mentoring."
+        }
+      ],
+      "education_details": [
+        {
+          "institution": "University of Data Science",
+          "degree": "Bachelor of Science",
+          "field": "Data Science",
+          "start_year": 2020,
+          "end_year": 2024,
+          "achievements": "Graduated with Distinction, AI Club President"
+        }
+      ],
+      "skills": ["Python", "Pandas", "Machine Learning", "Data Visualization", "SQL"],
+      "achievements": ["AI Club President", "Dean's List 2022-2024"],
+      "social_links": {
+        "linkedin": "https://linkedin.com/in/emilyrodriguez",
+        "github": "https://github.com/emilyrodriguez"
+      },
+      "cv_url": "https://storage.example.com/cvs/emily-rodriguez-cv.pdf",
+      "industry": "Education",
+      "years_of_experience": 1,
+      "willing_to_mentor": false,
+      "willing_to_hire": false,
+      "profile_completion_percentage": 90,
+      "is_verified": true,
+      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
+      "verified_at": "2024-12-15T10:00:00Z",
+      "created_at": "2024-09-01T10:00:00Z",
+      "updated_at": "2024-12-15T14:20:00Z"
+    },
+    {
       "id": "profile-770e8400-e29b-41d4-a716",
       "user_id": "770e8400-e29b-41d4-a716-446655440002",
       "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",

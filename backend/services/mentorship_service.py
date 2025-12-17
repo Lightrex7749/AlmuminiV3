@@ -8,7 +8,10 @@ from datetime import datetime
 import aiomysql
 
 from database.connection import get_db_pool
-from services.mock_data_provider import get_mock_mentorship_requests_by_student
+from services.mock_data_provider import (
+    get_mock_mentorship_requests_by_student,
+    load_mock_data
+)
 
 # Mock mode flag
 USE_MOCK_DB = os.getenv('USE_MOCK_DB', 'false').lower() == 'true'
@@ -152,6 +155,43 @@ class MentorshipService:
     @staticmethod
     async def get_mentor_with_details(mentor_id: str) -> Optional[Dict[str, Any]]:
         """Get mentor profile with alumni profile details - Returns nested structure"""
+        pool = await get_db_pool()
+        if pool is None:
+            mock_data = load_mock_data()
+            mentors = mock_data.get('mentor_profiles', [])
+            mentor = next((m for m in mentors if m.get('user_id') == mentor_id or m.get('id') == mentor_id), None)
+            
+            # If found in mentors list, enrich with profile data if missing
+            if mentor:
+                if 'profile' not in mentor:
+                    profiles = mock_data.get('alumni_profiles', [])
+                    profile = next((p for p in profiles if p.get('user_id') == mentor['user_id']), None)
+                    if profile:
+                        mentor['profile'] = profile
+            
+            # If not in mentors list but is in alumni_profiles, try to construct a mock mentor
+            if not mentor:
+                profiles = mock_data.get('alumni_profiles', [])
+                profile = next((p for p in profiles if p.get('user_id') == mentor_id), None)
+                if profile:
+                    # Create a default mentor profile for this user
+                    mentor = {
+                        'id': f"mentor-{mentor_id}",
+                        'user_id': mentor_id,
+                        'is_available': True,
+                        'expertise_areas': profile.get('skills', [])[:3],
+                        'max_mentees': 3,
+                        'current_mentees_count': 0,
+                        'rating': 4.5,
+                        'total_sessions': 10,
+                        'total_reviews': 5,
+                        'mentorship_approach': "I help with career guidance.",
+                        'created_at': "2024-01-01T00:00:00Z",
+                        'updated_at': "2024-01-01T00:00:00Z",
+                        'profile': profile
+                    }
+            return mentor
+
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
@@ -581,6 +621,60 @@ class MentorshipService:
     async def get_received_requests(mentor_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get mentorship requests received by mentor - Returns enriched nested structure"""
         pool = await get_db_pool()
+        if pool is None:
+            mock_data = load_mock_data()
+            requests = mock_data.get('mentorship_requests', [])
+            
+            # Filter
+            user_requests = [
+                r for r in requests 
+                if r.get('mentor_id') == mentor_id
+            ]
+            
+            if status:
+                user_requests = [r for r in user_requests if r.get('status') == status]
+            
+            # Enrich
+            results = []
+            profiles = mock_data.get('alumni_profiles', [])
+            
+            for req in user_requests:
+                student_profile = next((p for p in profiles if p.get('user_id') == req['student_id']), {'name': 'Student', 'photo_url': ''})
+                
+                request = {
+                    'id': req['id'],
+                    'student_id': req['student_id'],
+                    'mentor_id': req['mentor_id'],
+                    'request_message': req.get('request_message', ''),
+                    'goals': req.get('goals', ''),
+                    'preferred_topics': req.get('preferred_topics', []),
+                    'status': req['status'],
+                    'rejection_reason': req.get('rejection_reason'),
+                    'requested_at': req.get('requested_at'),
+                    'accepted_at': req.get('accepted_at'),
+                    'rejected_at': req.get('rejected_at'),
+                    'updated_at': req.get('updated_at'),
+                    'student': {
+                        'id': req['student_id'],
+                        'email': f"student-{req['student_id']}@example.com",
+                        'profile': {
+                            'user_id': req['student_id'],
+                            'name': student_profile.get('name', 'Student'),
+                            'photo_url': student_profile.get('photo_url', ''),
+                            'headline': student_profile.get('headline', '')
+                        }
+                    },
+                    'studentProfile': {
+                        'user_id': req['student_id'],
+                        'name': student_profile.get('name', 'Student'),
+                        'photo_url': student_profile.get('photo_url', ''),
+                        'headline': student_profile.get('headline', '')
+                    }
+                }
+                results.append(request)
+            return results
+
+        pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
                 where_clause = "WHERE mr.mentor_id = %s"
@@ -655,11 +749,62 @@ class MentorshipService:
     @staticmethod
     async def get_sent_requests(student_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get mentorship requests sent by student - Returns enriched nested structure"""
-        if USE_MOCK_DB:
-            requests = get_mock_mentorship_requests_by_student(student_id)
+        pool = await get_db_pool()
+        if pool is None:
+            mock_data = load_mock_data()
+            requests = mock_data.get('mentorship_requests', [])
+            
+            # Filter
+            user_requests = [
+                r for r in requests 
+                if r.get('student_id') == student_id
+            ]
+            
             if status:
-                requests = [r for r in requests if r.get('status') == status]
-            return requests
+                user_requests = [r for r in user_requests if r.get('status') == status]
+                
+            # Enrich
+            results = []
+            profiles = mock_data.get('alumni_profiles', [])
+            mentors = mock_data.get('mentor_profiles', [])
+            
+            for req in user_requests:
+                mentor_profile = next((p for p in profiles if p.get('user_id') == req['mentor_id']), {'name': 'Mentor', 'photo_url': ''})
+                mentor_data = next((m for m in mentors if m.get('user_id') == req['mentor_id']), {})
+                
+                request = {
+                    'id': req['id'],
+                    'student_id': req['student_id'],
+                    'mentor_id': req['mentor_id'],
+                    'request_message': req.get('request_message', ''),
+                    'goals': req.get('goals', ''),
+                    'preferred_topics': req.get('preferred_topics', []),
+                    'status': req['status'],
+                    'rejection_reason': req.get('rejection_reason'),
+                    'requested_at': req.get('requested_at'),
+                    'accepted_at': req.get('accepted_at'),
+                    'rejected_at': req.get('rejected_at'),
+                    'updated_at': req.get('updated_at'),
+                    'mentor': {
+                        'id': req['mentor_id'],
+                        'email': f"mentor-{req['mentor_id']}@example.com",
+                        'profile': {
+                            'user_id': req['mentor_id'],
+                            'name': mentor_profile.get('name', 'Mentor'),
+                            'photo_url': mentor_profile.get('photo_url', ''),
+                            'headline': mentor_profile.get('headline', '')
+                        },
+                        'expertise_areas': mentor_data.get('expertise_areas', [])
+                    },
+                    'mentorProfile': {
+                        'user_id': req['mentor_id'],
+                        'name': mentor_profile.get('name', 'Mentor'),
+                        'photo_url': mentor_profile.get('photo_url', ''),
+                        'headline': mentor_profile.get('headline', '')
+                    }
+                }
+                results.append(request)
+            return results
         
         pool = await get_db_pool()
         async with pool.acquire() as conn:
@@ -739,6 +884,68 @@ class MentorshipService:
     @staticmethod
     async def get_active_mentorships(user_id: str) -> List[Dict[str, Any]]:
         """Get active mentorships for user (as mentor or student) - Returns enriched structure"""
+        pool = await get_db_pool()
+        if pool is None:
+            mock_data = load_mock_data()
+            requests = mock_data.get('mentorship_requests', [])
+            
+            # Filter for accepted requests involving the user
+            user_requests = [
+                r for r in requests 
+                if (r.get('student_id') == user_id or r.get('mentor_id') == user_id) 
+                and r.get('status') == 'accepted'
+            ]
+            
+            # Enrich with profile data
+            results = []
+            profiles = mock_data.get('alumni_profiles', [])
+            mentors = mock_data.get('mentor_profiles', [])
+            
+            for req in user_requests:
+                # Find profiles
+                student_profile = next((p for p in profiles if p.get('user_id') == req['student_id']), {'name': 'Student', 'photo_url': ''})
+                mentor_profile = next((p for p in profiles if p.get('user_id') == req['mentor_id']), {'name': 'Mentor', 'photo_url': ''})
+                mentor_data = next((m for m in mentors if m.get('user_id') == req['mentor_id']), {})
+                
+                mentorship = {
+                    'id': req['id'],
+                    'student_id': req['student_id'],
+                    'mentor_id': req['mentor_id'],
+                    'request_message': req.get('request_message', ''),
+                    'goals': req.get('goals', ''),
+                    'preferred_topics': req.get('preferred_topics', []),
+                    'status': req['status'],
+                    'requested_at': req.get('requested_at'),
+                    'accepted_at': req.get('accepted_at'),
+                    'updated_at': req.get('updated_at'),
+                    'student': {
+                        'id': req['student_id'],
+                        'email': f"student-{req['student_id']}@example.com",
+                        'profile': {
+                            'user_id': req['student_id'],
+                            'name': student_profile.get('name', 'Student'),
+                            'photo_url': student_profile.get('photo_url', ''),
+                            'headline': student_profile.get('headline', '')
+                        }
+                    },
+                    'mentor': {
+                        'id': req['mentor_id'],
+                        'email': f"mentor-{req['mentor_id']}@example.com",
+                        'profile': {
+                            'user_id': req['mentor_id'],
+                            'name': mentor_profile.get('name', 'Mentor'),
+                            'photo_url': mentor_profile.get('photo_url', ''),
+                            'headline': mentor_profile.get('headline', '')
+                        },
+                        'expertise_areas': mentor_data.get('expertise_areas', []),
+                        'rating': float(mentor_data.get('rating', 0)),
+                        'total_sessions': int(mentor_data.get('total_sessions', 0))
+                    }
+                }
+                results.append(mentorship)
+            
+            return results
+
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
@@ -1082,6 +1289,77 @@ class MentorshipService:
     async def get_sessions(user_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get sessions for user (as mentor or student) - Returns enriched structure"""
         pool = await get_db_pool()
+        if pool is None:
+            try:
+                mock_data = load_mock_data()
+                sessions = mock_data.get('mentorship_sessions', [])
+                requests = mock_data.get('mentorship_requests', [])
+                
+                # Filter requests involving user
+                user_request_ids = [
+                    r.get('id') for r in requests 
+                    if r.get('student_id') == user_id or r.get('mentor_id') == user_id
+                ]
+                
+                # Filter sessions
+                user_sessions = [s for s in sessions if s.get('mentorship_request_id') in user_request_ids]
+                
+                if status:
+                    user_sessions = [s for s in user_sessions if s.get('status') == status]
+                
+                # Enrich
+                results = []
+                profiles = mock_data.get('alumni_profiles', [])
+                
+                for session in user_sessions:
+                    try:
+                        req = next((r for r in requests if r.get('id') == session.get('mentorship_request_id')), None)
+                        if not req: continue
+                        
+                        student_profile = next((p for p in profiles if p.get('user_id') == req.get('student_id')), {'name': 'Student', 'photo_url': ''})
+                        mentor_profile = next((p for p in profiles if p.get('user_id') == req.get('mentor_id')), {'name': 'Mentor', 'photo_url': ''})
+                        
+                        enriched = {
+                            'id': session.get('id'),
+                            'mentorship_request_id': session.get('mentorship_request_id'),
+                            'scheduled_date': session.get('scheduled_date'),
+                            'duration': session.get('duration'),
+                            'status': session.get('status'),
+                            'meeting_link': session.get('meeting_link'),
+                            'agenda': session.get('agenda'),
+                            'notes': session.get('notes'),
+                            'feedback': session.get('feedback'),
+                            'rating': session.get('rating'),
+                            'created_at': session.get('created_at'),
+                            'updated_at': session.get('updated_at'),
+                            'student_id': req.get('student_id'),
+                            'mentor_id': req.get('mentor_id'),
+                            'student': {
+                                'id': req.get('student_id'),
+                                'email': f"student-{req.get('student_id')}@example.com",
+                                'profile': {
+                                    'name': student_profile.get('name', 'Student'),
+                                    'photo_url': student_profile.get('photo_url', '')
+                                }
+                            },
+                            'mentor': {
+                                'id': req.get('mentor_id'),
+                                'email': f"mentor-{req.get('mentor_id')}@example.com",
+                                'profile': {
+                                    'name': mentor_profile.get('name', 'Mentor'),
+                                    'photo_url': mentor_profile.get('photo_url', '')
+                                }
+                            }
+                        }
+                        results.append(enriched)
+                    except Exception as e:
+                        logger.error(f"Error enriching session {session.get('id')}: {e}")
+                        continue
+                return results
+            except Exception as e:
+                logger.error(f"Error in get_sessions mock: {e}")
+                return []
+            
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
                 where_clause = "WHERE (mr.student_id = %s OR mr.mentor_id = %s)"

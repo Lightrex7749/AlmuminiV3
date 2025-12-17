@@ -19,14 +19,54 @@ class EngagementService:
         user_id: str
     ) -> Dict:
         """
-        Calculate engagement score for a user using stored procedure
-        Enhanced with AI-powered activity pattern analysis
+        Calculate engagement score for a user
+        Enhanced with AI-powered activity pattern analysis and Python fallback
         """
         try:
-            # Call stored procedure to calculate engagement score
-            async with db_conn.cursor() as cursor:
-                await cursor.execute("CALL update_engagement_score(%s)", (user_id,))
-                await db_conn.commit()
+            # Try stored procedure first
+            try:
+                async with db_conn.cursor() as cursor:
+                    await cursor.execute("CALL update_engagement_score(%s)", (user_id,))
+                    await db_conn.commit()
+            except Exception as sp_error:
+                logger.warning(f"Stored procedure failed, using Python fallback: {sp_error}")
+                # Python fallback calculation
+                async with db_conn.cursor() as cursor:
+                    # 1. Sum points from contribution history
+                    await cursor.execute(
+                        "SELECT SUM(points_earned) FROM contribution_history WHERE user_id = %s", 
+                        (user_id,)
+                    )
+                    result = await cursor.fetchone()
+                    total_score = int(result[0] or 0)
+                    
+                    # 2. Add profile completion bonus (if not already in history)
+                    # (Simplified: assuming history captures most things, or just rely on total_score for now)
+                    
+                    # 3. Determine level
+                    level = self._determine_level(total_score)
+                    
+                    # 4. Update or Insert into engagement_scores
+                    await cursor.execute(
+                        "SELECT id FROM engagement_scores WHERE user_id = %s", 
+                        (user_id,)
+                    )
+                    exists = await cursor.fetchone()
+                    
+                    if exists:
+                        await cursor.execute("""
+                            UPDATE engagement_scores 
+                            SET total_score = %s, level = %s, last_calculated = NOW() 
+                            WHERE user_id = %s
+                        """, (total_score, level, user_id))
+                    else:
+                        await cursor.execute("""
+                            INSERT INTO engagement_scores 
+                            (user_id, total_score, contributions, level, last_calculated)
+                            VALUES (%s, %s, '{}', %s, NOW())
+                        """, (user_id, total_score, level))
+                    
+                    await db_conn.commit()
             
             # Fetch the updated engagement score
             async with db_conn.cursor() as cursor:
@@ -66,15 +106,7 @@ class EngagementService:
                     'activity_pattern': await self._analyze_activity_pattern(db_conn, user_id)
                 }
             else:
-                # Create initial engagement score
-                async with db_conn.cursor() as cursor:
-                    await cursor.execute("""
-                        INSERT INTO engagement_scores 
-                        (user_id, total_score, contributions, level, last_calculated)
-                        VALUES (%s, 0, %s, 'Beginner', NOW())
-                    """, (user_id, '{}'))
-                    await db_conn.commit()
-                
+                # Should be created by fallback above, but just in case
                 return {
                     'user_id': user_id,
                     'total_score': 0,

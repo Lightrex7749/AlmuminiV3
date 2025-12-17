@@ -25,6 +25,8 @@ import Home from '@/page/Home';
 // Lazy load other pages for performance
 const AlumniDirectory = lazy(() => import('@/page/AlumniDirectory'));
 const ProfileView = lazy(() => import('@/page/ProfileView'));
+const MessagingPage = lazy(() => import('@/page/MessagingPage'));
+const ConversationsList = lazy(() => import('@/page/ConversationsList'));
 const Profile = lazy(() => import('@/page/Profile'));
 const Settings = lazy(() => import('@/page/Settings'));
 
@@ -163,6 +165,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfileView />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/messages/:userId"
+            element={
+              <ProtectedRoute>
+                <MessagingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute>
+                <ConversationsList />
               </ProtectedRoute>
             }
           />

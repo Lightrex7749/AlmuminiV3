@@ -66,6 +66,73 @@ async def generate_alumni_card(
         )
 
 
+@router.get("/{card_id}/verifications")
+async def get_card_verifications_by_id(
+    card_id: str,
+    limit: int = 20,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Get verification history for a card by card_id
+    """
+    logger.info(f"Fetching verifications for card_id: {card_id}")
+    try:
+        pool = await get_db_pool()
+        
+        async with pool.acquire() as conn:
+            # Get card and check permissions
+            async with conn.cursor() as cursor:
+                await cursor.execute("""
+                    SELECT user_id, card_number, verification_count
+                    FROM alumni_cards
+                    WHERE id = %s
+                """, (card_id,))
+                card_result = await cursor.fetchone()
+            
+            if not card_result:
+                logger.error(f"Card not found for id: {card_id}")
+                raise HTTPException(
+                    status_code=404,
+                    detail="Alumni card not found"
+                )
+            
+            card_user_id = card_result[0]
+            card_number = card_result[1]
+            total_verifications = card_result[2]
+            
+            # Check permissions - user can view own card or admin can view any
+            if current_user['id'] != card_user_id and current_user['role'] != 'admin':
+                raise HTTPException(
+                    status_code=403,
+                    detail="You can only view your own verification history"
+                )
+            
+            # Get verification history
+            history = await card_service.get_verification_history(
+                conn,
+                card_id,
+                limit=limit
+            )
+            
+            return {
+                "success": True,
+                "data": {
+                    "card_number": card_number,
+                    "verifications": history,
+                    "total_verifications": total_verifications or 0
+                }
+            }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting card verifications: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch verification history: {str(e)}"
+        )
+
+
 @router.get("/{user_id}")
 async def get_alumni_card(
     user_id: str,
@@ -383,70 +450,7 @@ async def download_alumni_card(
         )
 
 
-@router.get("/{card_id}/verifications")
-async def get_card_verifications_by_id(
-    card_id: str,
-    limit: int = 20,
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Get verification history for a card by card_id
-    Frontend expects this endpoint for verification history display
-    """
-    try:
-        pool = await get_db_pool()
-        
-        async with pool.acquire() as conn:
-            # Get card and check permissions
-            async with conn.cursor() as cursor:
-                await cursor.execute("""
-                    SELECT user_id, card_number, verification_count
-                    FROM alumni_cards
-                    WHERE id = %s
-                """, (card_id,))
-                card_result = await cursor.fetchone()
-            
-            if not card_result:
-                raise HTTPException(
-                    status_code=404,
-                    detail="Alumni card not found"
-                )
-            
-            card_user_id = card_result[0]
-            card_number = card_result[1]
-            total_verifications = card_result[2]
-            
-            # Check permissions - user can view own card or admin can view any
-            if current_user['id'] != card_user_id and current_user['role'] != 'admin':
-                raise HTTPException(
-                    status_code=403,
-                    detail="You can only view your own verification history"
-                )
-            
-            # Get verification history
-            history = await card_service.get_verification_history(
-                conn,
-                card_id,
-                limit=limit
-            )
-            
-            return {
-                "success": True,
-                "data": {
-                    "card_number": card_number,
-                    "verifications": history,
-                    "total_verifications": total_verifications or 0
-                }
-            }
-    
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting card verifications: {str(e)}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to fetch verification history: {str(e)}"
-        )
+
 
 
 # Admin endpoints

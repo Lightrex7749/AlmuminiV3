@@ -546,12 +546,14 @@ async def get_mentorship_analytics(
             {'area': 'Interview Prep', 'count': 12}
         ]
         
-        # Mock rating distribution
-        avg_rating = mentorship_stats.get('average_rating', 0)
+        # Mock rating distribution - Fix Decimal * float error
+        completed_sessions = float(mentorship_stats.get('completed_sessions', 0))
+        avg_rating = float(mentorship_stats.get('average_rating', 0))
+        
         rating_data = [
-            {'stars': '5 stars', 'count': int(mentorship_stats.get('completed_sessions', 0) * 0.7)},
-            {'stars': '4 stars', 'count': int(mentorship_stats.get('completed_sessions', 0) * 0.2)},
-            {'stars': '3 stars', 'count': int(mentorship_stats.get('completed_sessions', 0) * 0.1)},
+            {'stars': '5 stars', 'count': int(completed_sessions * 0.7)},
+            {'stars': '4 stars', 'count': int(completed_sessions * 0.2)},
+            {'stars': '3 stars', 'count': int(completed_sessions * 0.1)},
             {'stars': '2 stars', 'count': 0},
             {'stars': '1 star', 'count': 0}
         ]
@@ -622,10 +624,11 @@ async def get_event_analytics(
         ]
         
         # Mock format distribution
+        total_events = float(event_stats.get('total_events', 0))
         format_data = [
-            {'format': 'Virtual', 'count': event_stats.get('total_events', 0) // 2},
-            {'format': 'In-person', 'count': event_stats.get('total_events', 0) // 3},
-            {'format': 'Hybrid', 'count': event_stats.get('total_events', 0) // 6}
+            {'format': 'Virtual', 'count': int(total_events / 2)},
+            {'format': 'In-person', 'count': int(total_events / 3)},
+            {'format': 'Hybrid', 'count': int(total_events / 6)}
         ]
         
         # Mock popular topics
@@ -637,13 +640,16 @@ async def get_event_analytics(
             {'topic': 'Industry Insights', 'count': 48, 'color': 'bg-pink-500'}
         ]
         
+        total_rsvps = float(event_stats.get('total_rsvps', 0))
+        avg_attendance = total_rsvps / max(total_events, 1.0)
+        
         return {
             "success": True,
             "data": {
                 'totalEvents': event_stats.get('total_events', 0),
                 'totalRegistrations': event_stats.get('total_rsvps', 0),
-                'attendanceRate': round(event_stats.get('average_attendance_rate', 0)),
-                'averageAttendance': event_stats.get('total_rsvps', 0) // max(event_stats.get('total_events', 1), 1),
+                'attendanceRate': round(float(event_stats.get('average_attendance_rate', 0))),
+                'averageAttendance': int(avg_attendance),
                 'eventsByType': event_type_data,
                 'participationTrend': participation_trend,
                 'eventsByFormat': format_data,

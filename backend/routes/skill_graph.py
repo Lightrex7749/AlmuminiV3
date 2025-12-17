@@ -59,20 +59,64 @@ async def get_skill_network(
     Get skill network data for visualization
     Returns nodes and edges representing skill relationships
     """
+    from database.connection import USE_MOCK_DB
+    if USE_MOCK_DB:
+        import json
+        import os
+        # Load mockdata.json
+        mock_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..', 'mockdata.json')
+        with open(mock_path, encoding='utf-8') as f:
+            mock = json.load(f)
+        skills = mock.get('skill_graph', [])
+        # Filter by min_popularity and limit
+        filtered = [s for s in skills if s.get('popularity_score', 0) >= min_popularity][:limit]
+        nodes = []
+        edges = []
+        for skill in filtered:
+            nodes.append({
+                'id': skill['skill_name'],
+                'label': skill['skill_name'],
+                'alumni_count': skill.get('alumni_count', 0),
+                'job_count': skill.get('job_count', 0),
+                'popularity': skill.get('popularity_score', 0),
+                'size': skill.get('popularity_score', 1) * 2
+            })
+            for related_skill in skill.get('related_skills', [])[:5]:
+                edges.append({
+                    'source': skill['skill_name'],
+                    'target': related_skill,
+                    'weight': 1.0
+                })
+        # Simple cluster: each node is its own cluster
+        clusters = [[n['id']] for n in nodes]
+        return {
+            'success': True,
+            'data': {
+                'nodes': nodes,
+                'edges': edges,
+                'clusters': clusters,
+                'total_skills': len(nodes)
+            }
+        }
     try:
         pool = await get_db_pool()
+        if pool is None:
+            # If not in mock mode, return 503 error
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            # If in mock mode, this block should not be reached (mock handled above)
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
         async with pool.acquire() as conn:
             network = await skill_graph_service.get_skill_network(
                 conn,
                 min_popularity=min_popularity,
                 limit=limit
             )
-            
             return {
                 "success": True,
                 "data": network
             }
-    
     except Exception as e:
         logger.error(f"Error getting skill network: {str(e)}")
         raise HTTPException(
@@ -92,25 +136,23 @@ async def get_skill_details(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": {}, "message": "Mock mode: no DB connection."}
+            
         async with pool.acquire() as conn:
             skill_details = await skill_graph_service.get_skill_details(
                 conn,
-                skill_name
+                skill_name=skill_name
             )
-            
-            if not skill_details:
-                raise HTTPException(
-                    status_code=404,
-                    detail=f"Skill '{skill_name}' not found in graph"
-                )
             
             return {
                 "success": True,
                 "data": skill_details
             }
     
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Error getting skill details: {str(e)}")
         raise HTTPException(
@@ -166,7 +208,14 @@ async def get_skill_clusters(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
+            
         async with pool.acquire() as conn:
+            # reusing get_skill_network as it returns clusters
             network = await skill_graph_service.get_skill_network(
                 conn,
                 min_popularity=min_popularity,
@@ -175,12 +224,9 @@ async def get_skill_clusters(
             
             return {
                 "success": True,
-                "data": {
-                    "clusters": network['clusters'],
-                    "total_clusters": len(network['clusters'])
-                }
+                "data": network.get('clusters', [])
             }
-    
+            
     except Exception as e:
         logger.error(f"Error getting skill clusters: {str(e)}")
         raise HTTPException(
@@ -199,6 +245,12 @@ async def get_trending_skills(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
+
         async with pool.acquire() as conn:
             trending = await skill_graph_service.get_trending_skills(
                 conn,
@@ -207,12 +259,9 @@ async def get_trending_skills(
             
             return {
                 "success": True,
-                "data": {
-                    "trending_skills": trending,
-                    "total": len(trending)
-                }
+                "data": trending
             }
-    
+            
     except Exception as e:
         logger.error(f"Error getting trending skills: {str(e)}")
         raise HTTPException(
@@ -222,7 +271,7 @@ async def get_trending_skills(
 
 
 @router.get("/related/{skill_name}")
-async def get_related_skills_ai(
+async def get_related_skills(
     skill_name: str,
     limit: int = Query(10, ge=1, le=50),
     current_user: dict = Depends(get_current_user)
@@ -233,6 +282,12 @@ async def get_related_skills_ai(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
+
         async with pool.acquire() as conn:
             related = await skill_graph_service.get_related_skills_ai(
                 conn,
@@ -271,6 +326,12 @@ async def get_focused_network(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
+
         async with pool.acquire() as conn:
             network = await skill_graph_service.get_focused_network(
                 conn,
@@ -302,6 +363,12 @@ async def rebuild_skill_graph(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            from database.connection import USE_MOCK_DB
+            if not USE_MOCK_DB:
+                raise HTTPException(status_code=503, detail="Database unavailable and not in mock mode.")
+            return {"success": False, "data": [], "message": "Mock mode: no DB connection."}
+
         async with pool.acquire() as conn:
             result = await skill_graph_service.build_skill_graph(conn)
             

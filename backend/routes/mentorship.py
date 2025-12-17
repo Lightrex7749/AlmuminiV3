@@ -860,19 +860,39 @@ async def get_upcoming_sessions(
     Returns all scheduled sessions with future dates where user is either mentor or student
     """
     try:
-        from datetime import datetime
+        from datetime import datetime, timezone
         
         # Get all sessions
         all_sessions = await MentorshipService.get_sessions(current_user['id'], None)
         
         # Filter for upcoming sessions (scheduled status and future date)
-        now = datetime.now()
-        upcoming = [
-            s for s in all_sessions
-            if s.get('status') == 'scheduled' and 
-            s.get('scheduled_date') and
-            datetime.fromisoformat(str(s['scheduled_date']).replace('Z', '+00:00')) > now
-        ]
+        # Ensure we use UTC for comparison
+        now = datetime.now(timezone.utc)
+        
+        upcoming = []
+        for s in all_sessions:
+            try:
+                if s.get('status') != 'scheduled':
+                    continue
+                    
+                raw_date = s.get('scheduled_date')
+                if not raw_date:
+                    continue
+                    
+                scheduled_date_str = str(raw_date)
+                
+                # Parse date - handle 'Z' for UTC
+                dt = datetime.fromisoformat(scheduled_date_str.replace('Z', '+00:00'))
+                
+                # Ensure dt is aware
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                
+                if dt > now:
+                    upcoming.append(s)
+            except Exception as e:
+                logger.warning(f"Error processing session date: {e}")
+                continue
         
         # Sort by date
         upcoming.sort(key=lambda x: x.get('scheduled_date', ''))
@@ -900,21 +920,42 @@ async def get_past_sessions(
     Returns completed, cancelled, or missed sessions where user is either mentor or student
     """
     try:
-        from datetime import datetime
+        from datetime import datetime, timezone
         
         # Get all sessions
         all_sessions = await MentorshipService.get_sessions(current_user['id'], None)
         
         # Filter for past sessions (completed, cancelled, missed, or past scheduled date)
-        now = datetime.now()
-        past = [
-            s for s in all_sessions
-            if s.get('status') in ['completed', 'cancelled', 'missed'] or (
-                s.get('status') == 'scheduled' and
-                s.get('scheduled_date') and
-                datetime.fromisoformat(str(s['scheduled_date']).replace('Z', '+00:00')) <= now
-            )
-        ]
+        now = datetime.now(timezone.utc)
+        past = []
+        
+        for s in all_sessions:
+            try:
+                # If explicitly completed/cancelled/missed, it's past
+                if s.get('status') in ['completed', 'cancelled', 'missed']:
+                    past.append(s)
+                    continue
+                
+                # If scheduled but date is past
+                if s.get('status') == 'scheduled':
+                    raw_date = s.get('scheduled_date')
+                    if not raw_date:
+                        continue
+                        
+                    scheduled_date_str = str(raw_date)
+                        
+                    # Parse date - handle 'Z' for UTC
+                    dt = datetime.fromisoformat(scheduled_date_str.replace('Z', '+00:00'))
+                    
+                    # Ensure dt is aware
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    
+                    if dt <= now:
+                        past.append(s)
+            except Exception as e:
+                logger.warning(f"Error processing session date: {e}")
+                continue
         
         # Sort by date (most recent first)
         past.sort(key=lambda x: x.get('scheduled_date', ''), reverse=True)

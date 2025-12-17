@@ -30,23 +30,18 @@ async def calculate_engagement_score(
 ):
     """
     Calculate or recalculate engagement score for the current user.
-    
-    The engagement score is calculated based on:
-    - Profile completion (20% weight)
-    - Mentorship participation (sessions completed)
-    - Job applications submitted
-    - Event attendance
-    - Forum activity (posts and comments)
-    
-    Uses the stored procedure `update_engagement_score(user_id)` for calculation.
-    Also updates rank position among all users.
     """
     try:
         from services.engagement_service import engagement_service
+        from services.mock_data_provider import get_mock_engagement_score
         
         user_id = current_user['id']
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            return get_mock_engagement_score(user_id)
+            
         async with pool.acquire() as conn:
             score = await engagement_service.calculate_engagement_score(conn, user_id)
         
@@ -70,13 +65,6 @@ async def get_my_engagement_score(
 ):
     """
     Get the engagement score for the currently logged-in user.
-    
-    Returns:
-    - Total engagement score
-    - Breakdown by contribution type
-    - Current rank position
-    - User level (Beginner, Active, Veteran, Legend)
-    - Last calculation timestamp
     """
     try:
         from services.engagement_service import engagement_service
@@ -90,6 +78,10 @@ async def get_my_engagement_score(
             return score
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            return get_mock_engagement_score(user_id)
+            
         async with pool.acquire() as conn:
             score = await engagement_service.get_user_score(conn, user_id)
         
@@ -120,16 +112,6 @@ async def get_engagement_leaderboard(
 ):
     """
     Get the engagement leaderboard showing top contributors.
-    
-    Uses the `engagement_leaderboard` view which includes:
-    - User details (name, photo, role)
-    - Total engagement score
-    - Rank position
-    - User level
-    - Contribution breakdown
-    
-    Also includes the current user's rank position in the response.
-    Optionally filter by user role.
     """
     try:
         from services.engagement_service import engagement_service
@@ -137,6 +119,15 @@ async def get_engagement_leaderboard(
         user_id = current_user['id']
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            # Return mock leaderboard matching LeaderboardResponse model
+            return {
+                "entries": [],
+                "total_users": 0,
+                "user_rank": 0
+            }
+            
         async with pool.acquire() as conn:
             leaderboard = await engagement_service.get_leaderboard(
                 conn,
@@ -166,16 +157,6 @@ async def get_contribution_history(
 ):
     """
     Get the contribution history for the current user.
-    
-    Shows all contributions that have earned engagement points:
-    - Profile updates
-    - Mentorship sessions
-    - Job postings
-    - Event attendance
-    - Forum posts and comments
-    - Helping others
-    
-    Each entry includes the points earned and description.
     """
     try:
         from services.engagement_service import engagement_service
@@ -183,6 +164,10 @@ async def get_contribution_history(
         user_id = current_user['id']
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            return []
+            
         async with pool.acquire() as conn:
             history = await engagement_service.get_contribution_history(
                 conn,
@@ -210,23 +195,36 @@ async def get_all_badges(
 ):
     """
     Get list of all available achievement badges in the system.
-    
-    Badges are awarded based on various achievements:
-    - First Login (Common)
-    - Profile Complete (Common)
-    - Active Mentor (Rare)
-    - Job Hunter (Common)
-    - Community Leader (Epic)
-    - Event Enthusiast (Rare)
-    - Knowledge Sharer (Epic)
-    - Top Contributor (Legendary)
-    
-    Each badge has requirements, rarity level, and points value.
     """
     try:
         from services.engagement_service import engagement_service
+        from datetime import datetime
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            # Return mock badges matching BadgeResponse model
+            return [
+                {
+                    "id": "badge-1",
+                    "name": "Early Adopter",
+                    "description": "Joined in the early days",
+                    "icon_url": "https://placehold.co/100x100/orange/white?text=EA",
+                    "rarity": "rare",
+                    "points": 50,
+                    "created_at": datetime.now()
+                },
+                {
+                    "id": "badge-2",
+                    "name": "Profile Completed",
+                    "description": "Completed your profile",
+                    "icon_url": "https://placehold.co/100x100/blue/white?text=PC",
+                    "rarity": "common",
+                    "points": 20,
+                    "created_at": datetime.now()
+                }
+            ]
+            
         async with pool.acquire() as conn:
             badges = await engagement_service.get_all_badges(conn)
         
@@ -249,13 +247,6 @@ async def get_my_badges(
 ):
     """
     Get all badges earned by the current user.
-    
-    Returns:
-    - Badge details (name, description, icon, rarity)
-    - Date earned
-    - Points value
-    
-    Badges are automatically awarded when users meet the requirements.
     """
     try:
         from services.engagement_service import engagement_service
@@ -263,6 +254,13 @@ async def get_my_badges(
         user_id = current_user['id']
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            return {
+                'success': True,
+                'data': []
+            }
+            
         async with pool.acquire() as conn:
             user_badges = await engagement_service.get_user_badges(conn, user_id)
         
@@ -290,20 +288,6 @@ async def check_and_award_badges(
 ):
     """
     Check if user qualifies for any new badges and award them.
-    
-    This endpoint:
-    1. Checks all badge requirements against user's activities
-    2. Awards any badges the user qualifies for but hasn't earned yet
-    3. Returns list of newly awarded badge IDs
-    
-    Badge requirements are checked automatically based on:
-    - Profile completion
-    - Mentorship sessions completed
-    - Job applications submitted
-    - Forum posts created
-    - Events attended
-    - Knowledge capsules created
-    - Leaderboard rank
     """
     try:
         from services.engagement_service import engagement_service
@@ -311,6 +295,10 @@ async def check_and_award_badges(
         user_id = current_user['id']
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            return []
+            
         async with pool.acquire() as conn:
             newly_awarded = await engagement_service.check_and_award_badges(conn, user_id)
         
@@ -334,26 +322,36 @@ async def get_user_engagement_insights(
 ):
     """
     Get detailed engagement insights for a user.
-    
-    Returns:
-    - Activity pattern analysis
-    - Engagement predictions
-    - Recommendations for improvement
-    - Contribution breakdown
     """
     try:
         from services.engagement_service import engagement_service
         
         pool = await get_db_pool()
+        
+        if pool is None:
+            from services.mock_data_provider import get_mock_engagement_score
+            score = get_mock_engagement_score(user_id)
+            return {
+                "success": True,
+                "data": {
+                    "current_score": score,
+                    "prediction": {"predicted_score": score.get("total_score", 0) * 1.1, "trend": "increasing"},
+                    "recent_contributions": [],
+                    "insights": {
+                        "activity_pattern": "consistent",
+                        "level": score.get('level', 'Beginner'),
+                        "rank_position": score.get('rank_position', 1)
+                    }
+                }
+            }
+            
         async with pool.acquire() as conn:
             # Get current score and activity pattern
             score = await engagement_service.get_user_score(conn, user_id)
             
             if not score:
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="User engagement data not found"
-                )
+                # Calculate score if not exists (auto-initialize)
+                score = await engagement_service.calculate_engagement_score(conn, user_id)
             
             # Get predictions
             prediction = await engagement_service.predict_future_engagement(conn, user_id)

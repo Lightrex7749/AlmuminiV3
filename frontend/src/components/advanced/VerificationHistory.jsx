@@ -32,8 +32,16 @@ const VerificationHistory = ({ cardId = null, isAdmin = false }) => {
       if (cardId) {
         // Get history for specific card
         res = await alumniCardService.getCardVerificationHistory(cardId);
-        if (res.success || Array.isArray(res.data)) {
-          setVerifications(Array.isArray(res.data) ? res.data : res.data || []);
+        
+        if (res.success) {
+          // Handle different data structures (Mock returns array, Backend returns object with verifications)
+          if (Array.isArray(res.data)) {
+            setVerifications(res.data);
+          } else if (res.data && Array.isArray(res.data.verifications)) {
+            setVerifications(res.data.verifications);
+          } else {
+            setVerifications([]);
+          }
         } else if (res.message) {
           toast.error('Failed to load verification history');
         }

@@ -41,7 +41,7 @@ const Login = () => {
     {
       role: 'Admin',
       email: 'admin@alumni.edu',
-      password: 'password123',
+      password: 'Admin@123', // Updated password
       icon: ShieldCheck,
       color: 'from-red-500 to-red-600',
       bgColor: 'bg-red-50 hover:bg-red-100',
@@ -49,8 +49,8 @@ const Login = () => {
     },
     {
       role: 'Alumni',
-      email: 'sarah.johnson@alumni.edu',
-      password: 'password123',
+      email: 'thomas.taylor@alumni.edu',
+      password: 'thomas123456', // Updated password
       icon: GraduationCap,
       color: 'from-blue-500 to-blue-600',
       bgColor: 'bg-blue-50 hover:bg-blue-100',
@@ -58,8 +58,8 @@ const Login = () => {
     },
     {
       role: 'Student',
-      email: 'emily.rodriguez@alumni.edu',
-      password: 'password123',
+      email: 'ava.hernandez@alumni.edu',
+      password: 'ava123456', // Updated password
       icon: Users,
       color: 'from-green-500 to-green-600',
       bgColor: 'bg-green-50 hover:bg-green-100',
@@ -67,8 +67,8 @@ const Login = () => {
     },
     {
       role: 'Recruiter',
-      email: 'david.kim@techcorp.com',
-      password: 'password123',
+      email: 'william.brown@alumni.edu',
+      password: 'william123456', // Updated password
       icon: Briefcase,
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50 hover:bg-purple-100',

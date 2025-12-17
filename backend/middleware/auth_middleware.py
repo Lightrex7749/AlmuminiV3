@@ -48,6 +48,13 @@ async def get_current_user(
     
     # Verify user exists and is active in database
     pool = await get_db_pool()
+    
+    if pool is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Database service unavailable for authentication"
+        )
+        
     async with pool.acquire() as conn:
         user = await UserService.get_user_by_id(conn, user_id)
         

@@ -1,5 +1,9 @@
 """Profile management routes"""
 from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile
+from fastapi.responses import FileResponse
+import os
+import shutil
+from pathlib import Path
 from typing import Optional, List
 
 from database.models import (
@@ -12,6 +16,7 @@ from database.models import (
 )
 from services.profile_service import ProfileService
 from middleware.auth_middleware import get_current_user, require_roles
+from utils.image_generator import generate_initials_avatar
 import logging
 
 logger = logging.getLogger(__name__)
@@ -67,10 +72,12 @@ async def get_my_profile(current_user: dict = Depends(get_current_user)):
         profile = await ProfileService.get_profile_by_user_id(current_user['id'])
         
         if not profile:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Profile not found. Please create your profile first."
-            )
+            # Return empty success response instead of 404 to allow frontend handling
+            return {
+                "success": True,
+                "data": None,
+                "message": "Profile not created yet"
+            }
         
         return {
             "success": True,
@@ -184,6 +191,22 @@ async def get_directory(page: int = 1, limit: int = 20):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to fetch directory"
         )
+@router.get("/cv/{user_id}/{filename}")
+async def get_cv(user_id: str, filename: str):
+    """Serve CV file"""
+    try:
+        # Robust path resolution
+        base_dir = Path(__file__).resolve().parent.parent
+        upload_dir = base_dir / "uploads" / "cvs"
+        
+        file_path = upload_dir / user_id / filename
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+        return FileResponse(file_path)
+    except Exception as e:
+        logger.error(f"Error serving CV: {e}")
+        raise HTTPException(status_code=404, detail="File not found")
+
 @router.get("/{user_id}", response_model=dict)
 async def get_profile(user_id: str):
     """Get profile by user ID (public access)"""
@@ -274,9 +297,6 @@ async def upload_cv(
 ):
     """
     Upload CV file
-    
-    Note: This is a placeholder. In production, integrate with S3 or similar storage.
-    For now, returns a mock URL.
     """
     try:
         # Validate file type
@@ -289,9 +309,21 @@ async def upload_cv(
                 detail="Invalid file type. Only PDF and DOC/DOCX files are allowed."
             )
         
-        # In production, upload to S3 or similar
-        # For now, create a mock URL
-        cv_url = f"https://storage.example.com/cvs/{current_user['id']}/{file.filename}"
+        # Robust path resolution
+        base_dir = Path(__file__).resolve().parent.parent
+        upload_dir = base_dir / "uploads" / "cvs" / current_user['id']
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = upload_dir / file.filename
+        
+        with file_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        # Get base URL from env or default
+        api_base_url = os.getenv("API_BASE_URL", "http://localhost:8001")
+        
+        # Construct full URL for frontend to use directly
+        cv_url = f"{api_base_url}/api/profiles/cv/{current_user['id']}/{file.filename}"
         
         # Update profile with CV URL
         profile = await ProfileService.update_cv_url(current_user['id'], cv_url)
@@ -311,4 +343,124 @@ async def upload_cv(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to upload CV"
+        )
+
+@router.get("/photo/{user_id}/{filename}")
+async def get_photo(user_id: str, filename: str):
+    """Serve profile photo"""
+    try:
+        # Robust path resolution
+        base_dir = Path(__file__).resolve().parent.parent
+        upload_dir = base_dir / "uploads" / "photos"
+        
+        file_path = upload_dir / user_id / filename
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+        return FileResponse(file_path)
+    except Exception as e:
+        logger.error(f"Error serving photo: {e}")
+        raise HTTPException(status_code=404, detail="File not found")
+
+@router.post("/upload-photo", response_model=dict)
+async def upload_photo(
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Upload profile photo
+    """
+    try:
+        # Validate file type
+        if file.content_type not in ["image/jpeg", "image/png", "image/webp"]:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid file type. Only JPEG, PNG, and WebP are allowed."
+            )
+        
+        # Create directory
+        base_dir = Path(__file__).resolve().parent.parent
+        upload_dir = base_dir / "uploads" / "photos" / current_user['id']
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = upload_dir / file.filename
+        
+        with file_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        # Get base URL
+        api_base_url = os.getenv("API_BASE_URL", "http://localhost:8001")
+        
+        # Construct URL
+        photo_url = f"{api_base_url}/api/profiles/photo/{current_user['id']}/{file.filename}"
+        
+        # Update profile
+        profile = await ProfileService.update_profile_photo(current_user['id'], photo_url)
+        
+        return {
+            "success": True,
+            "message": "Photo uploaded successfully",
+            "data": {
+                "photo_url": photo_url,
+                "profile": profile
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error uploading photo: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to upload photo"
+        )
+
+@router.post("/generate-photo", response_model=dict)
+async def generate_photo(
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Automatically generate profile photo based on name initials
+    """
+    try:
+        # Get user profile to get name
+        profile = await ProfileService.get_profile_by_user_id(current_user['id'])
+        if not profile:
+            raise HTTPException(status_code=404, detail="Profile not found")
+            
+        name = profile.get("name", "User")
+        
+        # Create directory
+        base_dir = Path(__file__).resolve().parent.parent
+        upload_dir = base_dir / "uploads" / "photos" / current_user['id']
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate file
+        import time
+        filename = f"generated_{int(time.time())}.png"
+        file_path = upload_dir / filename
+        
+        # Generate
+        generate_initials_avatar(name, file_path)
+        
+        # Get base URL
+        api_base_url = os.getenv("API_BASE_URL", "http://localhost:8001")
+        
+        # Construct URL
+        photo_url = f"{api_base_url}/api/profiles/photo/{current_user['id']}/{filename}"
+        
+        # Update profile
+        profile = await ProfileService.update_profile_photo(current_user['id'], photo_url)
+        
+        return {
+            "success": True,
+            "message": "Photo generated successfully",
+            "data": {
+                "photo_url": photo_url,
+                "profile": profile
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error generating photo: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to generate photo"
         )

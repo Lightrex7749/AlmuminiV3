@@ -179,24 +179,35 @@ class CapsuleService:
                     await cursor.execute(query, params)
                     capsules = await cursor.fetchall()
                     
+                    # Optimization: Batch fetch likes and bookmarks
+                    liked_ids = set()
+                    bookmarked_ids = set()
+                    
+                    if user_id and capsules:
+                        capsule_ids = [c['id'] for c in capsules]
+                        placeholders = ','.join(['%s'] * len(capsule_ids))
+                        
+                        # Get user's likes for these capsules
+                        await cursor.execute(
+                            f"SELECT capsule_id FROM capsule_likes WHERE user_id = %s AND capsule_id IN ({placeholders})",
+                            [user_id] + capsule_ids
+                        )
+                        liked_ids = {row['capsule_id'] for row in await cursor.fetchall()}
+                        
+                        # Get user's bookmarks for these capsules
+                        await cursor.execute(
+                            f"SELECT capsule_id FROM capsule_bookmarks WHERE user_id = %s AND capsule_id IN ({placeholders})",
+                            [user_id] + capsule_ids
+                        )
+                        bookmarked_ids = {row['capsule_id'] for row in await cursor.fetchall()}
+                    
                     # Process capsules
                     for capsule in capsules:
                         if capsule.get('tags'):
                             capsule['tags'] = json.loads(capsule['tags'])
                         
-                        # Check if user has liked/bookmarked
-                        if user_id:
-                            await cursor.execute(
-                                "SELECT 1 FROM capsule_likes WHERE capsule_id = %s AND user_id = %s",
-                                (capsule['id'], user_id)
-                            )
-                            capsule['is_liked_by_user'] = await cursor.fetchone() is not None
-                            
-                            await cursor.execute(
-                                "SELECT 1 FROM capsule_bookmarks WHERE capsule_id = %s AND user_id = %s",
-                                (capsule['id'], user_id)
-                            )
-                            capsule['is_bookmarked_by_user'] = await cursor.fetchone() is not None
+                        capsule['is_liked_by_user'] = capsule['id'] in liked_ids
+                        capsule['is_bookmarked_by_user'] = capsule['id'] in bookmarked_ids
                     
                     return {
                         'data': capsules,
@@ -417,24 +428,35 @@ class CapsuleService:
                     await cursor.execute(query, (limit,))
                     capsules = await cursor.fetchall()
                     
+                    # Optimization: Batch fetch likes and bookmarks
+                    liked_ids = set()
+                    bookmarked_ids = set()
+                    
+                    if user_id and capsules:
+                        capsule_ids = [c['id'] for c in capsules]
+                        placeholders = ','.join(['%s'] * len(capsule_ids))
+                        
+                        # Get user's likes for these capsules
+                        await cursor.execute(
+                            f"SELECT capsule_id FROM capsule_likes WHERE user_id = %s AND capsule_id IN ({placeholders})",
+                            [user_id] + capsule_ids
+                        )
+                        liked_ids = {row['capsule_id'] for row in await cursor.fetchall()}
+                        
+                        # Get user's bookmarks for these capsules
+                        await cursor.execute(
+                            f"SELECT capsule_id FROM capsule_bookmarks WHERE user_id = %s AND capsule_id IN ({placeholders})",
+                            [user_id] + capsule_ids
+                        )
+                        bookmarked_ids = {row['capsule_id'] for row in await cursor.fetchall()}
+                    
                     # Process capsules
                     for capsule in capsules:
                         if capsule.get('tags'):
                             capsule['tags'] = json.loads(capsule['tags'])
                         
-                        # Check if user has liked/bookmarked
-                        if user_id:
-                            await cursor.execute(
-                                "SELECT 1 FROM capsule_likes WHERE capsule_id = %s AND user_id = %s",
-                                (capsule['id'], user_id)
-                            )
-                            capsule['is_liked_by_user'] = await cursor.fetchone() is not None
-                            
-                            await cursor.execute(
-                                "SELECT 1 FROM capsule_bookmarks WHERE capsule_id = %s AND user_id = %s",
-                                (capsule['id'], user_id)
-                            )
-                            capsule['is_bookmarked_by_user'] = await cursor.fetchone() is not None
+                        capsule['is_liked_by_user'] = capsule['id'] in liked_ids
+                        capsule['is_bookmarked_by_user'] = capsule['id'] in bookmarked_ids
                     
                     return capsules
                     

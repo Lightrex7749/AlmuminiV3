@@ -31,6 +31,48 @@ export const mockAlumniCardService = {
     };
   },
 
+  // Generate new card (mock)
+  generateCard: async (userId) => {
+    await delay(600);
+    
+    // Create a mock card
+    const user = mockData.users.find(u => u.id === userId);
+    const profile = mockData.alumni_profiles.find(p => p.user_id === userId);
+    
+    if (!user) {
+        return { success: false, message: 'User not found' };
+    }
+
+    const newCard = {
+      id: `card-${Date.now()}`,
+      user_id: userId,
+      card_number: `ALM-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`,
+      qr_code_data: `mock_qr_${Date.now()}`,
+      issue_date: new Date().toISOString(),
+      expiry_date: new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString(),
+      is_active: true,
+      verification_count: 0,
+      ai_validation_status: 'verified',
+      ai_confidence_score: 95,
+      duplicate_check_passed: true,
+      signature_verified: true,
+      holder_name: profile ? profile.name : user.email.split('@')[0],
+      holder_email: user.email,
+      role: user.role,
+      profile: profile || { name: user.email.split('@')[0] }
+    };
+    
+    // In a real mock implementation, we should add this to mockData.alumni_cards
+    // But since we can't persist to the JSON file easily here, we just return it.
+    // The UI will update state with this data.
+    
+    return {
+      success: true,
+      message: 'Alumni card generated successfully',
+      data: newCard
+    };
+  },
+
   // Verify card by QR code or card number
   verifyCard: async (identifier) => {
     await delay(400);

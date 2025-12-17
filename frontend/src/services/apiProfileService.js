@@ -117,6 +117,29 @@ class ApiProfileService {
     }
   }
 
+  // Get mentor profile by user ID
+  async getMentorProfile(userId) {
+    try {
+      const response = await axios.get(`/api/mentors/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      // Return success: false but don't crash if mentor profile doesn't exist
+      return { success: false, message: error.message };
+    }
+  }
+
+  // Get mentorship requests by mentor
+  async getMentorshipRequestsByMentor(userId) {
+    try {
+      // Uses the current authenticated user's token to get their received requests
+      const response = await axios.get('/api/mentorship/requests/received');
+      return response.data.data || [];
+    } catch (error) {
+      console.error('Error fetching mentorship requests:', error);
+      return [];
+    }
+  }
+
   // Get mentorship requests by student
   async getMentorshipRequestsByStudent(studentId) {
     try {

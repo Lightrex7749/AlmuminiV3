@@ -67,6 +67,8 @@ agenthub/agents/youtube/db
 # Environment files with sensitive data
 backend/.env
 .env
+.env.*
+!.env.example
 *.env.local
 
 # Archive files and large assets
@@ -83,4 +85,7 @@ backend/.env
 
 # Mobile development
 android-sdk/ 
+
+# Uploads
+backend/uploads/
 

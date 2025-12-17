@@ -177,12 +177,6 @@ async def get_notification_preferences(
 ):
     """
     Get user's notification preferences
-    
-    Returns user's notification settings including:
-    - Email/push notification toggles
-    - Notification type preferences
-    - Notification frequency
-    - Quiet hours settings
     """
     try:
         preferences = await notification_service.get_user_preferences(current_user['id'])
@@ -191,8 +185,11 @@ async def get_notification_preferences(
             return preferences
         
         # Return default preferences if none exist
+        from datetime import datetime
+        import uuid
+        
         return NotificationPreferencesResponse(
-            id="",
+            id=str(uuid.uuid4()),  # Generate a UUID for the ID
             user_id=current_user['id'],
             email_notifications=True,
             push_notifications=True,
@@ -208,8 +205,8 @@ async def get_notification_preferences(
             notification_frequency="instant",
             quiet_hours_start=None,
             quiet_hours_end=None,
-            created_at=None,
-            updated_at=None
+            created_at=datetime.now(),
+            updated_at=datetime.now()
         )
         
     except Exception as e:
