@@ -1,0 +1,17 @@
+name: Wake-up Bot
+
+on:
+  schedule:
+    # Run every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  ping_server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Server
+        run: |
+          # Replace with your actual deployed URL
+          curl -I https://alumunity-v3.onrender.com/api/ || echo "Ping failed"
+          echo "Ping sent to keep server awake"
