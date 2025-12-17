@@ -68,12 +68,12 @@ const ProfileView = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background transition-colors duration-300">
         <MainNavbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading profile...</p>
+            <p className="mt-4 text-gray-600 dark:text-gray-300">Loading profile...</p>
           </div>
         </div>
       </div>
@@ -82,12 +82,12 @@ const ProfileView = () => {
 
   if (!profile) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background transition-colors duration-300">
         <MainNavbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Profile Not Found</h2>
-            <p className="text-gray-600 mb-6">The profile you're looking for doesn't exist.</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Profile Not Found</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">The profile you're looking for doesn't exist.</p>
             <Button onClick={() => navigate('/directory')}>Back to Directory</Button>
           </div>
         </div>
@@ -98,7 +98,7 @@ const ProfileView = () => {
   const socialLinks = profile.social_links || {};
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background transition-colors duration-300">
       <MainNavbar />
 
       <main className="flex-1 py-8">
@@ -107,27 +107,27 @@ const ProfileView = () => {
           <Button
             variant="ghost"
             onClick={() => navigate('/directory')}
-            className="mb-6"
+            className="mb-6 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Directory
           </Button>
 
           {/* Profile Header Card */}
-          <Card className="mb-6">
+          <Card className="mb-6 overflow-hidden border-none shadow-lg dark:shadow-blue-900/10">
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
-                  <Avatar className="h-32 w-32">
+                  <Avatar className="h-32 w-32 ring-4 ring-white dark:ring-gray-800 shadow-md">
                     <AvatarImage src={profile.photo_url} alt={profile.name} />
-                    <AvatarFallback className="text-3xl">
+                    <AvatarFallback className="text-3xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                       {getInitials(profile.name)}
                     </AvatarFallback>
                   </Avatar>
                   {profile.is_verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-md">
-                      <CheckCircle2 className="h-8 w-8 text-blue-600" />
+                    <div className="absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-1 shadow-md">
+                      <CheckCircle2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                     </div>
                   )}
                 </div>
@@ -135,26 +135,26 @@ const ProfileView = () => {
                 {/* Basic Info */}
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h1 className="text-3xl font-bold text-gray-900">{profile.name}</h1>
-                    <p className="text-xl text-gray-600 mt-2">{profile.headline}</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{profile.name}</h1>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 mt-2">{profile.headline}</p>
                   </div>
 
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                  <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
                     {profile.current_company && (
                       <div className="flex items-center gap-2">
-                        <Briefcase className="h-5 w-5" />
+                        <Briefcase className="h-5 w-5 text-blue-500 dark:text-blue-400" />
                         <span>{profile.current_company}</span>
                       </div>
                     )}
                     {profile.location && (
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" />
+                        <MapPin className="h-5 w-5 text-purple-500 dark:text-purple-400" />
                         <span>{profile.location}</span>
                       </div>
                     )}
                     {profile.batch_year && (
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5" />
+                        <Calendar className="h-5 w-5 text-green-500 dark:text-green-400" />
                         <span>Batch of {profile.batch_year}</span>
                       </div>
                     )}
@@ -162,16 +162,16 @@ const ProfileView = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <Button onClick={handleSendMessage} disabled={sendingMessage}>
+                    <Button onClick={handleSendMessage} disabled={sendingMessage} className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white">
                       <MessageSquare className="h-4 w-4 mr-2" />
                       {sendingMessage ? 'Opening...' : 'Send Message'}
                     </Button>
-                    <Button variant="outline" onClick={handleRequestMentorship}>
+                    <Button variant="outline" onClick={handleRequestMentorship} className="border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300">
                       <UserPlus className="h-4 w-4 mr-2" />
                       Request Mentorship
                     </Button>
                     {profile.cv_url && (
-                      <Button variant="outline" onClick={handleDownloadCV}>
+                      <Button variant="outline" onClick={handleDownloadCV} className="dark:border-gray-700 dark:text-gray-300">
                         <Download className="h-4 w-4 mr-2" />
                         Download CV
                       </Button>
@@ -187,29 +187,29 @@ const ProfileView = () => {
             <div className="lg:col-span-2 space-y-6">
               {/* About */}
               {profile.bio && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">About</h2>
-                    <p className="text-gray-600 leading-relaxed">{profile.bio}</p>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">About</h2>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{profile.bio}</p>
                   </CardContent>
                 </Card>
               )}
 
               {/* Experience */}
               {profile.experience_timeline && profile.experience_timeline.length > 0 && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Experience</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Experience</h2>
                     <div className="space-y-6">
                       {profile.experience_timeline.map((exp, idx) => (
-                        <div key={idx} className="flex gap-4">
-                          <div className="flex-shrink-0 w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <Briefcase className="h-7 w-7 text-blue-600" />
+                        <div key={idx} className="flex gap-4 group">
+                          <div className="flex-shrink-0 w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors">
+                            <Briefcase className="h-7 w-7 text-blue-600 dark:text-blue-400" />
                           </div>
                           <div className="flex-1">
-                            <h3 className="font-semibold text-lg text-gray-900">{exp.role}</h3>
-                            <p className="text-gray-600">{exp.company}</p>
-                            <p className="text-sm text-gray-500 mt-1">
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{exp.role}</h3>
+                            <p className="text-gray-600 dark:text-gray-400 font-medium">{exp.company}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
                               {new Date(exp.start_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                               {' - '}
                               {exp.end_date
@@ -218,7 +218,7 @@ const ProfileView = () => {
                               }
                             </p>
                             {exp.description && (
-                              <p className="text-gray-600 mt-3 leading-relaxed">{exp.description}</p>
+                              <p className="text-gray-600 dark:text-gray-300 mt-3 leading-relaxed text-sm">{exp.description}</p>
                             )}
                           </div>
                         </div>
@@ -230,21 +230,21 @@ const ProfileView = () => {
 
               {/* Education */}
               {profile.education_details && profile.education_details.length > 0 && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Education</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Education</h2>
                     <div className="space-y-4">
                       {profile.education_details.map((edu, idx) => (
-                        <div key={idx}>
-                          <h3 className="font-semibold text-lg text-gray-900">
+                        <div key={idx} className="relative pl-4 border-l-2 border-gray-100 dark:border-gray-800">
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
                             {edu.degree} in {edu.field}
                           </h3>
-                          <p className="text-gray-600">{edu.institution}</p>
-                          <p className="text-sm text-gray-500 mt-1">
+                          <p className="text-gray-600 dark:text-gray-400">{edu.institution}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
                             {edu.start_year} - {edu.end_year}
                           </p>
                           {edu.achievements && (
-                            <p className="text-gray-600 mt-2">{edu.achievements}</p>
+                            <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm">{edu.achievements}</p>
                           )}
                         </div>
                       ))}
@@ -258,12 +258,12 @@ const ProfileView = () => {
             <div className="space-y-6">
               {/* Skills */}
               {profile.skills && profile.skills.length > 0 && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Skills</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Skills</h2>
                     <div className="flex flex-wrap gap-2">
                       {profile.skills.map((skill, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-sm">
+                        <Badge key={idx} variant="secondary" className="text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">
                           {skill}
                         </Badge>
                       ))}
@@ -274,14 +274,14 @@ const ProfileView = () => {
 
               {/* Social Links */}
               {Object.keys(socialLinks).length > 0 && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Connect</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Connect</h2>
                     <div className="space-y-2">
                       {socialLinks.linkedin && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start"
+                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400"
                           onClick={() => window.open(socialLinks.linkedin, '_blank')}
                         >
                           <Linkedin className="h-4 w-4 mr-2" />
@@ -291,7 +291,7 @@ const ProfileView = () => {
                       {socialLinks.github && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start"
+                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                           onClick={() => window.open(socialLinks.github, '_blank')}
                         >
                           <Github className="h-4 w-4 mr-2" />
@@ -301,7 +301,7 @@ const ProfileView = () => {
                       {socialLinks.twitter && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start"
+                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-400 dark:hover:text-blue-400"
                           onClick={() => window.open(socialLinks.twitter, '_blank')}
                         >
                           <Twitter className="h-4 w-4 mr-2" />
@@ -311,7 +311,7 @@ const ProfileView = () => {
                       {socialLinks.website && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start"
+                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300"
                           onClick={() => window.open(socialLinks.website, '_blank')}
                         >
                           <Globe className="h-4 w-4 mr-2" />
@@ -325,13 +325,13 @@ const ProfileView = () => {
 
               {/* Achievements */}
               {profile.achievements && profile.achievements.length > 0 && (
-                <Card>
+                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Achievements</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Achievements</h2>
                     <ul className="space-y-2">
                       {profile.achievements.map((achievement, idx) => (
-                        <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
-                          <span className="text-blue-600 mt-1">•</span>
+                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
+                          <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
                           <span>{achievement}</span>
                         </li>
                       ))}

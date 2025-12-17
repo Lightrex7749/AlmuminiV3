@@ -205,7 +205,7 @@ const MainNavbar = () => {
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
-                className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300"
+                className="rounded-full hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-300"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
@@ -218,6 +218,13 @@ const MainNavbar = () => {
 
             {isAuthenticated ? (
               <>
+                {/* Role Badge */}
+                <div className="hidden md:flex flex-col items-end mr-2">
+                  <span className="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 uppercase tracking-wider">
+                    {user?.role}
+                  </span>
+                </div>
+
                 {/* Notification Bell */}
                 <NotificationBell />
 
@@ -225,7 +232,7 @@ const MainNavbar = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center space-x-2 focus:outline-none group">
-                      <Avatar className="w-10 h-10 ring-2 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300">
+                      <Avatar className="w-10 h-10 ring-2 ring-gray-100 dark:ring-gray-700 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300">
                         <AvatarImage src="" alt={user?.email} />
                         <AvatarFallback className="bg-gradient-to-br from-blue-600 to-purple-600 text-white font-semibold">
                           {getInitials(user?.email)}

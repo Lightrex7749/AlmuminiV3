@@ -195,25 +195,44 @@ async def root():
 # Health check endpoint
 @api_router.get("/health")
 async def health_check():
-    """Health check endpoint to verify database connection"""
+    """Health check endpoint to verify server status"""
     try:
+        if USE_MOCK_DB:
+            return {
+                "status": "healthy",
+                "mode": "mock",
+                "database": "mock-data",
+                "service": "AlumUnity API"
+            }
+        
         pool = await get_db_pool()
+        if pool is None:
+            return {
+                "status": "healthy",
+                "mode": "mock-fallback",
+                "database": "unavailable-using-mock",
+                "service": "AlumUnity API"
+            }
+        
         async with pool.acquire() as conn:
             async with conn.cursor() as cursor:
                 await cursor.execute("SELECT 1")
                 await cursor.fetchone()
         return {
             "status": "healthy",
+            "mode": "production",
             "database": "connected",
             "service": "AlumUnity API"
         }
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
         return {
-            "status": "unhealthy",
+            "status": "degraded",
+            "mode": "fallback",
             "database": "disconnected",
-            "error": str(e)
-        }
+            "error": str(e),
+            "service": "AlumUnity API"
+        }, 503
 
 # Include authentication routes
 app.include_router(auth_router)
