@@ -20,22 +20,23 @@ logger = logging.getLogger(__name__)
 # ============================================================================
 
 # Try to import AI/ML libraries with graceful fallback
+# Moved to lazy load to prevent startup timeout
 EMBEDDINGS_AVAILABLE = True
-from sentence_transformers import SentenceTransformer
-import faiss
+SentenceTransformer = None
+faiss = None
 
-try:
-    from sentence_transformers import SentenceTransformer
-    import faiss as faiss_lib
-    faiss = faiss_lib
-    EMBEDDINGS_AVAILABLE = True
-    logger.info("✅ AI/ML libraries loaded successfully (sentence-transformers + FAISS)")
-except ImportError as e:
-    logger.warning(f"⚠️ AI/ML libraries not available: {e}")
-    logger.warning("⚠️ Falling back to co-occurrence based relationships")
-except Exception as e:
-    logger.error(f"❌ Error loading AI/ML libraries: {e}")
-    logger.warning("⚠️ Falling back to co-occurrence based relationships")
+# try:
+#     from sentence_transformers import SentenceTransformer
+#     import faiss as faiss_lib
+#     faiss = faiss_lib
+#     EMBEDDINGS_AVAILABLE = True
+#     logger.info("✅ AI/ML libraries loaded successfully (sentence-transformers + FAISS)")
+# except ImportError as e:
+#     logger.warning(f"⚠️ AI/ML libraries not available: {e}")
+#     logger.warning("⚠️ Falling back to co-occurrence based relationships")
+# except Exception as e:
+#     logger.error(f"❌ Error loading AI/ML libraries: {e}")
+#     logger.warning("⚠️ Falling back to co-occurrence based relationships")
 
 
 class SkillGraphService:
@@ -57,6 +58,14 @@ class SkillGraphService:
         # Try to initialize the model with error handling
         if EMBEDDINGS_AVAILABLE:
             try:
+                # Lazy import
+                global SentenceTransformer, faiss
+                if SentenceTransformer is None:
+                    from sentence_transformers import SentenceTransformer
+                if faiss is None:
+                    import faiss as faiss_lib
+                    faiss = faiss_lib
+
                 logger.info(f"🔄 Loading sentence-transformer model: {self.model_name}")
                 logger.info("   (First time: ~90MB download, may take 30-60 seconds)")
                 

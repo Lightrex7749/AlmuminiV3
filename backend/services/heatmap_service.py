@@ -7,7 +7,7 @@ import json
 from typing import Dict, List, Optional
 from collections import Counter
 import numpy as np
-from sklearn.cluster import DBSCAN
+# from sklearn.cluster import DBSCAN  # Moved to local import
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -510,6 +510,7 @@ class HeatmapService:
             coords_rad = np.radians(coords_array)
             
             # Perform DBSCAN clustering
+            from sklearn.cluster import DBSCAN
             clustering = DBSCAN(
                 eps=eps_degrees,
                 min_samples=min_samples,
