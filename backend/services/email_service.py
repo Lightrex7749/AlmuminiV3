@@ -7,7 +7,8 @@ logger = logging.getLogger(__name__)
 
 # Email configuration
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', '')
-FROM_EMAIL = os.environ.get('FROM_EMAIL', 'noreply@alumunity.com')
+# Check SENDGRID_FROM_EMAIL first, then fallback to FROM_EMAIL, then default
+FROM_EMAIL = os.environ.get('SENDGRID_FROM_EMAIL', os.environ.get('FROM_EMAIL', 'noreply@alumunity.com'))
 USE_MOCK_EMAIL = not SENDGRID_API_KEY  # Use mock if no API key
 
 
