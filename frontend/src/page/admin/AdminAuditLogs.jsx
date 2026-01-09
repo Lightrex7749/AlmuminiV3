@@ -143,7 +143,7 @@ const AdminAuditLogs = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -152,7 +152,7 @@ const AdminAuditLogs = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Audit Logs 📋</h1>
               <p className="mt-2 opacity-90">Track all administrative actions</p>
             </div>
@@ -162,12 +162,12 @@ const AdminAuditLogs = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -178,12 +178,12 @@ const AdminAuditLogs = () => {
             </div>
 
             {/* Logs List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle>Audit Log History</CardTitle>
-                    <CardDescription>Complete history of administrative actions</CardDescription>
+                    <CardTitle className="text-foreground">Audit Log History</CardTitle>
+                    <CardDescription className="text-muted-foreground">Complete history of administrative actions</CardDescription>
                   </div>
                   <Button onClick={handleExportLogs} variant="outline" data-testid="export-logs-btn">
                     <Download className="w-4 h-4 mr-2" />
@@ -195,7 +195,7 @@ const AdminAuditLogs = () => {
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by description or admin..."
                         value={searchQuery}
@@ -225,8 +225,8 @@ const AdminAuditLogs = () => {
 
                 {loading ? (
                   <div className="flex justify-center items-center py-12">
-                    <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                    <span className="ml-2 text-gray-600">Loading audit logs...</span>
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                    <span className="ml-2 text-muted-foreground">Loading audit logs...</span>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -235,7 +235,7 @@ const AdminAuditLogs = () => {
                       return (
                         <div
                           key={log.id}
-                          className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                          className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
                           data-testid={`log-item-${log.id}`}
                         >
                           <div className="flex items-start gap-4">
@@ -245,8 +245,8 @@ const AdminAuditLogs = () => {
                             <div className="flex-1">
                               <div className="flex items-start justify-between mb-2">
                                 <div>
-                                  <p className="font-medium text-gray-900">{log.description}</p>
-                                  <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
+                                  <p className="font-medium text-foreground">{log.description}</p>
+                                  <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
                                     <span>by {log.admin_email || log.admin_name || 'Unknown Admin'}</span>
                                     <span>•</span>
                                     <span>IP: {log.ip_address || 'N/A'}</span>
@@ -259,9 +259,9 @@ const AdminAuditLogs = () => {
                                 </Badge>
                               </div>
                               {log.metadata && Object.keys(log.metadata).length > 0 && (
-                                <div className="mt-2 p-2 bg-gray-50 rounded text-xs">
-                                  <span className="font-medium text-gray-600">Metadata:</span>
-                                  <code className="ml-2 text-gray-700">
+                                <div className="mt-2 p-2 bg-muted/30 rounded text-xs">
+                                  <span className="font-medium text-muted-foreground">Metadata:</span>
+                                  <code className="ml-2 text-foreground/80">
                                     {JSON.stringify(log.metadata)}
                                   </code>
                                 </div>
@@ -272,7 +272,7 @@ const AdminAuditLogs = () => {
                       );
                     })}
                     {logs.length === 0 && (
-                      <div className="text-center py-12 text-gray-500">
+                      <div className="text-center py-12 text-muted-foreground">
                         <FileText className="w-12 h-12 mx-auto mb-3 opacity-50" />
                         <p>No audit logs found</p>
                       </div>

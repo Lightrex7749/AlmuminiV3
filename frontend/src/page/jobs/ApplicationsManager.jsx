@@ -127,7 +127,7 @@ const ApplicationsManager = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <MainNavbar />
-        <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+        <main className="flex-1 bg-gray-50 dark:bg-background">
           <div className="container mx-auto px-4 py-8">
             <div className="animate-pulse space-y-4">
               <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
@@ -144,7 +144,7 @@ const ApplicationsManager = () => {
     <div className="min-h-screen flex flex-col" data-testid="applications-manager-page">
       <MainNavbar />
       
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1 bg-gray-50 dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <Button

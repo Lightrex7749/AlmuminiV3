@@ -140,10 +140,10 @@ const JobCard = ({ job, onApply }) => {
       <CardContent className="pb-3" onClick={() => navigate(`/jobs/${job.id}`)}>
         {/* AI Match Details */}
         {matchData && matchData.matchScore > 0 && (
-          <div className="mb-3 p-2 bg-gray-50 rounded-md border border-gray-200" data-testid="skill-overlap-section">
+          <div className="mb-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700" data-testid="skill-overlap-section">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-medium text-gray-700">Skill Match</span>
-              <span className="text-xs text-gray-600">{matchData.matchPercentage}% of required skills</span>
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Skill Match</span>
+              <span className="text-xs text-gray-600 dark:text-gray-400">{matchData.matchPercentage}% of required skills</span>
             </div>
             <Progress value={matchData.matchPercentage} className="h-1.5 mb-2" />
             

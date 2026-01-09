@@ -117,17 +117,17 @@ const SearchBar = ({ value, onChange, onSearch }) => {
 
       {/* Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
           {suggestions.map((suggestion, index) => (
             <button
               key={index}
               data-testid={`suggestion-${index}`}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="w-full text-left px-4 py-3 hover:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0"
+              className="w-full text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0"
             >
               <div className="flex items-center gap-2">
-                <Search className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-700">{suggestion}</span>
+                <Search className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                <span className="text-sm text-gray-700 dark:text-gray-200">{suggestion}</span>
               </div>
             </button>
           ))}

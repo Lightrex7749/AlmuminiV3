@@ -13,7 +13,7 @@ export const HoverCard = ({
   return (
     <motion.div
       className={cn(
-        "relative bg-white rounded-xl p-6 shadow-md border border-slate-200",
+        "relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-slate-200 dark:border-gray-700",
         "transition-shadow duration-300",
         className
       )}
@@ -71,7 +71,7 @@ export const TiltCard = ({
         transformStyle: "preserve-3d",
       }}
       className={cn(
-        "relative bg-white rounded-xl p-6 shadow-lg border border-slate-200",
+        "relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-gray-700",
         className
       )}
     >
@@ -100,7 +100,7 @@ export const GlareCard = ({
   return (
     <div
       className={cn(
-        "relative overflow-hidden bg-white rounded-xl p-6 shadow-lg border border-slate-200",
+        "relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-gray-700",
         className
       )}
       onMouseMove={handleMouseMove}
@@ -162,8 +162,8 @@ export const BentoCard = ({
   return (
     <motion.div
       className={cn(
-        "relative overflow-hidden bg-white rounded-2xl p-6",
-        "border border-slate-200 shadow-sm",
+        "relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl p-6",
+        "border border-slate-200 dark:border-gray-700 shadow-sm",
         "group cursor-pointer",
         className
       )}
@@ -179,8 +179,8 @@ export const BentoCard = ({
             {icon}
           </div>
         )}
-        {title && <h3 className="text-xl font-semibold text-slate-900">{title}</h3>}
-        {description && <p className="text-slate-600">{description}</p>}
+        {title && <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{title}</h3>}
+        {description && <p className="text-slate-600 dark:text-gray-400">{description}</p>}
         {children}
       </div>
     </motion.div>

@@ -97,7 +97,7 @@ const PostJob = () => {
     <div className="min-h-screen flex flex-col" data-testid="post-job-page">
       <MainNavbar />
       
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1 bg-gray-50 dark:bg-background">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           {/* Header */}
           <Button
@@ -130,7 +130,7 @@ const PostJob = () => {
                 {/* Basic Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
-                    <Label htmlFor="title">Job Title *</Label>
+                    <Label htmlFor="title">Job Title <span className="req-star">*</span></Label>
                     <Input
                       id="title"
                       placeholder="e.g. Senior Full-Stack Engineer"
@@ -142,7 +142,7 @@ const PostJob = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="company">Company *</Label>
+                    <Label htmlFor="company">Company <span className="req-star">*</span></Label>
                     <Input
                       id="company"
                       placeholder="e.g. Tech Corp"
@@ -154,7 +154,7 @@ const PostJob = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="location">Location *</Label>
+                    <Label htmlFor="location">Location <span className="req-star">*</span></Label>
                     <Input
                       id="location"
                       placeholder="e.g. San Francisco, CA or Remote"
@@ -166,7 +166,7 @@ const PostJob = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="job_type">Job Type *</Label>
+                    <Label htmlFor="job_type">Job Type <span className="req-star">*</span></Label>
                     <Select
                       value={formData.job_type}
                       onValueChange={(value) => handleChange('job_type', value)}
@@ -219,7 +219,7 @@ const PostJob = () => {
 
                 {/* Description */}
                 <div>
-                  <Label htmlFor="description">Job Description *</Label>
+                  <Label htmlFor="description">Job Description <span className="req-star">*</span></Label>
                   <Textarea
                     id="description"
                     placeholder="Describe the role, responsibilities, requirements, and qualifications..."
@@ -236,7 +236,7 @@ const PostJob = () => {
 
                 {/* Skills */}
                 <div>
-                  <Label htmlFor="skills">Required Skills *</Label>
+                  <Label htmlFor="skills">Required Skills <span className="req-star">*</span></Label>
                   <Input
                     id="skills"
                     placeholder="e.g. JavaScript, React, Node.js, Python (comma-separated)"

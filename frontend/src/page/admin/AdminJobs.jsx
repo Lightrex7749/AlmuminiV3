@@ -136,7 +136,7 @@ const AdminJobs = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -151,7 +151,7 @@ const AdminJobs = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -165,7 +165,7 @@ const AdminJobs = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -174,7 +174,7 @@ const AdminJobs = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Job Management 💼</h1>
               <p className="mt-2 opacity-90">Manage all job postings on the platform</p>
             </div>
@@ -184,12 +184,12 @@ const AdminJobs = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -200,17 +200,17 @@ const AdminJobs = () => {
             </div>
 
             {/* Jobs List */}
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle>All Job Postings</CardTitle>
-                <CardDescription>View and manage all jobs posted on the platform</CardDescription>
+                <CardTitle className="text-foreground">All Job Postings</CardTitle>
+                <CardDescription className="text-muted-foreground">View and manage all jobs posted on the platform</CardDescription>
               </CardHeader>
               <CardContent>
                 {/* Filters */}
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by title or company..."
                         value={searchQuery}
@@ -239,29 +239,29 @@ const AdminJobs = () => {
                 {/* Jobs Table */}
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
-                        <th className="pb-3 font-medium text-gray-700">Job Title</th>
-                        <th className="pb-3 font-medium text-gray-700">Company</th>
-                        <th className="pb-3 font-medium text-gray-700">Type</th>
-                        <th className="pb-3 font-medium text-gray-700">Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Applications</th>
-                        <th className="pb-3 font-medium text-gray-700">Posted</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">Job Title</th>
+                        <th className="pb-3 font-medium text-foreground">Company</th>
+                        <th className="pb-3 font-medium text-foreground">Type</th>
+                        <th className="pb-3 font-medium text-foreground">Status</th>
+                        <th className="pb-3 font-medium text-foreground">Applications</th>
+                        <th className="pb-3 font-medium text-foreground">Posted</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredJobs.map((job) => (
-                        <tr key={job.id} className="border-b hover:bg-gray-50" data-testid={`job-row-${job.id}`}>
+                        <tr key={job.id} className="border-b border-border hover:bg-muted/50 transition-colors" data-testid={`job-row-${job.id}`}>
                           <td className="py-4">
                             <div>
-                              <p className="font-medium">{job.title}</p>
-                              <p className="text-xs text-gray-500">{job.location}</p>
+                              <p className="font-medium text-foreground">{job.title}</p>
+                              <p className="text-xs text-muted-foreground">{job.location}</p>
                             </div>
                           </td>
-                          <td className="py-4 text-sm">{job.company}</td>
+                          <td className="py-4 text-sm text-foreground">{job.company}</td>
                           <td className="py-4">
-                            <Badge variant="outline" className="capitalize">
+                            <Badge variant="outline" className="capitalize border-border text-foreground">
                               {job.job_type}
                             </Badge>
                           </td>
@@ -270,8 +270,8 @@ const AdminJobs = () => {
                               {job.status}
                             </Badge>
                           </td>
-                          <td className="py-4 text-sm">{job.applications_count || 0}</td>
-                          <td className="py-4 text-sm text-gray-600">
+                          <td className="py-4 text-sm text-foreground">{job.applications_count || 0}</td>
+                          <td className="py-4 text-sm text-muted-foreground">
                             {new Date(job.created_at).toLocaleDateString()}
                           </td>
                           <td className="py-4">
@@ -281,8 +281,8 @@ const AdminJobs = () => {
                                   <MoreVertical className="w-4 h-4" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuContent align="end" className="bg-card border-border">
+                                <DropdownMenuLabel className="text-foreground">Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleViewJob(job.id)}>
                                   <Eye className="mr-2 h-4 w-4" />
@@ -303,7 +303,7 @@ const AdminJobs = () => {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                   onClick={() => handleDeleteJob(job.id)}
-                                  className="text-red-600"
+                                  className="text-destructive"
                                 >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Delete Job
@@ -317,7 +317,7 @@ const AdminJobs = () => {
                   </table>
 
                   {filteredJobs.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No jobs found</p>
                     </div>
@@ -333,42 +333,42 @@ const AdminJobs = () => {
 
       {/* Job Details Modal */}
       <Dialog open={showJobModal} onOpenChange={setShowJobModal}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Job Details</DialogTitle>
-            <DialogDescription>Complete job posting information</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Job Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete job posting information</DialogDescription>
           </DialogHeader>
           {selectedJob && (
             <div className="space-y-4">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-xl font-bold">{selectedJob.title}</h3>
-                  <p className="text-gray-600">{selectedJob.company}</p>
+                  <h3 className="text-xl font-bold text-foreground">{selectedJob.title}</h3>
+                  <p className="text-muted-foreground">{selectedJob.company}</p>
                   <div className="flex gap-2 mt-2">
                     <Badge className={getStatusBadgeColor(selectedJob.status)}>
                       {selectedJob.status}
                     </Badge>
-                    <Badge variant="outline">{selectedJob.job_type}</Badge>
+                    <Badge variant="outline" className="border-border text-foreground">{selectedJob.job_type}</Badge>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 border-t border-b py-4">
+              <div className="grid grid-cols-2 gap-4 border-t border-b border-border py-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Location</p>
-                  <p className="text-sm mt-1">{selectedJob.location}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Location</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedJob.location}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Experience</p>
-                  <p className="text-sm mt-1">{selectedJob.experience_required}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Experience</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedJob.experience_required}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Salary Range</p>
-                  <p className="text-sm mt-1">{selectedJob.salary_range || 'Not specified'}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Salary Range</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedJob.salary_range || 'Not specified'}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Deadline</p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm font-medium text-muted-foreground">Deadline</p>
+                  <p className="text-sm mt-1 text-foreground">
                     {selectedJob.application_deadline
                       ? new Date(selectedJob.application_deadline).toLocaleDateString()
                       : 'No deadline'}
@@ -377,16 +377,16 @@ const AdminJobs = () => {
               </div>
 
               <div>
-                <h4 className="font-semibold mb-2">Description</h4>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">{selectedJob.description}</p>
+                <h4 className="font-semibold mb-2 text-foreground">Description</h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{selectedJob.description}</p>
               </div>
 
               {selectedJob.skills_required && selectedJob.skills_required.length > 0 && (
                 <div>
-                  <h4 className="font-semibold mb-2">Required Skills</h4>
+                  <h4 className="font-semibold mb-2 text-foreground">Required Skills</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedJob.skills_required.map((skill, index) => (
-                      <Badge key={index} variant="outline">
+                      <Badge key={index} variant="outline" className="border-border text-foreground">
                         {skill}
                       </Badge>
                     ))}
@@ -394,18 +394,18 @@ const AdminJobs = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-3 gap-4 p-4 bg-muted/30 rounded-lg">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Views</p>
-                  <p className="text-lg font-bold">{selectedJob.views_count || 0}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Views</p>
+                  <p className="text-lg font-bold text-foreground">{selectedJob.views_count || 0}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Applications</p>
-                  <p className="text-lg font-bold">{selectedJob.applications_count || 0}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Applications</p>
+                  <p className="text-lg font-bold text-foreground">{selectedJob.applications_count || 0}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Posted By</p>
-                  <p className="text-sm">{selectedJob.posted_by_email || 'Unknown'}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Posted By</p>
+                  <p className="text-sm text-foreground">{selectedJob.posted_by_email || 'Unknown'}</p>
                 </div>
               </div>
 
@@ -416,7 +416,7 @@ const AdminJobs = () => {
                 {selectedJob.status === 'active' && (
                   <Button
                     variant="outline"
-                    className="text-red-600"
+                    className="text-destructive hover:bg-destructive/10"
                     onClick={() => {
                       handleChangeStatus(selectedJob.id, 'closed');
                       setShowJobModal(false);

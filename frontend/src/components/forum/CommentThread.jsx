@@ -88,7 +88,7 @@ const CommentItem = ({ comment, onReply, onDelete, depth = 0 }) => {
   const authorPhoto = comment.author?.profile?.photo_url;
 
   return (
-    <div className={`${depth > 0 ? 'ml-8 pl-4 border-l-2 border-gray-200' : ''}`}>
+    <div className={`${depth > 0 ? 'ml-8 pl-4 border-l-2 border-border' : ''}`}>
       <div className="py-4" data-testid={`comment-${comment.id}`}>
         <div className="flex items-start gap-3">
           <Avatar className="h-8 w-8">
@@ -99,15 +99,15 @@ const CommentItem = ({ comment, onReply, onDelete, depth = 0 }) => {
           <div className="flex-1 min-w-0">
             {/* Author Info */}
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-sm">{authorName}</span>
+              <span className="font-semibold text-sm text-foreground">{authorName}</span>
               <Badge variant="outline" className="text-xs">
                 {authorRole}
               </Badge>
-              <span className="text-xs text-gray-500">{formatDate(comment.created_at)}</span>
+              <span className="text-xs text-muted-foreground">{formatDate(comment.created_at)}</span>
             </div>
 
             {/* Comment Content */}
-            <p className="text-sm text-gray-700 mb-2 whitespace-pre-wrap">
+            <p className="text-sm text-foreground mb-2 whitespace-pre-wrap">
               {comment.content}
             </p>
 
@@ -225,15 +225,15 @@ const CommentItem = ({ comment, onReply, onDelete, depth = 0 }) => {
 const CommentThread = ({ comments, onReply, onDelete }) => {
   if (!comments || comments.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
-        <MessageCircle className="h-12 w-12 mx-auto mb-2 text-gray-300" />
+      <div className="text-center py-8 text-muted-foreground">
+        <MessageCircle className="h-12 w-12 mx-auto mb-2 text-muted-foreground/50" />
         <p>No comments yet. Be the first to comment!</p>
       </div>
     );
   }
 
   return (
-    <div className="divide-y divide-gray-200">
+    <div className="divide-y divide-border">
       {comments.map(comment => (
         <CommentItem
           key={comment.id}

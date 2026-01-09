@@ -149,7 +149,7 @@ const AdminMentorship = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -164,7 +164,7 @@ const AdminMentorship = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -178,7 +178,7 @@ const AdminMentorship = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -187,7 +187,7 @@ const AdminMentorship = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Mentorship Management 🤝</h1>
               <p className="mt-2 opacity-90">Manage mentorships and sessions</p>
             </div>
@@ -197,12 +197,12 @@ const AdminMentorship = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -213,7 +213,7 @@ const AdminMentorship = () => {
             </div>
 
             <Tabs defaultValue="mentorships" className="w-full">
-              <TabsList>
+              <TabsList className="bg-card border border-border">
                 <TabsTrigger value="mentorships" data-testid="tab-mentorships">
                   Mentorship Requests
                 </TabsTrigger>
@@ -227,16 +227,16 @@ const AdminMentorship = () => {
 
               {/* Mentorships Tab */}
               <TabsContent value="mentorships" className="space-y-4 mt-6">
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardHeader>
-                    <CardTitle>All Mentorship Requests</CardTitle>
-                    <CardDescription>View and manage mentorship connections</CardDescription>
+                    <CardTitle className="text-foreground">All Mentorship Requests</CardTitle>
+                    <CardDescription className="text-muted-foreground">View and manage mentorship connections</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4 mb-6">
                       <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 relative">
-                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                           <Input
                             placeholder="Search by student or mentor..."
                             value={searchQuery}
@@ -266,7 +266,7 @@ const AdminMentorship = () => {
                       {filteredMentorships.map((mentorship) => (
                         <div
                           key={mentorship.id}
-                          className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                          className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
                           data-testid={`mentorship-item-${mentorship.id}`}
                         >
                           <div className="flex items-start justify-between">
@@ -278,16 +278,16 @@ const AdminMentorship = () => {
                                     `https://api.dicebear.com/7.x/avataaars/svg?seed=${mentorship.student?.email}`
                                   }
                                   alt="Student"
-                                  className="w-12 h-12 rounded-full"
+                                  className="w-12 h-12 rounded-full bg-background"
                                 />
                                 <div>
-                                  <p className="font-medium text-sm">
+                                  <p className="font-medium text-sm text-foreground">
                                     {mentorship.studentProfile?.name || mentorship.student?.email}
                                   </p>
-                                  <p className="text-xs text-gray-500">Student</p>
+                                  <p className="text-xs text-muted-foreground">Student</p>
                                 </div>
                               </div>
-                              <div className="text-gray-400 self-center">→</div>
+                              <div className="text-muted-foreground self-center">→</div>
                               <div className="flex items-center gap-3">
                                 <img
                                   src={
@@ -295,13 +295,13 @@ const AdminMentorship = () => {
                                     `https://api.dicebear.com/7.x/avataaars/svg?seed=${mentorship.mentor?.email}`
                                   }
                                   alt="Mentor"
-                                  className="w-12 h-12 rounded-full"
+                                  className="w-12 h-12 rounded-full bg-background"
                                 />
                                 <div>
-                                  <p className="font-medium text-sm">
+                                  <p className="font-medium text-sm text-foreground">
                                     {mentorship.mentorProfile?.name || mentorship.mentor?.email}
                                   </p>
-                                  <p className="text-xs text-gray-500">Mentor</p>
+                                  <p className="text-xs text-muted-foreground">Mentor</p>
                                 </div>
                               </div>
                             </div>
@@ -310,7 +310,7 @@ const AdminMentorship = () => {
                                 <Badge className={`mb-2 ${getStatusBadgeColor(mentorship.status)}`}>
                                   {mentorship.status}
                                 </Badge>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-muted-foreground">
                                   {mentorship.sessions?.length || 0} sessions
                                 </p>
                               </div>
@@ -326,7 +326,7 @@ const AdminMentorship = () => {
                         </div>
                       ))}
                       {filteredMentorships.length === 0 && (
-                        <div className="text-center py-12 text-gray-500">
+                        <div className="text-center py-12 text-muted-foreground">
                           <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
                           <p>No mentorships found</p>
                         </div>
@@ -338,30 +338,30 @@ const AdminMentorship = () => {
 
               {/* Sessions Tab */}
               <TabsContent value="sessions" className="space-y-4 mt-6">
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardHeader>
-                    <CardTitle>All Mentorship Sessions</CardTitle>
-                    <CardDescription>View all scheduled and completed sessions</CardDescription>
+                    <CardTitle className="text-foreground">All Mentorship Sessions</CardTitle>
+                    <CardDescription className="text-muted-foreground">View all scheduled and completed sessions</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="overflow-x-auto">
                       <table className="w-full">
-                        <thead className="border-b">
+                        <thead className="border-b border-border">
                           <tr className="text-left">
-                            <th className="pb-3 font-medium text-gray-700">Date</th>
-                            <th className="pb-3 font-medium text-gray-700">Duration</th>
-                            <th className="pb-3 font-medium text-gray-700">Status</th>
-                            <th className="pb-3 font-medium text-gray-700">Rating</th>
-                            <th className="pb-3 font-medium text-gray-700">Agenda</th>
+                            <th className="pb-3 font-medium text-foreground">Date</th>
+                            <th className="pb-3 font-medium text-foreground">Duration</th>
+                            <th className="pb-3 font-medium text-foreground">Status</th>
+                            <th className="pb-3 font-medium text-foreground">Rating</th>
+                            <th className="pb-3 font-medium text-foreground">Agenda</th>
                           </tr>
                         </thead>
                         <tbody>
                           {sessions.map((session) => (
-                            <tr key={session.id} className="border-b hover:bg-gray-50">
-                              <td className="py-4 text-sm">
+                            <tr key={session.id} className="border-b border-border hover:bg-muted/50 transition-colors">
+                              <td className="py-4 text-sm text-foreground">
                                 {new Date(session.scheduled_date).toLocaleString()}
                               </td>
-                              <td className="py-4 text-sm">{session.duration} min</td>
+                              <td className="py-4 text-sm text-foreground">{session.duration} min</td>
                               <td className="py-4">
                                 <Badge className={getSessionStatusColor(session.status)}>
                                   {session.status}
@@ -371,13 +371,13 @@ const AdminMentorship = () => {
                                 {session.rating ? (
                                   <div className="flex items-center gap-1">
                                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                    <span className="text-sm font-medium">{session.rating}</span>
+                                    <span className="text-sm font-medium text-foreground">{session.rating}</span>
                                   </div>
                                 ) : (
-                                  <span className="text-sm text-gray-400">N/A</span>
+                                  <span className="text-sm text-muted-foreground">N/A</span>
                                 )}
                               </td>
-                              <td className="py-4 text-sm text-gray-600">
+                              <td className="py-4 text-sm text-muted-foreground">
                                 {session.agenda || 'No agenda'}
                               </td>
                             </tr>
@@ -385,7 +385,7 @@ const AdminMentorship = () => {
                         </tbody>
                       </table>
                       {sessions.length === 0 && (
-                        <div className="text-center py-12 text-gray-500">
+                        <div className="text-center py-12 text-muted-foreground">
                           <Calendar className="w-12 h-12 mx-auto mb-3 opacity-50" />
                           <p>No sessions found</p>
                         </div>
@@ -397,17 +397,17 @@ const AdminMentorship = () => {
 
               {/* Mentors Tab */}
               <TabsContent value="mentors" className="space-y-4 mt-6">
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardHeader>
-                    <CardTitle>Active Mentors</CardTitle>
-                    <CardDescription>All mentors on the platform</CardDescription>
+                    <CardTitle className="text-foreground">Active Mentors</CardTitle>
+                    <CardDescription className="text-muted-foreground">All mentors on the platform</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       {mentors.map((mentor) => (
                         <div
                           key={mentor.id}
-                          className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                          className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
@@ -417,23 +417,23 @@ const AdminMentorship = () => {
                                   `https://api.dicebear.com/7.x/avataaars/svg?seed=${mentor.email}`
                                 }
                                 alt={mentor.name}
-                                className="w-14 h-14 rounded-full"
+                                className="w-14 h-14 rounded-full bg-background"
                               />
                               <div>
-                                <h3 className="font-semibold">{mentor.name || mentor.email}</h3>
-                                <p className="text-sm text-gray-600">{mentor.current_role || 'Mentor'}</p>
+                                <h3 className="font-semibold text-foreground">{mentor.name || mentor.email}</h3>
+                                <p className="text-sm text-muted-foreground">{mentor.current_role || 'Mentor'}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <Badge variant="outline">
+                                  <Badge variant="outline" className="border-border text-foreground">
                                     {mentor.is_available ? 'Available' : 'Unavailable'}
                                   </Badge>
                                   {mentor.rating && (
                                     <div className="flex items-center gap-1 text-sm">
                                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                      <span className="font-medium">
+                                      <span className="font-medium text-foreground">
                                         {(typeof mentor.rating === 'number' ? mentor.rating : parseFloat(mentor.rating) || 0).toFixed(1)}
                                       </span>
                                       {mentor.total_reviews && (
-                                        <span className="text-gray-500">({mentor.total_reviews})</span>
+                                        <span className="text-muted-foreground">({mentor.total_reviews})</span>
                                       )}
                                     </div>
                                   )}
@@ -442,12 +442,12 @@ const AdminMentorship = () => {
                             </div>
                             <div className="text-right">
                               {mentor.current_mentees_count !== undefined && mentor.max_mentees && (
-                                <p className="text-sm font-medium">
+                                <p className="text-sm font-medium text-foreground">
                                   {mentor.current_mentees_count} / {mentor.max_mentees} mentees
                                 </p>
                               )}
                               {mentor.total_sessions !== undefined && (
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-muted-foreground mt-1">
                                   {mentor.total_sessions} sessions completed
                                 </p>
                               )}
@@ -456,7 +456,7 @@ const AdminMentorship = () => {
                           {mentor.expertise_areas && mentor.expertise_areas.length > 0 && (
                             <div className="mt-3 flex flex-wrap gap-2">
                               {mentor.expertise_areas.map((area, idx) => (
-                                <Badge key={idx} variant="outline" className="text-xs">
+                                <Badge key={idx} variant="outline" className="text-xs border-border text-foreground">
                                   {area}
                                 </Badge>
                               ))}
@@ -465,7 +465,7 @@ const AdminMentorship = () => {
                         </div>
                       ))}
                       {mentors.length === 0 && (
-                        <div className="text-center py-12 text-gray-500">
+                        <div className="text-center py-12 text-muted-foreground">
                           <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
                           <p>No mentors found</p>
                         </div>
@@ -483,14 +483,14 @@ const AdminMentorship = () => {
 
       {/* Mentorship Details Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Mentorship Details</DialogTitle>
-            <DialogDescription>Complete mentorship information</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Mentorship Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete mentorship information</DialogDescription>
           </DialogHeader>
           {selectedMentorship && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
                 <div className="flex items-center gap-4">
                   <img
                     src={
@@ -498,16 +498,16 @@ const AdminMentorship = () => {
                       `https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedMentorship.student?.email}`
                     }
                     alt="Student"
-                    className="w-12 h-12 rounded-full"
+                    className="w-12 h-12 rounded-full bg-background border border-border"
                   />
                   <div>
-                    <p className="font-medium">
+                    <p className="font-medium text-foreground">
                       {selectedMentorship.studentProfile?.name || selectedMentorship.student?.email}
                     </p>
-                    <p className="text-sm text-gray-500">Student</p>
+                    <p className="text-sm text-muted-foreground">Student</p>
                   </div>
                 </div>
-                <div className="text-2xl text-gray-400">→</div>
+                <div className="text-2xl text-muted-foreground">→</div>
                 <div className="flex items-center gap-4">
                   <img
                     src={
@@ -515,19 +515,19 @@ const AdminMentorship = () => {
                       `https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedMentorship.mentor?.email}`
                     }
                     alt="Mentor"
-                    className="w-12 h-12 rounded-full"
+                    className="w-12 h-12 rounded-full bg-background border border-border"
                   />
                   <div>
-                    <p className="font-medium">
+                    <p className="font-medium text-foreground">
                       {selectedMentorship.mentorProfile?.name || selectedMentorship.mentor?.email}
                     </p>
-                    <p className="text-sm text-gray-500">Mentor</p>
+                    <p className="text-sm text-muted-foreground">Mentor</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm font-medium text-gray-600">Status</p>
+                <p className="text-sm font-medium text-muted-foreground">Status</p>
                 <Badge className={`mt-1 ${getStatusBadgeColor(selectedMentorship.status)}`}>
                   {selectedMentorship.status}
                 </Badge>
@@ -535,24 +535,24 @@ const AdminMentorship = () => {
 
               {selectedMentorship.request_message && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Request Message</p>
-                  <p className="text-sm mt-1 text-gray-700">{selectedMentorship.request_message}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Request Message</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedMentorship.request_message}</p>
                 </div>
               )}
 
               {selectedMentorship.goals && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Goals</p>
-                  <p className="text-sm mt-1 text-gray-700">{selectedMentorship.goals}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Goals</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedMentorship.goals}</p>
                 </div>
               )}
 
               {selectedMentorship.preferred_topics && selectedMentorship.preferred_topics.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-2">Preferred Topics</p>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">Preferred Topics</p>
                   <div className="flex flex-wrap gap-2">
                     {selectedMentorship.preferred_topics.map((topic, idx) => (
-                      <Badge key={idx} variant="outline">
+                      <Badge key={idx} variant="outline" className="border-border text-foreground">
                         {topic}
                       </Badge>
                     ))}
@@ -562,21 +562,21 @@ const AdminMentorship = () => {
 
               {selectedMentorship.sessions && selectedMentorship.sessions.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-2">Sessions ({selectedMentorship.sessions.length})</p>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">Sessions ({selectedMentorship.sessions.length})</p>
                   <div className="space-y-2">
                     {selectedMentorship.sessions.map((session) => (
-                      <div key={session.id} className="border rounded p-3 text-sm">
+                      <div key={session.id} className="border border-border rounded p-3 text-sm">
                         <div className="flex justify-between items-start mb-2">
-                          <p className="font-medium">{new Date(session.scheduled_date).toLocaleString()}</p>
+                          <p className="font-medium text-foreground">{new Date(session.scheduled_date).toLocaleString()}</p>
                           <Badge className={getSessionStatusColor(session.status)}>
                             {session.status}
                           </Badge>
                         </div>
-                        {session.agenda && <p className="text-gray-600 mb-1">{session.agenda}</p>}
+                        {session.agenda && <p className="text-muted-foreground mb-1">{session.agenda}</p>}
                         {session.rating && (
                           <div className="flex items-center gap-1 mt-2">
                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            <span className="font-medium">{session.rating}/5</span>
+                            <span className="font-medium text-foreground">{session.rating}/5</span>
                           </div>
                         )}
                       </div>
@@ -585,8 +585,8 @@ const AdminMentorship = () => {
                 </div>
               )}
 
-              <div className="border-t pt-4">
-                <p className="text-xs text-gray-500">
+              <div className="border-t border-border pt-4">
+                <p className="text-xs text-muted-foreground">
                   Requested on {new Date(selectedMentorship.requested_at).toLocaleDateString()}
                 </p>
               </div>

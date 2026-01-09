@@ -148,7 +148,7 @@ const AdminEvents = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -163,7 +163,7 @@ const AdminEvents = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -177,7 +177,7 @@ const AdminEvents = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -186,7 +186,7 @@ const AdminEvents = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Event Management 📅</h1>
               <p className="mt-2 opacity-90">Manage all events on the platform</p>
             </div>
@@ -196,12 +196,12 @@ const AdminEvents = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -212,16 +212,16 @@ const AdminEvents = () => {
             </div>
 
             {/* Events List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
-                <CardTitle>All Events</CardTitle>
-                <CardDescription>View and manage all events on the platform</CardDescription>
+                <CardTitle className="text-foreground">All Events</CardTitle>
+                <CardDescription className="text-muted-foreground">View and manage all events on the platform</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by title or location..."
                         value={searchQuery}
@@ -249,36 +249,36 @@ const AdminEvents = () => {
 
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
-                        <th className="pb-3 font-medium text-gray-700">Event Title</th>
-                        <th className="pb-3 font-medium text-gray-700">Type</th>
-                        <th className="pb-3 font-medium text-gray-700">Location</th>
-                        <th className="pb-3 font-medium text-gray-700">Date</th>
-                        <th className="pb-3 font-medium text-gray-700">Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Attendees</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">Event Title</th>
+                        <th className="pb-3 font-medium text-foreground">Type</th>
+                        <th className="pb-3 font-medium text-foreground">Location</th>
+                        <th className="pb-3 font-medium text-foreground">Date</th>
+                        <th className="pb-3 font-medium text-foreground">Status</th>
+                        <th className="pb-3 font-medium text-foreground">Attendees</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredEvents.map((event) => (
-                        <tr key={event.id} className="border-b hover:bg-gray-50" data-testid={`event-row-${event.id}`}>
-                          <td className="py-4 font-medium">{event.title}</td>
+                        <tr key={event.id} className="border-b border-border hover:bg-muted/50 transition-colors" data-testid={`event-row-${event.id}`}>
+                          <td className="py-4 font-medium text-foreground">{event.title}</td>
                           <td className="py-4">
-                            <Badge variant="outline" className="capitalize">
+                            <Badge variant="outline" className="capitalize border-border text-foreground">
                               {event.event_type}
                             </Badge>
                           </td>
-                          <td className="py-4 text-sm">
+                          <td className="py-4 text-sm text-foreground">
                             <div className="flex items-center gap-1">
                               {event.is_virtual ? (
-                                <Badge variant="outline" className="bg-blue-50">Virtual</Badge>
+                                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">Virtual</Badge>
                               ) : (
                                 <span>{event.location}</span>
                               )}
                             </div>
                           </td>
-                          <td className="py-4 text-sm">
+                          <td className="py-4 text-sm text-foreground">
                             {new Date(event.start_date).toLocaleDateString()}
                           </td>
                           <td className="py-4">
@@ -286,7 +286,7 @@ const AdminEvents = () => {
                               {event.status}
                             </Badge>
                           </td>
-                          <td className="py-4 text-sm">
+                          <td className="py-4 text-sm text-foreground">
                             {event.current_attendees_count || 0} / {event.max_attendees || '∞'}
                           </td>
                           <td className="py-4">
@@ -296,8 +296,8 @@ const AdminEvents = () => {
                                   <MoreVertical className="w-4 h-4" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuContent align="end" className="bg-card border-border">
+                                <DropdownMenuLabel className="text-foreground">Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleViewEvent(event.id)}>
                                   <Eye className="mr-2 h-4 w-4" />
@@ -315,7 +315,7 @@ const AdminEvents = () => {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                   onClick={() => handleDeleteEvent(event.id)}
-                                  className="text-red-600"
+                                  className="text-destructive"
                                 >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Delete Event
@@ -329,7 +329,7 @@ const AdminEvents = () => {
                   </table>
 
                   {filteredEvents.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <Calendar className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No events found</p>
                     </div>
@@ -345,61 +345,61 @@ const AdminEvents = () => {
 
       {/* Event Details Modal */}
       <Dialog open={showEventModal} onOpenChange={setShowEventModal}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Event Details</DialogTitle>
-            <DialogDescription>Complete event information</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Event Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete event information</DialogDescription>
           </DialogHeader>
           {selectedEvent && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-bold">{selectedEvent.title}</h3>
+                <h3 className="text-xl font-bold text-foreground">{selectedEvent.title}</h3>
                 <div className="flex gap-2 mt-2">
                   <Badge className={getStatusBadgeColor(selectedEvent.status)}>
                     {selectedEvent.status}
                   </Badge>
-                  <Badge variant="outline">{selectedEvent.event_type}</Badge>
-                  {selectedEvent.is_virtual && <Badge variant="outline" className="bg-blue-50">Virtual</Badge>}
+                  <Badge variant="outline" className="border-border text-foreground">{selectedEvent.event_type}</Badge>
+                  {selectedEvent.is_virtual && <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">Virtual</Badge>}
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 border-t border-b py-4">
+              <div className="grid grid-cols-2 gap-4 border-t border-b border-border py-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Start Date</p>
-                  <p className="text-sm mt-1">{new Date(selectedEvent.start_date).toLocaleString()}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Start Date</p>
+                  <p className="text-sm mt-1 text-foreground">{new Date(selectedEvent.start_date).toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">End Date</p>
-                  <p className="text-sm mt-1">{new Date(selectedEvent.end_date).toLocaleString()}</p>
+                  <p className="text-sm font-medium text-muted-foreground">End Date</p>
+                  <p className="text-sm mt-1 text-foreground">{new Date(selectedEvent.end_date).toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Location</p>
-                  <p className="text-sm mt-1">{selectedEvent.is_virtual ? 'Virtual Event' : selectedEvent.location}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Location</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedEvent.is_virtual ? 'Virtual Event' : selectedEvent.location}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Capacity</p>
-                  <p className="text-sm mt-1">{selectedEvent.max_attendees ? `${selectedEvent.current_attendees_count} / ${selectedEvent.max_attendees}` : 'Unlimited'}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Capacity</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedEvent.max_attendees ? `${selectedEvent.current_attendees_count} / ${selectedEvent.max_attendees}` : 'Unlimited'}</p>
                 </div>
               </div>
 
               <div>
-                <h4 className="font-semibold mb-2">Description</h4>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">{selectedEvent.description}</p>
+                <h4 className="font-semibold mb-2 text-foreground">Description</h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{selectedEvent.description}</p>
               </div>
 
               {selectedEvent.meeting_link && (
                 <div>
-                  <h4 className="font-semibold mb-2">Meeting Link</h4>
-                  <a href={selectedEvent.meeting_link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">
+                  <h4 className="font-semibold mb-2 text-foreground">Meeting Link</h4>
+                  <a href={selectedEvent.meeting_link} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
                     {selectedEvent.meeting_link}
                   </a>
                 </div>
               )}
 
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm font-medium text-gray-600">Created By</p>
-                <p className="text-sm">{selectedEvent.creator_email || 'Unknown'}</p>
-                <p className="text-xs text-gray-500 mt-1">on {new Date(selectedEvent.created_at).toLocaleDateString()}</p>
+              <div className="p-4 bg-muted/30 rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground">Created By</p>
+                <p className="text-sm text-foreground">{selectedEvent.creator_email || 'Unknown'}</p>
+                <p className="text-xs text-muted-foreground mt-1">on {new Date(selectedEvent.created_at).toLocaleDateString()}</p>
               </div>
 
               <DialogFooter>
@@ -409,7 +409,7 @@ const AdminEvents = () => {
                 <Button onClick={() => {
                   handleViewAttendees(selectedEvent.id);
                   setShowEventModal(false);
-                }}>
+                }} className="bg-primary text-primary-foreground hover:bg-primary/90">
                   <Users className="w-4 h-4 mr-2" />
                   View Attendees
                 </Button>
@@ -421,10 +421,10 @@ const AdminEvents = () => {
 
       {/* Attendees Modal */}
       <Dialog open={showAttendeesModal} onOpenChange={setShowAttendeesModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Event Attendees</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Event Attendees</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               {selectedEvent?.attendees?.length || 0} attending
             </DialogDescription>
           </DialogHeader>
@@ -432,21 +432,21 @@ const AdminEvents = () => {
             <div className="space-y-3">
               {selectedEvent.attendees && selectedEvent.attendees.length > 0 ? (
                 selectedEvent.attendees.map(attendee => (
-                  <div key={attendee.id || attendee.user_id} className="flex items-center gap-3 p-3 border rounded-lg">
+                  <div key={attendee.id || attendee.user_id} className="flex items-center gap-3 p-3 border border-border rounded-lg bg-background/50">
                     <img
                       src={attendee.photo_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${attendee.email}`}
                       alt={attendee.name || attendee.email}
-                      className="w-10 h-10 rounded-full"
+                      className="w-10 h-10 rounded-full bg-background"
                     />
                     <div className="flex-1">
-                      <p className="font-medium text-sm">{attendee.name || attendee.email}</p>
-                      <p className="text-xs text-gray-500">{attendee.email}</p>
+                      <p className="font-medium text-sm text-foreground">{attendee.name || attendee.email}</p>
+                      <p className="text-xs text-muted-foreground">{attendee.email}</p>
                     </div>
-                    <Badge variant="outline" className="capitalize">{attendee.role || 'User'}</Badge>
+                    <Badge variant="outline" className="capitalize border-border text-foreground">{attendee.role || 'User'}</Badge>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                   <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
                   <p>No attendees yet</p>
                 </div>

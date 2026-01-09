@@ -130,7 +130,7 @@ const MainNavbar = () => {
   };
 
   return (
-    <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 shadow-lg shadow-gray-100/20 dark:shadow-gray-900/20 transition-colors duration-300" data-testid="main-navbar">
+    <nav className="bg-white/80 dark:bg-background/80 backdrop-blur-2xl border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 shadow-lg shadow-gray-100/20 dark:shadow-gray-900/20 transition-colors duration-300" data-testid="main-navbar">
       {/* Gradient Line at Top */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
       
@@ -183,12 +183,12 @@ const MainNavbar = () => {
                     <ChevronDown className="h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-white/90 backdrop-blur-xl border-gray-200/50 shadow-xl shadow-gray-200/50 rounded-xl">
+                <DropdownMenuContent align="end" className="w-56 bg-white/90 dark:bg-popover/90 backdrop-blur-xl border-gray-200/50 dark:border-gray-700/50 shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 rounded-xl">
                   <DropdownMenuLabel className="text-gray-500">Advanced Features</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {advancedFeatures.map((feature) => (
                     <DropdownMenuItem key={feature.path} onClick={() => navigate(feature.path)} className="rounded-lg !bg-transparent hover:!bg-gradient-to-r hover:!from-blue-50 hover:!to-purple-50 focus:!bg-gradient-to-r focus:!from-blue-50 focus:!to-purple-50 data-[highlighted]:!bg-gradient-to-r data-[highlighted]:!from-blue-50 data-[highlighted]:!to-purple-50 cursor-pointer transition-all duration-200">
-                      <feature.icon className="mr-2 h-4 w-4 text-blue-600" />
+                      <feature.icon className="mr-2 h-4 w-4 text-blue-600 drop-shadow-[0_0_5px_rgba(37,99,235,0.5)]" />
                       {feature.name}
                     </DropdownMenuItem>
                   ))}
@@ -240,7 +240,7 @@ const MainNavbar = () => {
                       </Avatar>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 bg-white/90 backdrop-blur-xl border-gray-200/50 shadow-xl shadow-gray-200/50 rounded-xl">
+                  <DropdownMenuContent align="end" className="w-56 bg-white/90 dark:bg-popover/90 backdrop-blur-xl border-gray-200/50 dark:border-gray-700/50 shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 rounded-xl">
                     <DropdownMenuLabel>
                       <div className="flex flex-col">
                         <span className="text-sm font-semibold text-gray-900">{user?.email}</span>
@@ -249,20 +249,20 @@ const MainNavbar = () => {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => navigate('/dashboard')} className="rounded-lg !bg-transparent hover:!bg-gradient-to-r hover:!from-blue-50 hover:!to-purple-50 focus:!bg-gradient-to-r focus:!from-blue-50 focus:!to-purple-50 data-[highlighted]:!bg-gradient-to-r data-[highlighted]:!from-blue-50 data-[highlighted]:!to-purple-50 cursor-pointer transition-all duration-200">
-                      <LayoutDashboard className="mr-2 h-4 w-4 text-blue-600" />
+                      <LayoutDashboard className="mr-2 h-4 w-4 text-blue-600 drop-shadow-[0_0_5px_rgba(37,99,235,0.5)]" />
                       Dashboard
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate('/profile')} className="rounded-lg !bg-transparent hover:!bg-gradient-to-r hover:!from-blue-50 hover:!to-purple-50 focus:!bg-gradient-to-r focus:!from-blue-50 focus:!to-purple-50 data-[highlighted]:!bg-gradient-to-r data-[highlighted]:!from-blue-50 data-[highlighted]:!to-purple-50 cursor-pointer transition-all duration-200">
-                      <User className="mr-2 h-4 w-4 text-purple-600" />
+                      <User className="mr-2 h-4 w-4 text-purple-600 drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]" />
                       My Profile
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate('/settings/notifications')} className="rounded-lg !bg-transparent hover:!bg-gradient-to-r hover:!from-blue-50 hover:!to-purple-50 focus:!bg-gradient-to-r focus:!from-blue-50 focus:!to-purple-50 data-[highlighted]:!bg-gradient-to-r data-[highlighted]:!from-blue-50 data-[highlighted]:!to-purple-50 cursor-pointer transition-all duration-200">
-                      <Settings className="mr-2 h-4 w-4 text-gray-600" />
+                      <Settings className="mr-2 h-4 w-4 text-gray-600 dark:text-gray-400" />
                       Notification Settings
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout} className="rounded-lg !bg-transparent hover:!bg-red-50 focus:!bg-red-50 data-[highlighted]:!bg-red-50 cursor-pointer text-red-600 transition-all duration-200">
-                      <LogOut className="mr-2 h-4 w-4" />
+                      <LogOut className="mr-2 h-4 w-4 drop-shadow-[0_0_2px_rgba(239,68,68,0.5)]" />
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -318,8 +318,8 @@ const MainNavbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive(link.path)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                    ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
               >
                 {link.name}
@@ -337,7 +337,7 @@ const MainNavbar = () => {
                     key={feature.path}
                     to={feature.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <feature.icon className="mr-2 h-4 w-4" />
                     {feature.name}

@@ -156,11 +156,11 @@ const PostDetails = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
-          <div className="animate-pulse space-y-4">
-            <div className="h-48 bg-gray-200 rounded-lg" />
-            <div className="h-32 bg-gray-200 rounded-lg" />
-            <div className="h-32 bg-gray-200 rounded-lg" />
+        <div className="container mx-auto px-4 py-8 max-w-4xl bg-background">
+          <div className="animate-pulse space-y-6">
+            <div className="h-48 bg-muted rounded-xl" />
+            <div className="h-32 bg-muted rounded-xl" />
+            <div className="h-32 bg-muted rounded-xl" />
           </div>
         </div>
       </MainLayout>
@@ -173,17 +173,18 @@ const PostDetails = () => {
     <MainLayout>
       <div className="container mx-auto px-4 py-8 max-w-4xl" data-testid="post-details-page">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-8">
           <Button
             variant="ghost"
             onClick={() => navigate('/forum')}
+            className="text-muted-foreground hover:text-foreground hover:bg-muted"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Forum
           </Button>
           
           <div className="flex gap-2">
-            <Button variant="outline" size="icon" onClick={handleShare}>
+            <Button variant="outline" size="icon" onClick={handleShare} className="border-border text-muted-foreground hover:text-foreground">
               <Share2 className="h-4 w-4" />
             </Button>
             {isAuthor && (
@@ -191,7 +192,7 @@ const PostDetails = () => {
                 variant="outline"
                 size="icon"
                 onClick={() => setShowDeleteDialog(true)}
-                className="text-red-600 hover:text-red-700"
+                className="text-destructive border-border hover:bg-destructive/10"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -200,24 +201,24 @@ const PostDetails = () => {
         </div>
 
         {/* Post */}
-        <div className="mb-8">
+        <div className="mb-10">
           <PostCard post={post} showFullContent />
         </div>
 
         {/* Comments Section */}
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">
+        <Card className="bg-card border-border shadow-sm">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-foreground mb-6">
               Comments ({post.comments_count || 0})
             </h2>
 
             {/* Comment Form */}
-            <form onSubmit={handleCommentSubmit} className="mb-6">
+            <form onSubmit={handleCommentSubmit} className="mb-10">
               <Textarea
-                placeholder="Write a comment..."
+                placeholder="Share your thoughts or ask a question..."
                 value={commentContent}
                 onChange={(e) => setCommentContent(e.target.value)}
-                className="mb-2"
+                className="mb-3 bg-background border-border focus:ring-primary h-32"
                 data-testid="comment-textarea"
               />
               <div className="flex justify-end">
@@ -225,11 +226,14 @@ const PostDetails = () => {
                   type="submit"
                   disabled={submitting || !commentContent.trim()}
                   data-testid="submit-comment-button"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
                 >
                   {submitting ? 'Posting...' : 'Post Comment'}
                 </Button>
               </div>
             </form>
+
+            <Separator className="mb-8 bg-border" />
 
             {/* Comments Thread */}
             <CommentThread
@@ -242,18 +246,18 @@ const PostDetails = () => {
 
         {/* Delete Confirmation Dialog */}
         <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-          <AlertDialogContent>
+          <AlertDialogContent className="bg-card border-border">
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete Post</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to delete this post? This action cannot be undone.
+              <AlertDialogTitle className="text-foreground">Delete Post</AlertDialogTitle>
+              <AlertDialogDescription className="text-muted-foreground">
+                Are you sure you want to delete this post? This action cannot be undone and all comments will be removed.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="border-border text-foreground hover:bg-muted">Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDeletePost}
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
                 Delete Post
               </AlertDialogAction>

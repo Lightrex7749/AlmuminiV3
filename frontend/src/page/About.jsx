@@ -69,17 +69,16 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white py-20 px-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#3D52A0] to-[#7091E6] text-white py-20 px-4 shadow-lg">
         <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
         
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         
         <BlurFade delay={0.2}>
           <motion.div
@@ -91,7 +90,7 @@ const About = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="about-title">
               About AlumUnity
             </h1>
-            <p className="text-xl text-blue-100 leading-relaxed" data-testid="about-description">
+            <p className="text-xl text-blue-50 leading-relaxed" data-testid="about-description">
               Connecting alumni, students, and recruiters to build a thriving professional community.
               We're on a mission to help every member achieve their career goals through meaningful connections.
             </p>
@@ -100,7 +99,7 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => {
@@ -115,11 +114,11 @@ const About = () => {
                     className="text-center"
                     data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
                   >
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full mb-4">
-                      <Icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                      <Icon className="w-8 h-8 text-primary" />
                     </div>
-                    <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{stat.value}</div>
-                    <div className="text-gray-600 dark:text-gray-400">{stat.label}</div>
+                    <div className="text-3xl font-bold text-foreground mb-2">{stat.value}</div>
+                    <div className="text-muted-foreground">{stat.label}</div>
                   </motion.div>
                 </StaggerItem>
               );
@@ -129,7 +128,7 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 px-4 bg-white dark:bg-gray-900">
+      <section className="py-20 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
           <BlurFade delay={0.3}>
             <motion.div
@@ -138,8 +137,8 @@ const About = () => {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">Our Mission</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Our Mission</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 To create a vibrant ecosystem where alumni can give back, students can learn and grow, 
                 and recruiters can find exceptional talent. We're building more than just a platform – 
                 we're nurturing a community that thrives on collaboration, mentorship, and mutual success.
@@ -159,17 +158,17 @@ const About = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800"
+                      className="flex gap-4 p-4 rounded-xl bg-card border border-border shadow-sm"
                       data-testid={`value-${value.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center">
-                          <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Icon className="w-6 h-6 text-primary" />
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{value.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
+                        <h3 className="text-xl font-semibold text-foreground mb-2">{value.title}</h3>
+                        <p className="text-muted-foreground">{value.description}</p>
                       </div>
                     </motion.div>
                   </TiltCard>
@@ -181,7 +180,7 @@ const About = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+      <section className="py-20 px-4 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <BlurFade delay={0.2}>
             <motion.div
@@ -190,8 +189,8 @@ const About = () => {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">What We Offer</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">What We Offer</h2>
+              <p className="text-lg text-muted-foreground">
                 Comprehensive tools and features to support your professional journey
               </p>
             </motion.div>
@@ -208,15 +207,15 @@ const About = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="relative bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow h-full"
+                      className="relative bg-card p-6 rounded-xl border border-border hover:shadow-lg transition-shadow h-full"
                       data-testid={`feature-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       <BorderBeam size={100} duration={12} delay={index * 2} />
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center mb-4">
-                        <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <Icon className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">{feature.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
+                      <p className="text-muted-foreground">{feature.description}</p>
                     </motion.div>
                   </GlowBorderCard>
                 </StaggerItem>
@@ -227,10 +226,10 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden py-20 px-4 bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white">
+      <section className="relative overflow-hidden py-20 px-4 bg-gradient-to-br from-[#3D52A0] to-[#7091E6] text-white shadow-lg">
         {/* Animated gradient orbs */}
-        <div className="absolute top-10 right-20 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 left-20 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute top-10 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 left-20 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
         
         <BlurFade delay={0.3}>
           <motion.div
@@ -240,21 +239,21 @@ const About = () => {
             className="relative z-10 max-w-4xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Community Today</h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-xl text-blue-50 mb-8">
               Be part of a network that's shaping the future of professional growth
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ShineButton>
                 <a
                   href="/register"
-                  className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-blue-600 bg-white rounded-lg hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-[#3D52A0] bg-white rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   Get Started Free
                 </a>
               </ShineButton>
               <a
                 href="/login"
-                className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-blue-600 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-[#3D52A0] transition-colors"
               >
                 Sign In
               </a>

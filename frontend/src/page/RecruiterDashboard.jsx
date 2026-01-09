@@ -54,7 +54,7 @@ const RecruiterDashboard = () => {
   // Show error state
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -116,7 +116,7 @@ const RecruiterDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
       
       <div className="flex flex-1">
@@ -126,7 +126,7 @@ const RecruiterDashboard = () => {
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Welcome Section */}
             <BlurFade delay={0.1}>
-              <div className="relative overflow-hidden bg-gradient-to-r from-green-600 to-green-800 dark:from-green-700 dark:to-emerald-900 rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative overflow-hidden bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
                 <BorderBeam size={250} duration={12} delay={9} />
                 <h1 className="text-3xl font-bold">Welcome back, Recruiter! 💼</h1>
                 <p className="mt-2 opacity-90">
@@ -143,19 +143,19 @@ const RecruiterDashboard = () => {
                   return (
                     <StaggerItem key={index}>
                       <SpotlightCard className="h-full">
-                        <Card className="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/30 dark:to-emerald-800/30 border-green-200/50 dark:border-green-700/50 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 h-full">
+                        <Card className="bg-card border-border hover:shadow-lg hover:scale-[1.02] transition-all duration-300 h-full">
                           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium dark:text-gray-200">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
                               {stat.title}
                             </CardTitle>
-                            <Icon className="h-4 w-4 text-green-600 dark:text-green-400" />
+                            <Icon className="h-4 w-4 text-primary" />
                           </CardHeader>
                           <CardContent>
-                            <div className="text-2xl font-bold dark:text-white">{stat.value}</div>
+                            <div className="text-2xl font-bold text-foreground">{stat.value}</div>
                             <p className={`text-xs mt-1 ${
-                              stat.changeType === 'positive' ? 'text-green-600 dark:text-green-400' :
-                              stat.changeType === 'negative' ? 'text-red-600 dark:text-red-400' :
-                              'text-gray-600 dark:text-gray-400'
+                              stat.changeType === 'positive' ? 'text-green-600' :
+                              stat.changeType === 'negative' ? 'text-red-600' :
+                              'text-muted-foreground'
                             }`}>
                               {stat.change}
                             </p>
@@ -171,27 +171,27 @@ const RecruiterDashboard = () => {
             {/* Quick Actions */}
             <BlurFade delay={0.3}>
               <SpotlightCard>
-                <Card className="dark:bg-gray-800/50 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card border-border hover:shadow-lg transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="dark:text-white">Quick Actions</CardTitle>
-                    <CardDescription className="dark:text-gray-400">Manage your recruitment activities</CardDescription>
+                    <CardTitle className="text-foreground">Quick Actions</CardTitle>
+                    <CardDescription className="text-muted-foreground">Manage your recruitment activities</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <Link to="/jobs/post" className="p-4 border dark:border-gray-700 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:border-green-500 dark:hover:border-green-600 transition-all duration-300 group">
-                        <Briefcase className="h-8 w-8 text-green-600 dark:text-green-400 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">Post New Job</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Create a new job posting</div>
+                      <Link to="/jobs/post" className="p-4 border border-border rounded-lg hover:bg-muted/50 hover:border-primary transition-all duration-300 group">
+                        <Briefcase className="h-8 w-8 text-primary mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <div className="text-sm font-medium text-foreground">Post New Job</div>
+                        <div className="text-xs text-muted-foreground mt-1">Create a new job posting</div>
                       </Link>
-                      <Link to="/directory" className="p-4 border dark:border-gray-700 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-500 dark:hover:border-blue-600 transition-all duration-300 group">
-                        <Users className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">Browse Alumni</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Find qualified candidates</div>
+                      <Link to="/directory" className="p-4 border border-border rounded-lg hover:bg-muted/50 hover:border-primary transition-all duration-300 group">
+                        <Users className="h-8 w-8 text-primary mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <div className="text-sm font-medium text-foreground">Browse Alumni</div>
+                        <div className="text-xs text-muted-foreground mt-1">Find qualified candidates</div>
                       </Link>
-                      <Link to="/jobs/all-applications" className="p-4 border dark:border-gray-700 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-500 dark:hover:border-purple-600 transition-all duration-300 group" data-testid="view-all-applications-card">
-                        <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">View All Applications</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Manage all job applications</div>
+                      <Link to="/jobs/all-applications" className="p-4 border border-border rounded-lg hover:bg-muted/50 hover:border-primary transition-all duration-300 group" data-testid="view-all-applications-card">
+                        <FileText className="h-8 w-8 text-primary mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <div className="text-sm font-medium text-foreground">View All Applications</div>
+                        <div className="text-xs text-muted-foreground mt-1">Manage all job applications</div>
                       </Link>
                     </div>
                   </CardContent>
@@ -203,34 +203,34 @@ const RecruiterDashboard = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Posted Jobs */}
                 <SpotlightCard>
-                  <Card className="dark:bg-gray-800/50 dark:border-gray-700 hover:shadow-lg transition-all duration-300 h-full">
+                  <Card className="bg-card border-border hover:shadow-lg transition-all duration-300 h-full">
                     <CardHeader>
-                      <CardTitle className="dark:text-white">Your Posted Jobs</CardTitle>
-                      <CardDescription className="dark:text-gray-400">Manage your active job postings</CardDescription>
+                      <CardTitle className="text-foreground">Your Posted Jobs</CardTitle>
+                      <CardDescription className="text-muted-foreground">Manage your active job postings</CardDescription>
                     </CardHeader>
                     <CardContent>
                       {loading ? (
                         <div className="text-center py-8">
-                          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 dark:border-green-400"></div>
-                          <p className="mt-2 text-gray-600 dark:text-gray-400">Loading...</p>
+                          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                          <p className="mt-2 text-muted-foreground">Loading...</p>
                         </div>
                       ) : postedJobs.length > 0 ? (
                         <div className="space-y-3">
                           {postedJobs.slice(0, 5).map(job => {
                             const jobApplications = allApplications.filter(app => app.job_id === job.id);
                             return (
-                              <div key={job.id} className="p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300">
+                              <div key={job.id} className="p-3 border border-border rounded-lg hover:bg-muted/50 hover:border-primary/50 transition-all duration-300">
                                 <div className="flex items-start justify-between">
                                   <div className="flex-1">
-                                    <p className="font-medium text-sm dark:text-white">{job.title}</p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">{job.company}</p>
-                                    <div className="flex gap-4 mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                    <p className="font-medium text-sm text-foreground">{job.title}</p>
+                                    <p className="text-xs text-muted-foreground">{job.company}</p>
+                                    <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
                                       <span>👁️ {job.views_count || 0} views</span>
                                       <span>📄 {jobApplications.length} applications</span>
                                     </div>
                                   </div>
                                   <span className={`px-2 py-1 rounded text-xs font-medium ${
-                                    job.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                                    job.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-muted text-muted-foreground'
                                   }`}>
                                     {job.status}
                                   </span>
@@ -239,7 +239,7 @@ const RecruiterDashboard = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline" 
-                                    className="flex-1 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 hover:border-green-500 transition-colors duration-300"
+                                    className="flex-1"
                                     onClick={() => navigate(`/jobs/${job.id}/applications`)}
                                     data-testid={`view-applications-btn-${job.id}`}
                                   >
@@ -248,7 +248,7 @@ const RecruiterDashboard = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline" 
-                                    className="flex-1 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 hover:border-green-500 transition-colors duration-300"
+                                    className="flex-1"
                                     onClick={() => navigate(`/jobs/edit/${job.id}`)}
                                     data-testid={`edit-job-btn-${job.id}`}
                                   >
@@ -258,15 +258,15 @@ const RecruiterDashboard = () => {
                               </div>
                             );
                           })}
-                          <Button asChild variant="outline" className="w-full dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 hover:border-green-500 transition-colors duration-300" size="sm">
+                          <Button asChild variant="outline" className="w-full" size="sm">
                             <Link to="/jobs/manage">View All Jobs</Link>
                           </Button>
                         </div>
                       ) : (
-                        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                        <div className="text-center py-8 text-muted-foreground">
                           <Briefcase className="h-12 w-12 mx-auto mb-3 opacity-50" />
                           <p className="text-sm">No jobs posted yet</p>
-                          <Button asChild size="sm" className="mt-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600">
+                          <Button asChild size="sm" className="mt-3">
                             <Link to="/jobs/post">Post Your First Job</Link>
                           </Button>
                         </div>
@@ -277,32 +277,32 @@ const RecruiterDashboard = () => {
 
                 {/* Recent Applications */}
                 <SpotlightCard>
-                  <Card className="dark:bg-gray-800/50 dark:border-gray-700 hover:shadow-lg transition-all duration-300 h-full">
+                  <Card className="bg-card border-border hover:shadow-lg transition-all duration-300 h-full">
                     <CardHeader>
-                      <CardTitle className="dark:text-white">Recent Applications</CardTitle>
-                      <CardDescription className="dark:text-gray-400">Latest applications to your jobs</CardDescription>
+                      <CardTitle className="text-foreground">Recent Applications</CardTitle>
+                      <CardDescription className="text-muted-foreground">Latest applications to your jobs</CardDescription>
                     </CardHeader>
                     <CardContent>
                       {loading ? (
                         <div className="text-center py-8">
-                          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 dark:border-green-400"></div>
-                          <p className="mt-2 text-gray-600 dark:text-gray-400">Loading...</p>
+                          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                          <p className="mt-2 text-muted-foreground">Loading...</p>
                         </div>
                       ) : recentApplications.length > 0 ? (
                         <div className="space-y-3">
                           {recentApplications.map(app => {
                             const job = postedJobs.find(j => j.id === app.job_id);
                             return (
-                              <div key={app.id} className="flex items-start justify-between p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300">
+                              <div key={app.id} className="flex items-start justify-between p-3 border border-border rounded-lg hover:bg-muted/50 hover:border-primary/50 transition-all duration-300">
                                 <div className="flex-1">
-                                  <p className="font-medium text-sm dark:text-white">Application for {job?.title || 'Job'}</p>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">Applicant ID: {app.applicant_id}</p>
+                                  <p className="font-medium text-sm text-foreground">Application for {job?.title || 'Job'}</p>
+                                  <p className="text-xs text-muted-foreground">Applicant ID: {app.applicant_id}</p>
                                   <div className="mt-2">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                                      app.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300' :
-                                      app.status === 'reviewed' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300' :
-                                      app.status === 'shortlisted' ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' :
-                                      'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
+                                      app.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                      app.status === 'reviewed' ? 'bg-blue-100 text-blue-800' :
+                                      app.status === 'shortlisted' ? 'bg-green-100 text-green-800' :
+                                      'bg-red-100 text-red-800'
                                     }`}>
                                       {app.status}
                                     </span>
@@ -311,7 +311,6 @@ const RecruiterDashboard = () => {
                                 <Button 
                                   size="sm" 
                                   variant="outline"
-                                  className="dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 hover:border-green-500 transition-colors duration-300"
                                   onClick={() => navigate(`/jobs/${app.job_id}/applications`)}
                                   data-testid={`review-application-btn-${app.id}`}
                                 >
@@ -322,7 +321,7 @@ const RecruiterDashboard = () => {
                           })}
                         </div>
                       ) : (
-                        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                        <div className="text-center py-8 text-muted-foreground">
                           <FileText className="h-12 w-12 mx-auto mb-3 opacity-50" />
                           <p className="text-sm">No applications yet</p>
                           <p className="text-xs mt-1">Applications will appear here</p>
@@ -337,26 +336,26 @@ const RecruiterDashboard = () => {
             {/* Job Performance */}
             <BlurFade delay={0.5}>
               <SpotlightCard>
-                <Card className="dark:bg-gray-800/50 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+                <Card className="bg-card border-border hover:shadow-lg transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="dark:text-white">Job Performance Analytics</CardTitle>
-                    <CardDescription className="dark:text-gray-400">Overview of your recruitment metrics</CardDescription>
+                    <CardTitle className="text-foreground">Job Performance Analytics</CardTitle>
+                    <CardDescription className="text-muted-foreground">Overview of your recruitment metrics</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="text-center p-4 border dark:border-gray-700 rounded-lg bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/30 dark:to-emerald-800/30 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
-                        <div className="text-3xl font-bold text-green-600 dark:text-green-400">{activeJobs.length}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Active Jobs</div>
+                      <div className="text-center p-4 border border-border rounded-lg bg-background/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+                        <div className="text-3xl font-bold text-primary">{activeJobs.length}</div>
+                        <div className="text-sm text-muted-foreground mt-1">Active Jobs</div>
                       </div>
-                      <div className="text-center p-4 border dark:border-gray-700 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-800/30 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
-                        <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{totalApplications}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Total Applications</div>
+                      <div className="text-center p-4 border border-border rounded-lg bg-background/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+                        <div className="text-3xl font-bold text-primary">{totalApplications}</div>
+                        <div className="text-sm text-muted-foreground mt-1">Total Applications</div>
                       </div>
-                      <div className="text-center p-4 border dark:border-gray-700 rounded-lg bg-gradient-to-br from-purple-50 to-violet-100 dark:from-purple-900/30 dark:to-violet-800/30 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
-                        <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+                      <div className="text-center p-4 border border-border rounded-lg bg-background/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+                        <div className="text-3xl font-bold text-primary">
                           {totalViews > 0 && activeJobs.length > 0 ? Math.round((totalApplications / totalViews) * 100) : 0}%
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Application Rate</div>
+                        <div className="text-sm text-muted-foreground mt-1">Application Rate</div>
                       </div>
                     </div>
                   </CardContent>

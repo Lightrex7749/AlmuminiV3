@@ -1,25 +1,24 @@
 import { useState, useEffect } from 'react';
-import { X, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { directoryService } from '@/services';
 
 const FilterSection = ({ title, isOpen, onToggle, children }) => (
-  <div className="border-b border-gray-200 pb-4">
+  <div className="border-b border-border pb-4">
     <button
       onClick={onToggle}
       className="flex items-center justify-between w-full py-2 text-left"
     >
-      <h3 className="font-semibold text-gray-900">{title}</h3>
+      <h3 className="font-semibold text-foreground">{title}</h3>
       {isOpen ? (
-        <ChevronUp className="h-4 w-4 text-gray-500" />
+        <ChevronUp className="h-4 w-4 text-muted-foreground" />
       ) : (
-        <ChevronDown className="h-4 w-4 text-gray-500" />
+        <ChevronDown className="h-4 w-4 text-muted-foreground" />
       )}
     </button>
     {isOpen && <div className="mt-3 space-y-2">{children}</div>}
@@ -133,31 +132,31 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
   // Show loading state while fetching filter options
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-card border border-border rounded-lg p-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-gray-900">Filters</h2>
+          <h2 className="text-lg font-bold text-foreground">Filters</h2>
         </div>
         <div className="space-y-4">
-          <div className="h-8 bg-gray-200 rounded animate-pulse" />
-          <div className="h-8 bg-gray-200 rounded animate-pulse" />
-          <div className="h-8 bg-gray-200 rounded animate-pulse" />
+          <div className="h-8 bg-muted rounded animate-pulse" />
+          <div className="h-8 bg-muted rounded animate-pulse" />
+          <div className="h-8 bg-muted rounded animate-pulse" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
+    <div className="bg-card border border-border rounded-lg p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-900">Filters</h2>
+        <h2 className="text-lg font-bold text-foreground">Filters</h2>
         {activeFiltersCount > 0 && (
           <Button
             data-testid="clear-filters-button"
             variant="ghost"
             size="sm"
             onClick={onClearFilters}
-            className="text-blue-600 hover:text-blue-700"
+            className="text-primary hover:text-primary/80"
           >
             Clear All ({activeFiltersCount})
           </Button>
@@ -173,7 +172,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
             onToggle={() => toggleSection('verified')}
           >
             <div className="flex items-center justify-between">
-              <Label htmlFor="verified-toggle" className="text-sm font-normal">
+              <Label htmlFor="verified-toggle" className="text-sm font-normal text-foreground">
                 Show only verified alumni
               </Label>
               <Switch
@@ -192,7 +191,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
             onToggle={() => toggleSection('company')}
           >
             {companies.length === 0 ? (
-              <p className="text-sm text-gray-500">No companies available</p>
+              <p className="text-sm text-muted-foreground">No companies available</p>
             ) : (
               companies.map(company => (
                 <div key={company} className="flex items-center space-x-2">
@@ -204,7 +203,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                   />
                   <label
                     htmlFor={`company-${company}`}
-                    className="text-sm text-gray-700 cursor-pointer flex-1"
+                    className="text-sm text-foreground cursor-pointer flex-1"
                   >
                     {company}
                   </label>
@@ -221,7 +220,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
           >
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {skills.length === 0 ? (
-                <p className="text-sm text-gray-500">No skills available</p>
+                <p className="text-sm text-muted-foreground">No skills available</p>
               ) : (
                 skills.slice(0, 15).map(skill => (
                   <div key={skill} className="flex items-center space-x-2">
@@ -233,7 +232,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     />
                     <label
                       htmlFor={`skill-${skill}`}
-                      className="text-sm text-gray-700 cursor-pointer flex-1"
+                      className="text-sm text-foreground cursor-pointer flex-1"
                     >
                       {skill}
                     </label>
@@ -250,7 +249,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
             onToggle={() => toggleSection('location')}
           >
             {locations.length === 0 ? (
-              <p className="text-sm text-gray-500">No locations available</p>
+              <p className="text-sm text-muted-foreground">No locations available</p>
             ) : (
               locations.map(location => (
                 <div key={location} className="flex items-center space-x-2">
@@ -262,7 +261,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                   />
                   <label
                     htmlFor={`location-${location}`}
-                    className="text-sm text-gray-700 cursor-pointer flex-1"
+                    className="text-sm text-foreground cursor-pointer flex-1"
                   >
                     {location}
                   </label>
@@ -287,7 +286,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                 onValueChange={handleYearRangeChange}
                 className="w-full"
               />
-              <div className="flex justify-between text-sm text-gray-600">
+              <div className="flex justify-between text-sm text-muted-foreground">
                 <span>{filters.yearRange?.[0] || minYear}</span>
                 <span>{filters.yearRange?.[1] || maxYear}</span>
               </div>
@@ -301,7 +300,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
             onToggle={() => toggleSection('role')}
           >
             {roles.length === 0 ? (
-              <p className="text-sm text-gray-500">No roles available</p>
+              <p className="text-sm text-muted-foreground">No roles available</p>
             ) : (
               roles.map(role => (
                 <div key={role} className="flex items-center space-x-2">
@@ -313,7 +312,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                   />
                   <label
                     htmlFor={`role-${role}`}
-                    className="text-sm text-gray-700 cursor-pointer flex-1"
+                    className="text-sm text-foreground cursor-pointer flex-1"
                   >
                     {role}
                   </label>

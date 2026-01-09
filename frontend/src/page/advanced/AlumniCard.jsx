@@ -90,8 +90,8 @@ const AlumniCard = () => {
 
   const getConfidenceBadge = (score) => {
     if (score >= 85) return <Badge className="bg-green-100 text-green-800">High Confidence ({score}%)</Badge>;
-    if (score >= 60) return <Badge className="bg-yellow-100 text-yellow-800">Medium Confidence ({score}%)</Badge>;
-    return <Badge className="bg-red-100 text-red-800">Low Confidence ({score}%)</Badge>;
+    if (score >= 60) return <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">Medium Confidence ({score}%)</Badge>;
+    return <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">Low Confidence ({score}%)</Badge>;
   };
 
   const handleGenerate = async () => {
@@ -184,7 +184,7 @@ const AlumniCard = () => {
             <CreditCard className="h-10 w-10 text-blue-600" />
             Digital Alumni ID Card
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-muted-foreground text-lg">
             Your official digital alumni identification card.
           </p>
         </div>
@@ -202,7 +202,7 @@ const AlumniCard = () => {
               <Card>
                 <CardContent className="py-20 text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-                  <p className="mt-4 text-gray-600">Loading your card...</p>
+                  <p className="mt-4 text-muted-foreground">Loading your card...</p>
                 </CardContent>
               </Card>
             ) : !cardData ? (
@@ -210,7 +210,7 @@ const AlumniCard = () => {
                 <CardContent className="py-20 text-center">
                   <CreditCard className="h-16 w-16 mx-auto text-gray-300 mb-4" />
                   <h3 className="text-xl font-semibold mb-2">No Card Found</h3>
-                  <p className="text-gray-600 mb-6">You don't have a digital alumni card yet.</p>
+                  <p className="text-muted-foreground mb-6">You don't have a digital alumni card yet.</p>
                   <Button onClick={handleGenerate} size="lg">
                     Generate Digital ID Card
                   </Button>
@@ -342,54 +342,54 @@ const AlumniCard = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">Validation Status:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">Validation Status:</span>
                           <Badge className={
                             cardData.ai_validation_status === 'verified' 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-yellow-100 text-yellow-800'
+                              : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
                           }>
                             {cardData.ai_validation_status}
                           </Badge>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">AI Confidence:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">AI Confidence:</span>
                           {getConfidenceBadge(cardData.ai_confidence_score)}
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">Duplicate Check:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">Duplicate Check:</span>
                           <Badge className={
                             cardData.duplicate_check_passed 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-100 text-red-800'
+                              : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                           }>
                             {cardData.duplicate_check_passed ? 'Passed' : 'Failed'}
                           </Badge>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">Signature Verified:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">Signature Verified:</span>
                           <Badge className={
                             cardData.signature_verified 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-100 text-red-800'
+                              : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                           }>
                             {cardData.signature_verified ? 'Valid' : 'Invalid'}
                           </Badge>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">Total Verifications:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">Total Verifications:</span>
                           <Badge variant="outline" className="flex items-center gap-1">
                             <TrendingUp className="h-3 w-3" />
                             {cardData.verification_count || 0}
                           </Badge>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">Last Verified:</span>
+                        <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                          <span className="text-sm font-medium text-foreground">Last Verified:</span>
                           <Badge variant="outline" className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
                             {cardData.last_verified 
@@ -465,18 +465,18 @@ const AlumniCard = () => {
 
                 {/* Verification Result */}
                 {verificationResult && (
-                  <Card className={verificationResult.verified ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}>
+                  <Card className={verificationResult.verified ? 'border-green-500 bg-green-50 dark:bg-green-900/20 dark:border-green-800' : 'border-red-500 bg-red-50 dark:bg-red-900/20 dark:border-red-800'}>
                     <CardContent className="pt-6 space-y-4">
                       {verificationResult.verified ? (
                         <>
-                          <div className="flex items-center gap-3 text-green-700">
+                          <div className="flex items-center gap-3 text-green-700 dark:text-green-400">
                             <CheckCircle className="h-8 w-8" />
                             <div>
                               <h3 className="text-xl font-bold">Card Verified!</h3>
                               <p className="text-sm">This is a valid alumni card</p>
                             </div>
                           </div>
-                          <div className="bg-white p-4 rounded-lg space-y-2">
+                          <div className="bg-background p-4 rounded-lg space-y-2">
                             <p><span className="font-semibold">Name:</span> {verificationResult.profile?.name}</p>
                             <p><span className="font-semibold">Card Number:</span> {verificationResult.card?.card_number}</p>
                             <p><span className="font-semibold">Batch Year:</span> {verificationResult.profile?.batch_year}</p>
@@ -484,7 +484,7 @@ const AlumniCard = () => {
                           </div>
                         </>
                       ) : (
-                        <div className="flex items-center gap-3 text-red-700">
+                        <div className="flex items-center gap-3 text-red-700 dark:text-red-400">
                           <AlertCircle className="h-8 w-8" />
                           <div>
                             <h3 className="text-xl font-bold">Verification Failed</h3>
@@ -495,54 +495,54 @@ const AlumniCard = () => {
 
                       {/* AI Validation Checks */}
                       {verificationResult.aiValidation && (
-                        <div className="bg-white p-4 rounded-lg">
+                        <div className="bg-background p-4 rounded-lg">
                           <h4 className="font-semibold mb-3 flex items-center gap-2">
                             <Shield className="h-5 w-5 text-purple-600" />
                             AI Validation Checks
                           </h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                              <span className="text-sm text-gray-700">Duplicate Check:</span>
+                            <div className="flex items-center justify-between p-2 bg-muted rounded">
+                              <span className="text-sm text-foreground">Duplicate Check:</span>
                               <Badge className={
                                 verificationResult.aiValidation.duplicate_check === 'passed' 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-red-100 text-red-800'
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                                  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                               }>
                                 {verificationResult.aiValidation.duplicate_check}
                               </Badge>
                             </div>
                             
-                            <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                              <span className="text-sm text-gray-700">Signature:</span>
+                            <div className="flex items-center justify-between p-2 bg-muted rounded">
+                              <span className="text-sm text-foreground">Signature:</span>
                               <Badge className={
                                 verificationResult.aiValidation.signature_check === 'valid' 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-red-100 text-red-800'
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                                  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                               }>
                                 {verificationResult.aiValidation.signature_check}
                               </Badge>
                             </div>
                             
-                            <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                              <span className="text-sm text-gray-700">Expiry Status:</span>
+                            <div className="flex items-center justify-between p-2 bg-muted rounded">
+                              <span className="text-sm text-foreground">Expiry Status:</span>
                               <Badge className={
                                 verificationResult.aiValidation.expiry_check === 'active' 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-yellow-100 text-yellow-800'
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                                  : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
                               }>
                                 {verificationResult.aiValidation.expiry_check}
                               </Badge>
                             </div>
                             
-                            <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                              <span className="text-sm text-gray-700">AI Confidence:</span>
+                            <div className="flex items-center justify-between p-2 bg-muted rounded">
+                              <span className="text-sm text-foreground">AI Confidence:</span>
                               {getConfidenceBadge(verificationResult.aiValidation.confidence_score)}
                             </div>
                           </div>
 
                           {/* Verification Timestamp & History */}
                           {verificationResult.aiValidation.verification_timestamp && (
-                            <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600">
+                            <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-muted-foreground">
                               <p className="flex items-center gap-1">
                                 <Clock className="h-4 w-4" />
                                 Verified at: {new Date(verificationResult.aiValidation.verification_timestamp).toLocaleString()}
@@ -551,7 +551,7 @@ const AlumniCard = () => {
                           )}
 
                           {verificationResult.verificationHistory && (
-                            <div className="mt-2 text-sm text-gray-600">
+                            <div className="mt-2 text-sm text-muted-foreground">
                               <p>Total verifications: <strong>{verificationResult.verificationHistory.total_verifications}</strong></p>
                               {verificationResult.verificationHistory.last_verified && (
                                 <p>Last verified: {new Date(verificationResult.verificationHistory.last_verified).toLocaleDateString()}</p>

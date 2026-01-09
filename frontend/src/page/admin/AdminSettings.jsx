@@ -55,7 +55,7 @@ const AdminSettings = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -64,13 +64,13 @@ const AdminSettings = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Admin Settings ⚙️</h1>
               <p className="mt-2 opacity-90">Configure platform settings and preferences</p>
             </div>
 
             <Tabs defaultValue="general" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-card border border-border">
                 <TabsTrigger value="general" data-testid="tab-general">
                   <Globe className="w-4 h-4 mr-2" />
                   General
@@ -95,14 +95,14 @@ const AdminSettings = () => {
 
               {/* General Settings */}
               <TabsContent value="general" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>General Settings</CardTitle>
-                    <CardDescription>Basic platform configuration</CardDescription>
+                    <CardTitle className="text-foreground">General Settings</CardTitle>
+                    <CardDescription className="text-muted-foreground">Basic platform configuration</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="platformName">Platform Name</Label>
+                      <Label htmlFor="platformName" className="text-foreground">Platform Name</Label>
                       <Input
                         id="platformName"
                         value={settings.platformName}
@@ -111,7 +111,7 @@ const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="platformUrl">Platform URL</Label>
+                      <Label htmlFor="platformUrl" className="text-foreground">Platform URL</Label>
                       <Input
                         id="platformUrl"
                         type="url"
@@ -121,7 +121,7 @@ const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="supportEmail">Support Email</Label>
+                      <Label htmlFor="supportEmail" className="text-foreground">Support Email</Label>
                       <Input
                         id="supportEmail"
                         type="email"
@@ -139,16 +139,16 @@ const AdminSettings = () => {
 
               {/* Notification Settings */}
               <TabsContent value="notifications" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Notification Preferences</CardTitle>
-                    <CardDescription>Configure notification settings</CardDescription>
+                    <CardTitle className="text-foreground">Notification Preferences</CardTitle>
+                    <CardDescription className="text-muted-foreground">Configure notification settings</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Email Notifications</Label>
-                        <p className="text-sm text-gray-500">Send notifications via email</p>
+                        <Label className="text-foreground">Email Notifications</Label>
+                        <p className="text-sm text-muted-foreground">Send notifications via email</p>
                       </div>
                       <Switch
                         checked={settings.emailNotifications}
@@ -158,8 +158,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Push Notifications</Label>
-                        <p className="text-sm text-gray-500">Enable browser push notifications</p>
+                        <Label className="text-foreground">Push Notifications</Label>
+                        <p className="text-sm text-muted-foreground">Enable browser push notifications</p>
                       </div>
                       <Switch
                         checked={settings.pushNotifications}
@@ -169,8 +169,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Weekly Digest</Label>
-                        <p className="text-sm text-gray-500">Send weekly activity summary</p>
+                        <Label className="text-foreground">Weekly Digest</Label>
+                        <p className="text-sm text-muted-foreground">Send weekly activity summary</p>
                       </div>
                       <Switch
                         checked={settings.weeklyDigest}
@@ -187,16 +187,16 @@ const AdminSettings = () => {
 
               {/* Security Settings */}
               <TabsContent value="security" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Security Settings</CardTitle>
-                    <CardDescription>Configure security and authentication</CardDescription>
+                    <CardTitle className="text-foreground">Security Settings</CardTitle>
+                    <CardDescription className="text-muted-foreground">Configure security and authentication</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Two-Factor Authentication</Label>
-                        <p className="text-sm text-gray-500">Require 2FA for all users</p>
+                        <Label className="text-foreground">Two-Factor Authentication</Label>
+                        <p className="text-sm text-muted-foreground">Require 2FA for all users</p>
                       </div>
                       <Switch
                         checked={settings.twoFactorAuth}
@@ -205,7 +205,7 @@ const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="passwordExpiry">Password Expiry (days)</Label>
+                      <Label htmlFor="passwordExpiry" className="text-foreground">Password Expiry (days)</Label>
                       <Input
                         id="passwordExpiry"
                         type="number"
@@ -215,7 +215,7 @@ const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="maxLoginAttempts">Max Login Attempts</Label>
+                      <Label htmlFor="maxLoginAttempts" className="text-foreground">Max Login Attempts</Label>
                       <Input
                         id="maxLoginAttempts"
                         type="number"
@@ -225,7 +225,7 @@ const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
+                      <Label htmlFor="sessionTimeout" className="text-foreground">Session Timeout (minutes)</Label>
                       <Input
                         id="sessionTimeout"
                         type="number"
@@ -243,16 +243,16 @@ const AdminSettings = () => {
 
               {/* Feature Flags */}
               <TabsContent value="features" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Feature Management</CardTitle>
-                    <CardDescription>Enable or disable platform features</CardDescription>
+                    <CardTitle className="text-foreground">Feature Management</CardTitle>
+                    <CardDescription className="text-muted-foreground">Enable or disable platform features</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Job Posting</Label>
-                        <p className="text-sm text-gray-500">Allow users to post jobs</p>
+                        <Label className="text-foreground">Job Posting</Label>
+                        <p className="text-sm text-muted-foreground">Allow users to post jobs</p>
                       </div>
                       <Switch
                         checked={settings.enableJobPosting}
@@ -262,8 +262,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Mentorship System</Label>
-                        <p className="text-sm text-gray-500">Enable mentorship features</p>
+                        <Label className="text-foreground">Mentorship System</Label>
+                        <p className="text-sm text-muted-foreground">Enable mentorship features</p>
                       </div>
                       <Switch
                         checked={settings.enableMentorship}
@@ -273,8 +273,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Events</Label>
-                        <p className="text-sm text-gray-500">Allow event creation</p>
+                        <Label className="text-foreground">Events</Label>
+                        <p className="text-sm text-muted-foreground">Allow event creation</p>
                       </div>
                       <Switch
                         checked={settings.enableEvents}
@@ -284,8 +284,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Community Forum</Label>
-                        <p className="text-sm text-gray-500">Enable forum discussions</p>
+                        <Label className="text-foreground">Community Forum</Label>
+                        <p className="text-sm text-muted-foreground">Enable forum discussions</p>
                       </div>
                       <Switch
                         checked={settings.enableForum}
@@ -295,8 +295,8 @@ const AdminSettings = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Profile Verification</Label>
-                        <p className="text-sm text-gray-500">Require admin verification for profiles</p>
+                        <Label className="text-foreground">Profile Verification</Label>
+                        <p className="text-sm text-muted-foreground">Require admin verification for profiles</p>
                       </div>
                       <Switch
                         checked={settings.requireProfileVerification}
@@ -313,20 +313,20 @@ const AdminSettings = () => {
 
               {/* Database Settings */}
               <TabsContent value="database" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Database Management</CardTitle>
-                    <CardDescription>Database maintenance and backups</CardDescription>
+                    <CardTitle className="text-foreground">Database Management</CardTitle>
+                    <CardDescription className="text-muted-foreground">Database maintenance and backups</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                      <p className="text-sm text-blue-900">
+                    <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <p className="text-sm text-primary">
                         <strong>Last Backup:</strong> 2 hours ago
                       </p>
-                      <p className="text-sm text-blue-900 mt-1">
+                      <p className="text-sm text-primary mt-1">
                         <strong>Database Size:</strong> 2.4 GB
                       </p>
-                      <p className="text-sm text-blue-900 mt-1">
+                      <p className="text-sm text-primary mt-1">
                         <strong>Status:</strong> Healthy
                       </p>
                     </div>
@@ -337,7 +337,7 @@ const AdminSettings = () => {
                       <Button variant="outline" data-testid="optimize-db-btn">
                         Optimize Database
                       </Button>
-                      <Button variant="outline" className="text-red-600" data-testid="clear-cache-btn">
+                      <Button variant="outline" className="text-destructive hover:bg-destructive/10" data-testid="clear-cache-btn">
                         Clear Cache
                       </Button>
                     </div>

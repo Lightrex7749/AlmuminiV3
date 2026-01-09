@@ -87,7 +87,7 @@ const MyApplications = () => {
     return (
       <div className="min-h-screen flex flex-col" data-testid="my-applications-page">
         <MainNavbar />
-        <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+        <main className="flex-1 bg-gray-50 dark:bg-background">
           <div className="container mx-auto px-4 py-8">
             <Card className="border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
               <CardContent className="pt-6">
@@ -119,7 +119,7 @@ const MyApplications = () => {
     <div className="min-h-screen flex flex-col" data-testid="my-applications-page">
       <MainNavbar />
       
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1 bg-gray-50 dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <div className="mb-6">

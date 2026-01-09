@@ -194,12 +194,12 @@ const AlumniDirectory = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-50 to-white dark:from-background dark:to-gray-950 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <main className="flex-1">
         {/* Enhanced Header Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-900 dark:to-blue-950 text-white py-12 mb-8 shadow-lg">
+        <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] text-white py-12 mb-8 shadow-lg">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex items-center gap-4 mb-3">
               <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20">
@@ -207,7 +207,7 @@ const AlumniDirectory = () => {
               </div>
               <div>
                 <h1 className="text-4xl font-bold">Alumni Directory</h1>
-                <p className="text-blue-100 mt-1">
+                <p className="text-blue-50 mt-1">
                   Connect with {results.totalResults || 0} talented alumni from various industries and locations
                 </p>
               </div>
@@ -219,7 +219,7 @@ const AlumniDirectory = () => {
 
           {/* Search Bar with Stats */}
           <div className="mb-8">
-            <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+            <div className="bg-card rounded-xl shadow-sm border border-border p-6">
               <SearchBar
                 value={filters.search}
                 onChange={(query) => setFilters(prev => ({ ...prev, search: query }))}
@@ -227,28 +227,26 @@ const AlumniDirectory = () => {
               />
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-border">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{results.totalResults || 0}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Total Alumni</div>
+                  <div className="text-2xl font-bold text-primary">{results.totalResults || 0}</div>
+                  <div className="text-sm text-muted-foreground">Total Alumni</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {results.data.filter(p => p.willing_to_mentor).length}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Available Mentors</div>
+                  <div className="text-sm text-muted-foreground">Available Mentors</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                    {results.data.filter(p => p.is_verified).length}
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Verified Profiles</div>
+                  <div className="text-2xl font-bold text-accent">{results.data.filter(p => p.is_verified).length}</div>
+                  <div className="text-sm text-muted-foreground">Verified Profiles</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                     {[...new Set(results.data.map(p => p.current_company))].filter(Boolean).length}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Companies</div>
+                  <div className="text-sm text-muted-foreground">Companies</div>
                 </div>
               </div>
             </div>
@@ -286,7 +284,7 @@ const AlumniDirectory = () => {
             <div className="lg:hidden mb-4">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button data-testid="mobile-filter-button" variant="outline" className="w-full dark:border-gray-700 dark:text-gray-300">
+                  <Button data-testid="mobile-filter-button" variant="outline" className="w-full border-border text-foreground">
                     <SlidersHorizontal className="h-4 w-4 mr-2" />
                     Filters
                     {(filters.companies?.length || 0) +
@@ -296,7 +294,7 @@ const AlumniDirectory = () => {
                       (filters.verifiedOnly ? 1 : 0) +
                       (filters.yearRange ? 1 : 0) >
                       0 && (
-                      <span className="ml-2 px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">
+                      <span className="ml-2 px-2 py-0.5 bg-primary text-primary-foreground text-xs rounded-full">
                         {(filters.companies?.length || 0) +
                           (filters.skills?.length || 0) +
                           (filters.locations?.length || 0) +
@@ -307,9 +305,9 @@ const AlumniDirectory = () => {
                     )}
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-80 overflow-y-auto dark:bg-card dark:border-gray-800">
+                <SheetContent side="left" className="w-80 overflow-y-auto bg-card border-border">
                   <SheetHeader>
-                    <SheetTitle className="dark:text-white">Filters</SheetTitle>
+                    <SheetTitle className="text-foreground">Filters</SheetTitle>
                   </SheetHeader>
                   <div className="mt-6">
                     <FilterSidebar
@@ -325,26 +323,26 @@ const AlumniDirectory = () => {
             {/* Main Content */}
             <div className="flex-1 min-w-0">
               {/* Controls Bar */}
-              <div className="bg-white dark:bg-card rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 p-4 mb-6 transition-colors duration-300">
+              <div className="bg-card rounded-lg shadow-sm border border-border p-4 mb-6 transition-colors duration-300">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div className="text-sm font-medium text-muted-foreground">
                     {loading ? (
                       <span className="flex items-center gap-2">
-                        <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                        <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full"></div>
                         Loading alumni...
                       </span>
                     ) : (
                       <span data-testid="results-count" className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        Showing <strong className="text-blue-600 dark:text-blue-400">{results.data.length}</strong> of{' '}
-                        <strong className="text-gray-900 dark:text-white">{results.totalResults}</strong> alumni
+                        Showing <strong className="text-primary">{results.data.length}</strong> of{' '}
+                        <strong className="text-foreground">{results.totalResults}</strong> alumni
                       </span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-3">
                     <SortDropdown value={sortBy} onChange={handleSortChange} />
-                    <div className="h-6 w-px bg-gray-300 dark:bg-gray-700"></div>
+                    <div className="h-6 w-px bg-border"></div>
                     <ViewToggle view={view} onViewChange={setView} />
                   </div>
                 </div>
@@ -357,13 +355,13 @@ const AlumniDirectory = () => {
                 // Empty State
                 <div
                   data-testid="empty-state"
-                  className="text-center py-16 px-4 bg-white dark:bg-card rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700"
+                  className="text-center py-16 px-4 bg-card rounded-lg border-2 border-dashed border-border"
                 >
-                  <Users className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
                     No alumni found
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  <p className="text-muted-foreground mb-6">
                     Try adjusting your filters or search query
                   </p>
                   <Button onClick={handleClearFilters}>Clear All Filters</Button>
@@ -411,8 +409,8 @@ const AlumniDirectory = () => {
                               }
                               className={
                                 currentPage === 1
-                                  ? 'pointer-events-none opacity-50 dark:text-gray-500'
-                                  : 'cursor-pointer dark:text-gray-300 dark:hover:bg-gray-800'
+                                  ? 'pointer-events-none opacity-50 text-muted-foreground'
+                                  : 'cursor-pointer text-foreground hover:bg-muted'
                               }
                             />
                           </PaginationItem>
@@ -425,8 +423,8 @@ const AlumniDirectory = () => {
                                   isActive={currentPage === page}
                                   className={`cursor-pointer ${
                                     currentPage === page 
-                                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                                      : 'dark:text-gray-300 dark:hover:bg-gray-800'
+                                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                                      : 'text-foreground hover:bg-muted'
                                   }`}
                                 >
                                   {page}
@@ -443,8 +441,8 @@ const AlumniDirectory = () => {
                               }
                               className={
                                 currentPage === results.totalPages
-                                  ? 'pointer-events-none opacity-50 dark:text-gray-500'
-                                  : 'cursor-pointer dark:text-gray-300 dark:hover:bg-gray-800'
+                                  ? 'pointer-events-none opacity-50 text-muted-foreground'
+                                  : 'cursor-pointer text-foreground hover:bg-muted'
                               }
                             />
                           </PaginationItem>

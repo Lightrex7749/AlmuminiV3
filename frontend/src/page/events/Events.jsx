@@ -66,18 +66,24 @@ const Events = () => {
       <div className="container mx-auto px-4 py-8 max-w-7xl" data-testid="events-page">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Events</h1>
-              <p className="text-gray-600">
-                Discover and join upcoming workshops, webinars, and networking events
-              </p>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/10 p-3 rounded-xl">
+                <CalendarIcon className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">Events</h1>
+                <p className="text-muted-foreground mt-1">
+                  Discover and join upcoming workshops, webinars, and networking events
+                </p>
+              </div>
             </div>
             {canCreateEvent && (
               <div className="flex gap-3">
                 <Button 
                   onClick={() => navigate('/events/create')}
                   data-testid="create-event-button"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Create Event
@@ -86,6 +92,7 @@ const Events = () => {
                   variant="outline" 
                   onClick={() => navigate('/events/manage')}
                   data-testid="manage-events-button"
+                  className="border-border text-foreground hover:bg-muted"
                 >
                   Manage My Events
                 </Button>
@@ -96,10 +103,10 @@ const Events = () => {
           {/* Search and Filters */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder="Search events..."
-                className="pl-10"
+                className="pl-10 bg-card border-border"
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
                 data-testid="search-events-input"
@@ -107,11 +114,11 @@ const Events = () => {
             </div>
             
             <Select value={selectedType} onValueChange={setSelectedType}>
-              <SelectTrigger className="w-full sm:w-[200px]" data-testid="event-type-filter">
-                <Filter className="h-4 w-4 mr-2" />
+              <SelectTrigger className="w-full sm:w-[200px] bg-card border-border text-foreground" data-testid="event-type-filter">
+                <Filter className="h-4 w-4 mr-2 text-primary" />
                 <SelectValue placeholder="Event Type" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-card border-border">
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="workshop">Workshop</SelectItem>
                 <SelectItem value="webinar">Webinar</SelectItem>
@@ -125,7 +132,7 @@ const Events = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList>
+          <TabsList className="bg-card border border-border">
             <TabsTrigger value="upcoming" data-testid="upcoming-tab">
               Upcoming Events
             </TabsTrigger>
@@ -138,7 +145,7 @@ const Events = () => {
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className="h-96 bg-gray-200 animate-pulse rounded-lg" />
+                  <div key={i} className="h-96 bg-muted animate-pulse rounded-xl" />
                 ))}
               </div>
             ) : events.length > 0 ? (
@@ -148,14 +155,19 @@ const Events = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <CalendarIcon className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No upcoming events</h3>
-                <p className="text-gray-600 mb-4">
+              <div className="text-center py-20 bg-card border border-border border-dashed rounded-2xl">
+                <CalendarIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4 opacity-50" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No upcoming events</h3>
+                <p className="text-muted-foreground mb-8">
                   {searchTerm || selectedType !== 'all'
-                    ? 'Try adjusting your filters'
-                    : 'Check back later for new events'}
+                    ? 'Try adjusting your filters to find something'
+                    : 'Check back later for new community events'}
                 </p>
+                {(searchTerm || selectedType !== 'all') && (
+                  <Button variant="outline" onClick={() => { setSearchTerm(''); setSelectedType('all'); }}>
+                    Clear Filters
+                  </Button>
+                )}
               </div>
             )}
           </TabsContent>
@@ -164,7 +176,7 @@ const Events = () => {
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="h-96 bg-gray-200 animate-pulse rounded-lg" />
+                  <div key={i} className="h-96 bg-muted animate-pulse rounded-xl" />
                 ))}
               </div>
             ) : events.length > 0 ? (
@@ -174,10 +186,10 @@ const Events = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <CalendarIcon className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No past events</h3>
-                <p className="text-gray-600">Past events will appear here</p>
+              <div className="text-center py-20 bg-card border border-border border-dashed rounded-2xl">
+                <CalendarIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4 opacity-50" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No past events</h3>
+                <p className="text-muted-foreground">Past events will appear here once completed</p>
               </div>
             )}
           </TabsContent>

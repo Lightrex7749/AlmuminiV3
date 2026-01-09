@@ -209,7 +209,7 @@ const AdminUsers = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -224,7 +224,7 @@ const AdminUsers = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
@@ -238,7 +238,7 @@ const AdminUsers = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -247,7 +247,7 @@ const AdminUsers = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-red-600 to-red-800 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">User Management 👥</h1>
               <p className="mt-2 opacity-90">Manage all platform users and their permissions</p>
             </div>
@@ -255,26 +255,26 @@ const AdminUsers = () => {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {stats.map((stat, index) => (
-                <Card key={index}>
+                <Card key={index} className="bg-card border-border">
                   <CardContent className="pt-6">
                     <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                    <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
             {/* Filters */}
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle>User List</CardTitle>
-                <CardDescription>Search and filter users by role</CardDescription>
+                <CardTitle className="text-foreground">User List</CardTitle>
+                <CardDescription className="text-muted-foreground">Search and filter users by role</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by email or role..."
                         value={searchQuery}
@@ -301,8 +301,8 @@ const AdminUsers = () => {
 
                   {/* Bulk Actions */}
                   {selectedUsers.length > 0 && (
-                    <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                      <span className="text-sm font-medium text-blue-900">
+                    <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/20 rounded-lg">
+                      <span className="text-sm font-medium text-primary">
                         {selectedUsers.length} user(s) selected
                       </span>
                       <div className="flex gap-2 ml-auto">
@@ -313,7 +313,7 @@ const AdminUsers = () => {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="text-red-600"
+                          className="text-destructive hover:bg-destructive/10"
                           onClick={handleBulkDelete}
                           data-testid="bulk-delete-btn"
                         >
@@ -326,7 +326,7 @@ const AdminUsers = () => {
 
                   {/* Export Button */}
                   <div className="flex justify-end">
-                    <Button variant="outline" size="sm" onClick={handleExportUsers} data-testid="export-users-btn">
+                    <Button variant="outline" size="sm" onClick={handleExportUsers} data-testid="export-users-btn" className="dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
                       <Download className="w-4 h-4 mr-2" />
                       Export Users
                     </Button>
@@ -336,31 +336,33 @@ const AdminUsers = () => {
                 {/* User Table */}
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
                         <th className="pb-3 w-12">
                           <Checkbox
                             checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
                             onCheckedChange={handleSelectAll}
                             data-testid="select-all-checkbox"
+                            className="dark:border-gray-500"
                           />
                         </th>
-                        <th className="pb-3 font-medium text-gray-700">Email</th>
-                        <th className="pb-3 font-medium text-gray-700">Role</th>
-                        <th className="pb-3 font-medium text-gray-700">Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Card Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Joined</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">Email</th>
+                        <th className="pb-3 font-medium text-foreground">Role</th>
+                        <th className="pb-3 font-medium text-foreground">Status</th>
+                        <th className="pb-3 font-medium text-foreground">Card Status</th>
+                        <th className="pb-3 font-medium text-foreground">Joined</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredUsers.map((u) => (
-                        <tr key={u.id} className="border-b hover:bg-gray-50" data-testid={`user-row-${u.id}`}>
+                        <tr key={u.id} className="border-b border-border hover:bg-muted/50 transition-colors" data-testid={`user-row-${u.id}`}>
                           <td className="py-4">
                             <Checkbox
                               checked={selectedUsers.includes(u.id)}
                               onCheckedChange={() => handleSelectUser(u.id)}
                               data-testid={`select-user-${u.id}`}
+                              className="dark:border-gray-500"
                             />
                           </td>
                           <td className="py-4">
@@ -368,9 +370,9 @@ const AdminUsers = () => {
                               <img
                                 src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${u.email}`}
                                 alt={u.email}
-                                className="w-8 h-8 rounded-full"
+                                className="w-8 h-8 rounded-full bg-background"
                               />
-                              <span className="font-medium">{u.email}</span>
+                              <span className="font-medium text-foreground">{u.email}</span>
                             </div>
                           </td>
                           <td className="py-4">
@@ -379,24 +381,24 @@ const AdminUsers = () => {
                             </Badge>
                           </td>
                           <td className="py-4">
-                            <Badge variant="outline" className="text-green-600 border-green-600">
+                            <Badge variant="outline" className="text-green-600 border-green-600 dark:text-green-400 dark:border-green-500">
                               Active
                             </Badge>
                           </td>
                           <td className="py-4">
                             {u.has_card ? (
-                              <Badge className="bg-green-100 text-green-800 flex items-center gap-1 w-fit">
+                              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 flex items-center gap-1 w-fit">
                                 <CheckCircle className="w-3 h-3" />
                                 Has Card
                               </Badge>
                             ) : (
-                              <Badge variant="outline" className="text-gray-600 border-gray-400 flex items-center gap-1 w-fit">
+                              <Badge variant="outline" className="text-muted-foreground border-border flex items-center gap-1 w-fit">
                                 <XCircle className="w-3 h-3" />
                                 No Card
                               </Badge>
                             )}
                           </td>
-                          <td className="py-4 text-sm text-gray-600">
+                          <td className="py-4 text-sm text-muted-foreground">
                             {new Date(u.created_at).toLocaleDateString()}
                           </td>
                           <td className="py-4">
@@ -406,8 +408,8 @@ const AdminUsers = () => {
                                   <MoreVertical className="w-4 h-4" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuContent align="end" className="bg-card border-border">
+                                <DropdownMenuLabel className="text-foreground">Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleViewUserDetails(u.id)}>
                                   <Eye className="mr-2 h-4 w-4" />
@@ -430,7 +432,7 @@ const AdminUsers = () => {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                   onClick={() => handleDeleteUser(u.id)}
-                                  className="text-red-600"
+                                  className="text-destructive"
                                 >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Delete User
@@ -444,7 +446,7 @@ const AdminUsers = () => {
                   </table>
 
                   {filteredUsers.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <UserCheck className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No users found</p>
                     </div>
@@ -460,27 +462,27 @@ const AdminUsers = () => {
 
       {/* User Details Modal */}
       <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>User Details</DialogTitle>
-            <DialogDescription>Complete user information and profile</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">User Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete user information and profile</DialogDescription>
           </DialogHeader>
           {selectedUserDetails && (
             <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
                 <img
                   src={
                     selectedUserDetails.profile?.photo_url ||
                     `https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedUserDetails.email}`
                   }
                   alt={selectedUserDetails.email}
-                  className="w-16 h-16 rounded-full"
+                  className="w-16 h-16 rounded-full bg-background border border-border"
                 />
                 <div>
-                  <h3 className="font-semibold text-lg">
+                  <h3 className="font-semibold text-lg text-foreground">
                     {selectedUserDetails.profile?.name || selectedUserDetails.email}
                   </h3>
-                  <p className="text-sm text-gray-600">{selectedUserDetails.email}</p>
+                  <p className="text-sm text-muted-foreground">{selectedUserDetails.email}</p>
                   <Badge className={`mt-1 capitalize ${getRoleBadgeColor(selectedUserDetails.role)}`}>
                     {selectedUserDetails.role}
                   </Badge>
@@ -489,7 +491,7 @@ const AdminUsers = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Status</p>
+                  <p className="text-sm font-medium text-muted-foreground">Status</p>
                   <p className="text-sm mt-1">
                     <Badge variant="outline" className="text-green-600 border-green-600">
                       {selectedUserDetails.is_active ? 'Active' : 'Inactive'}
@@ -497,20 +499,20 @@ const AdminUsers = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Verified</p>
+                  <p className="text-sm font-medium text-muted-foreground">Verified</p>
                   <p className="text-sm mt-1">
-                    <Badge variant="outline" className={selectedUserDetails.is_verified ? 'text-green-600 border-green-600' : 'text-red-600 border-red-600'}>
+                    <Badge variant="outline" className={selectedUserDetails.is_verified ? 'text-green-600 border-green-600' : 'text-destructive border-destructive'}>
                       {selectedUserDetails.is_verified ? 'Verified' : 'Not Verified'}
                     </Badge>
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Joined</p>
-                  <p className="text-sm mt-1">{new Date(selectedUserDetails.created_at).toLocaleDateString()}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Joined</p>
+                  <p className="text-sm mt-1 text-foreground">{new Date(selectedUserDetails.created_at).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Last Login</p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm font-medium text-muted-foreground">Last Login</p>
+                  <p className="text-sm mt-1 text-foreground">
                     {selectedUserDetails.last_login
                       ? new Date(selectedUserDetails.last_login).toLocaleDateString()
                       : 'Never'}
@@ -520,48 +522,48 @@ const AdminUsers = () => {
 
               {selectedUserDetails.profile && (
                 <>
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-2">Profile Information</h4>
+                  <div className="border-t border-border pt-4">
+                    <h4 className="font-semibold mb-2 text-foreground">Profile Information</h4>
                     {selectedUserDetails.profile.headline && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-600">Headline</p>
-                        <p className="text-sm mt-1">{selectedUserDetails.profile.headline}</p>
+                        <p className="text-sm font-medium text-muted-foreground">Headline</p>
+                        <p className="text-sm mt-1 text-foreground">{selectedUserDetails.profile.headline}</p>
                       </div>
                     )}
                     {selectedUserDetails.profile.bio && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-600">Bio</p>
-                        <p className="text-sm mt-1">{selectedUserDetails.profile.bio}</p>
+                        <p className="text-sm font-medium text-muted-foreground">Bio</p>
+                        <p className="text-sm mt-1 text-foreground">{selectedUserDetails.profile.bio}</p>
                       </div>
                     )}
                     {selectedUserDetails.profile.current_company && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-600">Current Company</p>
-                        <p className="text-sm mt-1">
+                        <p className="text-sm font-medium text-muted-foreground">Current Company</p>
+                        <p className="text-sm mt-1 text-foreground">
                           {selectedUserDetails.profile.current_role} at {selectedUserDetails.profile.current_company}
                         </p>
                       </div>
                     )}
                     {selectedUserDetails.profile.location && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-600">Location</p>
-                        <p className="text-sm mt-1">{selectedUserDetails.profile.location}</p>
+                        <p className="text-sm font-medium text-muted-foreground">Location</p>
+                        <p className="text-sm mt-1 text-foreground">{selectedUserDetails.profile.location}</p>
                       </div>
                     )}
                     {selectedUserDetails.profile.batch_year && (
                       <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-600">Batch Year</p>
-                        <p className="text-sm mt-1">{selectedUserDetails.profile.batch_year}</p>
+                        <p className="text-sm font-medium text-muted-foreground">Batch Year</p>
+                        <p className="text-sm mt-1 text-foreground">{selectedUserDetails.profile.batch_year}</p>
                       </div>
                     )}
                   </div>
 
                   {selectedUserDetails.profile.skills && selectedUserDetails.profile.skills.length > 0 && (
-                    <div className="border-t pt-4">
-                      <h4 className="font-semibold mb-2">Skills</h4>
+                    <div className="border-t border-border pt-4">
+                      <h4 className="font-semibold mb-2 text-foreground">Skills</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedUserDetails.profile.skills.map((skill, index) => (
-                          <Badge key={index} variant="outline">
+                          <Badge key={index} variant="outline" className="border-border text-foreground">
                             {skill}
                           </Badge>
                         ))}
@@ -569,16 +571,16 @@ const AdminUsers = () => {
                     </div>
                   )}
 
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-2">Profile Completion</h4>
+                  <div className="border-t border-border pt-4">
+                    <h4 className="font-semibold mb-2 text-foreground">Profile Completion</h4>
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 bg-gray-200 rounded-full h-2">
+                      <div className="flex-1 bg-muted rounded-full h-2">
                         <div
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-primary h-2 rounded-full"
                           style={{ width: `${selectedUserDetails.profile.profile_completion_percentage || 0}%` }}
                         ></div>
                       </div>
-                      <span className="text-sm font-medium">
+                      <span className="text-sm font-medium text-foreground">
                         {selectedUserDetails.profile.profile_completion_percentage || 0}%
                       </span>
                     </div>
@@ -588,24 +590,24 @@ const AdminUsers = () => {
 
               {/* Alumni Card Status */}
               {selectedUserDetails.card_status && (
-                <div className="border-t pt-4">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <CreditCard className="h-5 w-5 text-blue-600" />
+                <div className="border-t border-border pt-4">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-foreground">
+                    <CreditCard className="h-5 w-5 text-primary" />
                     Alumni Card Status
                   </h4>
                   {selectedUserDetails.card_status.has_card ? (
-                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                       <div className="flex items-center gap-2 mb-3">
-                        <CheckCircle className="h-5 w-5 text-green-600" />
-                        <span className="font-medium text-green-800">Card Issued</span>
+                        <CheckCircle className="h-5 w-5 text-primary" />
+                        <span className="font-medium text-primary">Card Issued</span>
                       </div>
                       <div className="grid grid-cols-2 gap-3 text-sm">
                         <div>
-                          <p className="text-gray-600">Card Number:</p>
-                          <p className="font-medium">{selectedUserDetails.card_status.card_number}</p>
+                          <p className="text-muted-foreground">Card Number:</p>
+                          <p className="font-medium text-foreground">{selectedUserDetails.card_status.card_number}</p>
                         </div>
                         <div>
-                          <p className="text-gray-600">Status:</p>
+                          <p className="text-muted-foreground">Status:</p>
                           <Badge className={selectedUserDetails.card_status.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
                             {selectedUserDetails.card_status.is_active ? 'Active' : 'Inactive'}
                           </Badge>
@@ -613,11 +615,11 @@ const AdminUsers = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div className="bg-muted/30 p-4 rounded-lg border border-border">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <XCircle className="h-5 w-5 text-gray-500" />
-                          <span className="text-gray-700">No alumni card issued yet</span>
+                          <XCircle className="h-5 w-5 text-muted-foreground" />
+                          <span className="text-foreground">No alumni card issued yet</span>
                         </div>
                         <Button 
                           size="sm" 
@@ -635,7 +637,7 @@ const AdminUsers = () => {
                 </div>
               )}
 
-              <div className="border-t pt-4 flex gap-2">
+              <div className="border-t border-border pt-4 flex gap-2">
                 {!selectedUserDetails.has_card && (
                   <Button 
                     variant="default" 
@@ -660,7 +662,7 @@ const AdminUsers = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-red-600"
+                  className="text-destructive hover:bg-destructive/10"
                   onClick={() => {
                     handleDeleteUser(selectedUserDetails.id);
                     setShowUserModal(false);

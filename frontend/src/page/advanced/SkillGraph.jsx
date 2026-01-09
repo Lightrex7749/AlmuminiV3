@@ -213,7 +213,7 @@ const SkillGraph = () => {
     if (score >= 90) return 'text-green-600';
     if (score >= 75) return 'text-blue-600';
     if (score >= 60) return 'text-yellow-600';
-    return 'text-gray-600';
+    return 'text-muted-foreground';
   };
 
   return (
@@ -225,7 +225,7 @@ const SkillGraph = () => {
             <Network className="h-10 w-10 text-purple-600" />
             Skill Graph Visualization
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-muted-foreground text-lg">
             Explore the network of skills, their connections, and the alumni who possess them.
           </p>
         </div>
@@ -234,7 +234,7 @@ const SkillGraph = () => {
         {recommendations.length > 0 && (
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {/* Skills You Should Learn */}
-            <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white" data-testid="skill-recommendations-panel">
+            <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-gray-900" data-testid="skill-recommendations-panel">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Lightbulb className="h-5 w-5 text-purple-600" />
@@ -249,7 +249,7 @@ const SkillGraph = () => {
                   {recommendations.slice(0, 3).map((rec, index) => (
                     <div 
                       key={index} 
-                      className="p-4 bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow"
+                      className="p-4 bg-card rounded-lg border shadow-sm hover:shadow-md transition-shadow"
                       data-testid={`recommendation-${index}`}
                     >
                       <div className="flex items-start justify-between mb-2">
@@ -261,7 +261,7 @@ const SkillGraph = () => {
                       
                       <div className="flex items-center gap-4 mb-2 text-sm">
                         <div className="flex items-center gap-1">
-                          <span className="text-gray-600">Relevance:</span>
+                          <span className="text-muted-foreground">Relevance:</span>
                           <span className={`font-semibold ${getRelevanceColor(rec.relevance_score)}`}>
                             {rec.relevance_score}%
                           </span>
@@ -274,7 +274,7 @@ const SkillGraph = () => {
                         )}
                       </div>
 
-                      <p className="text-sm text-gray-600 mb-3">{rec.reason}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{rec.reason}</p>
 
                       {rec.learning_resources && rec.learning_resources.length > 0 && (
                         <div className="flex flex-wrap gap-2">
@@ -299,7 +299,7 @@ const SkillGraph = () => {
             </Card>
 
             {/* Trending Skills */}
-            <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white" data-testid="trending-skills-panel">
+            <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-gray-900" data-testid="trending-skills-panel">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-blue-600" />
@@ -314,7 +314,7 @@ const SkillGraph = () => {
                   {trendingSkills.slice(0, 5).map((trend, index) => (
                     <div 
                       key={index}
-                      className="flex items-center justify-between p-3 bg-white rounded-lg border hover:shadow-sm transition-shadow"
+                      className="flex items-center justify-between p-3 bg-card rounded-lg border hover:shadow-sm transition-shadow"
                       data-testid={`trending-skill-${index}`}
                     >
                       <div className="flex-1">
@@ -324,7 +324,7 @@ const SkillGraph = () => {
                             {trend.category}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-600">
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Briefcase className="h-3 w-3" />
                             {trend.job_count} jobs
@@ -357,7 +357,7 @@ const SkillGraph = () => {
               <div className="md:col-span-2">
                 <div className="flex gap-2">
                   <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       placeholder="Search skills (e.g., JavaScript, Python)..."
                       className="pl-10"
@@ -414,7 +414,7 @@ const SkillGraph = () => {
                 <div className="w-4 h-4 rounded-full bg-gray-500" />
                 <span className="text-sm">Below 70</span>
               </div>
-              <span className="text-sm text-gray-600 ml-4">• Size indicates alumni count</span>
+              <span className="text-sm text-muted-foreground ml-4">• Size indicates alumni count</span>
             </div>
           </CardContent>
         </Card>
@@ -424,7 +424,7 @@ const SkillGraph = () => {
           <Card>
             <CardContent className="py-20 text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto" />
-              <p className="mt-4 text-gray-600">Loading skill graph...</p>
+              <p className="mt-4 text-muted-foreground">Loading skill graph...</p>
             </CardContent>
           </Card>
         ) : (
@@ -479,7 +479,7 @@ const SkillGraph = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-4 justify-center p-8 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg min-h-[400px]" data-testid="skill-nodes-container">
+                  <div className="flex flex-wrap gap-4 justify-center p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg min-h-[400px]" data-testid="skill-nodes-container">
                     {Array.isArray(skills) && skills.map(skill => (
                       <button
                         key={skill.id}
@@ -508,7 +508,7 @@ const SkillGraph = () => {
                   <Card>
                     <CardContent className="py-20 text-center">
                       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto" />
-                      <p className="mt-4 text-gray-600">Loading network visualization...</p>
+                      <p className="mt-4 text-muted-foreground">Loading network visualization...</p>
                     </CardContent>
                   </Card>
                 ) : (
@@ -538,17 +538,17 @@ const SkillGraph = () => {
                 <CardContent className="space-y-6">
                   {/* Stats */}
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
+                    <div className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20">
                       <Users className="h-8 w-8 text-blue-600" />
                       <div>
-                        <p className="text-sm text-gray-600">Alumni Count</p>
+                        <p className="text-sm text-muted-foreground">Alumni Count</p>
                         <p className="text-2xl font-bold">{selectedSkill.alumni_count}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg">
                       <Briefcase className="h-8 w-8 text-green-600" />
                       <div>
-                        <p className="text-sm text-gray-600">Job Openings</p>
+                        <p className="text-sm text-muted-foreground">Job Openings</p>
                         <p className="text-2xl font-bold">{selectedSkill.job_count}</p>
                       </div>
                     </div>

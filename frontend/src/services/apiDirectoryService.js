@@ -322,6 +322,8 @@ class ApiDirectoryService {
 
   // Get profile by user ID
   async getProfileByUserId(userId) {
+    if (!userId || userId === 'edit') return null;
+    
     try {
       const response = await axios.get(`/api/profiles/${userId}`);
       return response.data?.data || null;

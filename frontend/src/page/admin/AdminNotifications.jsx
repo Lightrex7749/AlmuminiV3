@@ -275,7 +275,7 @@ const AdminNotifications = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -284,7 +284,7 @@ const AdminNotifications = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Notification Management 🔔</h1>
               <p className="mt-2 opacity-90">Create and manage system notifications</p>
             </div>
@@ -294,12 +294,12 @@ const AdminNotifications = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -310,12 +310,12 @@ const AdminNotifications = () => {
             </div>
 
             {/* Notifications List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle>System Notifications</CardTitle>
-                    <CardDescription>Create and manage notifications for users</CardDescription>
+                    <CardTitle className="text-foreground">System Notifications</CardTitle>
+                    <CardDescription className="text-muted-foreground">Create and manage notifications for users</CardDescription>
                   </div>
                   <Button
                     onClick={() => {
@@ -334,10 +334,12 @@ const AdminNotifications = () => {
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search notifications..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-10"
                         data-testid="notification-search-input"
                       />
                     </div>
@@ -361,28 +363,28 @@ const AdminNotifications = () => {
                 {/* Notifications Table */}
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
-                        <th className="pb-3 font-medium text-gray-700">Title</th>
-                        <th className="pb-3 font-medium text-gray-700">Type</th>
-                        <th className="pb-3 font-medium text-gray-700">Priority</th>
-                        <th className="pb-3 font-medium text-gray-700">Recipient</th>
-                        <th className="pb-3 font-medium text-gray-700">Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Created</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">Title</th>
+                        <th className="pb-3 font-medium text-foreground">Type</th>
+                        <th className="pb-3 font-medium text-foreground">Priority</th>
+                        <th className="pb-3 font-medium text-foreground">Recipient</th>
+                        <th className="pb-3 font-medium text-foreground">Status</th>
+                        <th className="pb-3 font-medium text-foreground">Created</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredNotifications.map((notification) => (
                         <tr
                           key={notification.id}
-                          className="border-b hover:bg-gray-50"
+                          className="border-b border-border hover:bg-muted/50 transition-colors"
                           data-testid={`notification-row-${notification.id}`}
                         >
                           <td className="py-4">
                             <div>
-                              <p className="font-medium">{notification.title}</p>
-                              <p className="text-xs text-gray-500 truncate max-w-xs">
+                              <p className="font-medium text-foreground">{notification.title}</p>
+                              <p className="text-xs text-muted-foreground truncate max-w-xs">
                                 {notification.message}
                               </p>
                             </div>
@@ -397,17 +399,17 @@ const AdminNotifications = () => {
                               {notification.priority}
                             </Badge>
                           </td>
-                          <td className="py-4 text-sm">
+                          <td className="py-4 text-sm text-foreground">
                             {notification.user_id === 'broadcast'
                               ? 'All Users'
                               : notification.user?.email || 'Unknown'}
                           </td>
                           <td className="py-4">
-                            <Badge variant={notification.is_read ? 'outline' : 'default'}>
+                            <Badge variant={notification.is_read ? 'outline' : 'default'} className={notification.is_read ? 'border-border text-muted-foreground' : ''}>
                               {notification.is_read ? 'Read' : 'Unread'}
                             </Badge>
                           </td>
-                          <td className="py-4 text-sm text-gray-600">
+                          <td className="py-4 text-sm text-muted-foreground">
                             {new Date(notification.created_at).toLocaleDateString()}
                           </td>
                           <td className="py-4">
@@ -417,8 +419,8 @@ const AdminNotifications = () => {
                                   <MoreVertical className="w-4 h-4" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuContent align="end" className="bg-card border-border">
+                                <DropdownMenuLabel className="text-foreground">Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleViewDetails(notification)}>
                                   <Eye className="mr-2 h-4 w-4" />
@@ -435,7 +437,7 @@ const AdminNotifications = () => {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                   onClick={() => handleDeleteNotification(notification.id)}
-                                  className="text-red-600"
+                                  className="text-destructive"
                                 >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Delete
@@ -449,7 +451,7 @@ const AdminNotifications = () => {
                   </table>
 
                   {filteredNotifications.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <Bell className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No notifications found</p>
                     </div>
@@ -473,22 +475,22 @@ const AdminNotifications = () => {
           }
         }}
       >
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl bg-card border-border">
           <DialogHeader>
-            <DialogTitle>{editingNotification ? 'Edit Notification' : 'Create New Notification'}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-foreground text-xl">{editingNotification ? 'Edit Notification' : 'Create New Notification'}</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               {editingNotification ? 'Update notification details' : 'Send a new notification to users'}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="type">Type</Label>
+                <Label htmlFor="type" className="text-foreground">Type</Label>
                 <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
-                  <SelectTrigger data-testid="notification-type-select">
+                  <SelectTrigger className="border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card border-border">
                     <SelectItem value="system">System</SelectItem>
                     <SelectItem value="profile">Profile</SelectItem>
                     <SelectItem value="mentorship">Mentorship</SelectItem>
@@ -500,12 +502,12 @@ const AdminNotifications = () => {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="priority">Priority</Label>
+                <Label htmlFor="priority" className="text-foreground">Priority</Label>
                 <Select value={formData.priority} onValueChange={(value) => setFormData({ ...formData, priority: value })}>
-                  <SelectTrigger data-testid="notification-priority-select">
+                  <SelectTrigger className="border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card border-border">
                     <SelectItem value="low">Low</SelectItem>
                     <SelectItem value="medium">Medium</SelectItem>
                     <SelectItem value="high">High</SelectItem>
@@ -514,43 +516,45 @@ const AdminNotifications = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title" className="text-foreground">Title *</Label>
               <Input
                 id="title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="Notification title"
+                className="border-border"
                 data-testid="notification-title-input"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="message">Message *</Label>
+              <Label htmlFor="message" className="text-foreground">Message *</Label>
               <Textarea
                 id="message"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Notification message"
-                rows={4}
+                className="border-border min-h-[100px]"
                 data-testid="notification-message-input"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="link">Link (Optional)</Label>
+              <Label htmlFor="link" className="text-foreground">Link (Optional)</Label>
               <Input
                 id="link"
                 value={formData.link}
                 onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                 placeholder="/page/path or https://..."
+                className="border-border"
                 data-testid="notification-link-input"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="targetUsers">Send To</Label>
+              <Label htmlFor="targetUsers" className="text-foreground">Send To</Label>
               <Select value={formData.targetUsers} onValueChange={(value) => setFormData({ ...formData, targetUsers: value })}>
-                <SelectTrigger data-testid="notification-target-select">
+                <SelectTrigger className="border-border">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="all">All Users</SelectItem>
                   <SelectItem value="students">All Students</SelectItem>
                   <SelectItem value="alumni">All Alumni</SelectItem>
@@ -566,6 +570,7 @@ const AdminNotifications = () => {
             <Button
               onClick={editingNotification ? handleUpdateNotification : handleCreateNotification}
               data-testid="save-notification-btn"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               <Send className="w-4 h-4 mr-2" />
               {editingNotification ? 'Update' : 'Send'} Notification
@@ -576,64 +581,64 @@ const AdminNotifications = () => {
 
       {/* View Details Modal */}
       <Dialog open={showDetailsModal} onOpenChange={setShowDetailsModal}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Notification Details</DialogTitle>
-            <DialogDescription>Complete notification information</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Notification Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete notification information</DialogDescription>
           </DialogHeader>
           {selectedNotification && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Type</p>
+                  <p className="text-sm font-medium text-muted-foreground">Type</p>
                   <Badge className={`mt-1 ${getTypeBadgeColor(selectedNotification.type)}`}>
                     {selectedNotification.type}
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Priority</p>
+                  <p className="text-sm font-medium text-muted-foreground">Priority</p>
                   <Badge className={`mt-1 ${getPriorityBadgeColor(selectedNotification.priority)}`}>
                     {selectedNotification.priority}
                   </Badge>
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Title</p>
-                <p className="text-lg font-bold mt-1">{selectedNotification.title}</p>
+                <p className="text-sm font-medium text-muted-foreground">Title</p>
+                <p className="text-lg font-bold mt-1 text-foreground">{selectedNotification.title}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Message</p>
-                <p className="text-sm mt-1">{selectedNotification.message}</p>
+                <p className="text-sm font-medium text-muted-foreground">Message</p>
+                <p className="text-sm mt-1 text-foreground leading-relaxed">{selectedNotification.message}</p>
               </div>
               {selectedNotification.link && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Link</p>
-                  <p className="text-sm mt-1 text-blue-600">{selectedNotification.link}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Link</p>
+                  <p className="text-sm mt-1 text-primary hover:underline cursor-pointer">{selectedNotification.link}</p>
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t">
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                 <div>
-                  <p className="text-xs text-gray-500">Recipient</p>
-                  <p className="text-sm">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Recipient</p>
+                  <p className="text-sm text-foreground mt-1 font-medium">
                     {selectedNotification.user_id === 'broadcast'
                       ? 'All Users'
                       : selectedNotification.user?.email || 'Unknown'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Status</p>
-                  <Badge variant={selectedNotification.is_read ? 'outline' : 'default'}>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Status</p>
+                  <Badge variant={selectedNotification.is_read ? 'outline' : 'default'} className={selectedNotification.is_read ? 'mt-1 border-border text-muted-foreground' : 'mt-1'}>
                     {selectedNotification.is_read ? 'Read' : 'Unread'}
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Created</p>
-                  <p className="text-sm">{new Date(selectedNotification.created_at).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Created</p>
+                  <p className="text-sm text-foreground mt-1">{new Date(selectedNotification.created_at).toLocaleString()}</p>
                 </div>
                 {selectedNotification.read_at && (
                   <div>
-                    <p className="text-xs text-gray-500">Read At</p>
-                    <p className="text-sm">{new Date(selectedNotification.read_at).toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Read At</p>
+                    <p className="text-sm text-foreground mt-1">{new Date(selectedNotification.read_at).toLocaleString()}</p>
                   </div>
                 )}
               </div>

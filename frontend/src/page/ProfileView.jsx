@@ -98,7 +98,7 @@ const ProfileView = () => {
   const socialLinks = profile.social_links || {};
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <main className="flex-1 py-8">
@@ -107,27 +107,27 @@ const ProfileView = () => {
           <Button
             variant="ghost"
             onClick={() => navigate('/directory')}
-            className="mb-6 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
+            className="mb-6 hover:bg-muted text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Directory
           </Button>
 
           {/* Profile Header Card */}
-          <Card className="mb-6 overflow-hidden border-none shadow-lg dark:shadow-blue-900/10">
+          <Card className="mb-6 overflow-hidden border-border shadow-lg bg-card">
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
-                  <Avatar className="h-32 w-32 ring-4 ring-white dark:ring-gray-800 shadow-md">
+                  <Avatar className="h-32 w-32 ring-4 ring-background shadow-md">
                     <AvatarImage src={profile.photo_url} alt={profile.name} />
-                    <AvatarFallback className="text-3xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                    <AvatarFallback className="text-3xl bg-gradient-to-br from-[#3D52A0] to-[#7091E6] text-white">
                       {getInitials(profile.name)}
                     </AvatarFallback>
                   </Avatar>
                   {profile.is_verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-1 shadow-md">
-                      <CheckCircle2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                    <div className="absolute -bottom-2 -right-2 bg-card rounded-full p-1 shadow-md border border-border">
+                      <CheckCircle2 className="h-8 w-8 text-primary" />
                     </div>
                   )}
                 </div>
@@ -135,26 +135,26 @@ const ProfileView = () => {
                 {/* Basic Info */}
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{profile.name}</h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 mt-2">{profile.headline}</p>
+                    <h1 className="text-3xl font-bold text-foreground">{profile.name}</h1>
+                    <p className="text-xl text-muted-foreground mt-2">{profile.headline}</p>
                   </div>
 
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                     {profile.current_company && (
                       <div className="flex items-center gap-2">
-                        <Briefcase className="h-5 w-5 text-blue-500 dark:text-blue-400" />
+                        <Briefcase className="h-5 w-5 text-primary" />
                         <span>{profile.current_company}</span>
                       </div>
                     )}
                     {profile.location && (
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5 text-purple-500 dark:text-purple-400" />
+                        <MapPin className="h-5 w-5 text-[#7091E6]" />
                         <span>{profile.location}</span>
                       </div>
                     )}
                     {profile.batch_year && (
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-green-500 dark:text-green-400" />
+                        <Calendar className="h-5 w-5 text-green-600" />
                         <span>Batch of {profile.batch_year}</span>
                       </div>
                     )}
@@ -162,16 +162,16 @@ const ProfileView = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <Button onClick={handleSendMessage} disabled={sendingMessage} className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white">
+                    <Button onClick={handleSendMessage} disabled={sendingMessage} className="bg-primary text-primary-foreground hover:bg-primary/90">
                       <MessageSquare className="h-4 w-4 mr-2" />
                       {sendingMessage ? 'Opening...' : 'Send Message'}
                     </Button>
-                    <Button variant="outline" onClick={handleRequestMentorship} className="border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300">
+                    <Button variant="outline" onClick={handleRequestMentorship} className="border-primary text-primary hover:bg-primary/10">
                       <UserPlus className="h-4 w-4 mr-2" />
                       Request Mentorship
                     </Button>
                     {profile.cv_url && (
-                      <Button variant="outline" onClick={handleDownloadCV} className="dark:border-gray-700 dark:text-gray-300">
+                      <Button variant="outline" onClick={handleDownloadCV} className="border-border text-foreground hover:bg-muted">
                         <Download className="h-4 w-4 mr-2" />
                         Download CV
                       </Button>
@@ -187,29 +187,29 @@ const ProfileView = () => {
             <div className="lg:col-span-2 space-y-6">
               {/* About */}
               {profile.bio && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">About</h2>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{profile.bio}</p>
+                    <h2 className="text-xl font-bold text-foreground mb-4">About</h2>
+                    <p className="text-muted-foreground leading-relaxed">{profile.bio}</p>
                   </CardContent>
                 </Card>
               )}
 
               {/* Experience */}
               {profile.experience_timeline && profile.experience_timeline.length > 0 && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Experience</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-4">Experience</h2>
                     <div className="space-y-6">
                       {profile.experience_timeline.map((exp, idx) => (
                         <div key={idx} className="flex gap-4 group">
-                          <div className="flex-shrink-0 w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors">
-                            <Briefcase className="h-7 w-7 text-blue-600 dark:text-blue-400" />
+                          <div className="flex-shrink-0 w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <Briefcase className="h-7 w-7 text-primary" />
                           </div>
                           <div className="flex-1">
-                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{exp.role}</h3>
-                            <p className="text-gray-600 dark:text-gray-400 font-medium">{exp.company}</p>
-                            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+                            <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
+                            <p className="text-muted-foreground font-medium">{exp.company}</p>
+                            <p className="text-sm text-muted-foreground/70 mt-1">
                               {new Date(exp.start_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                               {' - '}
                               {exp.end_date
@@ -218,7 +218,7 @@ const ProfileView = () => {
                               }
                             </p>
                             {exp.description && (
-                              <p className="text-gray-600 dark:text-gray-300 mt-3 leading-relaxed text-sm">{exp.description}</p>
+                              <p className="text-muted-foreground mt-3 leading-relaxed text-sm">{exp.description}</p>
                             )}
                           </div>
                         </div>
@@ -230,21 +230,21 @@ const ProfileView = () => {
 
               {/* Education */}
               {profile.education_details && profile.education_details.length > 0 && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Education</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-4">Education</h2>
                     <div className="space-y-4">
                       {profile.education_details.map((edu, idx) => (
-                        <div key={idx} className="relative pl-4 border-l-2 border-gray-100 dark:border-gray-800">
-                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                        <div key={idx} className="relative pl-4 border-l-2 border-muted hover:border-primary transition-colors">
+                          <h3 className="font-semibold text-lg text-foreground">
                             {edu.degree} in {edu.field}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400">{edu.institution}</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+                          <p className="text-muted-foreground">{edu.institution}</p>
+                          <p className="text-sm text-muted-foreground/70 mt-1">
                             {edu.start_year} - {edu.end_year}
                           </p>
                           {edu.achievements && (
-                            <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm">{edu.achievements}</p>
+                            <p className="text-muted-foreground mt-2 text-sm">{edu.achievements}</p>
                           )}
                         </div>
                       ))}
@@ -258,12 +258,12 @@ const ProfileView = () => {
             <div className="space-y-6">
               {/* Skills */}
               {profile.skills && profile.skills.length > 0 && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Skills</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-4">Skills</h2>
                     <div className="flex flex-wrap gap-2">
                       {profile.skills.map((skill, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <Badge key={idx} variant="secondary" className="text-sm bg-secondary text-secondary-foreground border-border">
                           {skill}
                         </Badge>
                       ))}
@@ -274,14 +274,14 @@ const ProfileView = () => {
 
               {/* Social Links */}
               {Object.keys(socialLinks).length > 0 && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Connect</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-4">Connect</h2>
                     <div className="space-y-2">
                       {socialLinks.linkedin && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400"
+                          className="w-full justify-start border-border text-muted-foreground hover:text-primary hover:bg-primary/5"
                           onClick={() => window.open(socialLinks.linkedin, '_blank')}
                         >
                           <Linkedin className="h-4 w-4 mr-2" />
@@ -291,7 +291,7 @@ const ProfileView = () => {
                       {socialLinks.github && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                          className="w-full justify-start border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                           onClick={() => window.open(socialLinks.github, '_blank')}
                         >
                           <Github className="h-4 w-4 mr-2" />
@@ -301,7 +301,7 @@ const ProfileView = () => {
                       {socialLinks.twitter && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-400 dark:hover:text-blue-400"
+                          className="w-full justify-start border-border text-muted-foreground hover:text-accent hover:bg-accent/5"
                           onClick={() => window.open(socialLinks.twitter, '_blank')}
                         >
                           <Twitter className="h-4 w-4 mr-2" />
@@ -311,7 +311,7 @@ const ProfileView = () => {
                       {socialLinks.website && (
                         <Button
                           variant="outline"
-                          className="w-full justify-start dark:border-gray-700 dark:text-gray-300"
+                          className="w-full justify-start border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                           onClick={() => window.open(socialLinks.website, '_blank')}
                         >
                           <Globe className="h-4 w-4 mr-2" />
@@ -325,13 +325,13 @@ const ProfileView = () => {
 
               {/* Achievements */}
               {profile.achievements && profile.achievements.length > 0 && (
-                <Card className="border-none shadow-md dark:shadow-none dark:bg-card">
+                <Card className="border-border shadow-sm bg-card">
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Achievements</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-4">Achievements</h2>
                     <ul className="space-y-2">
                       {profile.achievements.map((achievement, idx) => (
-                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
-                          <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
+                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
                           <span>{achievement}</span>
                         </li>
                       ))}

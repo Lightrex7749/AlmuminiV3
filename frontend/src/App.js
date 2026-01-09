@@ -160,6 +160,13 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* Redirect /profile/edit to /profile (Profile page handles editing) */}
+          <Route
+            path="/profile/edit"
+            element={
+              <Navigate to="/profile" replace />
+            }
+          />
           <Route
             path="/profile/:userId"
             element={

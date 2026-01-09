@@ -77,18 +77,18 @@ const RequestMentorshipModal = ({ mentor, onClose, onSuccess }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto" data-testid="request-mentorship-modal">
+      <div className="bg-white dark:bg-card rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto" data-testid="request-mentorship-modal">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-white dark:bg-card border-b dark:border-gray-800 px-6 py-4 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Request Mentorship</h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Request Mentorship</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Send a mentorship request to {mentor.profile?.name}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             data-testid="close-modal-btn"
           >
             <X className="h-6 w-6" />
@@ -98,11 +98,11 @@ const RequestMentorshipModal = ({ mentor, onClose, onSuccess }) => {
         {/* Content */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Mentor Info */}
-          <div className="p-4 bg-blue-50 rounded-lg">
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <div className="flex items-center gap-3">
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{mentor.profile?.name}</h3>
-                <p className="text-sm text-gray-600">{mentor.profile?.headline}</p>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{mentor.profile?.name}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{mentor.profile?.headline}</p>
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">

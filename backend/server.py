@@ -23,7 +23,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Check database configuration
-print(f"📊 Database Configuration:")
+print(f"--- Database Configuration:")
 print(f"   DB_HOST: {os.getenv('DB_HOST', 'NOT SET')}")
 print(f"   DB_PORT: {os.getenv('DB_PORT', 'NOT SET')}")
 print(f"   DB_USER: {os.getenv('DB_USER', 'NOT SET')}")

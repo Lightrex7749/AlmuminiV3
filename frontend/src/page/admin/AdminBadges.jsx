@@ -201,7 +201,7 @@ const AdminBadges = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -210,7 +210,7 @@ const AdminBadges = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Badge Management 🏆</h1>
               <p className="mt-2 opacity-90">Create and manage achievement badges</p>
             </div>
@@ -220,12 +220,12 @@ const AdminBadges = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -236,12 +236,12 @@ const AdminBadges = () => {
             </div>
 
             {/* Badges List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle>All Badges</CardTitle>
-                    <CardDescription>Manage achievement badges for users</CardDescription>
+                    <CardTitle className="text-foreground">All Badges</CardTitle>
+                    <CardDescription className="text-muted-foreground">Manage achievement badges for users</CardDescription>
                   </div>
                   <Button
                     onClick={() => {
@@ -260,16 +260,16 @@ const AdminBadges = () => {
                   {badges.map((badge) => (
                     <div
                       key={badge.id}
-                      className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                      className="border border-border rounded-lg p-4 hover:bg-muted/30 hover:shadow-md transition-all duration-200"
                       data-testid={`badge-card-${badge.id}`}
                     >
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                          <div className="w-12 h-12 bg-gradient-to-br from-[#7091E6] to-[#3D52A0] rounded-full flex items-center justify-center shadow-sm">
                             <Award className="w-6 h-6 text-white" />
                           </div>
                           <div>
-                            <h3 className="font-semibold">{badge.name}</h3>
+                            <h3 className="font-semibold text-foreground">{badge.name}</h3>
                             <Badge className={`text-xs ${getRarityColor(badge.rarity)}`}>
                               {badge.rarity}
                             </Badge>
@@ -281,6 +281,7 @@ const AdminBadges = () => {
                             variant="ghost"
                             onClick={() => handleEditBadge(badge)}
                             data-testid={`edit-badge-${badge.id}`}
+                            className="text-muted-foreground hover:text-foreground"
                           >
                             <Edit className="w-4 h-4" />
                           </Button>
@@ -288,22 +289,22 @@ const AdminBadges = () => {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleDeleteBadge(badge.id)}
-                            className="text-red-600"
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
                             data-testid={`delete-badge-${badge.id}`}
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600 mb-3">{badge.description}</p>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-gray-500">Points: {badge.points}</span>
-                        <span className="text-gray-500">Earned by: {badge.earnedCount}</span>
+                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{badge.description}</p>
+                      <div className="flex justify-between items-center text-xs font-medium">
+                        <span className="text-muted-foreground uppercase tracking-wider">Points: {badge.points}</span>
+                        <span className="text-muted-foreground uppercase tracking-wider">Earned by: {badge.earnedCount}</span>
                       </div>
                     </div>
                   ))}
                   {badges.length === 0 && (
-                    <div className="col-span-full text-center py-12 text-gray-500">
+                    <div className="col-span-full text-center py-12 text-muted-foreground">
                       <Award className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No badges created yet</p>
                       <Button className="mt-4" onClick={() => setShowCreateModal(true)}>
@@ -331,43 +332,45 @@ const AdminBadges = () => {
           }
         }}
       >
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl bg-card border-border">
           <DialogHeader>
-            <DialogTitle>{editingBadge ? 'Edit Badge' : 'Create New Badge'}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-foreground text-xl">{editingBadge ? 'Edit Badge' : 'Create New Badge'}</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               {editingBadge ? 'Update badge information' : 'Create a new achievement badge'}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Badge Name *</Label>
+              <Label htmlFor="name" className="text-foreground">Badge Name *</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g., Active Contributor"
+                className="border-border"
                 data-testid="badge-name-input"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description" className="text-foreground">Description *</Label>
               <Textarea
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="What does this badge represent?"
                 rows={3}
+                className="border-border"
                 data-testid="badge-description-input"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="rarity">Rarity</Label>
+                <Label htmlFor="rarity" className="text-foreground">Rarity</Label>
                 <Select value={formData.rarity} onValueChange={(value) => setFormData({ ...formData, rarity: value })}>
-                  <SelectTrigger data-testid="badge-rarity-select">
+                  <SelectTrigger data-testid="badge-rarity-select" className="border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card border-border">
                     <SelectItem value="common">Common</SelectItem>
                     <SelectItem value="rare">Rare</SelectItem>
                     <SelectItem value="epic">Epic</SelectItem>
@@ -376,28 +379,29 @@ const AdminBadges = () => {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="points">Points</Label>
+                <Label htmlFor="points" className="text-foreground">Points</Label>
                 <Input
                   id="points"
                   type="number"
                   value={formData.points}
                   onChange={(e) => setFormData({ ...formData, points: e.target.value })}
+                  className="border-border"
                   data-testid="badge-points-input"
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="requirements">Requirements (JSON)</Label>
+              <Label htmlFor="requirements" className="text-foreground">Requirements (JSON)</Label>
               <Textarea
                 id="requirements"
                 value={formData.requirements}
                 onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                 placeholder='{"type": "forum_posts", "count": 10}'
                 rows={3}
-                className="font-mono text-sm"
+                className="font-mono text-sm border-border"
                 data-testid="badge-requirements-input"
               />
-              <p className="text-xs text-gray-500">Example: {'{"type": "mentorship", "sessions": 10}'}</p>
+              <p className="text-xs text-muted-foreground italic">Example: {'{"type": "mentorship", "sessions": 10}'}</p>
             </div>
           </div>
           <DialogFooter>
@@ -407,6 +411,7 @@ const AdminBadges = () => {
             <Button
               onClick={editingBadge ? handleUpdateBadge : handleCreateBadge}
               data-testid="save-badge-btn"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               {editingBadge ? 'Update' : 'Create'} Badge
             </Button>

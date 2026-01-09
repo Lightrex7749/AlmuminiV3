@@ -149,7 +149,7 @@ const AdminFileUploads = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -158,18 +158,18 @@ const AdminFileUploads = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">File Upload Manager 📁</h1>
               <p className="mt-2 opacity-90">Track and manage all uploaded files</p>
             </div>
 
             {/* Loading State */}
             {loading && (
-              <Card>
+              <Card className="bg-card border-border">
                 <CardContent className="py-12">
                   <div className="flex flex-col items-center justify-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
-                    <p className="text-gray-600">Loading files...</p>
+                    <Loader2 className="w-8 h-8 animate-spin text-primary mb-2" />
+                    <p className="text-muted-foreground">Loading files...</p>
                   </div>
                 </CardContent>
               </Card>
@@ -177,14 +177,14 @@ const AdminFileUploads = () => {
 
             {/* Error State */}
             {error && !loading && (
-              <Card className="border-red-200 bg-red-50">
+              <Card className="border-destructive/20 bg-destructive/5">
                 <CardContent className="py-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <XCircle className="w-6 h-6 text-red-600" />
+                      <XCircle className="w-6 h-6 text-destructive" />
                       <div>
-                        <p className="font-medium text-red-900">Failed to load files</p>
-                        <p className="text-sm text-red-700 mt-1">{error}</p>
+                        <p className="font-medium text-destructive">Failed to load files</p>
+                        <p className="text-sm text-destructive/80 mt-1">{error}</p>
                       </div>
                     </div>
                     <Button onClick={loadFiles} variant="outline" size="sm">
@@ -201,12 +201,12 @@ const AdminFileUploads = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -219,16 +219,16 @@ const AdminFileUploads = () => {
 
             {/* Files List */}
             {!loading && !error && (
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
               <CardHeader>
-                <CardTitle>Uploaded Files</CardTitle>
-                <CardDescription>All files uploaded to the platform</CardDescription>
+                <CardTitle className="text-foreground">Uploaded Files</CardTitle>
+                <CardDescription className="text-muted-foreground">All files uploaded to the platform</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by filename or user..."
                         value={searchQuery}
@@ -256,14 +256,14 @@ const AdminFileUploads = () => {
 
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
-                        <th className="pb-3 font-medium text-gray-700">File Name</th>
-                        <th className="pb-3 font-medium text-gray-700">Type</th>
-                        <th className="pb-3 font-medium text-gray-700">Size</th>
-                        <th className="pb-3 font-medium text-gray-700">Uploaded By</th>
-                        <th className="pb-3 font-medium text-gray-700">Upload Date</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">File Name</th>
+                        <th className="pb-3 font-medium text-foreground">Type</th>
+                        <th className="pb-3 font-medium text-foreground">Size</th>
+                        <th className="pb-3 font-medium text-foreground">Uploaded By</th>
+                        <th className="pb-3 font-medium text-foreground">Upload Date</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -272,13 +272,13 @@ const AdminFileUploads = () => {
                         return (
                           <tr
                             key={file.id}
-                            className="border-b hover:bg-gray-50"
+                            className="border-b border-border hover:bg-muted/50 transition-colors"
                             data-testid={`file-row-${file.id}`}
                           >
                             <td className="py-4">
                               <div className="flex items-center gap-3">
-                                <FileIcon className="w-5 h-5 text-gray-400" />
-                                <span className="text-sm font-medium">{file.file_name}</span>
+                                <FileIcon className="w-5 h-5 text-muted-foreground" />
+                                <span className="text-sm font-medium text-foreground">{file.file_name}</span>
                               </div>
                             </td>
                             <td className="py-4">
@@ -286,9 +286,9 @@ const AdminFileUploads = () => {
                                 {file.file_type}
                               </Badge>
                             </td>
-                            <td className="py-4 text-sm text-gray-600">{formatFileSize(file.file_size_kb)}</td>
-                            <td className="py-4 text-sm">{file.user_email}</td>
-                            <td className="py-4 text-sm text-gray-600">
+                            <td className="py-4 text-sm text-muted-foreground">{formatFileSize(file.file_size_kb)}</td>
+                            <td className="py-4 text-sm text-foreground">{file.user_email}</td>
+                            <td className="py-4 text-sm text-muted-foreground">
                               {new Date(file.uploaded_at).toLocaleDateString()}
                             </td>
                             <td className="py-4">
@@ -304,7 +304,7 @@ const AdminFileUploads = () => {
                                 <Button
                                   size="sm"
                                   variant="outline"
-                                  className="text-red-600"
+                                  className="text-destructive hover:bg-destructive/10"
                                   onClick={() => handleDeleteFile(file.id)}
                                   disabled={deleteLoading === file.id}
                                   data-testid={`delete-file-${file.id}`}
@@ -324,7 +324,7 @@ const AdminFileUploads = () => {
                   </table>
 
                   {filteredFiles.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <File className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No files found</p>
                     </div>

@@ -42,7 +42,7 @@ const RequestCard = ({ request, userProfile, onAccept, onReject, onCancel, onVie
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-semibold text-gray-900">{userProfile?.name}</h4>
+                <h4 className="font-semibold text-vibrant">{userProfile?.name}</h4>
                 <p className="text-sm text-gray-600">{userProfile?.headline || userProfile?.current_role}</p>
               </div>
               {getStatusBadge()}

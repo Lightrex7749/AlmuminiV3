@@ -47,7 +47,7 @@ const PostCard = ({ post, showFullContent = false }) => {
 
   return (
     <Card 
-      className="hover:shadow-md transition-shadow cursor-pointer"
+      className="hover:shadow-md transition-shadow cursor-pointer bg-card text-card-foreground border-border"
       onClick={() => navigate(`/forum/posts/${post.id}`)}
       data-testid={`post-card-${post.id}`}
     >
@@ -61,27 +61,27 @@ const PostCard = ({ post, showFullContent = false }) => {
           
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm truncate">{authorName}</span>
+              <span className="font-semibold text-sm truncate text-foreground">{authorName}</span>
               <Badge variant="outline" className="text-xs">
                 {authorRole}
               </Badge>
               {post.is_pinned && (
-                <Pin className="h-3 w-3 text-blue-600" />
+                <Pin className="h-3 w-3 text-primary" />
               )}
             </div>
-            <p className="text-xs text-gray-500">{formatDate(post.created_at)}</p>
+            <p className="text-xs text-muted-foreground">{formatDate(post.created_at)}</p>
           </div>
         </div>
 
         {/* Post Title */}
         {post.title && (
-          <h3 className="font-semibold text-lg mb-2">
+          <h3 className="font-semibold text-lg mb-2 text-foreground">
             {post.title}
           </h3>
         )}
 
         {/* Post Content */}
-        <div className="text-gray-700 mb-3">
+        <div className="text-foreground mb-3">
           {showFullContent ? (
             <div className="whitespace-pre-wrap">{post.content}</div>
           ) : (
@@ -96,7 +96,7 @@ const PostCard = ({ post, showFullContent = false }) => {
               <Badge 
                 key={index} 
                 variant="secondary" 
-                className="text-xs cursor-pointer hover:bg-gray-200"
+                className="text-xs cursor-pointer hover:bg-muted"
                 onClick={(e) => {
                   e.stopPropagation();
                   navigate(`/forum?tag=${tag}`);
@@ -109,7 +109,7 @@ const PostCard = ({ post, showFullContent = false }) => {
         )}
 
         {/* Actions */}
-        <div className="flex items-center gap-4 text-sm text-gray-600">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <Button
             variant="ghost"
             size="sm"

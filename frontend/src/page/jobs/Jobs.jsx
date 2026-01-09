@@ -117,35 +117,40 @@ const Jobs = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" data-testid="jobs-page">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300" data-testid="jobs-page">
       <MainNavbar />
       
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-2">
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <Briefcase className="w-8 h-8 text-blue-600" />
-                <h1 className="text-3xl font-bold">Job Opportunities</h1>
+                <div className="bg-primary/10 p-3 rounded-xl">
+                  <Briefcase className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-foreground">Job Opportunities</h1>
+                  <p className="text-muted-foreground mt-1">
+                    Discover exciting career opportunities from our alumni network
+                  </p>
+                </div>
               </div>
               {canPostJobs && (
                 <Button 
                   onClick={() => navigate('/jobs/post')}
                   data-testid="post-job-button"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Post Job
                 </Button>
               )}
             </div>
-            <p className="text-gray-600 dark:text-gray-400">
-              Discover exciting career opportunities from our alumni network
-            </p>
           </div>
 
           {/* Search and Sort */}
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="flex-1">
               <JobSearchBar
                 value={filters.search}
@@ -155,14 +160,14 @@ const Jobs = () => {
             <div className="flex gap-2">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="outline" className="md:hidden">
+                  <Button variant="outline" className="md:hidden border-border text-foreground">
                     <SlidersHorizontal className="w-4 h-4 mr-2" />
                     Filters
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-80">
+                <SheetContent side="left" className="w-80 bg-card border-border">
                   <SheetHeader>
-                    <SheetTitle>Filters</SheetTitle>
+                    <SheetTitle className="text-foreground">Filters</SheetTitle>
                   </SheetHeader>
                   <div className="mt-4">
                     <JobFilterSidebar
@@ -177,10 +182,10 @@ const Jobs = () => {
             </div>
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             {/* Desktop Filter Sidebar */}
-            <aside className="hidden md:block w-64 flex-shrink-0">
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 sticky top-4">
+            <aside className="hidden md:block w-72 flex-shrink-0">
+              <div className="bg-card border border-border rounded-xl p-6 sticky top-24 shadow-sm">
                 <JobFilterSidebar
                   filters={filters}
                   onFilterChange={handleFilterChange}
@@ -190,28 +195,29 @@ const Jobs = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               {/* Results Count */}
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400" data-testid="results-count">
-                  {loading ? 'Loading...' : `${results.totalResults} job${results.totalResults !== 1 ? 's' : ''} found`}
+              <div className="mb-6 flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <p className="text-sm font-medium text-muted-foreground" data-testid="results-count">
+                  {loading ? 'Loading jobs...' : `${results.totalResults} job${results.totalResults !== 1 ? 's' : ''} found`}
                 </p>
               </div>
 
               {/* Job Grid */}
               {loading ? (
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
                   {[...Array(6)].map((_, i) => (
-                    <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-4 animate-pulse">
-                      <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
-                      <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded" />
+                    <div key={i} className="bg-card border border-border rounded-xl p-6 animate-pulse">
+                      <div className="h-6 bg-muted rounded w-3/4 mb-4" />
+                      <div className="h-4 bg-muted rounded w-1/2 mb-6" />
+                      <div className="h-24 bg-muted rounded w-full" />
                     </div>
                   ))}
                 </div>
               ) : results.data.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4" data-testid="jobs-grid">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6" data-testid="jobs-grid">
                     {results.data.map((job) => (
                       <JobCard key={job.id} job={job} />
                     ))}
@@ -219,13 +225,13 @@ const Jobs = () => {
 
                   {/* Pagination */}
                   {results.totalPages > 1 && (
-                    <div className="mt-8 flex justify-center">
+                    <div className="mt-12 flex justify-center">
                       <Pagination>
                         <PaginationContent>
                           <PaginationItem>
                             <PaginationPrevious
                               onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                              className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                              className={currentPage === 1 ? 'pointer-events-none opacity-50 text-muted-foreground' : 'cursor-pointer text-foreground hover:bg-muted'}
                             />
                           </PaginationItem>
                           
@@ -241,7 +247,11 @@ const Jobs = () => {
                                   <PaginationLink
                                     onClick={() => handlePageChange(page)}
                                     isActive={page === currentPage}
-                                    className="cursor-pointer"
+                                    className={`cursor-pointer ${
+                                      page === currentPage 
+                                        ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                                        : 'text-foreground hover:bg-muted'
+                                    }`}
                                   >
                                     {page}
                                   </PaginationLink>
@@ -253,7 +263,7 @@ const Jobs = () => {
                             ) {
                               return (
                                 <PaginationItem key={page}>
-                                  <span className="px-4">...</span>
+                                  <span className="px-4 text-muted-foreground">...</span>
                                 </PaginationItem>
                               );
                             }
@@ -263,7 +273,7 @@ const Jobs = () => {
                           <PaginationItem>
                             <PaginationNext
                               onClick={() => handlePageChange(Math.min(results.totalPages, currentPage + 1))}
-                              className={currentPage === results.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                              className={currentPage === results.totalPages ? 'pointer-events-none opacity-50 text-muted-foreground' : 'cursor-pointer text-foreground hover:bg-muted'}
                             />
                           </PaginationItem>
                         </PaginationContent>
@@ -272,15 +282,15 @@ const Jobs = () => {
                   )}
                 </>
               ) : (
-                <div className="text-center py-12" data-testid="no-jobs-message">
-                  <Briefcase className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <div className="text-center py-20 bg-card border border-border border-dashed rounded-2xl" data-testid="no-jobs-message">
+                  <Briefcase className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
                     No jobs found
                   </h3>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    Try adjusting your search or filters
+                  <p className="text-muted-foreground mb-8">
+                    Try adjusting your search or filters to find what you're looking for
                   </p>
-                  <Button onClick={handleClearFilters} variant="outline">
+                  <Button onClick={handleClearFilters} variant="outline" className="border-border text-foreground hover:bg-muted">
                     Clear Filters
                   </Button>
                 </div>
@@ -290,11 +300,12 @@ const Jobs = () => {
 
           {/* Manage Jobs Link */}
           {canPostJobs && (
-            <div className="mt-8 text-center">
+            <div className="mt-12 text-center">
               <Button 
                 variant="outline" 
                 onClick={() => navigate('/jobs/manage')}
                 data-testid="manage-jobs-button"
+                className="border-primary text-primary hover:bg-primary/10"
               >
                 Manage My Jobs
               </Button>

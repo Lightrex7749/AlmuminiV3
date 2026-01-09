@@ -144,21 +144,21 @@ const AdminModeration = () => {
   const renderContentCard = (item, contentType) => (
     <div
       key={item.id}
-      className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+      className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
       data-testid={`moderation-item-${item.id}`}
     >
       <div className="flex items-start gap-4">
-        <div className="p-2 bg-red-100 rounded-lg text-red-600">{getContentIcon(item.type)}</div>
+        <div className="p-2 bg-destructive/10 rounded-lg text-destructive">{getContentIcon(item.type)}</div>
         <div className="flex-1">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-semibold text-lg">{item.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">By: {item.author}</p>
+              <h3 className="font-semibold text-lg text-foreground">{item.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1">By: {item.author}</p>
             </div>
             <Badge className={getReasonBadgeColor(item.reason)}>{item.reason}</Badge>
           </div>
-          <p className="text-sm text-gray-700 mt-2 line-clamp-2">{item.content}</p>
-          <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
+          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{item.content}</p>
+          <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
             <span>Reported by: {item.reportedBy}</span>
             <span>•</span>
             <span>{new Date(item.timestamp).toLocaleDateString()}</span>
@@ -167,7 +167,7 @@ const AdminModeration = () => {
             <Button
               size="sm"
               variant="outline"
-              className="text-green-600 border-green-600 hover:bg-green-50"
+              className="text-green-600 border-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
               onClick={() => handleApprove(contentType, item.id)}
               disabled={actionLoading === `approve-${item.id}`}
               data-testid={`approve-btn-${item.id}`}
@@ -182,7 +182,7 @@ const AdminModeration = () => {
             <Button
               size="sm"
               variant="outline"
-              className="text-yellow-600 border-yellow-600 hover:bg-yellow-50"
+              className="text-yellow-600 border-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-950/20"
               onClick={() => handleWarn(contentType, item.id)}
               disabled={actionLoading === `warn-${item.id}`}
               data-testid={`warn-btn-${item.id}`}
@@ -197,7 +197,7 @@ const AdminModeration = () => {
             <Button
               size="sm"
               variant="outline"
-              className="text-red-600 border-red-600 hover:bg-red-50"
+              className="text-destructive border-destructive hover:bg-destructive/10"
               onClick={() => handleRemove(contentType, item.id)}
               disabled={actionLoading === `remove-${item.id}`}
               data-testid={`remove-btn-${item.id}`}
@@ -216,7 +216,7 @@ const AdminModeration = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -225,18 +225,18 @@ const AdminModeration = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Content Moderation 🛡️</h1>
               <p className="mt-2 opacity-90">Review and moderate flagged content on the platform</p>
             </div>
 
             {/* Loading State */}
             {loading && (
-              <Card>
+              <Card className="bg-card border-border">
                 <CardContent className="py-12">
                   <div className="flex flex-col items-center justify-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
-                    <p className="text-gray-600">Loading flagged content...</p>
+                    <Loader2 className="w-8 h-8 animate-spin text-primary mb-2" />
+                    <p className="text-muted-foreground">Loading flagged content...</p>
                   </div>
                 </CardContent>
               </Card>
@@ -244,14 +244,14 @@ const AdminModeration = () => {
 
             {/* Error State */}
             {error && !loading && (
-              <Card className="border-red-200 bg-red-50">
+              <Card className="border-destructive/20 bg-destructive/5">
                 <CardContent className="py-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <XCircle className="w-6 h-6 text-red-600" />
+                      <XCircle className="w-6 h-6 text-destructive" />
                       <div>
-                        <p className="font-medium text-red-900">Failed to load flagged content</p>
-                        <p className="text-sm text-red-700 mt-1">{error}</p>
+                        <p className="font-medium text-destructive">Failed to load flagged content</p>
+                        <p className="text-sm text-destructive/80 mt-1">{error}</p>
                       </div>
                     </div>
                     <Button onClick={loadFlaggedContent} variant="outline" size="sm">
@@ -265,28 +265,28 @@ const AdminModeration = () => {
             {/* Stats */}
             {!loading && !error && (
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardContent className="pt-6">
-                    <div className="text-2xl font-bold text-red-600">{totalFlagged}</div>
-                    <p className="text-sm text-gray-600 mt-1">Total Flagged</p>
+                    <div className="text-2xl font-bold text-destructive">{totalFlagged}</div>
+                    <p className="text-sm text-muted-foreground mt-1">Total Flagged</p>
                   </CardContent>
                 </Card>
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
                 <CardContent className="pt-6">
-                  <div className="text-2xl font-bold text-orange-600">{flaggedContent.posts?.length || 0}</div>
-                  <p className="text-sm text-gray-600 mt-1">Forum Posts</p>
+                  <div className="text-2xl font-bold text-accent">{flaggedContent.posts?.length || 0}</div>
+                  <p className="text-sm text-muted-foreground mt-1">Forum Posts</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
                 <CardContent className="pt-6">
-                  <div className="text-2xl font-bold text-purple-600">{flaggedContent.jobs?.length || 0}</div>
-                  <p className="text-sm text-gray-600 mt-1">Job Postings</p>
+                  <div className="text-2xl font-bold text-primary">{flaggedContent.jobs?.length || 0}</div>
+                  <p className="text-sm text-muted-foreground mt-1">Job Postings</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
                 <CardContent className="pt-6">
-                  <div className="text-2xl font-bold text-blue-600">{flaggedContent.comments?.length || 0}</div>
-                  <p className="text-sm text-gray-600 mt-1">Comments</p>
+                  <div className="text-2xl font-bold text-primary/80">{flaggedContent.comments?.length || 0}</div>
+                  <p className="text-sm text-muted-foreground mt-1">Comments</p>
                 </CardContent>
               </Card>
               </div>
@@ -294,14 +294,14 @@ const AdminModeration = () => {
 
             {/* Flagged Content */}
             {!loading && !error && (
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
               <CardHeader>
-                <CardTitle>Flagged Content</CardTitle>
-                <CardDescription>Review reported content and take appropriate action</CardDescription>
+                <CardTitle className="text-foreground">Flagged Content</CardTitle>
+                <CardDescription className="text-muted-foreground">Review reported content and take appropriate action</CardDescription>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="all" className="w-full">
-                  <TabsList>
+                  <TabsList className="bg-muted/50 border border-border">
                     <TabsTrigger value="all" data-testid="tab-all">
                       All ({totalFlagged})
                     </TabsTrigger>
@@ -324,9 +324,9 @@ const AdminModeration = () => {
                       }
                     )}
                     {totalFlagged === 0 && (
-                      <div className="text-center py-12 text-gray-500">
-                        <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                        <p className="text-lg font-medium">All clear!</p>
+                      <div className="text-center py-12 text-muted-foreground">
+                        <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50 text-primary" />
+                        <p className="text-lg font-medium text-foreground">All clear!</p>
                         <p className="text-sm mt-1">No flagged content to review</p>
                       </div>
                     )}
@@ -335,7 +335,7 @@ const AdminModeration = () => {
                   <TabsContent value="posts" className="space-y-4 mt-4">
                     {(flaggedContent.posts || []).map((item) => renderContentCard(item, 'posts'))}
                     {(flaggedContent.posts?.length || 0) === 0 && (
-                      <div className="text-center py-12 text-gray-500">
+                      <div className="text-center py-12 text-muted-foreground">
                         <p>No flagged posts</p>
                       </div>
                     )}
@@ -344,7 +344,7 @@ const AdminModeration = () => {
                   <TabsContent value="jobs" className="space-y-4 mt-4">
                     {(flaggedContent.jobs || []).map((item) => renderContentCard(item, 'jobs'))}
                     {(flaggedContent.jobs?.length || 0) === 0 && (
-                      <div className="text-center py-12 text-gray-500">
+                      <div className="text-center py-12 text-muted-foreground">
                         <p>No flagged jobs</p>
                       </div>
                     )}
@@ -353,7 +353,7 @@ const AdminModeration = () => {
                   <TabsContent value="comments" className="space-y-4 mt-4">
                     {(flaggedContent.comments || []).map((item) => renderContentCard(item, 'comments'))}
                     {(flaggedContent.comments?.length || 0) === 0 && (
-                      <div className="text-center py-12 text-gray-500">
+                      <div className="text-center py-12 text-muted-foreground">
                         <p>No flagged comments</p>
                       </div>
                     )}

@@ -187,7 +187,7 @@ const AdminEmailQueue = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -196,7 +196,7 @@ const AdminEmailQueue = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Email Queue ✉️</h1>
               <p className="mt-2 opacity-90">Monitor and manage email delivery</p>
             </div>
@@ -206,12 +206,12 @@ const AdminEmailQueue = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -222,21 +222,21 @@ const AdminEmailQueue = () => {
             </div>
 
             {/* Email Queue List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
-                <CardTitle>Email Queue</CardTitle>
-                <CardDescription>View and manage queued emails</CardDescription>
+                <CardTitle className="text-foreground">Email Queue</CardTitle>
+                <CardDescription className="text-muted-foreground">View and manage queued emails</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by recipient or subject..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 bg-background border-border"
                         data-testid="email-search-input"
                       />
                     </div>
@@ -247,7 +247,7 @@ const AdminEmailQueue = () => {
                           variant={statusFilter === status ? 'default' : 'outline'}
                           size="sm"
                           onClick={() => setStatusFilter(status)}
-                          className="capitalize"
+                          className={`capitalize ${statusFilter === status ? 'bg-primary text-primary-foreground' : 'border-border text-foreground'}`}
                           data-testid={`filter-${status}-btn`}
                         >
                           {status}
@@ -259,15 +259,15 @@ const AdminEmailQueue = () => {
 
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b">
+                    <thead className="border-b border-border">
                       <tr className="text-left">
-                        <th className="pb-3 font-medium text-gray-700">Recipient</th>
-                        <th className="pb-3 font-medium text-gray-700">Subject</th>
-                        <th className="pb-3 font-medium text-gray-700">Template</th>
-                        <th className="pb-3 font-medium text-gray-700">Status</th>
-                        <th className="pb-3 font-medium text-gray-700">Scheduled</th>
-                        <th className="pb-3 font-medium text-gray-700">Retries</th>
-                        <th className="pb-3 font-medium text-gray-700">Actions</th>
+                        <th className="pb-3 font-medium text-foreground">Recipient</th>
+                        <th className="pb-3 font-medium text-foreground">Subject</th>
+                        <th className="pb-3 font-medium text-foreground">Template</th>
+                        <th className="pb-3 font-medium text-foreground">Status</th>
+                        <th className="pb-3 font-medium text-foreground">Scheduled</th>
+                        <th className="pb-3 font-medium text-foreground">Retries</th>
+                        <th className="pb-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -276,13 +276,13 @@ const AdminEmailQueue = () => {
                         return (
                           <tr
                             key={email.id}
-                            className="border-b hover:bg-gray-50"
+                            className="border-b border-border hover:bg-muted/50 transition-colors"
                             data-testid={`email-row-${email.id}`}
                           >
-                            <td className="py-4 text-sm font-medium">{email.recipient_email}</td>
-                            <td className="py-4 text-sm">{email.subject}</td>
+                            <td className="py-4 text-sm font-medium text-foreground">{email.recipient_email}</td>
+                            <td className="py-4 text-sm text-foreground">{email.subject}</td>
                             <td className="py-4">
-                              <Badge variant="outline" className="capitalize">
+                              <Badge variant="outline" className="capitalize border-border text-foreground">
                                 {email.template_name.replace('_', ' ')}
                               </Badge>
                             </td>
@@ -292,14 +292,14 @@ const AdminEmailQueue = () => {
                                 {email.status}
                               </Badge>
                             </td>
-                            <td className="py-4 text-sm text-gray-600">
+                            <td className="py-4 text-sm text-muted-foreground">
                               {new Date(email.scheduled_at).toLocaleString()}
                             </td>
                             <td className="py-4 text-sm">
                               {email.retry_count > 0 ? (
                                 <span className="text-orange-600 font-medium">{email.retry_count}</span>
                               ) : (
-                                <span className="text-gray-400">0</span>
+                                <span className="text-muted-foreground">0</span>
                               )}
                             </td>
                             <td className="py-4">
@@ -309,6 +309,7 @@ const AdminEmailQueue = () => {
                                   variant="outline"
                                   onClick={() => handleViewEmail(email.id)}
                                   data-testid={`view-email-${email.id}`}
+                                  className="border-border text-foreground"
                                 >
                                   View
                                 </Button>
@@ -318,6 +319,7 @@ const AdminEmailQueue = () => {
                                     variant="outline"
                                     onClick={() => handleRetryEmail(email.id)}
                                     data-testid={`retry-email-${email.id}`}
+                                    className="border-border text-foreground"
                                   >
                                     <RefreshCw className="w-4 h-4" />
                                   </Button>
@@ -331,7 +333,7 @@ const AdminEmailQueue = () => {
                   </table>
 
                   {filteredEmails.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <Mail className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No emails in queue</p>
                     </div>
@@ -347,73 +349,73 @@ const AdminEmailQueue = () => {
 
       {/* Email Details Modal */}
       <Dialog open={showEmailModal} onOpenChange={setShowEmailModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>Email Details</DialogTitle>
-            <DialogDescription>Complete email information</DialogDescription>
+            <DialogTitle className="text-foreground text-xl">Email Details</DialogTitle>
+            <DialogDescription className="text-muted-foreground">Complete email information</DialogDescription>
           </DialogHeader>
           {selectedEmail && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Recipient</p>
-                  <p className="text-sm mt-1">{selectedEmail.recipient_email}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Recipient</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedEmail.recipient_email}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Status</p>
+                  <p className="text-sm font-medium text-muted-foreground">Status</p>
                   <Badge className={`mt-1 ${getStatusBadgeColor(selectedEmail.status)}`}>
                     {selectedEmail.status}
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Template</p>
-                  <p className="text-sm mt-1 capitalize">{selectedEmail.template_name.replace('_', ' ')}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Template</p>
+                  <p className="text-sm mt-1 capitalize text-foreground">{selectedEmail.template_name.replace('_', ' ')}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Retry Count</p>
-                  <p className="text-sm mt-1">{selectedEmail.retry_count}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Retry Count</p>
+                  <p className="text-sm mt-1 text-foreground">{selectedEmail.retry_count}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm font-medium text-gray-600">Subject</p>
-                <p className="text-sm mt-1 font-medium">{selectedEmail.subject}</p>
+                <p className="text-sm font-medium text-muted-foreground">Subject</p>
+                <p className="text-sm mt-1 font-medium text-foreground">{selectedEmail.subject}</p>
               </div>
 
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-2">Body</p>
-                <div className="p-3 bg-gray-50 rounded border text-sm text-gray-700 whitespace-pre-wrap">
+                <p className="text-sm font-medium text-muted-foreground mb-2">Body</p>
+                <div className="p-3 bg-background rounded border border-border text-sm text-foreground whitespace-pre-wrap">
                   {selectedEmail.body}
                 </div>
               </div>
 
               {selectedEmail.error_message && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded">
-                  <p className="text-sm font-medium text-red-800 mb-1">Error Message</p>
-                  <p className="text-sm text-red-700">{selectedEmail.error_message}</p>
+                <div className="p-3 bg-destructive/10 border border-destructive/20 rounded">
+                  <p className="text-sm font-medium text-destructive mb-1">Error Message</p>
+                  <p className="text-sm text-destructive/80">{selectedEmail.error_message}</p>
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t">
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
                 <div>
-                  <p className="text-xs text-gray-500">Created</p>
-                  <p className="text-sm">{new Date(selectedEmail.created_at).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Created</p>
+                  <p className="text-sm text-foreground">{new Date(selectedEmail.created_at).toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Scheduled</p>
-                  <p className="text-sm">{new Date(selectedEmail.scheduled_at).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Scheduled</p>
+                  <p className="text-sm text-foreground">{new Date(selectedEmail.scheduled_at).toLocaleString()}</p>
                 </div>
                 {selectedEmail.sent_at && (
                   <div>
-                    <p className="text-xs text-gray-500">Sent</p>
-                    <p className="text-sm">{new Date(selectedEmail.sent_at).toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Sent</p>
+                    <p className="text-sm text-foreground">{new Date(selectedEmail.sent_at).toLocaleString()}</p>
                   </div>
                 )}
               </div>
 
               {selectedEmail.status === 'failed' && (
                 <Button
-                  className="w-full"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                   onClick={() => {
                     handleRetryEmail(selectedEmail.id);
                     setShowEmailModal(false);

@@ -131,14 +131,14 @@ const JobDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-background">
         <MainNavbar />
-        <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+        <main className="flex-1">
           <div className="container mx-auto px-4 py-8">
-            <div className="animate-pulse space-y-4">
-              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
-              <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded" />
-              <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div className="animate-pulse space-y-6">
+              <div className="h-8 bg-muted rounded w-1/3" />
+              <div className="h-64 bg-muted rounded-xl" />
+              <div className="h-32 bg-muted rounded-xl" />
             </div>
           </div>
         </main>
@@ -153,41 +153,41 @@ const JobDetails = () => {
 
   const getJobTypeColor = (type) => {
     const colors = {
-      'full-time': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-      'part-time': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-      'internship': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
-      'contract': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
+      'full-time': 'bg-green-100 text-green-800',
+      'part-time': 'bg-blue-100 text-blue-800',
+      'internship': 'bg-purple-100 text-purple-800',
+      'contract': 'bg-orange-100 text-orange-800',
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || 'bg-muted text-muted-foreground';
   };
 
   return (
-    <div className="min-h-screen flex flex-col" data-testid="job-details-page">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300" data-testid="job-details-page">
       <MainNavbar />
       
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           {/* Back Button */}
           <Button
             variant="ghost"
             onClick={() => navigate('/jobs')}
-            className="mb-4"
+            className="mb-6 text-muted-foreground hover:text-foreground hover:bg-muted"
             data-testid="back-to-jobs-btn"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Jobs
           </Button>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
               {/* Job Header */}
-              <Card>
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
+              <Card className="bg-card border-border shadow-md">
+                <CardHeader className="pb-6">
+                  <div className="flex items-start justify-between mb-6">
                     <div className="flex-1">
-                      <h1 className="text-3xl font-bold mb-2" data-testid="job-title">{job.title}</h1>
-                      <p className="text-xl text-gray-600 dark:text-gray-400" data-testid="job-company">
+                      <h1 className="text-3xl font-bold text-foreground mb-3" data-testid="job-title">{job.title}</h1>
+                      <p className="text-xl text-primary font-medium" data-testid="job-company">
                         {job.company}
                       </p>
                     </div>
@@ -196,63 +196,64 @@ const JobDetails = () => {
                       size="icon"
                       onClick={handleShare}
                       data-testid="share-job-btn"
+                      className="border-border text-muted-foreground hover:text-foreground"
                     >
                       <Share2 className="w-4 h-4" />
                     </Button>
                   </div>
 
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
+                      <MapPin className="w-4 h-4 text-[#7091E6]" />
                       <span>{job.location}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Briefcase className="w-4 h-4" />
+                      <Briefcase className="w-4 h-4 text-[#3D52A0]" />
                       <span>{job.experience_required}</span>
                     </div>
                     {job.salary_range && (
                       <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4" />
+                        <DollarSign className="w-4 h-4 text-green-600" />
                         <span>{job.salary_range}</span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="w-4 h-4 text-[#8697C4]" />
                       <span>Posted {formatDate(job.created_at)}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-4">
-                    <Badge className={getJobTypeColor(job.job_type)}>
+                  <div className="flex items-center gap-3 mt-6">
+                    <Badge className={`${getJobTypeColor(job.job_type)} border-none px-3 py-1`}>
                       {job.job_type}
                     </Badge>
                     {job.application_deadline && (
-                      <Badge variant="outline">
-                        <Clock className="w-3 h-3 mr-1" />
+                      <Badge variant="outline" className="border-border text-muted-foreground px-3 py-1">
+                        <Clock className="w-3 h-3 mr-1.5" />
                         Apply by {formatDate(job.application_deadline)}
                       </Badge>
                     )}
                   </div>
                 </CardHeader>
 
-                <Separator />
+                <Separator className="bg-border" />
 
-                <CardContent className="pt-6">
-                  <div className="space-y-6">
+                <CardContent className="pt-8">
+                  <div className="space-y-8">
                     {/* Job Description */}
                     <div>
-                      <h2 className="text-xl font-semibold mb-3">Job Description</h2>
-                      <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line" data-testid="job-description">
+                      <h2 className="text-xl font-bold text-foreground mb-4">Job Description</h2>
+                      <div className="text-muted-foreground leading-relaxed whitespace-pre-line" data-testid="job-description">
                         {job.description}
                       </div>
                     </div>
 
                     {/* Skills Required */}
                     <div>
-                      <h2 className="text-xl font-semibold mb-3">Required Skills</h2>
+                      <h2 className="text-xl font-bold text-foreground mb-4">Required Skills</h2>
                       <div className="flex flex-wrap gap-2">
                         {job.skills_required?.map((skill, index) => (
-                          <Badge key={index} variant="secondary" data-testid={`skill-badge-${index}`}>
+                          <Badge key={index} variant="secondary" className="bg-secondary text-secondary-foreground border-border px-3 py-1" data-testid={`skill-badge-${index}`}>
                             {skill}
                           </Badge>
                         ))}
@@ -264,25 +265,25 @@ const JobDetails = () => {
 
               {/* Similar Jobs */}
               {similarJobs.length > 0 && (
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardHeader>
-                    <CardTitle>Similar Jobs</CardTitle>
+                    <CardTitle className="text-foreground">Similar Jobs</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {similarJobs.map((similarJob) => (
                         <div
                           key={similarJob.id}
-                          className="p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                          className="p-4 border border-border rounded-xl hover:bg-muted/50 cursor-pointer transition-all duration-200"
                           onClick={() => navigate(`/jobs/${similarJob.id}`)}
                         >
-                          <h3 className="font-semibold mb-1">{similarJob.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                          <h3 className="font-semibold text-foreground mb-1">{similarJob.title}</h3>
+                          <p className="text-sm text-muted-foreground mb-3">
                             {similarJob.company} • {similarJob.location}
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {similarJob.skills_required?.slice(0, 3).map((skill, idx) => (
-                              <Badge key={idx} variant="secondary" className="text-xs">
+                              <Badge key={idx} variant="secondary" className="text-[10px] bg-secondary/50 py-0 h-5">
                                 {skill}
                               </Badge>
                             ))}
@@ -298,76 +299,91 @@ const JobDetails = () => {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Apply Card */}
-              <Card>
-                <CardContent className="pt-6">
+              <Card className="bg-card border-border shadow-md overflow-hidden">
+                <CardContent className="pt-8">
                   {hasApplied ? (
                     <div className="text-center py-4">
-                      <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Users className="w-8 h-8 text-green-600 dark:text-green-300" />
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Users className="w-8 h-8 text-green-600" />
                       </div>
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <p className="text-sm font-bold text-foreground mb-2">
                         Application Submitted
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                        You have already applied to this job
+                      <p className="text-xs text-muted-foreground mb-6">
+                        You have already applied to this job. We'll notify you if there's an update.
                       </p>
                       <Button
                         variant="outline"
-                        className="w-full"
+                        className="w-full border-border text-foreground hover:bg-muted"
                         onClick={() => navigate('/jobs/my-applications')}
                       >
                         View My Applications
                       </Button>
                     </div>
                   ) : (
-                    <Button
-                      className="w-full"
-                      size="lg"
-                      onClick={handleApplyClick}
-                      data-testid="apply-now-btn"
-                    >
-                      Apply Now
-                    </Button>
+                    <div className="space-y-4">
+                      <Button
+                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg h-12 text-lg font-bold"
+                        size="lg"
+                        onClick={handleApplyClick}
+                        data-testid="apply-now-btn"
+                      >
+                        Apply Now
+                      </Button>
+                      <p className="text-[10px] text-center text-muted-foreground">
+                        By applying, you agree to our terms of service
+                      </p>
+                    </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Job Stats */}
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
                 <CardHeader>
-                  <CardTitle>Job Statistics</CardTitle>
+                  <CardTitle className="text-foreground text-lg">Job Statistics</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <Eye className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Eye className="w-4 h-4 text-primary" />
                       <span>Views</span>
                     </div>
-                    <span className="font-semibold">{job.views_count || 0}</span>
+                    <span className="font-bold text-foreground">{job.views_count || 0}</span>
                   </div>
-                  <Separator />
+                  <Separator className="bg-border" />
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <Users className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Users className="w-4 h-4 text-accent" />
                       <span>Applications</span>
                     </div>
-                    <span className="font-semibold">{job.applications_count || 0}</span>
+                    <span className="font-bold text-foreground">{job.applications_count || 0}</span>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Company Info */}
-              <Card>
+              <Card className="bg-card border-border shadow-sm">
                 <CardHeader>
-                  <CardTitle>About the Company</CardTitle>
+                  <CardTitle className="text-foreground text-lg">About the Company</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    {job.company}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Location: {job.location}
-                  </p>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center">
+                      <Briefcase className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground">
+                        {job.company}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {job.location}
+                      </p>
+                    </div>
+                  </div>
+                  <Button variant="link" className="p-0 h-auto text-primary text-xs hover:no-underline">
+                    View Company Profile
+                  </Button>
                 </CardContent>
               </Card>
             </div>

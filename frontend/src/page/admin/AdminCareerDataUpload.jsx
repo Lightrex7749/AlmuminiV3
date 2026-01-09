@@ -75,64 +75,68 @@ const AdminCareerDataUpload = () => {
 
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl" data-testid="admin-career-upload-page">
         {/* Header */}
         <div className="mb-8">
           <Button
             variant="ghost"
             onClick={() => navigate('/admin/datasets/history')}
-            className="mb-4"
+            className="mb-4 text-muted-foreground hover:text-foreground hover:bg-muted"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Admin
           </Button>
-          <h1 className="text-3xl font-bold text-gray-900">Career Data Upload</h1>
-          <p className="text-gray-600 mt-2">
-            Upload career transition data to train the ML career prediction model
-          </p>
+          <div className="flex items-center gap-4">
+            <div className="bg-primary/10 p-3 rounded-xl">
+              <Upload className="h-8 w-8 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Career Data Upload</h1>
+              <p className="text-muted-foreground mt-1">
+                Upload career transition data to train the ML career prediction model
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Upload Interface */}
           <div className="lg:col-span-2 space-y-6">
             {/* Instructions */}
-            <Card className="p-6 bg-blue-50 border-blue-200">
-              <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+            <Card className="p-6 bg-primary/5 border-primary/20 shadow-sm">
+              <h3 className="font-bold text-primary mb-4 flex items-center">
                 <Info className="h-5 w-5 mr-2" />
                 CSV Upload Instructions
               </h3>
-              <div className="space-y-2 text-sm text-blue-900">
+              <div className="space-y-3 text-sm text-foreground/80">
                 <p><strong>Required fields:</strong></p>
-                <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li><code className="bg-blue-100 px-1 rounded">email</code> - User's email (auto-creates if not found)</li>
-                  <li><code className="bg-blue-100 px-1 rounded">from_role</code> - Previous job role</li>
-                  <li><code className="bg-blue-100 px-1 rounded">to_role</code> - New job role</li>
-                  <li><code className="bg-blue-100 px-1 rounded">transition_date</code> - Date (YYYY-MM-DD)</li>
-                  <li><code className="bg-blue-100 px-1 rounded">success_rating</code> - Rating from 1 to 5</li>
+                <ul className="list-disc list-inside space-y-2 ml-2">
+                  <li><code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-mono text-xs">email</code> - User's email (auto-creates if not found)</li>
+                  <li><code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-mono text-xs">from_role</code> - Previous job role</li>
+                  <li><code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-mono text-xs">to_role</code> - New job role</li>
+                  <li><code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-mono text-xs">transition_date</code> - Date (YYYY-MM-DD)</li>
+                  <li><code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-mono text-xs">success_rating</code> - Rating from 1 to 5</li>
                 </ul>
-                <p className="mt-3"><strong>Optional fields:</strong> from_company, to_company, skills_acquired</p>
-                <p className="text-xs mt-2">
-                  💡 Tip: Skills should be separated by pipes (|), e.g., "Skill1|Skill2|Skill3"
-                </p>
-                <p className="text-xs mt-2 font-semibold text-green-800">
-                  ✨ New users will be auto-created with basic profiles
+                <p className="mt-4 pt-2 border-t border-primary/10"><strong>Optional:</strong> from_company, to_company, skills_acquired</p>
+                <p className="text-xs text-muted-foreground mt-2 italic">
+                  💡 Tip: Skills should be separated by pipes (|), e.g., "React|Node.js|SQL"
                 </p>
               </div>
             </Card>
 
             {/* Template Download */}
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <FileText className="h-5 w-5 mr-2 text-gray-600" />
+            <Card className="p-6 bg-card border-border shadow-sm">
+              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center">
+                <FileText className="h-5 w-5 mr-2 text-primary" />
                 CSV Template
               </h2>
-              <p className="text-gray-600 mb-4">
-                Download the CSV template with example data and proper formatting
+              <p className="text-muted-foreground mb-6">
+                Download the CSV template with example data and proper formatting to ensure successful import.
               </p>
               <Button
                 onClick={handleDownloadTemplate}
                 variant="outline"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto border-border text-foreground hover:bg-muted"
                 data-testid="download-template-btn"
               >
                 <Download className="h-4 w-4 mr-2" />
@@ -141,8 +145,8 @@ const AdminCareerDataUpload = () => {
             </Card>
 
             {/* File Upload */}
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-4">Select CSV File</h2>
+            <Card className="p-6 bg-card border-border shadow-sm">
+              <h2 className="text-xl font-bold text-foreground mb-4">Select CSV File</h2>
               <FileUploader
                 onFileSelect={setSelectedFile}
                 acceptedTypes=".csv"
@@ -150,52 +154,61 @@ const AdminCareerDataUpload = () => {
               />
               
               {selectedFile && (
-                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-sm text-green-800">
-                    ✓ File selected: <strong>{selectedFile.name}</strong>
-                  </p>
-                  <p className="text-xs text-green-600 mt-1">
-                    Size: {(selectedFile.size / 1024).toFixed(2)} KB
-                  </p>
+                <div className="mt-6 p-4 bg-green-600/10 border border-green-600/20 rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-xs">✓</div>
+                    <div>
+                      <p className="text-sm font-bold text-green-700">
+                        File selected: {selectedFile.name}
+                      </p>
+                      <p className="text-xs text-green-600 mt-0.5">
+                        Size: {(selectedFile.size / 1024).toFixed(2)} KB
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </Card>
 
             {/* Upload Results */}
             {uploadResults && (
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Upload Results</h2>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                    <span className="text-sm font-medium text-green-800">
+              <Card className="p-6 bg-card border-border shadow-md">
+                <h2 className="text-xl font-bold text-foreground mb-4">Upload Results</h2>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-green-600/10 rounded-xl border border-green-600/20">
+                    <span className="text-sm font-bold text-green-700">
                       ✅ Successfully imported
                     </span>
-                    <span className="text-lg font-bold text-green-600">
+                    <span className="text-2xl font-bold text-green-600">
                       {uploadResults.success_count}
                     </span>
                   </div>
                   
                   {uploadResults.failed_count > 0 && (
-                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
-                      <span className="text-sm font-medium text-red-800">
+                    <div className="flex items-center justify-between p-4 bg-destructive/10 rounded-xl border border-destructive/20">
+                      <span className="text-sm font-bold text-destructive">
                         ❌ Failed to import
                       </span>
-                      <span className="text-lg font-bold text-red-600">
+                      <span className="text-2xl font-bold text-destructive">
                         {uploadResults.failed_count}
                       </span>
                     </div>
                   )}
 
                   {uploadResults.errors && uploadResults.errors.length > 0 && (
-                    <div className="mt-4">
-                      <details className="cursor-pointer">
-                        <summary className="text-sm font-medium text-gray-700 hover:text-gray-900">
+                    <div className="mt-6">
+                      <details className="group cursor-pointer">
+                        <summary className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
+                          <span className="group-open:rotate-180 transition-transform">▼</span>
                           View Errors ({uploadResults.errors.length})
                         </summary>
-                        <div className="mt-2 p-3 bg-gray-50 rounded border border-gray-200 max-h-60 overflow-y-auto">
-                          <ul className="text-xs text-gray-700 space-y-1">
+                        <div className="mt-4 p-4 bg-background rounded-xl border border-border max-h-60 overflow-y-auto shadow-inner">
+                          <ul className="text-xs text-muted-foreground space-y-2 font-mono">
                             {uploadResults.errors.map((error, idx) => (
-                              <li key={idx} className="font-mono">• {error}</li>
+                              <li key={idx} className="flex gap-2">
+                                <span className="text-destructive">•</span>
+                                {error}
+                              </li>
                             ))}
                           </ul>
                         </div>
@@ -207,23 +220,24 @@ const AdminCareerDataUpload = () => {
             )}
 
             {/* Upload Button */}
-            <div className="flex justify-end space-x-3">
+            <div className="flex justify-end gap-4 pt-4">
               <Button
                 variant="outline"
                 onClick={() => navigate('/admin')}
                 disabled={uploading}
+                className="border-border text-foreground hover:bg-muted px-8"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleUpload}
                 disabled={!selectedFile || uploading}
-                className="min-w-32"
+                className="min-w-40 bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg font-bold"
                 data-testid="upload-btn"
               >
                 {uploading ? (
                   <>
-                    <span className="animate-spin mr-2">⏳</span>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                     Uploading...
                   </>
                 ) : (
@@ -238,10 +252,9 @@ const AdminCareerDataUpload = () => {
 
           {/* Right Column - ML Status Widget */}
           <div className="lg:col-span-1">
-            <div className="sticky top-4">
+            <div className="sticky top-24">
               <MLDataStatusWidget 
                 onUploadClick={() => {
-                  // Already on upload page, just scroll to top
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               />

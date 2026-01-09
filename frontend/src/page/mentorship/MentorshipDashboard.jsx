@@ -15,24 +15,26 @@ import { toast } from 'sonner';
 import { mentorshipService } from '@/services';
 
 const LoadingSpinner = () => (
-  <div className="flex flex-col items-center justify-center py-12">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-    <p className="text-gray-600">Loading mentorship dashboard...</p>
+  <div className="flex flex-col items-center justify-center py-20 bg-background">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+    <p className="text-muted-foreground font-medium">Loading mentorship dashboard...</p>
   </div>
 );
 
 const ErrorMessage = ({ message, onRetry }) => (
-  <div className="flex flex-col items-center justify-center py-12">
-    <div className="text-red-500 mb-4">
-      <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <div className="flex flex-col items-center justify-center py-20 bg-background px-4">
+    <div className="text-destructive mb-6 bg-destructive/10 p-4 rounded-full">
+      <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
     </div>
-    <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to Load Dashboard</h3>
-    <p className="text-gray-600 mb-4 text-center max-w-md">{message}</p>
+    <h3 className="text-xl font-bold text-foreground mb-2 text-center">Unable to Load Dashboard</h3>
+    <p className="text-muted-foreground mb-8 text-center max-w-md leading-relaxed">{message}</p>
     {onRetry && (
-      <Button onClick={onRetry}>Try Again</Button>
+      <Button onClick={onRetry} className="bg-primary text-primary-foreground hover:bg-primary/90 px-8">
+        Try Again
+      </Button>
     )}
   </div>
 );
@@ -252,70 +254,70 @@ const MentorshipDashboard = () => {
 
   return (
     <MainLayout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="mentorship-dashboard">
         {/* Development Debug Panel */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
-            <h3 className="font-semibold text-yellow-900 mb-2">🔧 Debug Info</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div>
-                <span className="text-yellow-800 font-medium">User ID:</span>
-                <p className="text-yellow-900 font-mono text-xs break-all">{userData?.id || 'N/A'}</p>
+          <div className="mb-8 p-6 bg-card border-2 border-primary/20 rounded-2xl shadow-sm">
+            <div className="flex items-center gap-2 mb-4 text-primary font-bold uppercase tracking-wider text-xs">
+              <Settings className="h-4 w-4" />
+              <span>Developer Debug Tools</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+              <div className="space-y-1">
+                <span className="text-muted-foreground text-xs font-medium">User ID:</span>
+                <p className="text-foreground font-mono text-[10px] break-all bg-background p-1.5 rounded border border-border">{userData?.id || 'N/A'}</p>
               </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Active Mentorships:</span>
-                <p className="text-yellow-900 font-bold">{activeMentorships.length}</p>
+              <div className="space-y-1">
+                <span className="text-muted-foreground text-xs font-medium">Relationships:</span>
+                <div className="flex gap-3 mt-1">
+                  <Badge variant="outline" className="bg-background">{activeMentorships.length} Mentors</Badge>
+                  <Badge variant="outline" className="bg-background">{activeMentees.length} Mentees</Badge>
+                </div>
               </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Student Requests:</span>
-                <p className="text-yellow-900 font-bold">{studentRequests.length}</p>
+              <div className="space-y-1">
+                <span className="text-muted-foreground text-xs font-medium">Requests:</span>
+                <div className="flex gap-3 mt-1">
+                  <Badge variant="outline" className="bg-background">{studentRequests.length} Sent</Badge>
+                  <Badge variant="outline" className="bg-background">{mentorRequests.length} Recv</Badge>
+                </div>
               </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Active Mentees:</span>
-                <p className="text-yellow-900 font-bold">{activeMentees.length}</p>
-              </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Mentor Requests:</span>
-                <p className="text-yellow-900 font-bold">{mentorRequests.length}</p>
-              </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Upcoming Sessions:</span>
-                <p className="text-yellow-900 font-bold">{upcomingSessions.length}</p>
-              </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Past Sessions:</span>
-                <p className="text-yellow-900 font-bold">{pastSessions.length}</p>
-              </div>
-              <div>
-                <span className="text-yellow-800 font-medium">Is Mentor:</span>
-                <p className="text-yellow-900 font-bold">{isMentor ? 'Yes' : 'No'}</p>
+              <div className="space-y-1">
+                <span className="text-muted-foreground text-xs font-medium">Sessions:</span>
+                <div className="flex gap-3 mt-1">
+                  <Badge variant="outline" className="bg-background">{upcomingSessions.length} Up</Badge>
+                  <Badge variant="outline" className="bg-background">{pastSessions.length} Past</Badge>
+                </div>
               </div>
             </div>
-            <p className="text-xs text-yellow-700 mt-3">
-              💡 Check browser console for detailed API responses
-            </p>
           </div>
         )}
 
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900" data-testid="page-title">
-            My Mentorship
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Manage your mentorship relationships and sessions
-          </p>
+        <div className="mb-10">
+          <div className="flex items-center gap-4">
+            <div className="bg-primary/10 p-3 rounded-xl">
+              <Users className="h-8 w-8 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground" data-testid="page-title">
+                Mentorship Hub
+              </h1>
+              <p className="text-muted-foreground mt-1">
+                Empower your journey through meaningful guidance and connection
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Role Tabs */}
-        <Tabs defaultValue={isMentor ? 'mentor' : 'student'} className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="student" data-testid="student-tab">
+        <Tabs defaultValue={isMentor ? 'mentor' : 'student'} className="space-y-8">
+          <TabsList className="bg-card border border-border p-1 h-12 w-full max-w-md">
+            <TabsTrigger value="student" className="flex-1 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground" data-testid="student-tab">
               <Users className="h-4 w-4 mr-2" />
               As Mentee
             </TabsTrigger>
             {isMentor && (
-              <TabsTrigger value="mentor" data-testid="mentor-tab">
+              <TabsTrigger value="mentor" className="flex-1 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground" data-testid="mentor-tab">
                 <Users className="h-4 w-4 mr-2" />
                 As Mentor
               </TabsTrigger>
@@ -323,50 +325,50 @@ const MentorshipDashboard = () => {
           </TabsList>
 
           {/* Student/Mentee View */}
-          <TabsContent value="student" className="space-y-6">
+          <TabsContent value="student" className="space-y-10 animate-in fade-in duration-500">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
+              <Card className="bg-card border-border shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Active Mentors</p>
-                      <p className="text-3xl font-bold text-gray-900 mt-1">{activeMentorships.length}</p>
+                      <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Active Mentors</p>
+                      <p className="text-4xl font-bold text-foreground mt-2">{activeMentorships.length}</p>
                     </div>
-                    <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Users className="h-6 w-6 text-blue-600" />
+                    <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                      <Users className="h-7 w-7 text-primary" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-card border-border shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Pending Requests</p>
-                      <p className="text-3xl font-bold text-gray-900 mt-1">
+                      <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Pending Requests</p>
+                      <p className="text-4xl font-bold text-foreground mt-2">
                         {studentRequests.filter(r => r.status === 'pending').length}
                       </p>
                     </div>
-                    <div className="h-12 w-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-yellow-600" />
+                    <div className="h-14 w-14 bg-accent/10 rounded-2xl flex items-center justify-center">
+                      <Clock className="h-7 w-7 text-accent" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-card border-border shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Total Sessions</p>
-                      <p className="text-3xl font-bold text-gray-900 mt-1">
+                      <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Sessions</p>
+                      <p className="text-4xl font-bold text-foreground mt-2">
                         {upcomingSessions.length + pastSessions.length}
                       </p>
                     </div>
-                    <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle2 className="h-6 w-6 text-green-600" />
+                    <div className="h-14 w-14 bg-green-600/10 rounded-2xl flex items-center justify-center">
+                      <CheckCircle2 className="h-7 w-7 text-green-600" />
                     </div>
                   </div>
                 </CardContent>
@@ -376,8 +378,11 @@ const MentorshipDashboard = () => {
             {/* Upcoming Sessions */}
             {upcomingSessions.length > 0 && (
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Upcoming Sessions</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <Calendar className="h-6 w-6 text-primary" />
+                  Upcoming Sessions
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {upcomingSessions.map((session) => (
                     <SessionCard
                       key={session.id}
@@ -392,55 +397,64 @@ const MentorshipDashboard = () => {
 
             {/* Active Mentorships */}
             <div>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Active Mentorships</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Users className="h-6 w-6 text-primary" />
+                Active Mentorships
+              </h2>
               {activeMentorships.length > 0 ? (
                 <div className="grid grid-cols-1 gap-6">
                   {activeMentorships.map((mentorship) => (
-                    <Card key={mentorship.id}>
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <Avatar className="h-16 w-16">
-                            <AvatarImage src={mentorship.mentor?.profile?.photo_url} alt={mentorship.mentor?.profile?.name} />
-                            <AvatarFallback>{getInitials(mentorship.mentor?.profile?.name)}</AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-2">
-                              <div>
-                                <h3 className="font-semibold text-lg text-gray-900">
-                                  {mentorship.mentor?.profile?.name}
-                                </h3>
-                                <p className="text-sm text-gray-600">
-                                  {mentorship.mentor?.profile?.headline}
-                                </p>
-                              </div>
-                              <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                                Active
-                              </Badge>
-                            </div>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {mentorship.mentor?.expertise_areas?.slice(0, 3).map((area, idx) => (
-                                <Badge key={idx} variant="secondary" className="text-xs">
-                                  {area}
+                    <Card key={mentorship.id} className="bg-card border-border shadow-sm overflow-hidden group hover:border-primary/50 transition-all">
+                      <CardContent className="p-0">
+                        <div className="flex flex-col md:flex-row items-stretch">
+                          <div className="p-6 flex items-center gap-6 flex-1">
+                            <Avatar className="h-20 w-24 rounded-2xl border-2 border-border group-hover:border-primary/30 transition-colors">
+                              <AvatarImage src={mentorship.mentor?.profile?.photo_url} alt={mentorship.mentor?.profile?.name} />
+                              <AvatarFallback className="bg-primary/10 text-primary text-xl">
+                                {getInitials(mentorship.mentor?.profile?.name)}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between mb-2">
+                                <div className="min-w-0">
+                                  <h3 className="font-bold text-xl text-foreground truncate">
+                                    {mentorship.mentor?.profile?.name}
+                                  </h3>
+                                  <p className="text-sm text-muted-foreground truncate">
+                                    {mentorship.mentor?.profile?.headline}
+                                  </p>
+                                </div>
+                                <Badge className="bg-green-600/10 text-green-600 border-green-600/20 px-3 py-1">
+                                  Active
                                 </Badge>
-                              ))}
+                              </div>
+                              <div className="flex flex-wrap gap-2 mt-4">
+                                {mentorship.mentor?.expertise_areas?.slice(0, 3).map((area, idx) => (
+                                  <Badge key={idx} variant="secondary" className="text-[10px] bg-secondary text-secondary-foreground border-border uppercase tracking-widest px-2">
+                                    {area}
+                                  </Badge>
+                                ))}
+                              </div>
                             </div>
-                            <div className="flex gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleViewProfile(mentorship.mentor?.profile)}
-                              >
-                                View Profile
-                              </Button>
-                              <Button
-                                size="sm"
-                                onClick={() => handleScheduleSession(mentorship)}
-                                data-testid={`schedule-session-${mentorship.id}`}
-                              >
-                                <Calendar className="h-4 w-4 mr-1" />
-                                Schedule Session
-                              </Button>
-                            </div>
+                          </div>
+                          <div className="bg-muted/30 p-6 md:w-64 border-t md:border-t-0 md:border-l border-border flex flex-col justify-center gap-3">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleViewProfile(mentorship.mentor?.profile)}
+                              className="w-full border-border text-foreground hover:bg-muted"
+                            >
+                              View Profile
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => handleScheduleSession(mentorship)}
+                              data-testid={`schedule-session-${mentorship.id}`}
+                              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
+                            >
+                              <Calendar className="h-4 w-4 mr-2" />
+                              Schedule Session
+                            </Button>
                           </div>
                         </div>
                       </CardContent>
@@ -448,17 +462,19 @@ const MentorshipDashboard = () => {
                   ))}
                 </div>
               ) : (
-                <Card>
-                  <CardContent className="p-12 text-center">
-                    <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500 mb-2">No active mentorships</p>
-                    <p className="text-sm text-gray-400 mb-4">
+                <Card className="bg-card border-border border-dashed">
+                  <CardContent className="p-20 text-center">
+                    <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Users className="h-10 w-10 text-muted-foreground opacity-50" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Ready to grow?</h3>
+                    <p className="text-muted-foreground mb-10 max-w-sm mx-auto leading-relaxed">
                       {studentRequests.length === 0 
-                        ? 'Find a mentor to start your journey' 
-                        : 'Your mentorship requests are pending approval'}
+                        ? 'Connect with an experienced alumni mentor to get personalized guidance for your career journey.' 
+                        : 'Your mentorship requests are pending approval. We will notify you once a mentor accepts!'}
                     </p>
-                    <Button onClick={() => navigate('/mentorship/find')} data-testid="find-mentors-btn">
-                      Find Mentors
+                    <Button onClick={() => navigate('/mentorship/find')} data-testid="find-mentors-btn" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-lg font-bold">
+                      Find a Mentor
                     </Button>
                   </CardContent>
                 </Card>
@@ -467,8 +483,8 @@ const MentorshipDashboard = () => {
 
             {/* Pending Requests */}
             {studentRequests.filter(r => r.status === 'pending').length > 0 && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Pending Requests</h2>
+              <div className="pt-6">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Sent Requests</h2>
                 <div className="grid grid-cols-1 gap-4">
                   {studentRequests
                     .filter(r => r.status === 'pending')
@@ -488,9 +504,9 @@ const MentorshipDashboard = () => {
 
             {/* Past Sessions */}
             {pastSessions.length > 0 && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Past Sessions</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="pt-6">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Recent Past Sessions</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {pastSessions.slice(0, 4).map((session) => (
                     <SessionCard
                       key={session.id}
@@ -506,19 +522,20 @@ const MentorshipDashboard = () => {
 
           {/* Mentor View */}
           {isMentor && (
-            <TabsContent value="mentor" className="space-y-6">
+            <TabsContent value="mentor" className="space-y-10 animate-in fade-in duration-500">
               {/* Quick Action Banner */}
-              <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Mentor Profile Settings</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Update your expertise, availability, and mentorship approach
+              <Card className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] text-white shadow-lg border-none overflow-hidden">
+                <CardContent className="p-8 relative">
+                  <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/10 skew-x-[-20deg] translate-x-1/2"></div>
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                    <div className="text-center md:text-left">
+                      <h3 className="text-2xl font-bold">Mentor Profile Settings</h3>
+                      <p className="text-blue-50 mt-2 max-w-lg">
+                        Keep your expertise, availability, and mentorship preferences updated to attract the right mentees.
                       </p>
                     </div>
-                    <Button onClick={() => navigate('/mentorship/manage')} data-testid="manage-profile-btn">
-                      <Settings className="h-4 w-4 mr-2" />
+                    <Button onClick={() => navigate('/mentorship/manage')} data-testid="manage-profile-btn" className="bg-white text-primary hover:bg-blue-50 px-8 h-12 font-bold shadow-xl">
+                      <Settings className="h-5 w-5 mr-2" />
                       Manage Profile
                     </Button>
                   </div>
@@ -527,45 +544,45 @@ const MentorshipDashboard = () => {
 
               {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Active Mentees</p>
-                        <p className="text-3xl font-bold text-gray-900 mt-1">{activeMentees.length}</p>
+                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Active Mentees</p>
+                        <p className="text-4xl font-bold text-foreground mt-2">{activeMentees.length}</p>
                       </div>
-                      <div className="h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center">
-                        <Users className="h-6 w-6 text-purple-600" />
+                      <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                        <Users className="h-7 w-7 text-primary" />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Pending Requests</p>
-                        <p className="text-3xl font-bold text-gray-900 mt-1">
+                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Requests Received</p>
+                        <p className="text-4xl font-bold text-foreground mt-2">
                           {mentorRequests.filter(r => r.status === 'pending').length}
                         </p>
                       </div>
-                      <div className="h-12 w-12 bg-orange-100 rounded-full flex items-center justify-center">
-                        <MessageSquare className="h-6 w-6 text-orange-600" />
+                      <div className="h-14 w-14 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <MessageSquare className="h-7 w-7 text-accent" />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card border-border shadow-sm">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Upcoming Sessions</p>
-                        <p className="text-3xl font-bold text-gray-900 mt-1">{upcomingSessions.length}</p>
+                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Sessions</p>
+                        <p className="text-4xl font-bold text-foreground mt-2">{upcomingSessions.length + pastSessions.length}</p>
                       </div>
-                      <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <Calendar className="h-6 w-6 text-blue-600" />
+                      <div className="h-14 w-14 bg-[#8697C4]/10 rounded-2xl flex items-center justify-center">
+                        <Calendar className="h-7 w-7 text-[#8697C4]" />
                       </div>
                     </div>
                   </CardContent>
@@ -575,7 +592,10 @@ const MentorshipDashboard = () => {
               {/* Pending Mentorship Requests */}
               {mentorRequests.filter(r => r.status === 'pending').length > 0 && (
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Mentorship Requests</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                    <MessageSquare className="h-6 w-6 text-accent" />
+                    Incoming Requests
+                  </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {mentorRequests
                       .filter(r => r.status === 'pending')
@@ -596,47 +616,55 @@ const MentorshipDashboard = () => {
 
               {/* Active Mentees */}
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Active Mentees</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <Users className="h-6 w-6 text-primary" />
+                  Your Active Mentees
+                </h2>
                 {activeMentees.length > 0 ? (
                   <div className="grid grid-cols-1 gap-6">
                     {activeMentees.map((mentee) => (
-                      <Card key={mentee.id}>
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4">
-                            <Avatar className="h-16 w-16">
-                              <AvatarImage src={mentee.student?.profile?.photo_url} alt={mentee.student?.profile?.name} />
-                              <AvatarFallback>{getInitials(mentee.student?.profile?.name)}</AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between mb-2">
-                                <div>
-                                  <h3 className="font-semibold text-lg text-gray-900">
-                                    {mentee.student?.profile?.name || mentee.student?.email}
-                                  </h3>
-                                  <p className="text-sm text-gray-600">
-                                    {mentee.student?.profile?.headline || 'Student'}
+                      <Card key={mentee.id} className="bg-card border-border shadow-sm group hover:border-primary/50 transition-all overflow-hidden">
+                        <CardContent className="p-0">
+                          <div className="flex flex-col md:flex-row items-stretch">
+                            <div className="p-6 flex items-start gap-6 flex-1">
+                              <Avatar className="h-20 w-24 rounded-2xl border-2 border-border group-hover:border-primary/30 transition-colors">
+                                <AvatarImage src={mentee.student?.profile?.photo_url} alt={mentee.student?.profile?.name} />
+                                <AvatarFallback className="bg-primary/10 text-primary text-xl">
+                                  {getInitials(mentee.student?.profile?.name)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="flex-1 min-w-0 space-y-2">
+                                <h3 className="font-bold text-xl text-foreground truncate">
+                                  {mentee.student?.profile?.name || mentee.student?.email}
+                                </h3>
+                                <p className="text-sm text-muted-foreground truncate">
+                                  {mentee.student?.profile?.headline || 'Student'}
+                                </p>
+                                <div className="bg-muted/50 p-4 rounded-xl border border-border mt-4">
+                                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Mentee Goals</p>
+                                  <p className="text-sm text-foreground italic leading-relaxed">
+                                    "{mentee.goals}"
                                   </p>
                                 </div>
                               </div>
-                              <p className="text-sm text-gray-700 mb-3">
-                                <strong>Goals:</strong> {mentee.goals}
-                              </p>
-                              <div className="flex gap-2">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => handleViewProfile(mentee.student?.profile)}
-                                >
-                                  View Profile
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  onClick={() => handleScheduleSession(mentee)}
-                                >
-                                  <Calendar className="h-4 w-4 mr-1" />
-                                  Schedule Session
-                                </Button>
-                              </div>
+                            </div>
+                            <div className="bg-muted/30 p-6 md:w-64 border-t md:border-t-0 md:border-l border-border flex flex-col justify-center gap-3">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleViewProfile(mentee.student?.profile)}
+                                className="w-full border-border text-foreground hover:bg-muted"
+                              >
+                                View Profile
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => handleScheduleSession(mentee)}
+                                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
+                              >
+                                <Calendar className="h-4 w-4 mr-2" />
+                                Schedule Session
+                              </Button>
                             </div>
                           </div>
                         </CardContent>
@@ -644,14 +672,16 @@ const MentorshipDashboard = () => {
                     ))}
                   </div>
                 ) : (
-                  <Card>
-                    <CardContent className="p-12 text-center">
-                      <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">No active mentees yet</p>
-                      <p className="text-sm text-gray-400 mt-2">
+                  <Card className="bg-card border-border border-dashed">
+                    <CardContent className="p-20 text-center">
+                      <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Users className="h-10 w-10 text-muted-foreground opacity-50" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-2">No active mentees yet</h3>
+                      <p className="text-muted-foreground max-w-sm mx-auto leading-relaxed mb-4">
                         {mentorRequests.filter(r => r.status === 'pending').length > 0
-                          ? 'Review and accept mentorship requests above to start mentoring'
-                          : 'Students will send you mentorship requests soon'}
+                          ? 'Review and accept the incoming mentorship requests to start sharing your expertise.'
+                          : 'Your journey as a mentor is about to begin. Students will send you requests based on your profile expertise areas.'}
                       </p>
                     </CardContent>
                   </Card>
@@ -661,8 +691,11 @@ const MentorshipDashboard = () => {
               {/* Upcoming Sessions */}
               {upcomingSessions.length > 0 && (
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Upcoming Sessions</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                    <Calendar className="h-6 w-6 text-primary" />
+                    Mentor Sessions
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {upcomingSessions.map((session) => (
                       <SessionCard
                         key={session.id}

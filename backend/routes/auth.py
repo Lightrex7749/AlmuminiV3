@@ -196,6 +196,16 @@ async def login(
             return create_mock_token(user)
         
         pool = await get_db_pool()
+        if pool is None:
+            # Fallback to mock mode if pool is None
+            logger.warning("Database pool is None, using mock mode")
+            user = MOCK_USERS.get(login_data.email)
+            if not user:
+                raise ValueError("Invalid email or password")
+            if user["password"] != login_data.password:
+                raise ValueError("Invalid email or password")
+            return create_mock_token(user)
+        
         async with pool.acquire() as conn:
             token_response = await AuthService.login_user(conn, login_data)
             return token_response
@@ -227,6 +237,14 @@ async def forgot_password(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            # In mock mode, always return success to avoid email enumeration
+            logger.info("[MOCK] Forgot password request (mock mode)")
+            return {
+                "success": True,
+                "message": "If the email exists, a password reset link has been sent."
+            }
+        
         async with pool.acquire() as conn:
             await AuthService.forgot_password(conn, request_data)
             
@@ -257,6 +275,10 @@ async def reset_password(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            # In mock mode, raise error
+            raise ValueError("Reset password not available in mock mode")
+        
         async with pool.acquire() as conn:
             success = await AuthService.reset_password(conn, reset_data)
             
@@ -301,6 +323,9 @@ async def change_password(
             raise ValueError("Password must be at least 8 characters long")
         
         pool = await get_db_pool()
+        if pool is None:
+            raise ValueError("Change password not available in mock mode")
+        
         async with pool.acquire() as conn:
             async with conn.cursor() as cursor:
                 # Get current password hash
@@ -354,6 +379,18 @@ async def get_me(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            # In mock mode, return user from JWT
+            from database.models import UserResponse
+            return UserResponse(
+                id=current_user["id"],
+                email=current_user["email"],
+                role=current_user["role"],
+                is_verified=current_user.get("is_verified", True),
+                is_active=current_user.get("is_active", True),
+                created_at=current_user.get("created_at", datetime.now(UTC))
+            )
+        
         async with pool.acquire() as conn:
             user_response = await AuthService.get_current_user(conn, current_user["id"])
             return user_response
@@ -398,6 +435,14 @@ async def resend_verification(
     """
     try:
         pool = await get_db_pool()
+        if pool is None:
+            # In mock mode, always return success to avoid email enumeration
+            logger.info("[MOCK] Resend verification request (mock mode)")
+            return {
+                "success": True,
+                "message": "Verification code resent successfully."
+            }
+        
         async with pool.acquire() as conn:
             from services.user_service import UserService
             from services.email_service import email_service

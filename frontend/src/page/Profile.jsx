@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { profileService } from '@/services';
 import MainNavbar from '@/components/layout/MainNavbar';
 import Sidebar from '@/components/layout/Sidebar';
@@ -40,6 +40,7 @@ import CareerJourneyForm from '@/components/career/CareerJourneyForm';
 const Profile = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [originalData, setOriginalData] = useState(null);
@@ -47,7 +48,12 @@ const Profile = () => {
 
   useEffect(() => {
     loadProfileData();
-  }, [user?.id]);
+    if (location.state?.editMode) {
+      setIsEditing(true);
+      // Clear state so it doesn't persist on refresh/back
+      window.history.replaceState({}, document.title);
+    }
+  }, [user?.id, location.state]);
 
   const loadProfileData = async () => {
     try {
@@ -266,12 +272,12 @@ const Profile = () => {
 
   if (loading || !profileData) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-background">
         <MainNavbar />
         <div className="flex flex-1">
           <Sidebar />
           <main className="flex-1 flex items-center justify-center">
-            <p className="text-gray-500">Loading profile...</p>
+            <p className="text-muted-foreground">Loading profile...</p>
           </main>
         </div>
         <Footer />
@@ -280,7 +286,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -289,33 +295,33 @@ const Profile = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Profile Header Card */}
-            <Card>
+            <Card className="bg-card border-border shadow-md">
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                   <div className="flex items-center gap-6">
                     {isEditing ? (
                       <div className="space-y-2">
-                        <Avatar className="w-24 h-24">
+                        <Avatar className="w-24 h-24 border-2 border-border">
                           <AvatarImage src={profileData.photo_url} alt={profileData.name} />
-                          <AvatarFallback className="bg-blue-600 text-white text-2xl">
+                          <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
                             {getInitials(profileData.name)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="space-y-1">
-                          <Label htmlFor="photo" className="text-xs">Photo URL</Label>
+                          <Label htmlFor="photo" className="text-xs text-foreground">Photo URL</Label>
                           <Input
                             id="photo"
                             value={profileData.photo_url || ''}
                             onChange={(e) => updateField('photo_url', e.target.value)}
                             placeholder="https://..."
-                            className="w-64 text-xs"
+                            className="w-64 text-xs bg-background border-border"
                           />
                         </div>
                       </div>
                     ) : (
-                      <Avatar className="w-24 h-24">
+                      <Avatar className="w-24 h-24 border-2 border-border">
                         <AvatarImage src={profileData.photo_url} alt={profileData.name} />
-                        <AvatarFallback className="bg-blue-600 text-white text-2xl">
+                        <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
                           {getInitials(profileData.name)}
                         </AvatarFallback>
                       </Avatar>
@@ -326,19 +332,19 @@ const Profile = () => {
                         <Input
                           value={profileData.name || ''}
                           onChange={(e) => updateField('name', e.target.value)}
-                          className="text-3xl font-bold h-auto py-1"
+                          className="text-3xl font-bold h-auto py-1 bg-background border-border"
                           placeholder="Your Name"
                           data-testid="input-name"
                         />
                       ) : (
-                        <h1 className="text-3xl font-bold" data-testid="profile-name">
+                        <h1 className="text-3xl font-bold text-foreground" data-testid="profile-name">
                           {profileData.name}
                         </h1>
                       )}
                       {profileData.headline && !isEditing && (
-                        <p className="text-lg text-gray-600">{profileData.headline}</p>
+                        <p className="text-lg text-muted-foreground">{profileData.headline}</p>
                       )}
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         {profileData.current_role && profileData.current_company && !isEditing && (
                           <div className="flex items-center gap-1">
                             <Briefcase className="w-4 h-4" />
@@ -357,7 +363,7 @@ const Profile = () => {
                           {user?.role}
                         </Badge>
                         {profileData.batch_year && (
-                          <Badge variant="outline">Batch {profileData.batch_year}</Badge>
+                          <Badge variant="outline" className="border-border">Batch {profileData.batch_year}</Badge>
                         )}
                       </div>
                     </div>
@@ -365,17 +371,17 @@ const Profile = () => {
 
                   <div className="flex gap-2">
                     {!isEditing ? (
-                      <Button onClick={() => setIsEditing(true)} data-testid="edit-profile-btn">
+                      <Button onClick={() => setIsEditing(true)} data-testid="edit-profile-btn" className="bg-primary text-primary-foreground hover:bg-primary/90">
                         <Edit className="w-4 h-4 mr-2" />
                         Edit Profile
                       </Button>
                     ) : (
                       <>
-                        <Button onClick={handleSave} data-testid="save-profile-btn">
+                        <Button onClick={handleSave} data-testid="save-profile-btn" className="bg-primary text-primary-foreground hover:bg-primary/90">
                           <Save className="w-4 h-4 mr-2" />
                           Save
                         </Button>
-                        <Button variant="outline" onClick={handleCancel} data-testid="cancel-edit-btn">
+                        <Button variant="outline" onClick={handleCancel} data-testid="cancel-edit-btn" className="border-border text-foreground hover:bg-muted">
                           <X className="w-4 h-4 mr-2" />
                           Cancel
                         </Button>
@@ -387,14 +393,14 @@ const Profile = () => {
                 {/* Profile Completion */}
                 <div className="mt-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Profile Completion</span>
-                    <span className="text-sm font-medium text-blue-600">
+                    <span className="text-sm font-medium text-foreground">Profile Completion</span>
+                    <span className="text-sm font-medium text-primary">
                       {profileData.profile_completion_percentage}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-muted rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full transition-all"
+                      className="bg-primary h-2 rounded-full transition-all"
                       style={{ width: `${profileData.profile_completion_percentage}%` }}
                     />
                   </div>
@@ -404,7 +410,7 @@ const Profile = () => {
 
             {/* Profile Content Tabs */}
             <Tabs defaultValue="about" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-4 bg-card border border-border">
                 <TabsTrigger value="about" data-testid="tab-about">
                   <User className="w-4 h-4 mr-2" />
                   About
@@ -425,20 +431,20 @@ const Profile = () => {
 
               {/* About Tab */}
               <TabsContent value="about" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>About Me</CardTitle>
-                    <CardDescription>Tell others about yourself</CardDescription>
+                    <CardTitle className="text-foreground">About Me</CardTitle>
+                    <CardDescription className="text-muted-foreground">Tell others about yourself</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {isEditing ? (
                       <>
                         <div className="space-y-2">
-                          <Label htmlFor="bio">Bio</Label>
+                          <Label htmlFor="bio" className="text-foreground">Bio</Label>
                           <Textarea
                             id="bio"
                             rows={6}
-                            className="w-full"
+                            className="w-full bg-background border-border"
                             value={profileData.bio || ''}
                             onChange={(e) => updateField('bio', e.target.value)}
                             data-testid="input-bio"
@@ -446,72 +452,75 @@ const Profile = () => {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="headline">Professional Headline</Label>
+                          <Label htmlFor="headline" className="text-foreground">Professional Headline</Label>
                           <Input
                             id="headline"
                             value={profileData.headline || ''}
                             onChange={(e) => updateField('headline', e.target.value)}
                             data-testid="input-headline"
                             placeholder="e.g., Computer Science Student | Aspiring Developer"
+                            className="bg-background border-border"
                           />
                         </div>
                       </>
                     ) : (
                       <div className="space-y-4">
                         {profileData.bio ? (
-                          <p className="text-gray-700 whitespace-pre-wrap">{profileData.bio}</p>
+                          <p className="text-foreground whitespace-pre-wrap leading-relaxed">{profileData.bio}</p>
                         ) : (
-                          <p className="text-gray-400 italic">No bio added yet. Click Edit Profile to add one.</p>
+                          <p className="text-muted-foreground italic">No bio added yet. Click Edit Profile to add one.</p>
                         )}
                       </div>
                     )}
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Contact Information</CardTitle>
+                    <CardTitle className="text-foreground">Contact Information</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {isEditing ? (
                         <>
                           <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email" className="text-foreground">Email</Label>
                             <Input
                               id="email"
                               type="email"
                               value={user?.email || ''}
                               disabled
                               data-testid="input-email"
+                              className="bg-muted border-border"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="location">Location</Label>
+                            <Label htmlFor="location" className="text-foreground">Location</Label>
                             <Input
                               id="location"
                               value={profileData.location || ''}
                               onChange={(e) => updateField('location', e.target.value)}
                               data-testid="input-location"
                               placeholder="City, Country"
+                              className="bg-background border-border"
                             />
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="flex items-center gap-3">
-                            <Mail className="w-5 h-5 text-gray-400" />
+                            <Mail className="w-5 h-5 text-primary" />
                             <div>
-                              <p className="text-sm text-gray-500">Email</p>
-                              <p className="font-medium">{user?.email}</p>
+                              <p className="text-sm text-muted-foreground">Email</p>
+                              <p className="font-medium text-foreground">{user?.email}</p>
                             </div>
                           </div>
                           {profileData.location && (
                             <div className="flex items-center gap-3">
-                              <MapPin className="w-5 h-5 text-gray-400" />
+                              <MapPin className="w-5 h-5 text-primary" />
                               <div>
-                                <p className="text-sm text-gray-500">Location</p>
-                                <p className="font-medium">{profileData.location}</p>
+                                <p className="text-sm text-muted-foreground">Location</p>
+                                <p className="font-medium text-foreground">{profileData.location}</p>
                               </div>
                             </div>
                           )}
@@ -522,17 +531,17 @@ const Profile = () => {
                 </Card>
 
                 {/* Social Links Section */}
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
-                    <CardTitle>Social Links</CardTitle>
-                    <CardDescription>Connect your professional and social profiles</CardDescription>
+                    <CardTitle className="text-foreground">Social Links</CardTitle>
+                    <CardDescription className="text-muted-foreground">Connect your professional and social profiles</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {isEditing ? (
                       <div className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="linkedin" className="flex items-center gap-2">
-                            <Linkedin className="w-4 h-4 text-blue-600" />
+                          <Label htmlFor="linkedin" className="flex items-center gap-2 text-foreground">
+                            <Linkedin className="w-4 h-4 text-primary" />
                             LinkedIn Profile URL
                           </Label>
                           <Input
@@ -544,11 +553,12 @@ const Profile = () => {
                             })}
                             placeholder="https://www.linkedin.com/in/yourprofile"
                             data-testid="input-linkedin"
+                            className="bg-background border-border"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="github" className="flex items-center gap-2">
-                            <Github className="w-4 h-4" />
+                          <Label htmlFor="github" className="flex items-center gap-2 text-foreground">
+                            <Github className="w-4 h-4 text-foreground" />
                             GitHub Profile URL
                           </Label>
                           <Input
@@ -560,11 +570,12 @@ const Profile = () => {
                             })}
                             placeholder="https://github.com/yourusername"
                             data-testid="input-github"
+                            className="bg-background border-border"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="twitter" className="flex items-center gap-2">
-                            <Twitter className="w-4 h-4 text-blue-400" />
+                          <Label htmlFor="twitter" className="flex items-center gap-2 text-foreground">
+                            <Twitter className="w-4 h-4 text-accent" />
                             Twitter/X Profile URL
                           </Label>
                           <Input
@@ -576,10 +587,11 @@ const Profile = () => {
                             })}
                             placeholder="https://twitter.com/yourusername"
                             data-testid="input-twitter"
+                            className="bg-background border-border"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="website" className="flex items-center gap-2">
+                          <Label htmlFor="website" className="flex items-center gap-2 text-foreground">
                             <Globe className="w-4 h-4 text-green-600" />
                             Personal Website
                           </Label>
@@ -592,6 +604,7 @@ const Profile = () => {
                             })}
                             placeholder="https://yourwebsite.com"
                             data-testid="input-website"
+                            className="bg-background border-border"
                           />
                         </div>
                       </div>
@@ -602,11 +615,11 @@ const Profile = () => {
                             href={profileData.social_links.linkedin} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
                           >
-                            <Linkedin className="w-5 h-5 text-blue-600" />
-                            <span className="text-sm flex-1">LinkedIn Profile</span>
-                            <ExternalLink className="w-4 h-4 text-gray-400" />
+                            <Linkedin className="w-5 h-5 text-primary" />
+                            <span className="text-sm flex-1 text-foreground">LinkedIn Profile</span>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
                           </a>
                         ) : null}
                         
@@ -615,11 +628,11 @@ const Profile = () => {
                             href={profileData.social_links.github} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
                           >
-                            <Github className="w-5 h-5" />
-                            <span className="text-sm flex-1">GitHub Profile</span>
-                            <ExternalLink className="w-4 h-4 text-gray-400" />
+                            <Github className="w-5 h-5 text-foreground" />
+                            <span className="text-sm flex-1 text-foreground">GitHub Profile</span>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
                           </a>
                         ) : null}
                         
@@ -628,11 +641,11 @@ const Profile = () => {
                             href={profileData.social_links.twitter} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
                           >
-                            <Twitter className="w-5 h-5 text-blue-400" />
-                            <span className="text-sm flex-1">Twitter/X Profile</span>
-                            <ExternalLink className="w-4 h-4 text-gray-400" />
+                            <Twitter className="w-5 h-5 text-accent" />
+                            <span className="text-sm flex-1 text-foreground">Twitter/X Profile</span>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
                           </a>
                         ) : null}
                         
@@ -641,11 +654,11 @@ const Profile = () => {
                             href={profileData.social_links.website} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
                           >
                             <Globe className="w-5 h-5 text-green-600" />
-                            <span className="text-sm flex-1">Personal Website</span>
-                            <ExternalLink className="w-4 h-4 text-gray-400" />
+                            <span className="text-sm flex-1 text-foreground">Personal Website</span>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
                           </a>
                         ) : null}
                         
@@ -653,7 +666,7 @@ const Profile = () => {
                          !profileData.social_links?.github && 
                          !profileData.social_links?.twitter && 
                          !profileData.social_links?.website && (
-                          <p className="text-gray-400 italic">No social links added yet. Click Edit Profile to add your profiles.</p>
+                          <p className="text-muted-foreground italic">No social links added yet. Click Edit Profile to add your profiles.</p>
                         )}
                       </div>
                     )}
@@ -662,38 +675,40 @@ const Profile = () => {
 
                 {/* Alumni-Specific Professional Details */}
                 {user?.role === 'alumni' && (
-                  <Card>
+                  <Card className="bg-card border-border">
                     <CardHeader>
-                      <CardTitle>Professional Details</CardTitle>
-                      <CardDescription>Alumni-specific information</CardDescription>
+                      <CardTitle className="text-foreground">Professional Details</CardTitle>
+                      <CardDescription className="text-muted-foreground">Alumni-specific information</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {isEditing ? (
                         <>
                           <div className="space-y-2">
-                            <Label htmlFor="industry">Industry/Sector</Label>
+                            <Label htmlFor="industry" className="text-foreground">Industry/Sector</Label>
                             <Input
                               id="industry"
                               value={profileData.industry || ''}
                               onChange={(e) => updateField('industry', e.target.value)}
                               placeholder="e.g., Technology, Finance, Healthcare"
+                              className="bg-background border-border"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="yearsOfExperience">Years of Experience</Label>
+                            <Label htmlFor="yearsOfExperience" className="text-foreground">Years of Experience</Label>
                             <Input
                               id="yearsOfExperience"
                               type="number"
                               value={profileData.years_of_experience || ''}
                               onChange={(e) => updateField('years_of_experience', parseInt(e.target.value) || 0)}
                               placeholder="e.g., 5"
+                              className="bg-background border-border"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="willingToMentor">Willing to Mentor</Label>
+                            <Label htmlFor="willingToMentor" className="text-foreground">Willing to Mentor</Label>
                             <select
                               id="willingToMentor"
-                              className="w-full p-2 border rounded-md"
+                              className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                               value={profileData.willing_to_mentor ? 'yes' : 'no'}
                               onChange={(e) => updateField('willing_to_mentor', e.target.value === 'yes')}
                             >
@@ -702,10 +717,10 @@ const Profile = () => {
                             </select>
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="willingToHire">Willing to Post Jobs</Label>
+                            <Label htmlFor="willingToHire" className="text-foreground">Willing to Post Jobs</Label>
                             <select
                               id="willingToHire"
-                              className="w-full p-2 border rounded-md"
+                              className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                               value={profileData.willing_to_hire ? 'yes' : 'no'}
                               onChange={(e) => updateField('willing_to_hire', e.target.value === 'yes')}
                             >
@@ -718,24 +733,24 @@ const Profile = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {profileData.industry && (
                             <div>
-                              <p className="text-sm text-gray-500">Industry</p>
-                              <p className="font-medium">{profileData.industry}</p>
+                              <p className="text-sm text-muted-foreground">Industry</p>
+                              <p className="font-medium text-foreground">{profileData.industry}</p>
                             </div>
                           )}
                           {profileData.years_of_experience !== undefined && (
                             <div>
-                              <p className="text-sm text-gray-500">Years of Experience</p>
-                              <p className="font-medium">{profileData.years_of_experience} years</p>
+                              <p className="text-sm text-muted-foreground">Years of Experience</p>
+                              <p className="font-medium text-foreground">{profileData.years_of_experience} years</p>
                             </div>
                           )}
                           <div>
-                            <p className="text-sm text-gray-500">Mentorship</p>
+                            <p className="text-sm text-muted-foreground">Mentorship</p>
                             <Badge variant={profileData.willing_to_mentor ? 'default' : 'secondary'}>
                               {profileData.willing_to_mentor ? 'Available' : 'Not Available'}
                             </Badge>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-500">Hiring</p>
+                            <p className="text-sm text-muted-foreground">Hiring</p>
                             <Badge variant={profileData.willing_to_hire ? 'default' : 'secondary'}>
                               {profileData.willing_to_hire ? 'Open to Post Jobs' : 'Not Hiring'}
                             </Badge>
@@ -749,15 +764,15 @@ const Profile = () => {
 
               {/* Experience Tab */}
               <TabsContent value="experience" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle>Work Experience</CardTitle>
-                        <CardDescription>Your professional experience</CardDescription>
+                        <CardTitle className="text-foreground">Work Experience</CardTitle>
+                        <CardDescription className="text-muted-foreground">Your professional experience</CardDescription>
                       </div>
                       {isEditing && (
-                        <Button size="sm" onClick={addExperience}>
+                        <Button size="sm" onClick={addExperience} className="bg-primary text-primary-foreground hover:bg-primary/90">
                           <Plus className="w-4 h-4 mr-1" />
                           Add Experience
                         </Button>
@@ -767,27 +782,29 @@ const Profile = () => {
                   <CardContent className="space-y-6">
                     {/* Current Position */}
                     {isEditing ? (
-                      <div className="space-y-4 p-4 border rounded-lg">
-                        <h3 className="font-semibold">Current Position</h3>
+                      <div className="space-y-4 p-4 border border-border rounded-lg bg-background">
+                        <h3 className="font-semibold text-foreground">Current Position</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="currentRole">Role</Label>
+                            <Label htmlFor="currentRole" className="text-foreground">Role</Label>
                             <Input
                               id="currentRole"
                               value={profileData.current_role || ''}
                               onChange={(e) => updateField('current_role', e.target.value)}
                               data-testid="input-current-role"
                               placeholder="e.g., Intern, Part-time Developer"
+                              className="bg-card border-border"
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="currentCompany">Company</Label>
+                            <Label htmlFor="currentCompany" className="text-foreground">Company</Label>
                             <Input
                               id="currentCompany"
                               value={profileData.current_company || ''}
                               onChange={(e) => updateField('current_company', e.target.value)}
                               data-testid="input-current-company"
                               placeholder="e.g., Tech Corp"
+                              className="bg-card border-border"
                             />
                           </div>
                         </div>
@@ -795,16 +812,16 @@ const Profile = () => {
                     ) : (
                       <>
                         {profileData.current_role || profileData.current_company ? (
-                          <div className="flex gap-4 p-4 border rounded-lg">
-                            <Building className="w-12 h-12 text-blue-600 bg-blue-50 rounded-lg p-2 flex-shrink-0" />
+                          <div className="flex gap-4 p-4 border border-border rounded-lg bg-background hover:bg-muted/50 transition-colors">
+                            <Building className="w-12 h-12 text-primary bg-primary/10 rounded-lg p-2 flex-shrink-0" />
                             <div className="flex-1">
-                              <h3 className="font-semibold text-lg">{profileData.current_role}</h3>
-                              <p className="text-gray-600">{profileData.current_company}</p>
-                              <p className="text-sm text-gray-500 mt-1">Present</p>
+                              <h3 className="font-semibold text-lg text-foreground">{profileData.current_role}</h3>
+                              <p className="text-muted-foreground">{profileData.current_company}</p>
+                              <p className="text-sm text-muted-foreground mt-1">Present</p>
                             </div>
                           </div>
                         ) : (
-                          <p className="text-gray-400 italic">No experience added yet. Click Edit Profile to add one.</p>
+                          <p className="text-muted-foreground italic">No experience added yet. Click Edit Profile to add one.</p>
                         )}
                         
                         {/* Past Experience */}
@@ -812,16 +829,16 @@ const Profile = () => {
                          profileData.experience_timeline.length > 0 && (
                           <div className="space-y-4">
                             {profileData.experience_timeline.map((exp, index) => (
-                              <div key={index} className="flex gap-4 p-4 border rounded-lg">
-                                <Building className="w-12 h-12 text-gray-400 bg-gray-50 rounded-lg p-2 flex-shrink-0" />
+                              <div key={index} className="flex gap-4 p-4 border border-border rounded-lg bg-background hover:bg-muted/50 transition-colors">
+                                <Building className="w-12 h-12 text-muted-foreground bg-muted rounded-lg p-2 flex-shrink-0" />
                                 <div className="flex-1">
-                                  <h3 className="font-semibold text-lg">{exp.role}</h3>
-                                  <p className="text-gray-600">{exp.company}</p>
-                                  <p className="text-sm text-gray-500 mt-1">
+                                  <h3 className="font-semibold text-lg text-foreground">{exp.role}</h3>
+                                  <p className="text-muted-foreground">{exp.company}</p>
+                                  <p className="text-sm text-muted-foreground mt-1">
                                     {exp.start_date} - {exp.end_date || 'Present'}
                                   </p>
                                   {exp.description && (
-                                    <p className="text-sm text-gray-700 mt-2">{exp.description}</p>
+                                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{exp.description}</p>
                                   )}
                                 </div>
                                 {isEditing && (
@@ -829,8 +846,9 @@ const Profile = () => {
                                     size="sm"
                                     variant="ghost"
                                     onClick={() => removeExperience(index)}
+                                    className="text-destructive hover:bg-destructive/10"
                                   >
-                                    <Trash2 className="w-4 h-4 text-red-500" />
+                                    <Trash2 className="w-4 h-4" />
                                   </Button>
                                 )}
                               </div>
@@ -850,15 +868,15 @@ const Profile = () => {
 
               {/* Education Tab */}
               <TabsContent value="education" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle>Education</CardTitle>
-                        <CardDescription>Your educational background</CardDescription>
+                        <CardTitle className="text-foreground">Education</CardTitle>
+                        <CardDescription className="text-muted-foreground">Your educational background</CardDescription>
                       </div>
                       {isEditing && (
-                        <Button size="sm" onClick={addEducation}>
+                        <Button size="sm" onClick={addEducation} className="bg-primary text-primary-foreground hover:bg-primary/90">
                           <Plus className="w-4 h-4 mr-1" />
                           Add Education
                         </Button>
@@ -867,9 +885,9 @@ const Profile = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {isEditing && (
-                      <div className="space-y-4 p-4 border rounded-lg">
+                      <div className="space-y-4 p-4 border border-border rounded-lg bg-background">
                         <div className="space-y-2">
-                          <Label htmlFor="batchYear">Batch Year</Label>
+                          <Label htmlFor="batchYear" className="text-foreground">Batch Year</Label>
                           <Input
                             id="batchYear"
                             type="number"
@@ -877,6 +895,7 @@ const Profile = () => {
                             onChange={(e) => updateField('batch_year', parseInt(e.target.value))}
                             data-testid="input-batch-year"
                             placeholder="e.g., 2024"
+                            className="bg-card border-border"
                           />
                         </div>
                       </div>
@@ -886,16 +905,16 @@ const Profile = () => {
                      profileData.education_details.length > 0 ? (
                       <div className="space-y-4">
                         {profileData.education_details.map((edu, index) => (
-                          <div key={index} className="flex gap-4 p-4 border rounded-lg">
-                            <GraduationCap className="w-12 h-12 text-green-600 bg-green-50 rounded-lg p-2 flex-shrink-0" />
+                          <div key={index} className="flex gap-4 p-4 border border-border rounded-lg bg-background hover:bg-muted/50 transition-colors">
+                            <GraduationCap className="w-12 h-12 text-green-600 bg-green-600/10 rounded-lg p-2 flex-shrink-0" />
                             <div className="flex-1">
-                              <h3 className="font-semibold text-lg">{edu.degree} {edu.field && `in ${edu.field}`}</h3>
-                              <p className="text-gray-600">{edu.institution}</p>
-                              <p className="text-sm text-gray-500 mt-1">
+                              <h3 className="font-semibold text-lg text-foreground">{edu.degree} {edu.field && `in ${edu.field}`}</h3>
+                              <p className="text-muted-foreground">{edu.institution}</p>
+                              <p className="text-sm text-muted-foreground mt-1">
                                 {edu.start_year} - {edu.end_year}
                               </p>
                               {edu.achievements && (
-                                <p className="text-sm text-gray-700 mt-2">{edu.achievements}</p>
+                                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{edu.achievements}</p>
                               )}
                             </div>
                             {isEditing && (
@@ -903,15 +922,16 @@ const Profile = () => {
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => removeEducation(index)}
+                                className="text-destructive hover:bg-destructive/10"
                               >
-                                <Trash2 className="w-4 h-4 text-red-500" />
+                                <Trash2 className="w-4 h-4" />
                               </Button>
                             )}
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-gray-400 italic">No education details added yet. Click Edit Profile to add one.</p>
+                      <p className="text-muted-foreground italic">No education details added yet. Click Edit Profile to add one.</p>
                     )}
                   </CardContent>
                 </Card>
@@ -919,20 +939,20 @@ const Profile = () => {
 
               {/* Skills Tab */}
               <TabsContent value="skills" className="space-y-6 mt-6">
-                <Card>
+                <Card className="bg-card border-border">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle>Skills & Achievements</CardTitle>
-                        <CardDescription>Showcase your expertise</CardDescription>
+                        <CardTitle className="text-foreground">Skills & Achievements</CardTitle>
+                        <CardDescription className="text-muted-foreground">Showcase your expertise</CardDescription>
                       </div>
                       {isEditing && (
                         <div className="flex gap-2">
-                          <Button size="sm" onClick={addSkill}>
+                          <Button size="sm" onClick={addSkill} className="bg-primary text-primary-foreground hover:bg-primary/90">
                             <Plus className="w-4 h-4 mr-1" />
                             Add Skill
                           </Button>
-                          <Button size="sm" variant="outline" onClick={addAchievement}>
+                          <Button size="sm" variant="outline" onClick={addAchievement} className="border-border text-foreground hover:bg-muted">
                             <Plus className="w-4 h-4 mr-1" />
                             Add Achievement
                           </Button>
@@ -942,16 +962,16 @@ const Profile = () => {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h3 className="font-semibold mb-3">Skills</h3>
+                      <h3 className="font-semibold mb-3 text-foreground">Skills</h3>
                       {profileData.skills && Array.isArray(profileData.skills) && profileData.skills.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
                           {profileData.skills.map((skill, index) => (
-                            <Badge key={index} variant="secondary" className="px-3 py-1 flex items-center gap-2">
+                            <Badge key={index} variant="secondary" className="px-3 py-1 flex items-center gap-2 bg-secondary text-secondary-foreground border-border">
                               {skill}
                               {isEditing && (
                                 <button
                                   onClick={() => removeSkill(index)}
-                                  className="hover:text-red-500"
+                                  className="hover:text-destructive transition-colors"
                                 >
                                   <X className="w-3 h-3" />
                                 </button>
@@ -960,33 +980,34 @@ const Profile = () => {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-gray-400 italic">No skills added yet. Click Edit Profile to add skills.</p>
+                        <p className="text-muted-foreground italic">No skills added yet. Click Edit Profile to add skills.</p>
                       )}
                     </div>
 
                     <div>
-                      <h3 className="font-semibold mb-3">Achievements</h3>
+                      <h3 className="font-semibold mb-3 text-foreground">Achievements</h3>
                       {profileData.achievements && Array.isArray(profileData.achievements) && 
                        profileData.achievements.length > 0 ? (
                         <ul className="space-y-2">
                           {profileData.achievements.map((achievement, index) => (
                             <li key={index} className="flex items-start gap-2">
-                              <Target className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                              <span className="text-gray-700 flex-1">{achievement}</span>
+                              <Target className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                              <span className="text-foreground flex-1 leading-relaxed">{achievement}</span>
                               {isEditing && (
                                 <Button
                                   size="sm"
                                   variant="ghost"
                                   onClick={() => removeAchievement(index)}
+                                  className="text-destructive hover:bg-destructive/10"
                                 >
-                                  <Trash2 className="w-4 h-4 text-red-500" />
+                                  <Trash2 className="w-4 h-4" />
                                 </Button>
                               )}
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-gray-400 italic">No achievements added yet. Click Edit Profile to add achievements.</p>
+                        <p className="text-muted-foreground italic">No achievements added yet. Click Edit Profile to add achievements.</p>
                       )}
                     </div>
                   </CardContent>

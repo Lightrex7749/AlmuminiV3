@@ -516,12 +516,12 @@ const KnowledgeCapsules = () => {
               <CardContent className="py-20 text-center">
                 <Sparkles className="h-16 w-16 mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">No Recommendations Yet</h3>
-                <p className="text-gray-600 mb-4">
-                  Complete your profile with skills to get personalized recommendations
-                </p>
-                <Button onClick={() => navigate('/profile/edit')}>
-                  Complete Profile
-                </Button>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Please complete your profile to unlock this feature.
+              </p>
+              <Button onClick={() => navigate('/profile', { state: { editMode: true } })}>
+                Complete Profile
+              </Button>
               </CardContent>
             </Card>
           ) : (

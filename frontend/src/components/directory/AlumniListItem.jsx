@@ -45,8 +45,8 @@ const AlumniListItem = ({ profile, onViewProfile }) => {
                 </AvatarFallback>
               </Avatar>
               {profile.is_verified && (
-                <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5">
-                  <CheckCircle2 className="h-5 w-5 text-blue-600" />
+                <div className="absolute -bottom-1 -right-1 bg-background rounded-full p-0.5">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
                 </div>
               )}
             </div>
@@ -57,16 +57,16 @@ const AlumniListItem = ({ profile, onViewProfile }) => {
             <div className="space-y-3">
               {/* Name and Headline */}
               <div>
-                <h3 className="font-semibold text-xl text-gray-900 hover:text-blue-600 transition-colors">
+                <h3 className="font-semibold text-xl text-foreground hover:text-primary transition-colors">
                   {profile.name}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {profile.headline || profile.current_role}
                 </p>
               </div>
 
               {/* Company, Location, Experience */}
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
                 {profile.current_company && (
                   <div className="flex items-center gap-1.5">
                     <Briefcase className="h-4 w-4" />
@@ -89,7 +89,7 @@ const AlumniListItem = ({ profile, onViewProfile }) => {
 
               {/* Bio */}
               {profile.bio && (
-                <p className="text-sm text-gray-600 line-clamp-2">
+                <p className="text-sm text-muted-foreground line-clamp-2">
                   {profile.bio}
                 </p>
               )}
@@ -121,11 +121,11 @@ const AlumniListItem = ({ profile, onViewProfile }) => {
             {/* Stats */}
             <div className="text-right space-y-1">
               {experienceYears && (
-                <div className="text-sm text-gray-600">
-                  <span className="font-semibold text-gray-900">{experienceYears}+</span> years exp.
+                <div className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">{experienceYears}+</span> years exp.
                 </div>
               )}
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 Profile {profile.profile_completion_percentage}% complete
               </div>
             </div>

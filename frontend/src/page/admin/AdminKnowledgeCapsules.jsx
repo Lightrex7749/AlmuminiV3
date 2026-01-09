@@ -204,7 +204,7 @@ const AdminKnowledgeCapsules = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <div className="flex flex-1">
@@ -213,7 +213,7 @@ const AdminKnowledgeCapsules = () => {
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-600 to-teal-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-[#3D52A0] to-[#7091E6] rounded-lg p-6 text-white shadow-md">
               <h1 className="text-3xl font-bold">Knowledge Capsules 📖</h1>
               <p className="mt-2 opacity-90">Manage knowledge capsules and educational content</p>
             </div>
@@ -223,12 +223,12 @@ const AdminKnowledgeCapsules = () => {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <Card key={index}>
+                  <Card key={index} className="bg-card border-border shadow-sm">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
-                          <p className="text-sm text-gray-600 mt-1">{stat.label}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
                         </div>
                         <Icon className={`w-8 h-8 ${stat.color} opacity-50`} />
                       </div>
@@ -239,16 +239,16 @@ const AdminKnowledgeCapsules = () => {
             </div>
 
             {/* Capsules List */}
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
               <CardHeader>
-                <CardTitle>All Knowledge Capsules</CardTitle>
-                <CardDescription>View and manage educational content</CardDescription>
+                <CardTitle className="text-foreground">All Knowledge Capsules</CardTitle>
+                <CardDescription className="text-muted-foreground">View and manage educational content</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 mb-6">
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="Search by title or content..."
                         value={searchQuery}
@@ -278,13 +278,13 @@ const AdminKnowledgeCapsules = () => {
                   {filteredCapsules.map((capsule) => (
                     <div
                       key={capsule.id}
-                      className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                      className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
                       data-testid={`capsule-item-${capsule.id}`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold text-lg">{capsule.title}</h3>
+                            <h3 className="font-semibold text-lg text-foreground">{capsule.title}</h3>
                             {capsule.is_featured && (
                               <Badge className="bg-yellow-100 text-yellow-800">
                                 <Star className="w-3 h-3 mr-1" />
@@ -296,13 +296,13 @@ const AdminKnowledgeCapsules = () => {
                             <Badge className={getCategoryColor(capsule.category)}>
                               {capsule.category.replace('_', ' ')}
                             </Badge>
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-muted-foreground">
                               by {capsule.author_name || 'Unknown'}
                             </span>
-                            <span className="text-sm text-gray-500">• {capsule.duration_minutes} min read</span>
+                            <span className="text-sm text-muted-foreground">• {capsule.duration_minutes} min read</span>
                           </div>
-                          <p className="text-sm text-gray-600 line-clamp-2">{capsule.content.substring(0, 200)}...</p>
-                          <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{capsule.content.substring(0, 200)}...</p>
+                          <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <TrendingUp className="w-4 h-4" />
                               {capsule.views_count} views
@@ -320,11 +320,11 @@ const AdminKnowledgeCapsules = () => {
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="sm" data-testid={`capsule-actions-${capsule.id}`}>
-                              <MoreVertical className="w-4 h-4" />
+                              <MoreVertical className="w-4 h-4 text-muted-foreground" />
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuContent align="end" className="bg-card border-border">
+                            <DropdownMenuLabel className="text-foreground">Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleViewCapsule(capsule.id)}>
                               <Eye className="mr-2 h-4 w-4" />
@@ -337,7 +337,7 @@ const AdminKnowledgeCapsules = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                               onClick={() => handleDeleteCapsule(capsule.id)}
-                              className="text-red-600"
+                              className="text-destructive"
                             >
                               <Trash2 className="mr-2 h-4 w-4" />
                               Delete Capsule
@@ -348,7 +348,7 @@ const AdminKnowledgeCapsules = () => {
                     </div>
                   ))}
                   {filteredCapsules.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
+                    <div className="text-center py-12 text-muted-foreground">
                       <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p>No knowledge capsules found</p>
                     </div>
@@ -364,10 +364,10 @@ const AdminKnowledgeCapsules = () => {
 
       {/* Capsule Details Modal */}
       <Dialog open={showCapsuleModal} onOpenChange={setShowCapsuleModal}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-card border-border">
           <DialogHeader>
-            <DialogTitle>{selectedCapsule?.title}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-foreground text-2xl font-bold">{selectedCapsule?.title}</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               <div className="flex items-center gap-3 mt-2">
                 <Badge className={selectedCapsule ? getCategoryColor(selectedCapsule.category) : ''}>
                   {selectedCapsule?.category.replace('_', ' ')}
@@ -383,20 +383,20 @@ const AdminKnowledgeCapsules = () => {
                 <img
                   src={selectedCapsule.featured_image}
                   alt={selectedCapsule.title}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-64 object-cover rounded-lg border border-border"
                 />
               )}
               
-              <div className="prose max-w-none">
-                <p className="text-gray-700 whitespace-pre-wrap">{selectedCapsule.content}</p>
+              <div className="prose prose-slate dark:prose-invert max-w-none">
+                <p className="text-foreground leading-relaxed whitespace-pre-wrap">{selectedCapsule.content}</p>
               </div>
 
               {selectedCapsule.tags && selectedCapsule.tags.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-2">Tags</p>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">Tags</p>
                   <div className="flex flex-wrap gap-2">
                     {selectedCapsule.tags.map((tag, idx) => (
-                      <Badge key={idx} variant="outline">
+                      <Badge key={idx} variant="outline" className="border-border text-foreground">
                         {tag}
                       </Badge>
                     ))}
@@ -404,33 +404,33 @@ const AdminKnowledgeCapsules = () => {
                 </div>
               )}
 
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-border">
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-gray-600" />
+                    <TrendingUp className="w-5 h-5 text-primary" />
                     <div>
-                      <p className="text-sm font-medium">{selectedCapsule.views_count}</p>
-                      <p className="text-xs text-gray-500">Views</p>
+                      <p className="text-sm font-medium text-foreground">{selectedCapsule.views_count}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">Views</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Heart className="w-5 h-5 text-red-500" />
+                    <Heart className="w-5 h-5 text-destructive fill-destructive/10" />
                     <div>
-                      <p className="text-sm font-medium">{selectedCapsule.likes_count}</p>
-                      <p className="text-xs text-gray-500">Likes</p>
+                      <p className="text-sm font-medium text-foreground">{selectedCapsule.likes_count}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">Likes</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Bookmark className="w-5 h-5 text-blue-500" />
+                    <Bookmark className="w-5 h-5 text-[#7091E6] fill-[#7091E6]/10" />
                     <div>
-                      <p className="text-sm font-medium">{selectedCapsule.bookmarks_count}</p>
-                      <p className="text-xs text-gray-500">Bookmarks</p>
+                      <p className="text-sm font-medium text-foreground">{selectedCapsule.bookmarks_count}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">Bookmarks</p>
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-gray-500">Created</p>
-                  <p className="text-sm">{new Date(selectedCapsule.created_at).toLocaleDateString()}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Created</p>
+                  <p className="text-sm text-foreground font-medium">{new Date(selectedCapsule.created_at).toLocaleDateString()}</p>
                 </div>
               </div>
             </div>
@@ -446,6 +446,7 @@ const AdminKnowledgeCapsules = () => {
                   handleToggleFeatured(selectedCapsule.id);
                   setShowCapsuleModal(false);
                 }}
+                className={selectedCapsule.is_featured ? 'border-border' : 'bg-primary text-primary-foreground'}
               >
                 <Star className="w-4 h-4 mr-2" />
                 {selectedCapsule.is_featured ? 'Remove from Featured' : 'Mark as Featured'}

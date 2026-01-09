@@ -76,8 +76,9 @@ qrcode>=7.4.2
 Pillow>=10.2.0
 reportlab>=4.0.0
 
-# Email Service
-sendgrid>=6.11.0
+# Email Service - Resend
+resend>=0.3.0
+httpx>=0.28.0
 
 # ============================================================================
 # MONITORING & LOGGING

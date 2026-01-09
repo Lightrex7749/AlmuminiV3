@@ -71,12 +71,12 @@ const CareerInsights = () => {
         <div className="container mx-auto p-6 max-w-7xl">
           <Card>
             <CardContent className="py-20 text-center">
-              <Sparkles className="h-16 w-16 mx-auto text-gray-300 mb-4" />
+              <Sparkles className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Career Predictions Coming Soon</h3>
               <p className="text-gray-600">
                 AI-powered career predictions are not yet available for your profile.
               </p>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 Complete your profile and update your skills to get personalized career insights.
               </p>
               <Button className="mt-6" onClick={() => window.location.href = '/profile'}>
@@ -111,7 +111,7 @@ const CareerInsights = () => {
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           {/* Current Career Status */}
           <Card className="lg:col-span-1" data-testid="current-status-card">
-            <CardHeader className="bg-gradient-to-br from-blue-50 to-purple-50">
+            <CardHeader className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
               <CardTitle className="flex items-center gap-2">
                 <Target className="h-5 w-5 text-blue-600" />
                 Current Position
@@ -191,14 +191,14 @@ const CareerInsights = () => {
           <CardContent>
             <div className="space-y-4">
               {/* Top Skills to Learn */}
-              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <h3 className="font-semibold mb-3 flex items-center gap-2">
                   <Target className="h-4 w-4 text-blue-600" />
                   Priority Skills to Learn
                 </h3>
                 <div className="space-y-2">
                   {topPredictions[0]?.skills_gap.slice(0, 3).map((skill, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-2 bg-white rounded">
+                    <div key={idx} className="flex items-center justify-between p-2 bg-background rounded">
                       <span className="font-medium text-sm">{skill}</span>
                       <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
                         {topPredictions[0].skill_importance[skill] || 'high'}
@@ -217,12 +217,12 @@ const CareerInsights = () => {
               </div>
 
               {/* Alumni to Connect With */}
-              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
                 <h3 className="font-semibold mb-2 flex items-center gap-2">
                   <Users className="h-4 w-4 text-green-600" />
                   Connect with Alumni
                 </h3>
-                <p className="text-sm text-gray-700 mb-3">
+                <p className="text-sm text-foreground mb-3">
                   {topPredictions[0]?.similar_alumni_count} alumni have successfully transitioned to {topPredictions[0]?.role_name}
                 </p>
                 <Button 
@@ -236,12 +236,12 @@ const CareerInsights = () => {
               </div>
 
               {/* Career Resources */}
-              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
                 <h3 className="font-semibold mb-2 flex items-center gap-2">
                   <BookOpen className="h-4 w-4 text-purple-600" />
                   Explore Career Resources
                 </h3>
-                <p className="text-sm text-gray-700 mb-3">
+                <p className="text-sm text-foreground mb-3">
                   Learn from knowledge capsules and career guides shared by alumni
                 </p>
                 <Button 
@@ -258,7 +258,7 @@ const CareerInsights = () => {
         </Card>
 
         {/* Last Updated */}
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-muted-foreground">
           Last updated: {new Date(prediction.last_updated).toLocaleDateString()}
           {' • '}
           Next update: {new Date(prediction.next_update).toLocaleDateString()}

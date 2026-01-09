@@ -97,12 +97,12 @@ const ConversationsList = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-background">
         <MainNavbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading conversations...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading conversations...</p>
           </div>
         </div>
         <Footer />
@@ -111,7 +111,7 @@ const ConversationsList = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <main className="flex-1 py-8">
@@ -119,12 +119,12 @@ const ConversationsList = () => {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Messages</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-3xl font-bold text-foreground">Messages</h1>
+              <p className="text-muted-foreground mt-1">
                 {conversations.length} conversation{conversations.length !== 1 ? 's' : ''}
               </p>
             </div>
-            <Button onClick={() => navigate('/directory')} className="gap-2">
+            <Button onClick={() => navigate('/directory')} className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
               <Plus className="h-4 w-4" />
               New Message
             </Button>
@@ -132,21 +132,21 @@ const ConversationsList = () => {
 
           {/* Search */}
           <div className="mb-6 relative">
-            <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
             <Input
               type="text"
               placeholder="Search conversations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-10 bg-card border-border"
             />
           </div>
 
           {/* Conversations List */}
           {filteredConversations.length === 0 ? (
-            <Card className="text-center py-12">
-              <MessageSquare className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600 mb-4">
+            <Card className="text-center py-12 bg-card border-border">
+              <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-4 opacity-50" />
+              <p className="text-muted-foreground mb-4">
                 {searchQuery ? 'No conversations match your search' : 'No conversations yet'}
               </p>
               {!searchQuery && (
@@ -160,7 +160,7 @@ const ConversationsList = () => {
               {filteredConversations.map((conv) => (
                 <Card
                   key={conv.conversation_id}
-                  className="hover:shadow-md transition-shadow cursor-pointer"
+                  className="hover:shadow-md transition-all cursor-pointer bg-card border-border hover:border-primary/50"
                   onClick={() => navigate(`/messages/${conv.other_user_id}`, {
                     state: { recipientName: conv.other_user_name }
                   })}
@@ -168,9 +168,9 @@ const ConversationsList = () => {
                   <CardContent className="p-4">
                     <div className="flex items-center gap-4">
                       {/* Avatar */}
-                      <Avatar className="h-12 w-12 flex-shrink-0">
+                      <Avatar className="h-12 w-12 flex-shrink-0 border border-border">
                         <AvatarImage src={conv.photo_url} alt={conv.other_user_name} />
-                        <AvatarFallback>
+                        <AvatarFallback className="bg-primary/10 text-primary">
                           {conv.other_user_name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
@@ -178,7 +178,7 @@ const ConversationsList = () => {
                       {/* Conversation Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold text-gray-900 truncate">
+                          <h3 className="font-semibold text-foreground truncate">
                             {conv.other_user_name}
                           </h3>
                           {conv.unread_count > 0 && (
@@ -188,7 +188,7 @@ const ConversationsList = () => {
                           )}
                         </div>
                         <p className={`text-sm truncate ${
-                          conv.unread_count > 0 ? 'font-medium text-gray-900' : 'text-gray-600'
+                          conv.unread_count > 0 ? 'font-medium text-foreground' : 'text-muted-foreground'
                         }`}>
                           {conv.last_message_from_me ? 'You: ' : ''}{conv.last_message || 'No messages yet'}
                         </p>
@@ -196,7 +196,7 @@ const ConversationsList = () => {
 
                       {/* Timestamp */}
                       <div className="flex-shrink-0 flex flex-col items-end gap-2">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                           {formatTime(conv.last_message_at)}
                         </span>
                         <Button
@@ -206,7 +206,7 @@ const ConversationsList = () => {
                             e.stopPropagation();
                             handleDeleteConversation(conv.conversation_id);
                           }}
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          className="text-destructive hover:text-destructive hover:bg-destructive/10"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

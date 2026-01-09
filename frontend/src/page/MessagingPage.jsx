@@ -125,12 +125,12 @@ const MessagingPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-background">
         <MainNavbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading conversation...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading conversation...</p>
           </div>
         </div>
         <Footer />
@@ -139,27 +139,27 @@ const MessagingPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <MainNavbar />
 
       <main className="flex-1 py-8">
         <div className="max-w-3xl mx-auto px-4">
           {/* Messages Card */}
-          <Card className="h-[600px] flex flex-col shadow-lg">
+          <Card className="h-[600px] flex flex-col shadow-lg bg-card border-border">
             {/* Header */}
-            <CardHeader className="border-b">
+            <CardHeader className="border-b border-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10">
+                  <Avatar className="h-10 w-10 border border-border">
                     <AvatarImage src="" alt={recipientName} />
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-primary text-primary-foreground">
                       {recipientName.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle className="text-lg">{recipientName}</CardTitle>
+                    <CardTitle className="text-lg text-foreground">{recipientName}</CardTitle>
                     <p className={`text-xs ${
-                      recipientOnline ? 'text-green-600 font-medium' : 'text-gray-500'
+                      recipientOnline ? 'text-green-600 font-medium' : 'text-muted-foreground'
                     }`}>
                       {recipientOnline ? '🟢 Online' : 'Offline'}
                     </p>
@@ -169,6 +169,7 @@ const MessagingPage = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate('/messages')}
+                  className="text-muted-foreground hover:text-foreground"
                 >
                   ← Back to inbox
                 </Button>
@@ -176,11 +177,11 @@ const MessagingPage = () => {
             </CardHeader>
 
             {/* Messages Container */}
-            <CardContent className="flex-1 overflow-y-auto p-6 space-y-4">
+            <CardContent className="flex-1 overflow-y-auto p-6 space-y-4 bg-background/50">
               {messages.length === 0 ? (
                 <div className="h-full flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <MessageSquare className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                  <div className="text-center text-muted-foreground">
+                    <MessageSquare className="h-12 w-12 mx-auto mb-2 opacity-50 text-primary" />
                     <p>No messages yet. Start the conversation!</p>
                   </div>
                 </div>
@@ -194,15 +195,15 @@ const MessagingPage = () => {
                       }`}
                     >
                       <div
-                        className={`max-w-xs px-4 py-3 rounded-lg ${
+                        className={`max-w-xs px-4 py-3 rounded-lg shadow-sm ${
                           msg.sender_id === currentUser.id
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-200 text-gray-900'
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted text-foreground border border-border'
                         }`}
                       >
-                        <p className="break-words">{msg.message_text || msg.message}</p>
+                        <p className="break-words text-sm">{msg.message_text || msg.message}</p>
                         <div className="flex items-center justify-between gap-2 mt-1">
-                          <span className="text-xs opacity-70">
+                          <span className="text-[10px] opacity-70">
                             {new Date(msg.sent_at || msg.timestamp).toLocaleTimeString([], {
                               hour: '2-digit',
                               minute: '2-digit',
@@ -210,9 +211,9 @@ const MessagingPage = () => {
                           </span>
                           {msg.sender_id === currentUser.id && (
                             msg.read_at ? (
-                              <CheckCheck className="h-4 w-4 opacity-70" />
+                              <CheckCheck className="h-3 w-3 opacity-70" />
                             ) : (
-                              <Check className="h-4 w-4 opacity-70" />
+                              <Check className="h-3 w-3 opacity-70" />
                             )
                           )}
                         </div>
@@ -221,11 +222,11 @@ const MessagingPage = () => {
                   ))}
                   {isTyping && (
                     <div className="flex justify-start">
-                      <div className="bg-gray-300 text-gray-900 px-4 py-2 rounded-lg">
+                      <div className="bg-muted text-foreground px-4 py-2 rounded-lg border border-border">
                         <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                          <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                          <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                         </div>
                       </div>
                     </div>
@@ -236,7 +237,7 @@ const MessagingPage = () => {
             </CardContent>
 
             {/* Input Footer */}
-            <div className="border-t p-4 bg-white">
+            <div className="border-t border-border p-4 bg-card">
               <form onSubmit={handleSendMessage} className="flex gap-2">
                 <Input
                   type="text"
@@ -244,12 +245,12 @@ const MessagingPage = () => {
                   value={messageText}
                   onChange={handleTyping}
                   disabled={sending}
-                  className="flex-1"
+                  className="flex-1 bg-background border-border"
                 />
                 <Button
                   type="submit"
                   disabled={sending || !messageText.trim()}
-                  className="gap-2"
+                  className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <Send className="h-4 w-4" />
                   {sending ? 'Sending...' : 'Send'}
