@@ -78,7 +78,7 @@ async def get_admin_stats():
         event_stats = cursor.fetchone()
         
         # Forum posts
-        cursor.execute("SELECT COUNT(*) as totalPosts FROM forum_posts WHERE is_deleted = FALSE")
+        cursor.execute("SELECT COUNT(*) as totalPosts FROM forum_posts")
         forum_stats = cursor.fetchone()
         
         # Mentorship requests
