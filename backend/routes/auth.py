@@ -673,14 +673,14 @@ async def get_quick_login_users():
                     for role in roles:
                         # Get user with most skills for each role
                         query = """
-                            SELECT u.id, u.email, u.role, up.name, up.headline, up.bio, 
-                                   up.company, up.title, GROUP_CONCAT(s.name) as skills
+                            SELECT u.id, u.email, u.role, 
+                                   CONCAT(COALESCE(up.first_name, ''), ' ', COALESCE(up.last_name, '')) as name,
+                                   up.headline, up.bio, up.company, up.job_title
                             FROM users u
                             LEFT JOIN user_profiles up ON u.id = up.user_id
                             LEFT JOIN user_skills us ON u.id = us.user_id
-                            LEFT JOIN skills s ON us.skill_id = s.id
                             WHERE u.role = %s
-                            GROUP BY u.id, u.email, u.role, up.name, up.headline, up.bio, up.company, up.title
+                            GROUP BY u.id, u.email, u.role, up.first_name, up.last_name, up.headline, up.bio, up.company, up.job_title
                             ORDER BY COUNT(us.skill_id) DESC
                             LIMIT 1
                         """
@@ -688,17 +688,27 @@ async def get_quick_login_users():
                         result = await cursor.fetchone()
                         
                         if result:
-                            skills = result[8].split(',') if result[8] else []
+                            # Get skills separately
+                            skill_query = """
+                                SELECT s.name FROM skills s
+                                INNER JOIN user_skills us ON s.id = us.skill_id
+                                WHERE us.user_id = %s
+                                LIMIT 5
+                            """
+                            await cursor.execute(skill_query, (result[0],))
+                            skill_results = await cursor.fetchall()
+                            skills = [s[0] for s in skill_results] if skill_results else []
+                            
                             users.append({
                                 "id": result[0],
                                 "email": result[1],
                                 "role": result[2],
-                                "name": result[3] or result[1].split('@')[0],
+                                "name": (result[3] or "").strip() or result[1].split('@')[0],
                                 "headline": result[4] or "",
                                 "bio": result[5] or "",
                                 "company": result[6] or "",
                                 "title": result[7] or "",
-                                "skills": skills[:5]  # Top 5 skills
+                                "skills": skills
                             })
                     
                     return {"users": users}
