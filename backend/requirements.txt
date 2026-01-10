@@ -3,6 +3,7 @@ fastapi==0.110.1
 uvicorn==0.25.0
 
 # Database Drivers
+psycopg2-binary>=2.9.0
 aiomysql>=0.2.0
 PyMySQL>=1.1.0
 
@@ -89,7 +90,7 @@ azure-identity>=1.14.0
 azure-keyvault-secrets>=4.7.0
 
 # Azure Database
-azure-mysql>=1.0.0
+# azure-mysql>=1.0.0  # NOT AVAILABLE - use psycopg2 for PostgreSQL instead
 
 # Azure Blob Storage
 azure-storage-blob>=12.18.0
