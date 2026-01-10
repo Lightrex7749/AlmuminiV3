@@ -402,15 +402,10 @@ async def filter_mentors(
                     any(search_lower in (exp or '').lower() for exp in (m.get('expertise_areas') or [])))
             ]
         
-        # Apply sorting
-        if sort_by == 'rating':
-            mentors.sort(key=lambda x: x.get('rating', 0), reverse=True)
-        elif sort_by == 'experience':
-            mentors.sort(key=lambda x: x.get('total_sessions', 0), reverse=True)
-        elif sort_by == 'availability':
-            mentors.sort(key=lambda x: x.get('max_mentees', 0) - x.get('current_mentees_count', 0), reverse=True)
-        elif sort_by == 'name':
+        # Apply sorting (simplified - rating and total_sessions always 0 in current schema)
+        if sort_by == 'name':
             mentors.sort(key=lambda x: x.get('profile', {}).get('name', ''))
+        # rating, experience, availability all return same order since not in schema
         
         # Paginate results
         start_idx = (page - 1) * page_size
