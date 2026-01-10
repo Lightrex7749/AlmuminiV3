@@ -63,7 +63,7 @@ async def get_admin_stats():
         cursor.execute("""
             SELECT 
                 COUNT(*) as totalJobs,
-                SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as activeJobs
+                SUM(CASE WHEN is_active = TRUE THEN 1 ELSE 0 END) as activeJobs
             FROM jobs
         """)
         job_stats = cursor.fetchone()
@@ -72,7 +72,7 @@ async def get_admin_stats():
         cursor.execute("""
             SELECT 
                 COUNT(*) as totalEvents,
-                SUM(CASE WHEN status = 'published' THEN 1 ELSE 0 END) as publishedEvents
+                SUM(CASE WHEN event_date > NOW() THEN 1 ELSE 0 END) as upcomingEvents
             FROM events
         """)
         event_stats = cursor.fetchone()

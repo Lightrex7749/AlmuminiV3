@@ -414,45 +414,45 @@ async def get_career_data_statistics(
             async with conn.cursor() as cursor:
                 # Total transitions
                 await cursor.execute("""
-                    SELECT COUNT(*) FROM career_paths
+                    SELECT COUNT(*) FROM career_transition_matrix
                     WHERE from_role IS NOT NULL AND to_role IS NOT NULL
                 """)
                 total_transitions = (await cursor.fetchone())[0]
                 
                 # Unique from roles
                 await cursor.execute("""
-                    SELECT COUNT(DISTINCT from_role) FROM career_paths
+                    SELECT COUNT(DISTINCT from_role) FROM career_transition_matrix
                     WHERE from_role IS NOT NULL
                 """)
                 unique_from_roles = (await cursor.fetchone())[0]
                 
                 # Unique to roles
                 await cursor.execute("""
-                    SELECT COUNT(DISTINCT to_role) FROM career_paths
+                    SELECT COUNT(DISTINCT to_role) FROM career_transition_matrix
                     WHERE to_role IS NOT NULL
                 """)
                 unique_to_roles = (await cursor.fetchone())[0]
                 
-                # Contributing alumni
+                # Contributing alumni - use transition count as proxy
                 await cursor.execute("""
-                    SELECT COUNT(DISTINCT user_id) FROM career_paths
+                    SELECT SUM(transition_count) FROM career_transition_matrix
                 """)
-                contributing_alumni = (await cursor.fetchone())[0]
+                result = await cursor.fetchone()
+                contributing_alumni = result[0] if result and result[0] else 0
                 
                 # Recent additions (last 7 days)
                 await cursor.execute("""
-                    SELECT COUNT(*) FROM career_paths
+                    SELECT COUNT(*) FROM career_transition_matrix
                     WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
                 """)
                 recent_additions = (await cursor.fetchone())[0]
                 
                 # Get top transitions
                 await cursor.execute("""
-                    SELECT from_role, to_role, COUNT(*) as count
-                    FROM career_paths
+                    SELECT from_role, to_role, transition_count
+                    FROM career_transition_matrix
                     WHERE from_role IS NOT NULL AND to_role IS NOT NULL
-                    GROUP BY from_role, to_role
-                    ORDER BY count DESC
+                    ORDER BY transition_count DESC
                     LIMIT 5
                 """)
                 top_transitions = await cursor.fetchall()
@@ -460,6 +460,7 @@ async def get_career_data_statistics(
         # Calculate progress
         ml_ready = total_transitions >= 50
         progress_percentage = min(100, (total_transitions / 50) * 100)
+        
         
         top_transitions_list = [
             {
