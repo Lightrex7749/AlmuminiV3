@@ -118,11 +118,19 @@ async def periodic_cleanup():
         except Exception as e:
             logger.error(f"Rate limiter cleanup error: {str(e)}")
 
-# Lifespan context manager for startup and shutdown events
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Manage application lifespan (startup and shutdown)"""
-    # Startup
+# Create FastAPI app
+app = FastAPI(
+    title="AlumUnity API",
+    description="Alumni Management System API with AI Features",
+    version="1.0.0",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc"
+)
+
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database and services on startup"""
     try:
         # Initialize database pool (or skip if mock mode)
         if USE_MOCK_DB:
@@ -142,27 +150,17 @@ async def lifespan(app: FastAPI):
         # Initialize file storage (Phase 10.1)
         logger.info(f"✅ File storage initialized ({file_storage.storage_type})")
         
-        # Start background cleanup task for rate limiter
-        cleanup_task = asyncio.create_task(periodic_cleanup())
-        logger.info("✅ Rate limiter cleanup task started")
-        
         logger.info("🚀 AlumUnity API started successfully")
         logger.info("📋 Phase 10.1: Infrastructure Setup - Active")
     except Exception as e:
         logger.error(f"❌ Startup failed: {str(e)}")
         raise
-    
-    yield  # Application runs here
-    
-    # Shutdown
+
+# Shutdown event
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Clean up resources on shutdown"""
     try:
-        # Cancel cleanup task
-        cleanup_task.cancel()
-        try:
-            await cleanup_task
-        except asyncio.CancelledError:
-            pass
-        
         await close_db_pool()
         logger.info("✅ Database connection pool closed")
         
@@ -176,16 +174,6 @@ async def lifespan(app: FastAPI):
         logger.info("👋 AlumUnity API shutdown complete")
     except Exception as e:
         logger.error(f"❌ Shutdown error: {str(e)}")
-
-# Create FastAPI app with lifespan
-app = FastAPI(
-    title="AlumUnity API",
-    description="Alumni Management System API with AI Features",
-    version="1.0.0",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    lifespan=lifespan
-)
 
 # Create API router with /api prefix
 api_router = APIRouter(prefix="/api")

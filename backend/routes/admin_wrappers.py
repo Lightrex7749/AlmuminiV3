@@ -49,9 +49,15 @@ async def get_admin_stats():
         """)
         user_stats = cursor.fetchone()
         
-        # Verified alumni
-        cursor.execute("SELECT COUNT(*) as verifiedAlumni FROM alumni_profiles WHERE is_verified = TRUE")
-        verified_stats = cursor.fetchone()
+        # Verified alumni - check if table exists first
+        verified_alumni = 0
+        try:
+            cursor.execute("SELECT COUNT(*) as verifiedAlumni FROM alumni_profiles WHERE is_verified = TRUE")
+            verified_stats = cursor.fetchone()
+            verified_alumni = verified_stats.get('verifiedAlumni', 0) if verified_stats else 0
+        except Exception:
+            # Table doesn't exist or query failed, use default
+            verified_alumni = 0
         
         # Jobs stats
         cursor.execute("""
@@ -86,7 +92,7 @@ async def get_admin_stats():
             "success": True,
             "data": {
                 **user_stats,
-                **verified_stats,
+                "verifiedAlumni": verified_alumni,
                 **job_stats,
                 **event_stats,
                 "forumPosts": forum_stats['totalPosts'],

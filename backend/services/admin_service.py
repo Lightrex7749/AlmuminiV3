@@ -142,58 +142,70 @@ class AdminService:
         pool = await get_db_pool()
         async with pool.acquire() as conn:
             async with conn.cursor(aiomysql.DictCursor) as cursor:
-                # Get pending verifications or profiles that need verification
-                offset = (page - 1) * limit
-                
-                # Count total pending
-                await cursor.execute(
-                    """
-                    SELECT COUNT(*) as total
-                    FROM alumni_profiles ap
-                    LEFT JOIN profile_verification_requests pvr ON ap.user_id = pvr.user_id
-                    WHERE ap.is_verified = FALSE
-                    AND (pvr.status IS NULL OR pvr.status = 'pending')
-                    AND ap.profile_completion_percentage >= 70
-                    """
-                )
-                total_result = await cursor.fetchone()
-                total = total_result['total'] if total_result else 0
-                
-                # Get pending profiles with user info
-                await cursor.execute(
-                    """
-                    SELECT 
-                        ap.*,
-                        u.email,
-                        u.role,
-                        pvr.id as verification_request_id,
-                        pvr.status as verification_status,
-                        pvr.created_at as request_created_at
-                    FROM alumni_profiles ap
-                    JOIN users u ON ap.user_id = u.id
-                    LEFT JOIN profile_verification_requests pvr ON ap.user_id = pvr.user_id
-                    WHERE ap.is_verified = FALSE
-                    AND (pvr.status IS NULL OR pvr.status = 'pending')
-                    AND ap.profile_completion_percentage >= 70
-                    ORDER BY ap.created_at DESC
-                    LIMIT %s OFFSET %s
-                    """,
-                    (limit, offset)
-                )
-                
-                profiles = await cursor.fetchall()
-                
-                # Parse JSON fields
-                from services.profile_service import ProfileService
-                parsed_profiles = [ProfileService._parse_profile_json_fields(p) for p in profiles]
-                
-                return {
-                    "profiles": parsed_profiles,
-                    "total": total,
-                    "page": page,
-                    "limit": limit,
-                    "total_pages": (total + limit - 1) // limit
-                }
+                try:
+                    # Get pending verifications or profiles that need verification
+                    offset = (page - 1) * limit
+                    
+                    # Count total pending
+                    await cursor.execute(
+                        """
+                        SELECT COUNT(*) as total
+                        FROM alumni_profiles ap
+                        LEFT JOIN profile_verification_requests pvr ON ap.user_id = pvr.user_id
+                        WHERE ap.is_verified = FALSE
+                        AND (pvr.status IS NULL OR pvr.status = 'pending')
+                        AND ap.profile_completion_percentage >= 70
+                        """
+                    )
+                    total_result = await cursor.fetchone()
+                    total = total_result['total'] if total_result else 0
+                    
+                    # Get pending profiles with user info
+                    await cursor.execute(
+                        """
+                        SELECT 
+                            ap.*,
+                            u.email,
+                            u.role,
+                            pvr.id as verification_request_id,
+                            pvr.status as verification_status,
+                            pvr.created_at as request_created_at
+                        FROM alumni_profiles ap
+                        JOIN users u ON ap.user_id = u.id
+                        LEFT JOIN profile_verification_requests pvr ON ap.user_id = pvr.user_id
+                        WHERE ap.is_verified = FALSE
+                        AND (pvr.status IS NULL OR pvr.status = 'pending')
+                        AND ap.profile_completion_percentage >= 70
+                        ORDER BY ap.created_at DESC
+                        LIMIT %s OFFSET %s
+                        """,
+                        (limit, offset)
+                    )
+                    
+                    profiles = await cursor.fetchall()
+                    
+                    # Parse JSON fields
+                    from services.profile_service import ProfileService
+                    parsed_profiles = [ProfileService._parse_profile_json_fields(p) for p in profiles]
+                    
+                    return {
+                        "profiles": parsed_profiles,
+                        "total": total,
+                        "page": page,
+                        "limit": limit,
+                        "total_pages": (total + limit - 1) // limit
+                    }
+                except Exception as e:
+                    # If alumni_profiles table doesn't exist, return empty results
+                    if "doesn't exist" in str(e) or "alumni_profiles" in str(e):
+                        return {
+                            "profiles": [],
+                            "total": 0,
+                            "page": page,
+                            "limit": limit,
+                            "total_pages": 0
+                        }
+                    raise
     
     @staticmethod
     async def get_all_verification_requests(
