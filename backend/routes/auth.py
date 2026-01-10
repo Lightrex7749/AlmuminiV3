@@ -618,3 +618,44 @@ async def resend_verification(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to resend verification code."
         )
+
+
+@router.get("/quick-login-users", response_model=Dict)
+async def get_quick_login_users():
+    """Get list of users for quick login buttons"""
+    try:
+        if USE_MOCK_DB:
+            # Return mock users for demo
+            users = []
+            for email, user_data in MOCK_USERS.items():
+                users.append({
+                    "email": user_data["email"],
+                    "name": user_data.get("name", ""),
+                    "role": user_data.get("role", "student"),
+                    "avatar": user_data.get("avatar", "")
+                })
+            return {"users": users[:6]}  # Return first 6 users
+        else:
+            # Fetch from database
+            pool = get_db_pool()
+            if not pool:
+                return {"users": []}
+            
+            async with pool.acquire() as conn:
+                async with conn.cursor() as cursor:
+                    query = "SELECT id, email, role FROM users LIMIT 6"
+                    await cursor.execute(query)
+                    results = await cursor.fetchall()
+                    
+                    users = []
+                    for row in results:
+                        users.append({
+                            "id": row[0],
+                            "email": row[1],
+                            "role": row[2],
+                            "name": row[1].split('@')[0]  # Use email prefix as name if not available
+                        })
+                    return {"users": users}
+    except Exception as e:
+        logger.error(f"Error fetching quick login users: {str(e)}")
+        return {"users": []}

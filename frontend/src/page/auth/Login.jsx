@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForm } from 'react-hook-form';
@@ -18,6 +18,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [databaseUsers, setDatabaseUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   const {
     register,
@@ -34,10 +36,96 @@ const Login = () => {
     },
   });
 
+  // Fetch users from database on component mount
+  useEffect(() => {
+    const fetchDatabaseUsers = async () => {
+      try {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
+        const response = await fetch(`${backendUrl}/api/auth/quick-login-users`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.users && Array.isArray(data.users)) {
+            // Enrich with UI data and set default password
+            const enrichedUsers = data.users.map(user => ({
+              ...user,
+              password: 'password123', // Default demo password
+              icon: getRoleIcon(user.role),
+              color: getRoleColor(user.role).color,
+              bgColor: getRoleColor(user.role).bgColor,
+              textColor: getRoleColor(user.role).textColor,
+            }));
+            setDatabaseUsers(enrichedUsers);
+          }
+        }
+      } catch (err) {
+        console.log('Using fallback credentials (database users unavailable)');
+      } finally {
+        setLoadingUsers(false);
+      }
+    };
+
+    fetchDatabaseUsers();
+  }, []);
+
   const rememberMe = watch('rememberMe');
 
-  // Role credentials for quick login
-  const roleCredentials = [
+
+  // Helper function to get icon based on role
+  const getRoleIcon = (role) => {
+    const roleMap = {
+      admin: ShieldCheck,
+      alumni: GraduationCap,
+      student: Users,
+      recruiter: Briefcase,
+      mentor: GraduationCap,
+    };
+    return roleMap[role?.toLowerCase()] || Users;
+  };
+
+  // Helper function to get color based on role
+  const getRoleColor = (role) => {
+    const roleMap = {
+      admin: {
+        color: 'from-red-500 to-red-600',
+        bgColor: 'bg-red-50 hover:bg-red-100',
+        textColor: 'text-red-700',
+      },
+      alumni: {
+        color: 'from-blue-500 to-blue-600',
+        bgColor: 'bg-blue-50 hover:bg-blue-100',
+        textColor: 'text-blue-700',
+      },
+      student: {
+        color: 'from-green-500 to-green-600',
+        bgColor: 'bg-green-50 hover:bg-green-100',
+        textColor: 'text-green-700',
+      },
+      recruiter: {
+        color: 'from-purple-500 to-purple-600',
+        bgColor: 'bg-purple-50 hover:bg-purple-100',
+        textColor: 'text-purple-700',
+      },
+      mentor: {
+        color: 'from-blue-500 to-blue-600',
+        bgColor: 'bg-blue-50 hover:bg-blue-100',
+        textColor: 'text-blue-700',
+      },
+    };
+    return roleMap[role?.toLowerCase()] || {
+      color: 'from-gray-500 to-gray-600',
+      bgColor: 'bg-gray-50 hover:bg-gray-100',
+      textColor: 'text-gray-700',
+    };
+  };
+
+  // Fallback role credentials if database users not available
+  const fallbackRoleCredentials = [
     {
       role: 'Admin',
       email: 'admin@alumni.edu',
@@ -75,6 +163,9 @@ const Login = () => {
       textColor: 'text-purple-700',
     },
   ];
+
+  // Use database users if available, otherwise fallback
+  const roleCredentials = databaseUsers.length > 0 ? databaseUsers : fallbackRoleCredentials;
 
   const handleQuickLogin = (email, password) => {
     setValue('email', email);
