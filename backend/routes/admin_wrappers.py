@@ -139,8 +139,7 @@ async def get_admin_content():
                 title,
                 description as content,
                 posted_by as author_id,
-                created_at,
-                status
+                created_at
             FROM jobs
             ORDER BY created_at DESC
             LIMIT 50
@@ -154,9 +153,8 @@ async def get_admin_content():
                 id,
                 title,
                 description as content,
-                created_by as author_id,
-                created_at,
-                status
+                organizer_id as author_id,
+                created_at
             FROM events
             ORDER BY created_at DESC
             LIMIT 50
