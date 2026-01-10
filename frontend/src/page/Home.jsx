@@ -262,11 +262,11 @@ const Home = () => {
                 </MagneticButton>
               ) : (
                 <>
-                  <MagneticButton onClick={() => navigate('/register')} data-testid="get-started-btn" className="inline-flex items-center gap-2 bg-primary text-primary-foreground">
+                  <MagneticButton onClick={() => navigate('/register')} data-testid="get-started-btn" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-medium hover:shadow-lg transition-all">
                     <span>Get Started Free</span>
                     <ArrowRight className="h-5 w-5" />
                   </MagneticButton>
-                  <MagneticButton onClick={() => navigate('/login')} data-testid="sign-in-btn" className="inline-flex items-center gap-2 variant-outline border-primary text-primary">
+                  <MagneticButton onClick={() => navigate('/login')} data-testid="sign-in-btn" className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-900/80 border-2 border-primary text-primary px-6 py-2.5 rounded-lg font-medium hover:bg-white dark:hover:bg-gray-800 hover:shadow-lg transition-all">
                     <span>Sign In</span>
                     <ArrowRight className="h-5 w-5" />
                   </MagneticButton>

@@ -1,2770 +1,1915 @@
 {
   "_meta": {
-    "description": "Comprehensive mock data for AlumUnity System",
-    "version": "1.0",
+    "description": "Comprehensive mock data for AlumUnity System - Exported from Railway",
+    "version": "2.0",
     "compatible_with": "MySQL 8.0+ / MariaDB 10.5+",
-    "last_updated": "2025-01-01",
-    "usage_note": "This mock data matches the database schema structure and can be used for frontend development. When switching to real backend, the data structure remains compatible."
+    "last_updated": "2026-01-10T18:18:58.935210Z",
+    "usage_note": "This mock data is exported from the live Railway database and reflects current application state."
   },
-
   "users": [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "email": "admin@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
-      "role": "admin",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-28T10:30:00Z",
-      "created_at": "2023-01-15T08:00:00Z",
-      "updated_at": "2024-12-28T10:30:00Z"
-    },
-    {
-      "id": "660e8400-e29b-41d4-a716-446655440001",
-      "email": "sarah.johnson@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
-      "role": "alumni",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-27T14:20:00Z",
-      "created_at": "2023-03-20T09:15:00Z",
-      "updated_at": "2024-12-27T14:20:00Z"
-    },
-    {
-      "id": "770e8400-e29b-41d4-a716-446655440002",
-      "email": "michael.chen@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
-      "role": "alumni",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-28T09:45:00Z",
-      "created_at": "2023-05-10T11:30:00Z",
-      "updated_at": "2024-12-28T09:45:00Z"
-    },
-    {
-      "id": "880e8400-e29b-41d4-a716-446655440003",
+      "id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
       "email": "emily.rodriguez@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
+      "password_hash": "password123",
       "role": "student",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-28T11:00:00Z",
-      "created_at": "2024-09-01T10:00:00Z",
-      "updated_at": "2024-12-28T11:00:00Z"
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:39Z",
+      "updated_at": "2026-01-10T12:28:39Z"
     },
     {
-      "id": "990e8400-e29b-41d4-a716-446655440004",
-      "email": "david.kim@techcorp.com",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
-      "role": "recruiter",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-27T16:30:00Z",
-      "created_at": "2024-02-15T13:00:00Z",
-      "updated_at": "2024-12-27T16:30:00Z"
-    },
-    {
-      "id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "email": "priya.patel@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
-      "role": "alumni",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-28T08:15:00Z",
-      "created_at": "2023-07-22T10:45:00Z",
-      "updated_at": "2024-12-28T08:15:00Z"
-    },
-    {
-      "id": "bb0e8400-e29b-41d4-a716-446655440006",
+      "id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
       "email": "james.wilson@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
+      "password_hash": "password123",
       "role": "student",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-27T19:20:00Z",
-      "created_at": "2024-09-05T14:30:00Z",
-      "updated_at": "2024-12-27T19:20:00Z"
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:28Z",
+      "updated_at": "2026-01-10T12:41:28Z"
     },
     {
-      "id": "cc0e8400-e29b-41d4-a716-446655440007",
-      "email": "lisa.anderson@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
+      "id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "email": "priya.patel@apple.com",
+      "password_hash": "password123",
       "role": "alumni",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-26T12:00:00Z",
-      "created_at": "2023-04-18T09:00:00Z",
-      "updated_at": "2024-12-26T12:00:00Z"
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:40Z",
+      "updated_at": "2026-01-10T12:28:40Z"
     },
     {
-      "id": "dd0e8400-e29b-41d4-a716-446655440008",
-      "email": "robert.taylor@startupventures.com",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
+      "id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "email": "rachel.johnson@stripe.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:33Z",
+      "updated_at": "2026-01-10T12:41:33Z"
+    },
+    {
+      "id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "email": "daniel.wong@meta.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:32Z",
+      "updated_at": "2026-01-10T12:41:32Z"
+    },
+    {
+      "id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "email": "nicole.anderson@adobe.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:34Z",
+      "updated_at": "2026-01-10T12:41:34Z"
+    },
+    {
+      "id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "email": "jessica.lee@microsoft.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:30Z",
+      "updated_at": "2026-01-10T12:41:30Z"
+    },
+    {
+      "id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "email": "sarah.johnson@alumni.edu",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:39Z",
+      "updated_at": "2026-01-10T12:28:39Z"
+    },
+    {
+      "id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "email": "alex.kumar@apple.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:31Z",
+      "updated_at": "2026-01-10T12:41:31Z"
+    },
+    {
+      "id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "email": "christopher.brown@uber.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:34Z",
+      "updated_at": "2026-01-10T12:41:34Z"
+    },
+    {
+      "id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "email": "sophia.martinez@netflix.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:31Z",
+      "updated_at": "2026-01-10T12:41:31Z"
+    },
+    {
+      "id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "email": "admin@alumni.edu",
+      "password_hash": "password123",
+      "role": "admin",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:38Z",
+      "updated_at": "2026-01-10T12:28:38Z"
+    },
+    {
+      "id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "email": "david.kim@techcorp.com",
+      "password_hash": "password123",
       "role": "recruiter",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-27T15:45:00Z",
-      "created_at": "2024-03-10T11:20:00Z",
-      "updated_at": "2024-12-27T15:45:00Z"
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:40Z",
+      "updated_at": "2026-01-10T12:28:40Z"
     },
     {
-      "id": "ee0e8400-e29b-41d4-a716-446655440009",
+      "id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "email": "robert.taylor@startupventures.com",
+      "password_hash": "password123",
+      "role": "recruiter",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:29Z",
+      "updated_at": "2026-01-10T12:41:29Z"
+    },
+    {
+      "id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
       "email": "maria.garcia@alumni.edu",
-      "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.d7FMUO",
+      "password_hash": "password123",
       "role": "student",
-      "is_verified": true,
-      "is_active": true,
-      "last_login": "2024-12-28T07:30:00Z",
-      "created_at": "2024-09-10T13:15:00Z",
-      "updated_at": "2024-12-28T07:30:00Z"
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:41:28Z",
+      "updated_at": "2026-01-10T12:41:28Z"
+    },
+    {
+      "id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "email": "michael.chen@google.com",
+      "password_hash": "password123",
+      "role": "alumni",
+      "is_verified": 1,
+      "is_active": 1,
+      "last_login": null,
+      "created_at": "2026-01-10T12:28:40Z",
+      "updated_at": "2026-01-10T12:28:40Z"
     }
   ],
-
-  "alumni_profiles": [
+  "user_profiles": [
     {
-      "id": "profile-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      "name": "Sarah Johnson",
-      "bio": "Passionate software engineer with 5+ years of experience in building scalable web applications. Love mentoring students and giving back to the community.",
-      "headline": "Senior Software Engineer at Google | Full-Stack Developer | Mentor",
-      "current_company": "Google",
-      "current_role": "Senior Software Engineer",
+      "id": "007fe5a9-4683-4ca0-b4a0-fbbf03a47c9c",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "phone": null,
+      "bio": "VP of Engineering at Google with 15+ years of tech leadership experience. Passionate about mentoring early-career engineers and helping them navigate their careers in tech. Specializing in system design, team leadership, and building scalable solutions.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      "headline": "VP Engineering @ Google | Career Mentor | Tech Leader",
+      "location": "Mountain View, CA",
+      "company": "Google",
+      "job_title": "VP of Engineering",
+      "graduation_year": 2009,
+      "university": "MIT",
+      "created_at": "2026-01-10T12:32:51Z",
+      "updated_at": "2026-01-10T12:32:51Z"
+    },
+    {
+      "id": "03cf9882-003a-475f-b936-45c7d177a18a",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "first_name": "Michael",
+      "last_name": "Chen",
+      "phone": null,
+      "bio": "Senior software engineer at Google focused on cloud infrastructure and distributed systems. 12 years in software development. Active in the alumni community and mentor to several junior engineers. Interested in discussing career paths in tech.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+      "headline": "Senior Software Engineer @ Google | Cloud Infrastructure",
+      "location": "Mountain View, CA",
+      "company": "Google",
+      "job_title": "Senior Software Engineer",
+      "graduation_year": 2012,
+      "university": "Carnegie Mellon University",
+      "created_at": "2026-01-10T12:32:53Z",
+      "updated_at": "2026-01-10T12:32:53Z"
+    },
+    {
+      "id": "3b48021d-06fc-4340-8ce1-08892a6b1fbe",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "first_name": "Christopher",
+      "last_name": "Brown",
+      "phone": null,
+      "bio": "TPM focused on cross-functional projects connecting backend services and mobile platforms.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Christopher",
+      "headline": "Technical Program Manager @ Uber",
       "location": "San Francisco, CA",
-      "batch_year": 2019,
-      "experience_timeline": [
-        {
-          "company": "Google",
-          "role": "Senior Software Engineer",
-          "start_date": "2022-03-01",
-          "end_date": null,
-          "description": "Leading development of cloud infrastructure tools and mentoring junior engineers"
-        },
-        {
-          "company": "Microsoft",
-          "role": "Software Engineer II",
-          "start_date": "2020-06-01",
-          "end_date": "2022-02-28",
-          "description": "Developed features for Azure platform and contributed to open-source projects"
-        },
-        {
-          "company": "Startup Inc",
-          "role": "Junior Developer",
-          "start_date": "2019-07-01",
-          "end_date": "2020-05-31",
-          "description": "Built full-stack web applications using React and Node.js"
-        }
-      ],
-      "education_details": [
-        {
-          "institution": "Tech University",
-          "degree": "Bachelor of Science",
-          "field": "Computer Science",
-          "start_year": 2015,
-          "end_year": 2019,
-          "achievements": "Graduated with Honors, Dean's List, Hackathon Winner"
-        }
-      ],
-      "skills": ["JavaScript", "Python", "React", "Node.js", "AWS", "Docker", "Kubernetes", "MongoDB", "PostgreSQL", "GraphQL"],
-      "achievements": ["Google Cloud Certified", "Published 3 research papers", "Winner of National Coding Competition 2018"],
-      "social_links": {
-        "linkedin": "https://linkedin.com/in/sarahjohnson",
-        "github": "https://github.com/sarahjohnson",
-        "twitter": "https://twitter.com/sarahtech",
-        "website": "https://sarahjohnson.dev"
-      },
-      "cv_url": "https://storage.example.com/cvs/sarah-johnson-cv.pdf",
-      "industry": "Technology",
-      "years_of_experience": 5,
-      "willing_to_mentor": true,
-      "willing_to_hire": true,
-      "profile_completion_percentage": 100,
-      "is_verified": true,
-      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
-      "verified_at": "2023-03-22T10:00:00Z",
-      "created_at": "2023-03-20T09:30:00Z",
-      "updated_at": "2024-12-15T14:20:00Z"
+      "company": "Uber",
+      "job_title": "Technical Program Manager",
+      "graduation_year": 2017,
+      "university": "University of Washington",
+      "created_at": "2026-01-10T12:41:34Z",
+      "updated_at": "2026-01-10T12:41:34Z"
     },
     {
-      "id": "profile-880e8400-e29b-41d4-a716",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
-      "name": "Emily Rodriguez",
-      "bio": "Aspiring data scientist and recent graduate passionate about AI, analytics, and education.",
-      "headline": "Data Science Student | AI Enthusiast",
-      "current_company": "University of Data Science",
-      "current_role": "Student",
-      "location": "Austin, TX",
-      "batch_year": 2024,
-      "experience_timeline": [
-        {
-          "company": "University of Data Science",
-          "role": "Research Assistant",
-          "start_date": "2023-09-01",
-          "end_date": null,
-          "description": "Assisting in machine learning research and student mentoring."
-        }
-      ],
-      "education_details": [
-        {
-          "institution": "University of Data Science",
-          "degree": "Bachelor of Science",
-          "field": "Data Science",
-          "start_year": 2020,
-          "end_year": 2024,
-          "achievements": "Graduated with Distinction, AI Club President"
-        }
-      ],
-      "skills": ["Python", "Pandas", "Machine Learning", "Data Visualization", "SQL"],
-      "achievements": ["AI Club President", "Dean's List 2022-2024"],
-      "social_links": {
-        "linkedin": "https://linkedin.com/in/emilyrodriguez",
-        "github": "https://github.com/emilyrodriguez"
-      },
-      "cv_url": "https://storage.example.com/cvs/emily-rodriguez-cv.pdf",
-      "industry": "Education",
-      "years_of_experience": 1,
-      "willing_to_mentor": false,
-      "willing_to_hire": false,
-      "profile_completion_percentage": 90,
-      "is_verified": true,
-      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
-      "verified_at": "2024-12-15T10:00:00Z",
-      "created_at": "2024-09-01T10:00:00Z",
-      "updated_at": "2024-12-15T14:20:00Z"
+      "id": "53465c2a-bea0-4613-b868-e05dca5cef76",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "first_name": "Alex",
+      "last_name": "Kumar",
+      "phone": null,
+      "bio": "iOS engineer with passion for building beautiful, performant applications. Active open source contributor.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      "headline": "Software Engineer @ Apple | Swift Specialist",
+      "location": "Cupertino, CA",
+      "company": "Apple",
+      "job_title": "Senior Software Engineer",
+      "graduation_year": 2015,
+      "university": "IIT Delhi",
+      "created_at": "2026-01-10T12:41:31Z",
+      "updated_at": "2026-01-10T12:41:31Z"
     },
     {
-      "id": "profile-770e8400-e29b-41d4-a716",
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
-      "name": "Michael Chen",
-      "bio": "Product Manager passionate about building products that users love. Former software engineer turned PM with a focus on AI/ML products.",
-      "headline": "Senior Product Manager at Amazon | AI/ML Enthusiast",
-      "current_company": "Amazon",
-      "current_role": "Senior Product Manager",
-      "location": "Seattle, WA",
-      "batch_year": 2018,
-      "experience_timeline": [
-        {
-          "company": "Amazon",
-          "role": "Senior Product Manager",
-          "start_date": "2021-08-01",
-          "end_date": null,
-          "description": "Leading AI-powered recommendation systems for e-commerce platform"
-        },
-        {
-          "company": "Facebook (Meta)",
-          "role": "Product Manager",
-          "start_date": "2019-09-01",
-          "end_date": "2021-07-31",
-          "description": "Managed social features and increased user engagement by 40%"
-        }
-      ],
-      "education_details": [
-        {
-          "institution": "Tech University",
-          "degree": "Bachelor of Science",
-          "field": "Computer Engineering",
-          "start_year": 2014,
-          "end_year": 2018,
-          "achievements": "Summa Cum Laude, Valedictorian"
-        }
-      ],
-      "skills": ["Product Management", "Data Analysis", "Python", "SQL", "Machine Learning", "Agile", "A/B Testing", "User Research"],
-      "achievements": ["Launched 5 successful products", "PMI Certified Product Manager", "Speaker at ProductCon 2023"],
-      "social_links": {
-        "linkedin": "https://linkedin.com/in/michaelchen",
-        "twitter": "https://twitter.com/michaelpm"
-      },
-      "cv_url": "https://storage.example.com/cvs/michael-chen-cv.pdf",
-      "industry": "Technology",
-      "years_of_experience": 6,
-      "willing_to_mentor": true,
-      "willing_to_hire": false,
-      "profile_completion_percentage": 95,
-      "is_verified": true,
-      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
-      "verified_at": "2023-05-12T11:00:00Z",
-      "created_at": "2023-05-10T11:45:00Z",
-      "updated_at": "2024-11-20T10:30:00Z"
+      "id": "53f72ef5-51cc-4eb2-a9b3-4778f63e7c7e",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "first_name": "Daniel",
+      "last_name": "Wong",
+      "phone": null,
+      "bio": "Backend engineer at Meta contributing to core infrastructure and API services.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel",
+      "headline": "Software Engineer @ Meta | React Core Team",
+      "location": "Menlo Park, CA",
+      "company": "Meta",
+      "job_title": "Software Engineer",
+      "graduation_year": 2018,
+      "university": "MIT",
+      "created_at": "2026-01-10T12:41:32Z",
+      "updated_at": "2026-01-10T12:41:32Z"
     },
     {
-      "id": "profile-aa0e8400-e29b-41d4-a716",
-      "user_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
-      "name": "Priya Patel",
-      "bio": "UX Designer creating delightful user experiences. Advocate for accessible design and inclusive technology.",
-      "headline": "Lead UX Designer at Airbnb | Design Systems Advocate",
-      "current_company": "Airbnb",
-      "current_role": "Lead UX Designer",
-      "location": "San Francisco, CA",
-      "batch_year": 2019,
-      "experience_timeline": [
-        {
-          "company": "Airbnb",
-          "role": "Lead UX Designer",
-          "start_date": "2023-01-01",
-          "end_date": null,
-          "description": "Leading design systems and accessibility initiatives across all products"
-        },
-        {
-          "company": "Dropbox",
-          "role": "Senior UX Designer",
-          "start_date": "2021-03-01",
-          "end_date": "2022-12-31",
-          "description": "Redesigned file sharing experience, improving user satisfaction by 35%"
-        },
-        {
-          "company": "Adobe",
-          "role": "UX Designer",
-          "start_date": "2019-08-01",
-          "end_date": "2021-02-28",
-          "description": "Designed features for Creative Cloud mobile apps"
-        }
-      ],
-      "education_details": [
-        {
-          "institution": "Tech University",
-          "degree": "Bachelor of Fine Arts",
-          "field": "Interaction Design",
-          "start_year": 2015,
-          "end_year": 2019,
-          "achievements": "Best Design Portfolio Award, President of Design Club"
-        }
-      ],
-      "skills": ["UX Design", "UI Design", "Figma", "Sketch", "User Research", "Prototyping", "Design Systems", "Accessibility", "HTML/CSS"],
-      "achievements": ["UXPA Award Winner 2023", "Published articles in Smashing Magazine", "Speaker at UX Summit"],
-      "social_links": {
-        "linkedin": "https://linkedin.com/in/priyapatel",
-        "dribbble": "https://dribbble.com/priyauxdesign",
-        "website": "https://priyapatel.design"
-      },
-      "cv_url": "https://storage.example.com/cvs/priya-patel-portfolio.pdf",
-      "industry": "Design & Technology",
-      "years_of_experience": 5,
-      "willing_to_mentor": true,
-      "willing_to_hire": false,
-      "profile_completion_percentage": 100,
-      "is_verified": true,
-      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
-      "verified_at": "2023-07-24T09:30:00Z",
-      "created_at": "2023-07-22T11:00:00Z",
-      "updated_at": "2024-12-10T15:45:00Z"
+      "id": "5499fc53-e535-4871-8030-e6c850521daf",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "first_name": "Maria",
+      "last_name": "Garcia",
+      "phone": null,
+      "bio": "Data science student with interests in ML, AI, and business analytics. Working on several projects.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Maria",
+      "headline": "Data Science Enthusiast | Machine Learning Student",
+      "location": "Sacramento, CA",
+      "company": "Data Science Bootcamp",
+      "job_title": "Student",
+      "graduation_year": 2026,
+      "university": "UC Davis",
+      "created_at": "2026-01-10T12:41:29Z",
+      "updated_at": "2026-01-10T12:41:29Z"
     },
     {
-      "id": "profile-cc0e8400-e29b-41d4-a716",
-      "user_id": "cc0e8400-e29b-41d4-a716-446655440007",
-      "photo_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa",
-      "name": "Lisa Anderson",
-      "bio": "Data Scientist leveraging machine learning to solve complex business problems. Passionate about ethical AI and data privacy.",
-      "headline": "Senior Data Scientist at Netflix | ML Engineer",
-      "current_company": "Netflix",
-      "current_role": "Senior Data Scientist",
+      "id": "5c425f77-5a62-4816-8161-67ded45ba4c1",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "first_name": "James",
+      "last_name": "Wilson",
+      "phone": null,
+      "bio": "Senior CS student passionate about web development and open source contributions. Looking for internship opportunities.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+      "headline": "Computer Science Student | Full-Stack Developer",
       "location": "Los Angeles, CA",
-      "batch_year": 2018,
-      "experience_timeline": [
-        {
-          "company": "Netflix",
-          "role": "Senior Data Scientist",
-          "start_date": "2022-06-01",
-          "end_date": null,
-          "description": "Building recommendation algorithms and personalization features"
-        },
-        {
-          "company": "Uber",
-          "role": "Data Scientist",
-          "start_date": "2020-01-01",
-          "end_date": "2022-05-31",
-          "description": "Developed ML models for dynamic pricing and demand forecasting"
-        },
-        {
-          "company": "LinkedIn",
-          "role": "Junior Data Analyst",
-          "start_date": "2018-07-01",
-          "end_date": "2019-12-31",
-          "description": "Analyzed user behavior and created dashboards for business insights"
-        }
-      ],
-      "education_details": [
-        {
-          "institution": "Tech University",
-          "degree": "Master of Science",
-          "field": "Data Science",
-          "start_year": 2018,
-          "end_year": 2020,
-          "achievements": "Research Assistant, Published thesis on Neural Networks"
-        },
-        {
-          "institution": "State University",
-          "degree": "Bachelor of Science",
-          "field": "Mathematics",
-          "start_year": 2014,
-          "end_year": 2018,
-          "achievements": "Honors Program, Math Olympiad Medalist"
-        }
-      ],
-      "skills": ["Python", "R", "TensorFlow", "PyTorch", "SQL", "Spark", "Machine Learning", "Deep Learning", "Statistics", "Data Visualization"],
-      "achievements": ["Kaggle Competitions Master", "Published 5 ML research papers", "AWS ML Certified"],
-      "social_links": {
-        "linkedin": "https://linkedin.com/in/lisaanderson",
-        "github": "https://github.com/lisadatascience",
-        "kaggle": "https://kaggle.com/lisaanderson"
-      },
-      "cv_url": "https://storage.example.com/cvs/lisa-anderson-cv.pdf",
-      "industry": "Technology",
-      "years_of_experience": 6,
-      "willing_to_mentor": true,
-      "willing_to_hire": false,
-      "profile_completion_percentage": 98,
-      "is_verified": true,
-      "verified_by": "550e8400-e29b-41d4-a716-446655440000",
-      "verified_at": "2023-04-20T13:00:00Z",
-      "created_at": "2023-04-18T09:30:00Z",
-      "updated_at": "2024-12-05T11:20:00Z"
+      "company": "University of Tech",
+      "job_title": "Student Developer",
+      "graduation_year": 2026,
+      "university": "University of Tech",
+      "created_at": "2026-01-10T12:41:28Z",
+      "updated_at": "2026-01-10T12:41:28Z"
+    },
+    {
+      "id": "612b5e57-f0ea-4bdd-9d04-eb2aed04c062",
+      "user_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "first_name": "Admin",
+      "last_name": "User",
+      "phone": null,
+      "bio": "Dedicated administrator managing the AlumUnity platform. Passionate about connecting alumni and fostering meaningful professional relationships.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=admin",
+      "headline": "Platform Administrator | System Manager",
+      "location": "San Francisco, CA",
+      "company": "AlumUnity",
+      "job_title": "Platform Admin",
+      "graduation_year": 2014,
+      "university": "Stanford University",
+      "created_at": "2026-01-10T12:32:50Z",
+      "updated_at": "2026-01-10T12:32:50Z"
+    },
+    {
+      "id": "6cabd66d-0fe8-4f2a-b6d8-7b6c27aeb9a0",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "first_name": "Jessica",
+      "last_name": "Lee",
+      "phone": null,
+      "bio": "Product manager with 8 years of experience building consumer and enterprise products at Microsoft and Amazon.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica",
+      "headline": "Senior Product Manager @ Microsoft | Former Amazon",
+      "location": "Seattle, WA",
+      "company": "Microsoft",
+      "job_title": "Senior Product Manager",
+      "graduation_year": 2016,
+      "university": "Stanford University",
+      "created_at": "2026-01-10T12:41:30Z",
+      "updated_at": "2026-01-10T12:41:30Z"
+    },
+    {
+      "id": "7cf24732-4bdf-4336-a458-234b5730a840",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "first_name": "Robert",
+      "last_name": "Taylor",
+      "phone": null,
+      "bio": "Founder and tech recruiter focused on connecting top talent with innovative startups.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert",
+      "headline": "Tech Recruiter | Startup Ventures Founder",
+      "location": "Austin, TX",
+      "company": "Startup Ventures",
+      "job_title": "Founder & Recruiter",
+      "graduation_year": 2017,
+      "university": "Tech University",
+      "created_at": "2026-01-10T12:41:29Z",
+      "updated_at": "2026-01-10T12:41:29Z"
+    },
+    {
+      "id": "7cf3d153-c9c0-4e3c-a64f-8d00c73975e6",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "first_name": "Rachel",
+      "last_name": "Johnson",
+      "phone": null,
+      "bio": "Engineering leader at Stripe managing a team of 8 engineers building payment infrastructure.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rachel",
+      "headline": "Engineering Manager @ Stripe | Payment Systems",
+      "location": "San Francisco, CA",
+      "company": "Stripe",
+      "job_title": "Engineering Manager",
+      "graduation_year": 2016,
+      "university": "Carnegie Mellon University",
+      "created_at": "2026-01-10T12:41:33Z",
+      "updated_at": "2026-01-10T12:41:33Z"
+    },
+    {
+      "id": "a711f68e-cc48-4d8e-979b-c7e4af1746b4",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "first_name": "David",
+      "last_name": "Kim",
+      "phone": null,
+      "bio": "Senior recruiter at TechCorp with 8 years of experience in tech talent acquisition. Specializing in sourcing and placing top engineering talent. Always looking to connect with talented professionals and understand their career goals.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+      "headline": "Senior Recruiter @ TechCorp | Talent Acquisition Expert",
+      "location": "San Jose, CA",
+      "company": "TechCorp",
+      "job_title": "Senior Recruiter",
+      "graduation_year": 2016,
+      "university": "UC Berkeley",
+      "created_at": "2026-01-10T12:32:52Z",
+      "updated_at": "2026-01-10T12:32:52Z"
+    },
+    {
+      "id": "bb60b976-d183-45d6-8b49-fe54dcac4788",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "first_name": "Emily",
+      "last_name": "Rodriguez",
+      "phone": null,
+      "bio": "Recent computer science graduate excited to launch my career in software development. I'm actively learning full-stack development and looking for mentorship opportunities. Interested in building impactful products and growing with a great team.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+      "headline": "Recent Graduate | Software Developer | Tech Enthusiast",
+      "location": "Austin, TX",
+      "company": "Tech Startup",
+      "job_title": "Junior Software Developer",
+      "graduation_year": 2025,
+      "university": "University of Texas at Austin",
+      "created_at": "2026-01-10T12:32:51Z",
+      "updated_at": "2026-01-10T12:32:51Z"
+    },
+    {
+      "id": "ddd4f853-556e-45d8-b725-3798250caaf3",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "first_name": "Priya",
+      "last_name": "Patel",
+      "phone": null,
+      "bio": "Product manager at Apple with 10 years of experience in product development and strategy. Passionate about building innovative products that impact millions of users. Active alumni member committed to helping others succeed in tech.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+      "headline": "Product Manager @ Apple | Innovation & Strategy",
+      "location": "Cupertino, CA",
+      "company": "Apple",
+      "job_title": "Product Manager",
+      "graduation_year": 2014,
+      "university": "Stanford University",
+      "created_at": "2026-01-10T12:32:54Z",
+      "updated_at": "2026-01-10T12:32:54Z"
+    },
+    {
+      "id": "ee70ad3c-004a-4b81-9b4a-5c17040f693c",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "first_name": "Sophia",
+      "last_name": "Martinez",
+      "phone": null,
+      "bio": "Data scientist working on recommendation algorithms and personalization at Netflix. Published researcher.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophia",
+      "headline": "Data Scientist @ Netflix | Recommendation Systems",
+      "location": "Los Gatos, CA",
+      "company": "Netflix",
+      "job_title": "Senior Data Scientist",
+      "graduation_year": 2017,
+      "university": "UC Berkeley",
+      "created_at": "2026-01-10T12:41:32Z",
+      "updated_at": "2026-01-10T12:41:32Z"
+    },
+    {
+      "id": "effee704-7b41-4381-9f52-b9fb008b5a42",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "first_name": "Nicole",
+      "last_name": "Anderson",
+      "phone": null,
+      "bio": "Design leader at Adobe building design systems and tools for millions of creators.",
+      "avatar_url": "https://api.dicebear.com/7.x/avataaars/svg?seed=Nicole",
+      "headline": "UX Designer @ Adobe | Design Systems Lead",
+      "location": "San Jose, CA",
+      "company": "Adobe",
+      "job_title": "Senior UX Designer",
+      "graduation_year": 2015,
+      "university": "RISD",
+      "created_at": "2026-01-10T12:41:35Z",
+      "updated_at": "2026-01-10T12:41:35Z"
     }
   ],
-
+  "skills": [
+    {
+      "id": "10446e77-a423-49f7-8c04-b05f03fa5cea",
+      "name": "FastAPI",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:43Z"
+    },
+    {
+      "id": "1928a9b0-3b0e-4ba4-b4b8-2be735f8c311",
+      "name": "Scrum",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:48Z"
+    },
+    {
+      "id": "1e900899-6320-4d5d-8dbb-558f1eb83420",
+      "name": "Python",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:06Z"
+    },
+    {
+      "id": "21d88a55-a879-415f-8e9b-ed88f657fbf8",
+      "name": "Git",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:10Z"
+    },
+    {
+      "id": "22360a4d-e7ca-4f76-95f9-8af1cbd6bd8d",
+      "name": "React Native",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:51Z"
+    },
+    {
+      "id": "2751cfb3-00c1-4344-a8d9-6fe536af06e9",
+      "name": "Selenium",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:52Z"
+    },
+    {
+      "id": "27d62396-816c-4768-a770-f094cfa26587",
+      "name": "Negotiation",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:50Z"
+    },
+    {
+      "id": "29071000-7913-46d2-8b89-b02a14997e18",
+      "name": "JIRA",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:53Z"
+    },
+    {
+      "id": "2c4b4f06-4a81-4865-8272-8055a26fe1de",
+      "name": "Database Management",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:32:57Z"
+    },
+    {
+      "id": "2fe6999c-7c21-469c-bcfa-2c86e4b132c2",
+      "name": "LinkedIn",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:15Z"
+    },
+    {
+      "id": "3734b7d0-b08f-4dab-8042-0a29d6959c62",
+      "name": "Sketch",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:47Z"
+    },
+    {
+      "id": "3f07c885-d415-4cda-88eb-3e4d1b9a69a5",
+      "name": "Kotlin",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:51Z"
+    },
+    {
+      "id": "414757e6-9dcb-4e20-b713-c4505e5fccbd",
+      "name": "Redis",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:44Z"
+    },
+    {
+      "id": "4478493f-f20e-4373-afb0-be14495bb09c",
+      "name": "Cloud Infrastructure",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:22Z"
+    },
+    {
+      "id": "48c7bb9f-f114-4b1c-b0fc-bd6580a74d5f",
+      "name": "SVN",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:53Z"
+    },
+    {
+      "id": "519fea01-dcab-41ff-a7e3-a91eb4d844df",
+      "name": "Hadoop",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:45Z"
+    },
+    {
+      "id": "562398e9-7c5d-4583-96bb-07bec286a971",
+      "name": "System Administration",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:32:56Z"
+    },
+    {
+      "id": "6cb8d2d0-f0a7-47af-b04f-91f0545776c4",
+      "name": "Talent Acquisition",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:12Z"
+    },
+    {
+      "id": "7324dfef-fadc-4607-83bb-e239a1d5c405",
+      "name": "Tableau",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:46Z"
+    },
+    {
+      "id": "76bdd2d5-b24e-4c4c-92c8-cd075fd4ef1f",
+      "name": "Elasticsearch",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:45Z"
+    },
+    {
+      "id": "7dbfb806-d5dc-4da9-b204-235e5dc006ef",
+      "name": "Power BI",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:46Z"
+    },
+    {
+      "id": "80b0ae62-b0d7-46c0-9c65-98343f39ea45",
+      "name": "OKR",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:49Z"
+    },
+    {
+      "id": "83e64a37-22c7-4a5a-8654-1d4b599d12b6",
+      "name": "Security",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:32:58Z"
+    },
+    {
+      "id": "89939726-a2da-4f6e-970d-6ffdb0a97cbf",
+      "name": "UX Design",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:24Z"
+    },
+    {
+      "id": "964d3644-b84f-44e1-8efb-ade0c3b57314",
+      "name": "Cloud Architecture",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:02Z"
+    },
+    {
+      "id": "9a03b7a4-5bc4-4416-acd4-09662345752d",
+      "name": "Jenkins",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:52Z"
+    },
+    {
+      "id": "a0f400dd-282b-4e67-ac2c-0fcd4db05e1e",
+      "name": "Recruiting",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:13Z"
+    },
+    {
+      "id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "name": "Data Analysis",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:28Z"
+    },
+    {
+      "id": "b1267506-22d0-4783-b179-6236047f628f",
+      "name": "Spark",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:46Z"
+    },
+    {
+      "id": "b274baaf-7cb3-4e7e-99f8-c41a1b9f3a39",
+      "name": "Mentoring",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:04Z"
+    },
+    {
+      "id": "b85700fe-da11-46ee-9421-b7c759dedcbf",
+      "name": "Leadership",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:32:55Z"
+    },
+    {
+      "id": "bb2b63ed-b6c7-4d2d-ab1e-a95bd1174b7c",
+      "name": "Pitch Deck",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:49Z"
+    },
+    {
+      "id": "bb410eb7-1002-4803-848f-aad219b2192a",
+      "name": "Go",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:18Z"
+    },
+    {
+      "id": "be2e6fe3-f63d-49e9-b4cb-7d459424f66b",
+      "name": "Slack",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:54Z"
+    },
+    {
+      "id": "bed977c3-c298-43e6-adec-64c2d04571d1",
+      "name": "Figma",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:47Z"
+    },
+    {
+      "id": "bf6323e9-e579-4473-9d29-a56d77e7845f",
+      "name": "Distributed Systems",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:21Z"
+    },
+    {
+      "id": "c3fa9f89-2451-4521-ab3b-9a6f539cd86c",
+      "name": "React",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:08Z"
+    },
+    {
+      "id": "c995d600-2ac8-49ee-947e-ac52fd9ddac4",
+      "name": "Product Strategy",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:23Z"
+    },
+    {
+      "id": "cc730df7-af17-4b84-be89-e05fd6e4df59",
+      "name": "Team Leadership",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:01Z"
+    },
+    {
+      "id": "d15ee3ac-045e-4691-892a-6efd14785aa5",
+      "name": "System Design",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:00Z"
+    },
+    {
+      "id": "d58409a2-9dd6-412f-bf9c-5c11f90b0c92",
+      "name": "XD",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:47Z"
+    },
+    {
+      "id": "d9a2ab35-1251-4a6d-84a6-3f3632c50310",
+      "name": "Agile",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:26Z"
+    },
+    {
+      "id": "da5cfdfe-563a-4335-b5a0-4adc8569a960",
+      "name": "Zoom",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:54Z"
+    },
+    {
+      "id": "da7a37ee-8d60-4e60-b0d7-64d91c11af7b",
+      "name": "Swift",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:50Z"
+    },
+    {
+      "id": "df95fb5d-f4fc-40b5-87be-c6c73082fb1f",
+      "name": "SQL",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:09Z"
+    },
+    {
+      "id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "name": "Kubernetes",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:19Z"
+    },
+    {
+      "id": "e98733fa-ce44-4207-bd19-4fd0ced678ca",
+      "name": "Market Analysis",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:25Z"
+    },
+    {
+      "id": "f1e79457-580d-4507-9a56-a1e09c3c9cb4",
+      "name": "GraphQL",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:44Z"
+    },
+    {
+      "id": "f589cfc4-9c4d-48d9-a3b0-9fc0fb97f64d",
+      "name": "Public Speaking",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:50Z"
+    },
+    {
+      "id": "f7c84a00-770b-47dc-9dc4-a69706116743",
+      "name": "JavaScript",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:07Z"
+    },
+    {
+      "id": "f9c11c1e-c609-48fa-b204-1302d9a91c13",
+      "name": "Backend Development",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:03Z"
+    },
+    {
+      "id": "fa06fd5b-cc83-4d67-99df-ec52af98a230",
+      "name": "Interview Skills",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:16Z"
+    },
+    {
+      "id": "fa2accce-651f-472d-a80b-8965f528f4b6",
+      "name": "Confluence",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:54Z"
+    },
+    {
+      "id": "fb365bb2-8ef2-4b1b-bcba-dde18152c93a",
+      "name": "Networking",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:33:14Z"
+    },
+    {
+      "id": "fe56eec8-c824-4ba9-810b-f9153dc162f3",
+      "name": "Flutter",
+      "category": "Technical",
+      "created_at": "2026-01-10T12:41:51Z"
+    }
+  ],
+  "user_skills": [
+    {
+      "id": "02a2681f-1bb4-483b-927e-c98237dd2dd6",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "skill_id": "c3fa9f89-2451-4521-ab3b-9a6f539cd86c",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:08Z"
+    },
+    {
+      "id": "035325e7-e76c-4406-9bef-a9d12f6dceed",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "skill_id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:10Z"
+    },
+    {
+      "id": "097a97f3-64fc-49d8-9c50-897e3da9785a",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "skill_id": "27d62396-816c-4768-a770-f094cfa26587",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:12Z"
+    },
+    {
+      "id": "14a98056-caf3-41b1-a7e3-3add1213e1c2",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "skill_id": "c995d600-2ac8-49ee-947e-ac52fd9ddac4",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:23Z"
+    },
+    {
+      "id": "1545f6ef-449f-446b-b140-3cca43de87ae",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "skill_id": "fe56eec8-c824-4ba9-810b-f9153dc162f3",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:57Z"
+    },
+    {
+      "id": "19e41b9a-b50f-400d-831d-aa743f52f558",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "skill_id": "4478493f-f20e-4373-afb0-be14495bb09c",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:22Z"
+    },
+    {
+      "id": "1f471bec-db48-400b-bc16-1ec81b458730",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "skill_id": "f9c11c1e-c609-48fa-b204-1302d9a91c13",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:04Z"
+    },
+    {
+      "id": "2b212f9f-860d-4dd9-92b5-e05ed9390465",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "skill_id": "76bdd2d5-b24e-4c4c-92c8-cd075fd4ef1f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:02Z"
+    },
+    {
+      "id": "2c286a41-022f-451d-ad88-bb138bc17ae3",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "skill_id": "bf6323e9-e579-4473-9d29-a56d77e7845f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:58Z"
+    },
+    {
+      "id": "2e80c679-039d-4efb-8ba3-eb2f612a6258",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "skill_id": "b274baaf-7cb3-4e7e-99f8-c41a1b9f3a39",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:11Z"
+    },
+    {
+      "id": "2e8131e6-1248-4a07-b54b-047c52bd4800",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "skill_id": "b85700fe-da11-46ee-9421-b7c759dedcbf",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:07Z"
+    },
+    {
+      "id": "3155e692-8a41-4178-8d89-8011147ae5f1",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "skill_id": "519fea01-dcab-41ff-a7e3-a91eb4d844df",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:01Z"
+    },
+    {
+      "id": "33e4e6dd-a3af-4dcd-9f30-f0e1048d8f1e",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "skill_id": "519fea01-dcab-41ff-a7e3-a91eb4d844df",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:03Z"
+    },
+    {
+      "id": "368fc8f3-bf13-459b-8867-6de7ade3ca59",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "skill_id": "9a03b7a4-5bc4-4416-acd4-09662345752d",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:08Z"
+    },
+    {
+      "id": "37d3dd3c-8195-4a80-b2e7-9ff80c8a9c8e",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "skill_id": "bb410eb7-1002-4803-848f-aad219b2192a",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:09Z"
+    },
+    {
+      "id": "3e75c65d-4241-462a-a30b-de61b0a312e9",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "skill_id": "e98733fa-ce44-4207-bd19-4fd0ced678ca",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:26Z"
+    },
+    {
+      "id": "3fe2053c-94d8-4265-ac81-6a70b83599b5",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "skill_id": "1e900899-6320-4d5d-8dbb-558f1eb83420",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:19Z"
+    },
+    {
+      "id": "422f70f7-1ab1-4358-b298-41dd62da1772",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "skill_id": "df95fb5d-f4fc-40b5-87be-c6c73082fb1f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:10Z"
+    },
+    {
+      "id": "43bf4752-e90b-4cb2-b6e2-c9c6625239bd",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "skill_id": "80b0ae62-b0d7-46c0-9c65-98343f39ea45",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:13Z"
+    },
+    {
+      "id": "489782b9-35ee-43e9-9546-d33db13ecde5",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "skill_id": "76bdd2d5-b24e-4c4c-92c8-cd075fd4ef1f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:01Z"
+    },
+    {
+      "id": "4a5cc03c-a8f8-4ed9-9428-c68112f947c8",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "skill_id": "f7c84a00-770b-47dc-9dc4-a69706116743",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:08Z"
+    },
+    {
+      "id": "4da8dd0b-33b1-446d-a433-5c06ba006a74",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "skill_id": "b274baaf-7cb3-4e7e-99f8-c41a1b9f3a39",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:05Z"
+    },
+    {
+      "id": "4f1991cb-8d58-4750-b54e-756938db8112",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "skill_id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:06Z"
+    },
+    {
+      "id": "540e025a-48b0-4f46-bb55-976344593533",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "skill_id": "29071000-7913-46d2-8b89-b02a14997e18",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:00Z"
+    },
+    {
+      "id": "55c4de32-5b92-4225-9985-bcd9280c87ef",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "skill_id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:05Z"
+    },
+    {
+      "id": "567db74b-43dd-4a10-8f24-8245a65aafda",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "skill_id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:20Z"
+    },
+    {
+      "id": "5a924926-d144-4c21-95f7-2be011979b50",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "skill_id": "d15ee3ac-045e-4691-892a-6efd14785aa5",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:00Z"
+    },
+    {
+      "id": "60d819ee-fd17-4606-8d95-8b2217522b88",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "skill_id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:00Z"
+    },
+    {
+      "id": "6114d5b0-fafa-438c-9428-c920cfe3b49b",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "skill_id": "519fea01-dcab-41ff-a7e3-a91eb4d844df",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:06Z"
+    },
+    {
+      "id": "66c34c7d-d767-4c41-92ae-f9b0ed527cfb",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "skill_id": "76bdd2d5-b24e-4c4c-92c8-cd075fd4ef1f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:11Z"
+    },
+    {
+      "id": "68bd92a8-8652-4863-a791-7cb5536d008f",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "skill_id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:00Z"
+    },
+    {
+      "id": "6d0fa818-8710-451f-a454-c90bcb4087af",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "skill_id": "f7c84a00-770b-47dc-9dc4-a69706116743",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:07Z"
+    },
+    {
+      "id": "70e6331b-870c-431d-8706-59340e3c87a9",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "skill_id": "89939726-a2da-4f6e-970d-6ffdb0a97cbf",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:25Z"
+    },
+    {
+      "id": "746de878-0c1b-435d-acd8-4edb99003955",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "skill_id": "d9a2ab35-1251-4a6d-84a6-3f3632c50310",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:56Z"
+    },
+    {
+      "id": "77e647ce-271b-4025-b2b0-63f92888f645",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "skill_id": "fb365bb2-8ef2-4b1b-bcba-dde18152c93a",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:14Z"
+    },
+    {
+      "id": "7a5a8bc5-d327-481e-83dc-9b73ba1b4a56",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "skill_id": "3f07c885-d415-4cda-88eb-3e4d1b9a69a5",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:04Z"
+    },
+    {
+      "id": "7ca6325e-1338-45d1-93a3-ee6fa9c3c702",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "skill_id": "2fe6999c-7c21-469c-bcfa-2c86e4b132c2",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:15Z"
+    },
+    {
+      "id": "7faed124-7b0c-42d2-945b-6cf7d0d8b18e",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "skill_id": "2fe6999c-7c21-469c-bcfa-2c86e4b132c2",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:05Z"
+    },
+    {
+      "id": "802fb413-8611-4e87-ae46-b8c5eed76b5e",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "skill_id": "6cb8d2d0-f0a7-47af-b04f-91f0545776c4",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:12Z"
+    },
+    {
+      "id": "82d8414a-79a4-4c8b-b9aa-e0eee52a3e3c",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "skill_id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:59Z"
+    },
+    {
+      "id": "8a87ab11-4862-422e-a52c-17c521cbb45d",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "skill_id": "10446e77-a423-49f7-8c04-b05f03fa5cea",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:13Z"
+    },
+    {
+      "id": "8c04f45e-a761-408a-8d11-9c4a04992056",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "skill_id": "af72dfeb-977a-46b2-a04a-a0ce55002d70",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:28Z"
+    },
+    {
+      "id": "8fa862f0-7c95-4eb8-9335-84228ab5e41f",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "skill_id": "bf6323e9-e579-4473-9d29-a56d77e7845f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:21Z"
+    },
+    {
+      "id": "8fe692ca-efb3-4ad7-a06b-69fe062a8c43",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "skill_id": "519fea01-dcab-41ff-a7e3-a91eb4d844df",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:58Z"
+    },
+    {
+      "id": "91ffd54b-f60d-475d-8d69-42dc34a505a6",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "skill_id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:04Z"
+    },
+    {
+      "id": "950b9191-a5b0-40c0-bbd1-fd6bc0f6b442",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "skill_id": "2c4b4f06-4a81-4865-8272-8055a26fe1de",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:14Z"
+    },
+    {
+      "id": "979c37fd-21ba-4877-b9b7-3e0ca2452603",
+      "user_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "skill_id": "83e64a37-22c7-4a5a-8654-1d4b599d12b6",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:32:59Z"
+    },
+    {
+      "id": "981dc575-c20e-4242-a4b9-675fbfc63c53",
+      "user_id": "39be1d1f-0900-4193-92d1-5b073c3cb294",
+      "skill_id": "d9a2ab35-1251-4a6d-84a6-3f3632c50310",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:27Z"
+    },
+    {
+      "id": "9c4f7906-4a03-47a7-b888-dda7aa4bb4d4",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "skill_id": "fe56eec8-c824-4ba9-810b-f9153dc162f3",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:14Z"
+    },
+    {
+      "id": "a47f4271-2fd4-4c2f-950a-04c8cff83102",
+      "user_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "skill_id": "e98733fa-ce44-4207-bd19-4fd0ced678ca",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:01Z"
+    },
+    {
+      "id": "a8ac7602-3bcd-4102-aeb9-b779cd3f20a7",
+      "user_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "skill_id": "bed977c3-c298-43e6-adec-64c2d04571d1",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:04Z"
+    },
+    {
+      "id": "aa9c0a31-4078-4e4e-b7aa-a45feba03c3f",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "skill_id": "bf6323e9-e579-4473-9d29-a56d77e7845f",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:12Z"
+    },
+    {
+      "id": "aafd6a75-62cf-402c-aed4-f66c222b6633",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "skill_id": "bb410eb7-1002-4803-848f-aad219b2192a",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:18Z"
+    },
+    {
+      "id": "ae254269-2bbf-41cd-a045-d37e8795926c",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "skill_id": "29071000-7913-46d2-8b89-b02a14997e18",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:03Z"
+    },
+    {
+      "id": "b5a4de36-4721-417f-9e15-49d73ef86617",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "skill_id": "fa2accce-651f-472d-a80b-8965f528f4b6",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:03Z"
+    },
+    {
+      "id": "b5b8a425-946c-4da5-863f-72ddea6a40c7",
+      "user_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "skill_id": "fe56eec8-c824-4ba9-810b-f9153dc162f3",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:06Z"
+    },
+    {
+      "id": "b7f46e73-6c38-42ec-9e04-b7b4ad604d31",
+      "user_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "skill_id": "562398e9-7c5d-4583-96bb-07bec286a971",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:32:57Z"
+    },
+    {
+      "id": "b8d8c5a9-2d7b-4691-8ddf-33ab850ce3ea",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "skill_id": "29071000-7913-46d2-8b89-b02a14997e18",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:07Z"
+    },
+    {
+      "id": "bb6738c0-56c0-46d3-933e-0bf511ef7ab6",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "skill_id": "fa06fd5b-cc83-4d67-99df-ec52af98a230",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:09Z"
+    },
+    {
+      "id": "bf9d4fde-38b6-41cb-835e-707ec39360d2",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "skill_id": "1e900899-6320-4d5d-8dbb-558f1eb83420",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:06Z"
+    },
+    {
+      "id": "c2b48d2e-018b-405c-b4bd-84d6a2c7f097",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "skill_id": "bb2b63ed-b6c7-4d2d-ab1e-a95bd1174b7c",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:09Z"
+    },
+    {
+      "id": "c5c946be-5d18-4ca3-ae31-58c45c44fa4d",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "skill_id": "b85700fe-da11-46ee-9421-b7c759dedcbf",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:10Z"
+    },
+    {
+      "id": "c740de48-8d70-4a25-abfc-1f7e57767b7b",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "skill_id": "a0f400dd-282b-4e67-ac2c-0fcd4db05e1e",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:13Z"
+    },
+    {
+      "id": "c91b44b5-cd9c-4dc7-8087-76cf80d3c305",
+      "user_id": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "skill_id": "fa06fd5b-cc83-4d67-99df-ec52af98a230",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:16Z"
+    },
+    {
+      "id": "caab42f7-c216-46b4-8784-01fdbf7849b7",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "skill_id": "dfa5b3ff-129a-46b8-925d-3532e9c3a9ab",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:57Z"
+    },
+    {
+      "id": "cf29420d-8093-4a29-b83e-45b38ded229b",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "skill_id": "964d3644-b84f-44e1-8efb-ade0c3b57314",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:03Z"
+    },
+    {
+      "id": "d08a810d-2af0-4c9c-8ada-4b175ba9a986",
+      "user_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "skill_id": "bb2b63ed-b6c7-4d2d-ab1e-a95bd1174b7c",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:07Z"
+    },
+    {
+      "id": "d1a7882a-27e3-49b9-b054-e049e0902759",
+      "user_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "skill_id": "9a03b7a4-5bc4-4416-acd4-09662345752d",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:02Z"
+    },
+    {
+      "id": "d4a24c88-d915-408a-b4da-06ed7eb5b1ff",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "skill_id": "21d88a55-a879-415f-8e9b-ed88f657fbf8",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:58Z"
+    },
+    {
+      "id": "d6976141-30d3-45a3-aecb-3ed433543a23",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "skill_id": "cc730df7-af17-4b84-be89-e05fd6e4df59",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:01Z"
+    },
+    {
+      "id": "d8b5b75e-e57d-495d-98b2-c9adf56ac98c",
+      "user_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "skill_id": "fa2accce-651f-472d-a80b-8965f528f4b6",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:10Z"
+    },
+    {
+      "id": "df2fae02-aff1-4d7f-a310-6f795f6c5843",
+      "user_id": "e8932329-5b12-4f61-be4a-a5ca22c10e4b",
+      "skill_id": "f9c11c1e-c609-48fa-b204-1302d9a91c13",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:59Z"
+    },
+    {
+      "id": "e5f79376-c871-46f8-aec8-e07cd872e251",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "skill_id": "bb410eb7-1002-4803-848f-aad219b2192a",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:56Z"
+    },
+    {
+      "id": "e6a3ef62-2f97-4f95-89ec-bf7af0ac358c",
+      "user_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "skill_id": "2c4b4f06-4a81-4865-8272-8055a26fe1de",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:32:58Z"
+    },
+    {
+      "id": "eb78fb98-c8e7-4350-b243-cb25cf8522a2",
+      "user_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "skill_id": "b85700fe-da11-46ee-9421-b7c759dedcbf",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:32:56Z"
+    },
+    {
+      "id": "f11aabe7-4fcf-4816-8dc1-3dc7fb688faa",
+      "user_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "skill_id": "f1e79457-580d-4507-9a56-a1e09c3c9cb4",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:12Z"
+    },
+    {
+      "id": "f1234ec0-2906-4d2f-a587-bf8bb1acf749",
+      "user_id": "25a9178f-45f9-4cb2-855c-b7b1894345ee",
+      "skill_id": "80b0ae62-b0d7-46c0-9c65-98343f39ea45",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:41:57Z"
+    },
+    {
+      "id": "fd0ec5d0-7467-448d-a6c0-e047e4a4ada4",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "skill_id": "21d88a55-a879-415f-8e9b-ed88f657fbf8",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:33:11Z"
+    },
+    {
+      "id": "fd4af1bb-6bce-4576-b287-e543aea0ab64",
+      "user_id": "4d3eb957-b411-45c9-b47b-1b3a64cf9a58",
+      "skill_id": "fb365bb2-8ef2-4b1b-bcba-dde18152c93a",
+      "proficiency_level": "Intermediate",
+      "years_of_experience": null,
+      "created_at": "2026-01-10T12:42:13Z"
+    }
+  ],
   "jobs": [
     {
-      "id": "job-110e8400-e29b-41d4-a716-446655440010",
-      "title": "Senior Full-Stack Engineer",
-      "description": "We're looking for an experienced full-stack engineer to join our growing engineering team. You'll work on building scalable web applications and APIs that serve millions of users.\n\nResponsibilities:\n- Design and implement features across the full stack\n- Collaborate with product and design teams\n- Mentor junior engineers\n- Participate in code reviews and architecture discussions\n\nRequirements:\n- 5+ years of software engineering experience\n- Strong proficiency in JavaScript/TypeScript and Python\n- Experience with React, Node.js, and cloud platforms\n- Excellent problem-solving skills",
-      "company": "TechCorp Solutions",
-      "location": "San Francisco, CA (Hybrid)",
+      "id": "12a79cc5-655e-4110-ba02-9b835f34448c",
+      "title": "Solutions Architect",
+      "description": "Design cloud solutions for enterprise clients. Work with AWS, GCP, and Azure.",
+      "company": "Cloud Solutions Corp",
+      "location": "Chicago, IL",
       "job_type": "full-time",
-      "experience_required": "5+ years",
-      "skills_required": ["JavaScript", "TypeScript", "React", "Node.js", "Python", "AWS", "PostgreSQL"],
-      "salary_range": "$150,000 - $200,000",
-      "apply_link": "https://careers.techcorp.com/apply/senior-fullstack",
-      "posted_by": "990e8400-e29b-41d4-a716-446655440004",
-      "application_deadline": "2025-02-15",
-      "status": "active",
-      "views_count": 245,
-      "applications_count": 18,
-      "created_at": "2024-12-15T10:00:00Z",
-      "updated_at": "2024-12-28T09:30:00Z"
+      "salary_min": 160000,
+      "salary_max": 200000,
+      "currency": "USD",
+      "experience_level": "6+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:38Z",
+      "updated_at": "2026-01-10T12:41:38Z"
     },
     {
-      "id": "job-220e8400-e29b-41d4-a716-446655440011",
-      "title": "Product Designer (Mid-Level)",
-      "description": "Join our design team to create beautiful and intuitive user experiences. You'll work closely with engineers and product managers to bring ideas to life.\n\nWhat you'll do:\n- Design user interfaces for web and mobile applications\n- Create wireframes, prototypes, and high-fidelity mockups\n- Conduct user research and usability testing\n- Contribute to our design system\n\nQualifications:\n- 3+ years of product design experience\n- Strong portfolio demonstrating UX/UI skills\n- Proficiency in Figma and design tools\n- Understanding of front-end development",
+      "id": "2552a995-62cd-438c-8053-616db30805bd",
+      "title": "Product Designer",
+      "description": "Join our design team to create beautiful and intuitive user experiences. You'll work closely with engineers and product managers.",
       "company": "DesignFirst Inc",
       "location": "Remote",
       "job_type": "full-time",
-      "experience_required": "3+ years",
-      "skills_required": ["UX Design", "UI Design", "Figma", "Prototyping", "User Research", "Design Systems"],
-      "salary_range": "$100,000 - $130,000",
-      "apply_link": "https://jobs.designfirst.io/designer",
-      "posted_by": "990e8400-e29b-41d4-a716-446655440004",
-      "application_deadline": "2025-01-31",
-      "status": "active",
-      "views_count": 189,
-      "applications_count": 24,
-      "created_at": "2024-12-10T14:30:00Z",
-      "updated_at": "2024-12-27T16:15:00Z"
+      "salary_min": 100000,
+      "salary_max": 130000,
+      "currency": "USD",
+      "experience_level": "3+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:38:55Z",
+      "updated_at": "2026-01-10T12:38:55Z"
     },
     {
-      "id": "job-330e8400-e29b-41d4-a716-446655440012",
-      "title": "Machine Learning Engineer",
-      "description": "We're seeking a talented ML engineer to help us build intelligent systems that power our products. You'll work on cutting-edge AI/ML projects.\n\nKey Responsibilities:\n- Develop and deploy machine learning models\n- Build data pipelines and ML infrastructure\n- Collaborate with data scientists and engineers\n- Optimize model performance and scalability\n\nRequired Skills:\n- Strong background in machine learning and deep learning\n- Proficiency in Python and ML frameworks (TensorFlow, PyTorch)\n- Experience with cloud platforms (AWS, GCP, or Azure)\n- 4+ years of relevant experience",
-      "company": "AI Innovations Lab",
-      "location": "Boston, MA",
+      "id": "43cc24e9-f471-475e-b11e-c7d96ae7a3db",
+      "title": "Data Analyst",
+      "description": "Analyze business data and create insights for decision making. Work with SQL, Python, and BI tools.",
+      "company": "Analytics Pro",
+      "location": "New York, NY",
       "job_type": "full-time",
-      "experience_required": "4+ years",
-      "skills_required": ["Python", "Machine Learning", "TensorFlow", "PyTorch", "AWS", "Docker", "Kubernetes"],
-      "salary_range": "$140,000 - $180,000",
-      "apply_link": "https://careers.ailab.com/ml-engineer",
-      "posted_by": "dd0e8400-e29b-41d4-a716-446655440008",
-      "application_deadline": "2025-02-28",
-      "status": "active",
-      "views_count": 312,
-      "applications_count": 31,
-      "created_at": "2024-12-05T09:00:00Z",
-      "updated_at": "2024-12-28T08:45:00Z"
+      "salary_min": 90000,
+      "salary_max": 120000,
+      "currency": "USD",
+      "experience_level": "2+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:36Z",
+      "updated_at": "2026-01-10T12:41:36Z"
     },
     {
-      "id": "job-440e8400-e29b-41d4-a716-446655440013",
+      "id": "6257c377-7605-49f0-a2c7-8c524adf8b19",
+      "title": "Senior Full-Stack Engineer",
+      "description": "We're looking for an experienced full-stack engineer to join our growing engineering team. You'll work on building scalable web applications and APIs that serve millions of users.",
+      "company": "TechCorp Solutions",
+      "location": "San Francisco, CA",
+      "job_type": "full-time",
+      "salary_min": 150000,
+      "salary_max": 200000,
+      "currency": "USD",
+      "experience_level": "5+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:38:55Z",
+      "updated_at": "2026-01-10T12:38:55Z"
+    },
+    {
+      "id": "6c0b1f6d-cde3-4929-b9e6-5d876131d546",
+      "title": "Security Engineer",
+      "description": "Work on security infrastructure and vulnerability management. Help protect our systems and users.",
+      "company": "SecureIT",
+      "location": "Remote",
+      "job_type": "full-time",
+      "salary_min": 150000,
+      "salary_max": 190000,
+      "currency": "USD",
+      "experience_level": "5+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:37Z",
+      "updated_at": "2026-01-10T12:41:37Z"
+    },
+    {
+      "id": "6d7f5cf0-2f79-4988-bc2a-faf49e95b952",
+      "title": "iOS Developer",
+      "description": "Develop iOS applications using Swift. Focus on creating intuitive mobile experiences.",
+      "company": "Mobile First Inc",
+      "location": "San Francisco, CA",
+      "job_type": "full-time",
+      "salary_min": 140000,
+      "salary_max": 170000,
+      "currency": "USD",
+      "experience_level": "4+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:36Z",
+      "updated_at": "2026-01-10T12:41:36Z"
+    },
+    {
+      "id": "814594f9-93ba-4869-845b-df03284b55c7",
       "title": "Frontend Developer Intern",
-      "description": "Great opportunity for students or recent graduates to gain hands-on experience in web development. You'll work with experienced engineers on real projects.\n\nWhat you'll learn:\n- Modern JavaScript frameworks (React, Vue)\n- Best practices in frontend development\n- Agile development methodology\n- Code review and collaboration\n\nRequirements:\n- Currently pursuing or recently completed CS degree\n- Basic knowledge of HTML, CSS, JavaScript\n- Passion for learning and building great UIs\n- Available for 3-6 month internship",
+      "description": "Great opportunity for students or recent graduates to gain hands-on experience in web development.",
       "company": "Startup Ventures",
-      "location": "Austin, TX (On-site)",
+      "location": "Austin, TX",
       "job_type": "internship",
-      "experience_required": "0-1 years",
-      "skills_required": ["HTML", "CSS", "JavaScript", "React", "Git"],
-      "salary_range": "$25 - $35 per hour",
-      "apply_link": "https://startupventures.com/careers/intern",
-      "posted_by": "dd0e8400-e29b-41d4-a716-446655440008",
-      "application_deadline": "2025-01-20",
-      "status": "active",
-      "views_count": 567,
-      "applications_count": 89,
-      "created_at": "2024-12-01T11:00:00Z",
-      "updated_at": "2024-12-27T14:20:00Z"
+      "salary_min": 25,
+      "salary_max": 35,
+      "currency": "USD",
+      "experience_level": "0-1 years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:38:56Z",
+      "updated_at": "2026-01-10T12:38:56Z"
     },
     {
-      "id": "job-550e8400-e29b-41d4-a716-446655440014",
+      "id": "838e25a6-9612-4582-bb77-1ec1e00fe15f",
       "title": "DevOps Engineer",
-      "description": "Join our infrastructure team to build and maintain scalable, reliable systems. You'll work on automation, CI/CD pipelines, and cloud infrastructure.\n\nResponsibilities:\n- Design and implement CI/CD pipelines\n- Manage cloud infrastructure (AWS/GCP)\n- Monitor system performance and reliability\n- Implement security best practices\n- Automate deployment processes\n\nRequirements:\n- 3+ years of DevOps experience\n- Strong knowledge of Linux, Docker, Kubernetes\n- Experience with infrastructure as code (Terraform, CloudFormation)\n- Scripting skills (Python, Bash)",
+      "description": "Join our infrastructure team to build and maintain scalable, reliable systems. You'll work on automation and CI/CD pipelines.",
       "company": "CloudTech Systems",
       "location": "New York, NY",
       "job_type": "full-time",
-      "experience_required": "3+ years",
-      "skills_required": ["DevOps", "AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Linux", "Python"],
-      "salary_range": "$120,000 - $160,000",
-      "apply_link": "https://cloudtech.com/jobs/devops",
-      "posted_by": "990e8400-e29b-41d4-a716-446655440004",
-      "application_deadline": "2025-02-10",
-      "status": "active",
-      "views_count": 198,
-      "applications_count": 22,
-      "created_at": "2024-12-18T13:45:00Z",
-      "updated_at": "2024-12-28T10:00:00Z"
+      "salary_min": 120000,
+      "salary_max": 160000,
+      "currency": "USD",
+      "experience_level": "3+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:38:56Z",
+      "updated_at": "2026-01-10T12:38:56Z"
+    },
+    {
+      "id": "91257d1d-8987-42bd-a6ba-38dbc8320eaf",
+      "title": "QA Automation Engineer",
+      "description": "Write automated tests for web and mobile applications. Improve testing frameworks and infrastructure.",
+      "company": "Quality Labs",
+      "location": "Austin, TX",
+      "job_type": "full-time",
+      "salary_min": 95000,
+      "salary_max": 125000,
+      "currency": "USD",
+      "experience_level": "2+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:37Z",
+      "updated_at": "2026-01-10T12:41:37Z"
+    },
+    {
+      "id": "948c76cd-2f2c-4a71-9cae-522c7bc0932d",
+      "title": "Backend Engineer (Python)",
+      "description": "Build scalable backend services using Python and FastAPI. Work with distributed systems and microservices.",
+      "company": "Tech Startup XYZ",
+      "location": "Remote",
+      "job_type": "full-time",
+      "salary_min": 130000,
+      "salary_max": 160000,
+      "currency": "USD",
+      "experience_level": "3+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:35Z",
+      "updated_at": "2026-01-10T12:41:35Z"
+    },
+    {
+      "id": "cfc613ab-9f6c-4c29-80c6-be75141f87de",
+      "title": "Machine Learning Engineer",
+      "description": "We're seeking a talented ML engineer to help us build intelligent systems that power our products.",
+      "company": "AI Innovations Lab",
+      "location": "Boston, MA",
+      "job_type": "full-time",
+      "salary_min": 140000,
+      "salary_max": 180000,
+      "currency": "USD",
+      "experience_level": "4+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:38:55Z",
+      "updated_at": "2026-01-10T12:38:55Z"
+    },
+    {
+      "id": "dfcb24d2-ee0a-4911-a6f5-ff481b2952d5",
+      "title": "UX/UI Designer",
+      "description": "Design intuitive interfaces for web and mobile applications. Collaborate with product and engineering teams.",
+      "company": "Design Studio",
+      "location": "Remote",
+      "job_type": "full-time",
+      "salary_min": 100000,
+      "salary_max": 140000,
+      "currency": "USD",
+      "experience_level": "3+ years",
+      "posted_by": "c83d08eb-b547-4bc8-9b0b-be5be6ae2b7f",
+      "is_active": 1,
+      "created_at": "2026-01-10T12:41:37Z",
+      "updated_at": "2026-01-10T12:41:37Z"
     }
   ],
-
   "job_applications": [
     {
-      "id": "app-660e8400-e29b-41d4-a716-446655440020",
-      "job_id": "job-440e8400-e29b-41d4-a716-446655440013",
-      "applicant_id": "880e8400-e29b-41d4-a716-446655440003",
-      "cv_url": "https://storage.example.com/cvs/emily-rodriguez-cv.pdf",
-      "cover_letter": "I am excited to apply for the Frontend Developer Intern position. As a current Computer Science student, I have been working on personal projects using React and JavaScript. I am eager to learn from experienced engineers and contribute to real-world projects.",
-      "status": "shortlisted",
-      "viewed_at": "2024-12-20T10:30:00Z",
-      "response_message": "We're impressed with your portfolio! Let's schedule an interview.",
-      "applied_at": "2024-12-18T14:20:00Z",
-      "updated_at": "2024-12-20T10:30:00Z"
-    },
-    {
-      "id": "app-770e8400-e29b-41d4-a716-446655440021",
-      "job_id": "job-440e8400-e29b-41d4-a716-446655440013",
-      "applicant_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "cv_url": "https://storage.example.com/cvs/james-wilson-cv.pdf",
-      "cover_letter": "I am passionate about frontend development and have completed several online courses in React and modern web technologies. This internship would be a perfect opportunity for me to apply my skills in a professional setting.",
+      "id": "59c23ead-5b3c-41d2-bad0-d689da87187e",
+      "job_id": "cfc613ab-9f6c-4c29-80c6-be75141f87de",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "resume_url": null,
+      "cover_letter": null,
       "status": "reviewed",
-      "viewed_at": "2024-12-19T15:45:00Z",
-      "response_message": null,
-      "applied_at": "2024-12-17T09:15:00Z",
-      "updated_at": "2024-12-19T15:45:00Z"
+      "created_at": "2026-01-10T12:38:58Z",
+      "updated_at": "2026-01-10T12:38:58Z"
     },
     {
-      "id": "app-880e8400-e29b-41d4-a716-446655440022",
-      "job_id": "job-220e8400-e29b-41d4-a716-446655440011",
-      "applicant_id": "ee0e8400-e29b-41d4-a716-446655440009",
-      "cv_url": "https://storage.example.com/cvs/maria-garcia-portfolio.pdf",
-      "cover_letter": "As a design student with a strong portfolio in UI/UX, I believe I can bring fresh perspectives to your design team. I have experience with Figma and have conducted user research for my university projects.",
+      "id": "7e209461-d597-4c6a-b582-589a5efb37c7",
+      "job_id": "814594f9-93ba-4869-845b-df03284b55c7",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "resume_url": null,
+      "cover_letter": null,
+      "status": "reviewed",
+      "created_at": "2026-01-10T12:38:57Z",
+      "updated_at": "2026-01-10T12:38:57Z"
+    },
+    {
+      "id": "9ce811f3-bf3d-445d-b3dd-141c96efd642",
+      "job_id": "814594f9-93ba-4869-845b-df03284b55c7",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "resume_url": null,
+      "cover_letter": null,
+      "status": "shortlisted",
+      "created_at": "2026-01-10T12:38:57Z",
+      "updated_at": "2026-01-10T12:38:57Z"
+    },
+    {
+      "id": "acffc782-f581-4506-b34f-fc5d7ad89220",
+      "job_id": "6257c377-7605-49f0-a2c7-8c524adf8b19",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "resume_url": null,
+      "cover_letter": null,
       "status": "pending",
-      "viewed_at": null,
-      "response_message": null,
-      "applied_at": "2024-12-25T11:00:00Z",
-      "updated_at": "2024-12-25T11:00:00Z"
-    }
-  ],
-
-  "mentor_profiles": [
-    {
-      "id": "mentor-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "is_available": true,
-      "expertise_areas": ["Software Engineering", "Full-Stack Development", "Career Transitions", "Technical Interviews", "Cloud Computing"],
-      "max_mentees": 5,
-      "current_mentees_count": 3,
-      "rating": 4.85,
-      "total_sessions": 24,
-      "total_reviews": 12,
-      "mentorship_approach": "I believe in hands-on learning and practical guidance. My mentoring style focuses on helping mentees build real-world projects while providing career advice and interview preparation. I'm happy to review code, discuss architecture decisions, and share my experiences transitioning between companies.",
-      "created_at": "2023-06-01T10:00:00Z",
-      "updated_at": "2024-12-20T14:30:00Z"
+      "created_at": "2026-01-10T12:38:58Z",
+      "updated_at": "2026-01-10T12:38:58Z"
     },
     {
-      "id": "mentor-770e8400-e29b-41d4-a716",
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "is_available": true,
-      "expertise_areas": ["Product Management", "Career Strategy", "Agile Methodology", "Stakeholder Management", "AI/ML Products"],
-      "max_mentees": 4,
-      "current_mentees_count": 2,
-      "rating": 4.92,
-      "total_sessions": 18,
-      "total_reviews": 9,
-      "mentorship_approach": "I focus on helping aspiring PMs understand the product development lifecycle and build strong communication skills. Through our sessions, we'll work on product case studies, discuss career growth strategies, and I'll share insights from my experience at top tech companies.",
-      "created_at": "2023-08-15T11:30:00Z",
-      "updated_at": "2024-12-18T09:45:00Z"
-    },
-    {
-      "id": "mentor-aa0e8400-e29b-41d4-a716",
-      "user_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "is_available": true,
-      "expertise_areas": ["UX Design", "Design Systems", "Portfolio Building", "Accessibility", "Design Career"],
-      "max_mentees": 5,
-      "current_mentees_count": 4,
-      "rating": 4.95,
-      "total_sessions": 32,
-      "total_reviews": 15,
-      "mentorship_approach": "My mentorship focuses on helping designers build strong portfolios and develop their design thinking skills. We'll work through real design challenges, review your work, and discuss how to communicate your design decisions effectively. I'm particularly passionate about teaching accessible design practices.",
-      "created_at": "2023-09-01T14:00:00Z",
-      "updated_at": "2024-12-22T16:20:00Z"
-    },
-    {
-      "id": "mentor-cc0e8400-e29b-41d4-a716",
-      "user_id": "cc0e8400-e29b-41d4-a716-446655440007",
-      "is_available": false,
-      "expertise_areas": ["Data Science", "Machine Learning", "Statistics", "Python Programming", "Career in Data"],
-      "max_mentees": 3,
-      "current_mentees_count": 3,
-      "rating": 4.88,
-      "total_sessions": 21,
-      "total_reviews": 11,
-      "mentorship_approach": "I help students and early-career professionals break into data science by working on real projects and building a strong portfolio. We'll cover fundamentals, work through ML algorithms, and practice technical interview questions. I also provide guidance on navigating the data science job market.",
-      "created_at": "2023-07-10T09:30:00Z",
-      "updated_at": "2024-12-15T11:00:00Z"
-    }
-  ],
-
-  "mentorship_requests": [
-    {
-      "id": "req-110e8400-e29b-41d4-a716-446655440030",
-      "student_id": "880e8400-e29b-41d4-a716-446655440003",
-      "mentor_id": "660e8400-e29b-41d4-a716-446655440001",
-      "request_message": "Hi Sarah! I'm a computer science student passionate about full-stack development. I've been following your career journey and would love to learn from your experience, especially about working at top tech companies and preparing for technical interviews.",
-      "goals": "Improve my coding skills, prepare for technical interviews, and learn about career paths in software engineering",
-      "preferred_topics": ["Full-Stack Development", "System Design", "Interview Preparation", "Career Advice"],
-      "status": "accepted",
-      "rejection_reason": null,
-      "requested_at": "2024-11-15T10:30:00Z",
-      "accepted_at": "2024-11-16T14:20:00Z",
-      "rejected_at": null,
-      "updated_at": "2024-11-16T14:20:00Z"
-    },
-    {
-      "id": "req-220e8400-e29b-41d4-a716-446655440031",
-      "student_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "mentor_id": "770e8400-e29b-41d4-a716-446655440002",
-      "request_message": "Hello Michael, I'm transitioning from software engineering to product management and your background resonates with me. I'd appreciate guidance on making this career switch and understanding what product managers do day-to-day.",
-      "goals": "Transition to product management role, understand PM responsibilities, build relevant skills",
-      "preferred_topics": ["Career Transition", "Product Management Basics", "PM Interview Prep"],
-      "status": "accepted",
-      "rejection_reason": null,
-      "requested_at": "2024-12-01T09:15:00Z",
-      "accepted_at": "2024-12-02T11:30:00Z",
-      "rejected_at": null,
-      "updated_at": "2024-12-02T11:30:00Z"
-    },
-    {
-      "id": "req-330e8400-e29b-41d4-a716-446655440032",
-      "student_id": "ee0e8400-e29b-41d4-a716-446655440009",
-      "mentor_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "request_message": "Hi Priya! I'm a design student working on building my portfolio. Your work at Airbnb is truly inspiring. I'd love to get feedback on my designs and learn about accessible design practices.",
-      "goals": "Build a strong portfolio, learn about UX best practices, understand accessibility in design",
-      "preferred_topics": ["Portfolio Review", "UX Design", "Accessibility", "Design Career"],
+      "id": "b4abfa7c-3323-4a28-bd82-551c1008f3e9",
+      "job_id": "2552a995-62cd-438c-8053-616db30805bd",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "resume_url": null,
+      "cover_letter": null,
       "status": "pending",
-      "rejection_reason": null,
-      "requested_at": "2024-12-26T13:45:00Z",
-      "accepted_at": null,
-      "rejected_at": null,
-      "updated_at": "2024-12-26T13:45:00Z"
+      "created_at": "2026-01-10T12:38:58Z",
+      "updated_at": "2026-01-10T12:38:58Z"
     }
   ],
-
-  "mentorship_sessions": [
-    {
-      "id": "session-110e8400-e29b-41d4-a716-446655440040",
-      "mentorship_request_id": "req-110e8400-e29b-41d4-a716-446655440030",
-      "scheduled_date": "2024-11-20T18:00:00Z",
-      "duration": 60,
-      "status": "completed",
-      "meeting_link": "https://meet.google.com/abc-defg-hij",
-      "agenda": "Introduction session - Discuss goals, current skill level, and create a learning roadmap",
-      "notes": "Emily has a good foundation in JavaScript and React. We discussed her goals of working at a FAANG company and created a 3-month study plan focusing on system design and advanced algorithms.",
-      "feedback": "Sarah was extremely helpful and gave me concrete advice on how to prepare for technical interviews. The study plan she created is exactly what I needed!",
-      "rating": 5,
-      "created_at": "2024-11-18T10:00:00Z",
-      "updated_at": "2024-11-20T19:30:00Z"
-    },
-    {
-      "id": "session-220e8400-e29b-41d4-a716-446655440041",
-      "mentorship_request_id": "req-110e8400-e29b-41d4-a716-446655440030",
-      "scheduled_date": "2024-12-04T18:00:00Z",
-      "duration": 60,
-      "status": "completed",
-      "meeting_link": "https://meet.google.com/abc-defg-hij",
-      "agenda": "System design discussion - Design a URL shortener",
-      "notes": "Walked through system design principles using URL shortener as an example. Emily asked great questions about scalability and database choices.",
-      "feedback": "The system design session was incredibly valuable. Sarah explained complex concepts in an easy-to-understand way.",
-      "rating": 5,
-      "created_at": "2024-12-02T14:30:00Z",
-      "updated_at": "2024-12-04T19:15:00Z"
-    },
-    {
-      "id": "session-330e8400-e29b-41d4-a716-446655440042",
-      "mentorship_request_id": "req-110e8400-e29b-41d4-a716-446655440030",
-      "scheduled_date": "2025-01-08T18:00:00Z",
-      "duration": 60,
-      "status": "scheduled",
-      "meeting_link": "https://meet.google.com/abc-defg-hij",
-      "agenda": "Mock technical interview and feedback",
-      "notes": null,
-      "feedback": null,
-      "rating": null,
-      "created_at": "2024-12-20T16:00:00Z",
-      "updated_at": "2024-12-20T16:00:00Z"
-    },
-    {
-      "id": "session-440e8400-e29b-41d4-a716-446655440043",
-      "mentorship_request_id": "req-220e8400-e29b-41d4-a716-446655440031",
-      "scheduled_date": "2024-12-10T17:00:00Z",
-      "duration": 60,
-      "status": "completed",
-      "meeting_link": "https://zoom.us/j/123456789",
-      "agenda": "Introduction to Product Management - Roles, responsibilities, and career paths",
-      "notes": "Discussed the difference between TPM and PM roles. Reviewed James's engineering background and how it can be leveraged in PM role. Created action items for building PM skills.",
-      "feedback": "Michael provided great insights into the PM role and helped me understand what I need to work on. Very practical advice!",
-      "rating": 5,
-      "created_at": "2024-12-05T11:00:00Z",
-      "updated_at": "2024-12-10T18:15:00Z"
-    }
-  ],
-
-  "events": [
-    {
-      "id": "event-110e8400-e29b-41d4-a716-446655440050",
-      "title": "Tech Career Fair 2025",
-      "description": "Annual career fair bringing together alumni, recruiters, and students. Meet representatives from top tech companies, attend resume workshops, and network with industry professionals.\n\nSchedule:\n- 10:00 AM: Opening & Networking\n- 11:00 AM: Company Presentations\n- 1:00 PM: Speed Interviews\n- 3:00 PM: Panel Discussion: Breaking into Tech\n- 5:00 PM: Closing Networking Session",
-      "event_type": "conference",
-      "location": "Tech University Main Hall",
-      "is_virtual": false,
-      "meeting_link": null,
-      "start_date": "2025-02-15T10:00:00Z",
-      "end_date": "2025-02-15T17:00:00Z",
-      "registration_deadline": "2025-02-10T23:59:59Z",
-      "max_attendees": 500,
-      "current_attendees_count": 287,
-      "banner_image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
-      "created_by": "550e8400-e29b-41d4-a716-446655440000",
-      "status": "published",
-      "views_count": 1245,
-      "created_at": "2024-11-01T09:00:00Z",
-      "updated_at": "2024-12-27T15:30:00Z"
-    },
-    {
-      "id": "event-220e8400-e29b-41d4-a716-446655440051",
-      "title": "Machine Learning Workshop: From Theory to Practice",
-      "description": "Hands-on workshop covering fundamental ML concepts and practical implementation. Led by industry experts from top tech companies.\n\nWhat you'll learn:\n- Introduction to ML algorithms\n- Building and training models with Python\n- Model evaluation and optimization\n- Deploying ML models to production\n\nPrerequisites: Basic Python knowledge\nBring your laptop!",
-      "event_type": "workshop",
-      "location": "Virtual",
-      "is_virtual": true,
-      "meeting_link": "https://zoom.us/j/workshop-ml-2025",
-      "start_date": "2025-01-20T14:00:00Z",
-      "end_date": "2025-01-20T17:00:00Z",
-      "registration_deadline": "2025-01-18T23:59:59Z",
-      "max_attendees": 100,
-      "current_attendees_count": 78,
-      "banner_image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
-      "created_by": "cc0e8400-e29b-41d4-a716-446655440007",
-      "status": "published",
-      "views_count": 456,
-      "created_at": "2024-12-01T10:30:00Z",
-      "updated_at": "2024-12-28T09:15:00Z"
-    },
-    {
-      "id": "event-330e8400-e29b-41d4-a716-446655440052",
-      "title": "Alumni Networking Mixer",
-      "description": "Casual networking event for alumni to reconnect and share experiences. Great opportunity to expand your professional network!\n\nHighlights:\n- Meet alumni from various industries\n- Share career stories and insights\n- Light refreshments provided\n- No formal presentations - just networking!\n\nDress code: Business casual",
-      "event_type": "networking",
-      "location": "Downtown Alumni Center",
-      "is_virtual": false,
-      "meeting_link": null,
-      "start_date": "2025-01-25T18:00:00Z",
-      "end_date": "2025-01-25T21:00:00Z",
-      "registration_deadline": "2025-01-23T23:59:59Z",
-      "max_attendees": 150,
-      "current_attendees_count": 94,
-      "banner_image": "https://images.unsplash.com/photo-1511578314322-379afb476865",
-      "created_by": "660e8400-e29b-41d4-a716-446655440001",
-      "status": "published",
-      "views_count": 312,
-      "created_at": "2024-12-10T14:00:00Z",
-      "updated_at": "2024-12-27T11:45:00Z"
-    },
-    {
-      "id": "event-440e8400-e29b-41d4-a716-446655440053",
-      "title": "Web Development Bootcamp for Beginners",
-      "description": "4-week intensive bootcamp covering HTML, CSS, JavaScript, and React. Perfect for students looking to start their web development journey.\n\nWeek 1: HTML & CSS Fundamentals\nWeek 2: JavaScript Basics\nWeek 3: Advanced JavaScript & APIs\nWeek 4: React & Building Projects\n\nIncludes weekly assignments and final project presentation.",
-      "event_type": "workshop",
-      "location": "Virtual",
-      "is_virtual": true,
-      "meeting_link": "https://meet.google.com/bootcamp-web-dev",
-      "start_date": "2025-02-01T10:00:00Z",
-      "end_date": "2025-02-28T17:00:00Z",
-      "registration_deadline": "2025-01-28T23:59:59Z",
-      "max_attendees": 50,
-      "current_attendees_count": 42,
-      "banner_image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      "created_by": "660e8400-e29b-41d4-a716-446655440001",
-      "status": "published",
-      "views_count": 589,
-      "created_at": "2024-12-05T09:30:00Z",
-      "updated_at": "2024-12-26T16:20:00Z"
-    },
-    {
-      "id": "event-550e8400-e29b-41d4-a716-446655440054",
-      "title": "Product Management Panel: Life at FAANG",
-      "description": "Join us for an insightful panel discussion with product managers from Google, Amazon, Meta, and Netflix. Learn about their day-to-day work, career paths, and advice for aspiring PMs.\n\nPanelists:\n- Michael Chen (Amazon)\n- Guest PM from Google\n- Guest PM from Meta\n- Guest PM from Netflix\n\nQ&A session included!",
-      "event_type": "webinar",
-      "location": "Virtual",
-      "is_virtual": true,
-      "meeting_link": "https://zoom.us/j/pm-panel-faang",
-      "start_date": "2025-01-30T19:00:00Z",
-      "end_date": "2025-01-30T20:30:00Z",
-      "registration_deadline": "2025-01-29T23:59:59Z",
-      "max_attendees": 200,
-      "current_attendees_count": 156,
-      "banner_image": "https://images.unsplash.com/photo-1552664730-d307ca884978",
-      "created_by": "770e8400-e29b-41d4-a716-446655440002",
-      "status": "published",
-      "views_count": 723,
-      "created_at": "2024-12-15T11:00:00Z",
-      "updated_at": "2024-12-28T10:30:00Z"
-    }
-  ],
-
-  "event_rsvps": [
-    {
-      "id": "rsvp-110e8400-e29b-41d4-a716-446655440060",
-      "event_id": "event-110e8400-e29b-41d4-a716-446655440050",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "status": "attending",
-      "rsvp_date": "2024-12-20T10:15:00Z",
-      "updated_at": "2024-12-20T10:15:00Z"
-    },
-    {
-      "id": "rsvp-220e8400-e29b-41d4-a716-446655440061",
-      "event_id": "event-110e8400-e29b-41d4-a716-446655440050",
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "status": "attending",
-      "rsvp_date": "2024-12-18T14:30:00Z",
-      "updated_at": "2024-12-18T14:30:00Z"
-    },
-    {
-      "id": "rsvp-330e8400-e29b-41d4-a716-446655440062",
-      "event_id": "event-220e8400-e29b-41d4-a716-446655440051",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "status": "attending",
-      "rsvp_date": "2024-12-15T09:20:00Z",
-      "updated_at": "2024-12-15T09:20:00Z"
-    },
-    {
-      "id": "rsvp-440e8400-e29b-41d4-a716-446655440063",
-      "event_id": "event-330e8400-e29b-41d4-a716-446655440052",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "status": "attending",
-      "rsvp_date": "2024-12-12T16:45:00Z",
-      "updated_at": "2024-12-12T16:45:00Z"
-    },
-    {
-      "id": "rsvp-550e8400-e29b-41d4-a716-446655440064",
-      "event_id": "event-330e8400-e29b-41d4-a716-446655440052",
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "status": "attending",
-      "rsvp_date": "2024-12-14T11:00:00Z",
-      "updated_at": "2024-12-14T11:00:00Z"
-    },
-    {
-      "id": "rsvp-660e8400-e29b-41d4-a716-446655440065",
-      "event_id": "event-440e8400-e29b-41d4-a716-446655440053",
-      "user_id": "ee0e8400-e29b-41d4-a716-446655440009",
-      "status": "attending",
-      "rsvp_date": "2024-12-10T13:30:00Z",
-      "updated_at": "2024-12-10T13:30:00Z"
-    },
-    {
-      "id": "rsvp-770e8400-e29b-41d4-a716-446655440066",
-      "event_id": "event-550e8400-e29b-41d4-a716-446655440054",
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "status": "maybe",
-      "rsvp_date": "2024-12-22T10:45:00Z",
-      "updated_at": "2024-12-22T10:45:00Z"
-    }
-  ],
-
   "forum_posts": [
     {
-      "id": "post-110e8400-e29b-41d4-a716-446655440070",
+      "id": "088ec73f-bc9b-4995-93e1-0f9fc557834c",
+      "author_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "title": "Remote Work Tips & Tricks",
+      "content": "After 3 years of remote work, here's what works: Set boundaries, have dedicated workspace, take breaks, stay connected with team, be over-communicative.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:39Z",
+      "updated_at": "2026-01-10T12:41:39Z"
+    },
+    {
+      "id": "36a95d81-5574-4e8c-9d69-9319755eac2a",
+      "author_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "title": "Breaking into Data Science",
+      "content": "The path to data science: Learn Python and SQL, do projects, build portfolio, learn statistics, practice ML algorithms, apply to jobs/internships.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:40Z",
+      "updated_at": "2026-01-10T12:41:40Z"
+    },
+    {
+      "id": "3d0fc7c7-9418-45f4-b58c-a817ffdd1ecc",
+      "author_id": "65ff33ac-b871-485d-9da1-4e7898740603",
       "title": "Tips for Landing Your First Software Engineering Job",
-      "content": "After going through countless interviews and finally landing my first job at Google, I wanted to share some tips that helped me:\n\n1. **Build real projects** - Don't just do tutorials, build something from scratch\n2. **Contribute to open source** - Great way to learn and build your portfolio\n3. **Practice LeetCode daily** - Consistency is key\n4. **Mock interviews** - Practice with friends or use platforms like Pramp\n5. **Network actively** - Attend meetups, connect with people on LinkedIn\n\nHappy to answer any questions! Good luck to everyone job hunting! 🚀",
-      "author_id": "660e8400-e29b-41d4-a716-446655440001",
-      "tags": ["career-advice", "software-engineering", "job-hunting", "interviews"],
-      "likes_count": 42,
-      "comments_count": 15,
-      "views_count": 234,
-      "is_pinned": true,
-      "is_deleted": false,
-      "created_at": "2024-12-20T10:30:00Z",
-      "updated_at": "2024-12-28T09:15:00Z"
+      "content": "After going through countless interviews and finally landing my first job at Google, I wanted to share some tips that helped me. Build real projects, contribute to open source, practice LeetCode daily, do mock interviews, and network actively.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:38:59Z",
+      "updated_at": "2026-01-10T12:38:59Z"
     },
     {
-      "id": "post-220e8400-e29b-41d4-a716-446655440071",
+      "id": "53aaf1a7-b37c-4efb-a61d-70a7b9f591ba",
+      "author_id": "742139be-ea8f-4390-89b7-8693de09be2d",
+      "title": "Interview Preparation Guide",
+      "content": "System design interviews: understand tradeoffs, communicate your thinking, ask clarifying questions. Behavioral: use STAR method, have examples ready.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:40Z",
+      "updated_at": "2026-01-10T12:41:40Z"
+    },
+    {
+      "id": "5711b16c-f562-4f5a-993d-72d7b8ee4add",
+      "author_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
       "title": "Transitioning from Engineering to Product Management",
-      "content": "I recently made the switch from software engineering to product management and wanted to share my journey.\n\n**Why I made the switch:**\n- Wanted to have more impact on product strategy\n- Enjoyed working with users and understanding their needs\n- Liked the cross-functional collaboration aspect\n\n**How I prepared:**\n- Took on PM-like responsibilities in my eng role\n- Read PM books (Inspired, Cracking the PM Interview)\n- Networked with PMs to learn about the role\n- Built side projects to practice product thinking\n\nIt's been 2 years now and I absolutely love it! AMA about the transition.",
-      "author_id": "770e8400-e29b-41d4-a716-446655440002",
-      "tags": ["product-management", "career-transition", "advice"],
-      "likes_count": 38,
-      "comments_count": 12,
-      "views_count": 189,
-      "is_pinned": false,
-      "is_deleted": false,
-      "created_at": "2024-12-18T14:15:00Z",
-      "updated_at": "2024-12-27T16:45:00Z"
+      "content": "I recently made the switch from software engineering to product management and wanted to share my journey. Why I made the switch: wanted more impact on product strategy. How I prepared: took on PM responsibilities, read PM books, networked with PMs, built side projects.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:39:00Z",
+      "updated_at": "2026-01-10T12:39:00Z"
     },
     {
-      "id": "post-330e8400-e29b-41d4-a716-446655440072",
+      "id": "58cdd930-cc0e-4d61-bab6-c2296684bf8b",
+      "author_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "title": "Salary Negotiation Tips for Tech Jobs",
+      "content": "I've negotiated salaries at 3 different companies. Here are my tips: Research market rates, practice your pitch, don't accept first offer, negotiate all benefits not just salary.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:38Z",
+      "updated_at": "2026-01-10T12:41:38Z"
+    },
+    {
+      "id": "6797436c-7863-4001-8091-de638aec11ff",
+      "author_id": "41adbfdb-70f0-4130-835f-b9161264fdd8",
+      "title": "Building Side Projects",
+      "content": "Side projects help you learn and build portfolio. Start small, pick something you care about, share your work, get feedback, iterate.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:40Z",
+      "updated_at": "2026-01-10T12:41:40Z"
+    },
+    {
+      "id": "bf537680-12ff-45c2-bcf9-707c96ce9fbf",
+      "author_id": "6a853561-6fbf-4aad-bcab-15bba241ed34",
+      "title": "Best Practices for Code Reviews",
+      "content": "Code reviews are crucial for code quality. Focus on learning, be respectful, provide constructive feedback, review in batches to save time.",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:41:39Z",
+      "updated_at": "2026-01-10T12:41:39Z"
+    },
+    {
+      "id": "e5a141f2-5526-4c63-90ff-9bf861f4efca",
+      "author_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
       "title": "Best Resources for Learning React in 2025",
-      "content": "As someone who recently learned React, here are the resources I found most helpful:\n\n**Free Resources:**\n- React official docs (beta docs are amazing!)\n- FreeCodeCamp React course\n- Web Dev Simplified YouTube channel\n\n**Paid Resources:**\n- Udemy courses by Maximilian Schwarzmüller\n- Frontend Masters subscription\n\n**Practice:**\n- Build projects! I made a todo app, weather app, and a movie search app\n- Contribute to open source React projects\n\nWhat resources helped you learn React?",
-      "author_id": "880e8400-e29b-41d4-a716-446655440003",
-      "tags": ["react", "web-development", "learning-resources", "javascript"],
-      "likes_count": 28,
-      "comments_count": 9,
-      "views_count": 156,
-      "is_pinned": false,
-      "is_deleted": false,
-      "created_at": "2024-12-25T11:00:00Z",
-      "updated_at": "2024-12-27T14:30:00Z"
-    },
-    {
-      "id": "post-440e8400-e29b-41d4-a716-446655440073",
-      "title": "Understanding Design Systems: A Beginner's Guide",
-      "content": "Design systems have become crucial in modern product development. Here's what you need to know:\n\n**What is a Design System?**\nA collection of reusable components, guided by clear standards, that can be assembled to build applications.\n\n**Key Components:**\n- Component library (buttons, inputs, cards, etc.)\n- Design tokens (colors, spacing, typography)\n- Documentation and guidelines\n- Accessibility standards\n\n**Popular Design Systems to Study:**\n- Material Design (Google)\n- Polaris (Shopify)\n- Carbon (IBM)\n- Ant Design\n\nStarting to build design systems has really leveled up my design work!",
-      "author_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "tags": ["design-systems", "ux-design", "ui-design", "frontend"],
-      "likes_count": 31,
-      "comments_count": 7,
-      "views_count": 178,
-      "is_pinned": false,
-      "is_deleted": false,
-      "created_at": "2024-12-22T09:45:00Z",
-      "updated_at": "2024-12-26T11:20:00Z"
+      "content": "As someone who recently learned React, here are the resources I found most helpful: Free resources include React official docs and FreeCodeCamp. Paid resources: Udemy courses and Frontend Masters. Practice by building projects!",
+      "category": null,
+      "views": 0,
+      "is_pinned": 0,
+      "created_at": "2026-01-10T12:39:00Z",
+      "updated_at": "2026-01-10T12:39:00Z"
     }
   ],
-
-  "forum_comments": [
+  "forum_replies": [],
+  "events": [
     {
-      "id": "comment-110e8400-e29b-41d4-a716-446655440080",
-      "post_id": "post-110e8400-e29b-41d4-a716-446655440070",
-      "author_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "parent_comment_id": null,
-      "content": "This is super helpful! I'm currently in the job hunting phase. How many hours a day did you dedicate to LeetCode?",
-      "likes_count": 5,
-      "is_deleted": false,
-      "created_at": "2024-12-20T11:15:00Z",
-      "updated_at": "2024-12-20T11:15:00Z"
+      "id": "18db0347-9ff8-4eae-aee4-a59ad55e82d7",
+      "title": "Tech Career Fair 2025",
+      "description": "Annual career fair bringing together alumni, recruiters, and students. Meet representatives from top tech companies.",
+      "event_date": "2026-02-09T18:09:02Z",
+      "location": "Tech University Main Hall",
+      "organizer_id": "b9c5a68f-491a-47dc-ad52-bb6e3495c5c4",
+      "max_attendees": null,
+      "event_type": "conference",
+      "created_at": "2026-01-10T12:39:02Z",
+      "updated_at": "2026-01-10T12:39:02Z"
     },
     {
-      "id": "comment-220e8400-e29b-41d4-a716-446655440081",
-      "post_id": "post-110e8400-e29b-41d4-a716-446655440070",
-      "author_id": "660e8400-e29b-41d4-a716-446655440001",
-      "parent_comment_id": "comment-110e8400-e29b-41d4-a716-446655440080",
-      "content": "I did about 1-2 hours daily, focusing on understanding patterns rather than just memorizing solutions. Started with easy problems and gradually moved to medium/hard.",
-      "likes_count": 8,
-      "is_deleted": false,
-      "created_at": "2024-12-20T12:30:00Z",
-      "updated_at": "2024-12-20T12:30:00Z"
+      "id": "24941370-db36-4d88-978d-206b310cef8b",
+      "title": "Product Management Panel Discussion",
+      "description": "Learn from PMs at top tech companies about their roles, challenges, and career paths.",
+      "event_date": "2026-02-04T18:11:42Z",
+      "location": "Virtual",
+      "organizer_id": "600ea7ae-3046-4602-9e71-4c63877a3983",
+      "max_attendees": null,
+      "event_type": "webinar",
+      "created_at": "2026-01-10T12:41:41Z",
+      "updated_at": "2026-01-10T12:41:41Z"
     },
     {
-      "id": "comment-330e8400-e29b-41d4-a716-446655440082",
-      "post_id": "post-110e8400-e29b-41d4-a716-446655440070",
-      "author_id": "ee0e8400-e29b-41d4-a716-446655440009",
-      "parent_comment_id": null,
-      "content": "Great post! Do you have recommendations for open source projects that are beginner-friendly?",
-      "likes_count": 3,
-      "is_deleted": false,
-      "created_at": "2024-12-21T09:00:00Z",
-      "updated_at": "2024-12-21T09:00:00Z"
+      "id": "72ce02a3-4f78-41d4-97f6-b6f6cac12aaf",
+      "title": "Web Development Bootcamp",
+      "description": "4-week intensive bootcamp covering HTML, CSS, JavaScript, React, and Node.js. Perfect for beginners.",
+      "event_date": "2026-01-30T18:11:42Z",
+      "location": "Virtual",
+      "organizer_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "max_attendees": null,
+      "event_type": "workshop",
+      "created_at": "2026-01-10T12:41:41Z",
+      "updated_at": "2026-01-10T12:41:41Z"
     },
     {
-      "id": "comment-440e8400-e29b-41d4-a716-446655440083",
-      "post_id": "post-220e8400-e29b-41d4-a716-446655440071",
-      "author_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "parent_comment_id": null,
-      "content": "This is exactly what I'm considering! How did you communicate your interest in PM during interviews when your background was in engineering?",
-      "likes_count": 4,
-      "is_deleted": false,
-      "created_at": "2024-12-19T10:20:00Z",
-      "updated_at": "2024-12-19T10:20:00Z"
+      "id": "7c19383f-6f79-44e4-a2dc-eefa009eb6bd",
+      "title": "Alumni Networking Mixer",
+      "description": "Casual networking event for alumni to reconnect and share experiences. Great opportunity to expand your network!",
+      "event_date": "2026-01-20T18:09:02Z",
+      "location": "Downtown Alumni Center",
+      "organizer_id": "65ff33ac-b871-485d-9da1-4e7898740603",
+      "max_attendees": null,
+      "event_type": "networking",
+      "created_at": "2026-01-10T12:39:03Z",
+      "updated_at": "2026-01-10T12:39:03Z"
     },
     {
-      "id": "comment-550e8400-e29b-41d4-a716-446655440084",
-      "post_id": "post-330e8400-e29b-41d4-a716-446655440072",
-      "author_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "parent_comment_id": null,
-      "content": "Thanks for sharing! I've been using the official docs and they're great. Also recommend Josh Comeau's blog for understanding React deeply.",
-      "likes_count": 6,
-      "is_deleted": false,
-      "created_at": "2024-12-25T14:30:00Z",
-      "updated_at": "2024-12-25T14:30:00Z"
+      "id": "7e04098a-c36d-4fd3-ae91-8692a628bd11",
+      "title": "Machine Learning Workshop: From Theory to Practice",
+      "description": "Hands-on workshop covering fundamental ML concepts and practical implementation led by industry experts.",
+      "event_date": "2026-01-25T18:09:02Z",
+      "location": "Virtual",
+      "organizer_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
+      "max_attendees": null,
+      "event_type": "workshop",
+      "created_at": "2026-01-10T12:39:02Z",
+      "updated_at": "2026-01-10T12:39:02Z"
+    },
+    {
+      "id": "b1b35efe-711e-4900-a1b2-d65966045daa",
+      "title": "AI/ML Conference 2025",
+      "description": "Annual conference featuring talks on artificial intelligence, machine learning, and their applications.",
+      "event_date": "2026-02-24T18:11:42Z",
+      "location": "San Francisco, CA",
+      "organizer_id": "af0a3b1b-f8c1-455b-8629-d47ad2f1b09c",
+      "max_attendees": null,
+      "event_type": "conference",
+      "created_at": "2026-01-10T12:41:42Z",
+      "updated_at": "2026-01-10T12:41:42Z"
+    },
+    {
+      "id": "f2322943-2873-4e48-a598-f6ebed92f3a8",
+      "title": "Startup Founder Meetup",
+      "description": "Network with startup founders and entrepreneurs. Share ideas and learn from each other's experiences.",
+      "event_date": "2026-02-14T18:11:42Z",
+      "location": "Austin, TX",
+      "organizer_id": "e5e40ade-a725-4073-896a-ec23f008babc",
+      "max_attendees": null,
+      "event_type": "networking",
+      "created_at": "2026-01-10T12:41:42Z",
+      "updated_at": "2026-01-10T12:41:42Z"
+    },
+    {
+      "id": "faef75b6-98f8-4d86-90bf-887781c25251",
+      "title": "System Design Workshop",
+      "description": "Deep dive into system design patterns. Learn how to design scalable systems.",
+      "event_date": "2026-02-07T18:11:42Z",
+      "location": "Virtual",
+      "organizer_id": "3b36b6e4-b9dc-4d05-a2bb-d31ae80fcaa2",
+      "max_attendees": null,
+      "event_type": "workshop",
+      "created_at": "2026-01-10T12:41:43Z",
+      "updated_at": "2026-01-10T12:41:43Z"
     }
   ],
-
+  "event_registrations": [],
+  "user_connections": [],
   "notifications": [
     {
-      "id": "notif-110e8400-e29b-41d4-a716-446655440090",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "type": "mentorship",
-      "title": "Mentorship Request Accepted",
-      "message": "Sarah Johnson has accepted your mentorship request! You can now schedule your first session.",
-      "link": "/mentorship/requests/req-110e8400-e29b-41d4-a716-446655440030",
-      "is_read": true,
-      "priority": "high",
-      "metadata": {
-        "mentor_name": "Sarah Johnson",
-        "request_id": "req-110e8400-e29b-41d4-a716-446655440030"
-      },
-      "read_at": "2024-11-16T15:00:00Z",
-      "created_at": "2024-11-16T14:20:00Z"
-    },
-    {
-      "id": "notif-220e8400-e29b-41d4-a716-446655440091",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "type": "job",
-      "title": "Application Status Updated",
-      "message": "Your application for Frontend Developer Intern at Startup Ventures has been shortlisted!",
-      "link": "/jobs/applications/app-660e8400-e29b-41d4-a716-446655440020",
-      "is_read": true,
-      "priority": "high",
-      "metadata": {
-        "job_title": "Frontend Developer Intern",
-        "company": "Startup Ventures",
-        "status": "shortlisted"
-      },
-      "read_at": "2024-12-20T11:00:00Z",
-      "created_at": "2024-12-20T10:30:00Z"
-    },
-    {
-      "id": "notif-330e8400-e29b-41d4-a716-446655440092",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
+      "id": "5e355ca1-c703-4adf-b0ba-8227bec08090",
+      "user_id": "fb95dc4c-5b4f-4b22-ab21-8b072490fa01",
       "type": "event",
       "title": "Event Reminder",
-      "message": "Machine Learning Workshop: From Theory to Practice starts in 24 hours",
-      "link": "/events/event-220e8400-e29b-41d4-a716-446655440051",
-      "is_read": false,
-      "priority": "medium",
-      "metadata": {
-        "event_title": "Machine Learning Workshop: From Theory to Practice",
-        "event_date": "2025-01-20T14:00:00Z"
-      },
-      "read_at": null,
-      "created_at": "2024-12-28T14:00:00Z"
+      "message": "Tech Career Fair 2025 is coming up in 30 days!",
+      "related_user_id": null,
+      "related_id": null,
+      "is_read": 0,
+      "created_at": "2026-01-10T12:39:06Z"
     },
     {
-      "id": "notif-440e8400-e29b-41d4-a716-446655440093",
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "type": "mentorship",
-      "title": "New Mentorship Session Scheduled",
-      "message": "Michael Chen has scheduled a mentorship session with you for Jan 10, 2025 at 5:00 PM",
-      "link": "/mentorship/sessions/session-new-123",
-      "is_read": false,
-      "priority": "high",
-      "metadata": {
-        "mentor_name": "Michael Chen",
-        "session_date": "2025-01-10T17:00:00Z"
-      },
-      "read_at": null,
-      "created_at": "2024-12-27T10:30:00Z"
+      "id": "6a047c05-8bd8-4200-a655-ee93f2e078e9",
+      "user_id": "001cae5a-cf68-4859-ac8d-8dc3100b1c57",
+      "type": "job",
+      "title": "Job Application Update",
+      "message": "Your application for Frontend Developer Intern has been shortlisted!",
+      "related_user_id": null,
+      "related_id": null,
+      "is_read": 0,
+      "created_at": "2026-01-10T12:39:05Z"
     },
     {
-      "id": "notif-550e8400-e29b-41d4-a716-446655440094",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
+      "id": "c6579e33-eebb-43f0-be7f-34ae06fbcdfa",
+      "user_id": "65ff33ac-b871-485d-9da1-4e7898740603",
       "type": "forum",
       "title": "New Comment on Your Post",
-      "message": "James Wilson commented on your post 'Tips for Landing Your First Software Engineering Job'",
-      "link": "/forum/posts/post-110e8400-e29b-41d4-a716-446655440070",
-      "is_read": true,
-      "priority": "low",
-      "metadata": {
-        "post_title": "Tips for Landing Your First Software Engineering Job",
-        "commenter_name": "James Wilson"
-      },
-      "read_at": "2024-12-20T12:00:00Z",
-      "created_at": "2024-12-20T11:15:00Z"
-    },
-    {
-      "id": "notif-660e8400-e29b-41d4-a716-446655440095",
-      "user_id": "ee0e8400-e29b-41d4-a716-446655440009",
-      "type": "job",
-      "title": "New Job Match",
-      "message": "A new job matching your skills has been posted: Product Designer (Mid-Level) at DesignFirst Inc",
-      "link": "/jobs/job-220e8400-e29b-41d4-a716-446655440011",
-      "is_read": false,
-      "priority": "medium",
-      "metadata": {
-        "job_title": "Product Designer (Mid-Level)",
-        "company": "DesignFirst Inc",
-        "matched_skills": ["UX Design", "UI Design", "Figma"]
-      },
-      "read_at": null,
-      "created_at": "2024-12-28T09:00:00Z"
-    },
-    {
-      "id": "notif-770e8400-e29b-41d4-a716-446655440096",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "type": "profile",
-      "title": "Profile Verification Approved",
-      "message": "Congratulations! Your alumni profile has been verified by the admin team.",
-      "link": "/profile/880e8400-e29b-41d4-a716-446655440003",
-      "is_read": false,
-      "priority": "high",
-      "metadata": {
-        "verification_status": "approved"
-      },
-      "read_at": null,
-      "created_at": "2024-12-28T15:30:00Z"
-    },
-    {
-      "id": "notif-880e8400-e29b-41d4-a716-446655440097",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "type": "mentorship",
-      "title": "Session Reminder",
-      "message": "Your mentorship session with Sarah Johnson starts in 1 hour",
-      "link": "/mentorship/sessions/session-110e8400-e29b-41d4-a716-446655440040",
-      "is_read": false,
-      "priority": "high",
-      "metadata": {
-        "mentor_name": "Sarah Johnson",
-        "session_time": "2025-01-15T16:00:00Z"
-      },
-      "read_at": null,
-      "created_at": "2024-12-28T15:00:00Z"
-    },
-    {
-      "id": "notif-990e8400-e29b-41d4-a716-446655440098",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "type": "mentorship",
-      "title": "New Mentorship Request",
-      "message": "John Doe has requested you as a mentor. Review their profile and respond.",
-      "link": "/mentorship/dashboard",
-      "is_read": false,
-      "priority": "high",
-      "metadata": {
-        "student_name": "John Doe",
-        "request_id": "req-new-456"
-      },
-      "read_at": null,
-      "created_at": "2024-12-28T14:20:00Z"
-    },
-    {
-      "id": "notif-aa0e8400-e29b-41d4-a716-446655440099",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "type": "event",
-      "title": "New Event Registration",
-      "message": "5 new people have registered for your event 'Career Growth Workshop'",
-      "link": "/events/event-110e8400-e29b-41d4-a716-446655440050",
-      "is_read": true,
-      "priority": "medium",
-      "metadata": {
-        "event_title": "Career Growth Workshop",
-        "new_registrations": 5
-      },
-      "read_at": "2024-12-28T10:00:00Z",
-      "created_at": "2024-12-28T09:45:00Z"
-    },
-    {
-      "id": "notif-bb0e8400-e29b-41d4-a716-446655440100",
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "type": "forum",
-      "title": "Someone Liked Your Post",
-      "message": "Emily Rodriguez liked your post 'Best Resources for Learning React'",
-      "link": "/forum/posts/post-new-789",
-      "is_read": true,
-      "priority": "low",
-      "metadata": {
-        "post_title": "Best Resources for Learning React",
-        "liker_name": "Emily Rodriguez"
-      },
-      "read_at": "2024-12-27T20:00:00Z",
-      "created_at": "2024-12-27T19:45:00Z"
+      "message": "Emily Rodriguez commented on your post about career tips.",
+      "related_user_id": null,
+      "related_id": null,
+      "is_read": 0,
+      "created_at": "2026-01-10T12:39:06Z"
     }
   ],
-
-  "engagement_scores": [
-    {
-      "id": "score-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "total_score": 485,
-      "contributions": {
-        "profile": 20,
-        "mentorship": 240,
-        "jobs": 0,
-        "events": 32,
-        "forum": 193
-      },
-      "rank_position": 1,
-      "level": "Legend",
-      "last_calculated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "score-aa0e8400-e29b-41d4-a716",
-      "user_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "total_score": 442,
-      "contributions": {
-        "profile": 20,
-        "mentorship": 320,
-        "jobs": 0,
-        "events": 40,
-        "forum": 62
-      },
-      "rank_position": 2,
-      "level": "Veteran",
-      "last_calculated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "score-cc0e8400-e29b-41d4-a716",
-      "user_id": "cc0e8400-e29b-41d4-a716-446655440007",
-      "total_score": 358,
-      "contributions": {
-        "profile": 19,
-        "mentorship": 210,
-        "jobs": 0,
-        "events": 56,
-        "forum": 73
-      },
-      "rank_position": 3,
-      "level": "Veteran",
-      "last_calculated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "score-770e8400-e29b-41d4-a716",
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "total_score": 294,
-      "contributions": {
-        "profile": 19,
-        "mentorship": 180,
-        "jobs": 0,
-        "events": 32,
-        "forum": 63
-      },
-      "rank_position": 4,
-      "level": "Active",
-      "last_calculated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "score-880e8400-e29b-41d4-a716",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "total_score": 127,
-      "contributions": {
-        "profile": 15,
-        "mentorship": 20,
-        "jobs": 15,
-        "events": 24,
-        "forum": 53
-      },
-      "rank_position": 5,
-      "level": "Active",
-      "last_calculated": "2024-12-28T10:00:00Z"
-    }
-  ],
-
-  "badges": [
-    {
-      "id": "badge-first-login",
-      "name": "First Login",
-      "description": "Welcome to the platform!",
-      "icon_url": "https://cdn.alumni.edu/badges/first-login.svg",
-      "requirements": {"type": "login", "count": 1},
-      "rarity": "common",
-      "points": 10
-    },
-    {
-      "id": "badge-profile-complete",
-      "name": "Profile Complete",
-      "description": "Complete your profile 100%",
-      "icon_url": "https://cdn.alumni.edu/badges/profile-complete.svg",
-      "requirements": {"type": "profile", "completion": 100},
-      "rarity": "common",
-      "points": 50
-    },
-    {
-      "id": "badge-active-mentor",
-      "name": "Active Mentor",
-      "description": "Conduct 10 mentorship sessions",
-      "icon_url": "https://cdn.alumni.edu/badges/active-mentor.svg",
-      "requirements": {"type": "mentorship", "sessions": 10},
-      "rarity": "rare",
-      "points": 200
-    },
-    {
-      "id": "badge-job-hunter",
-      "name": "Job Hunter",
-      "description": "Apply for 20 jobs",
-      "icon_url": "https://cdn.alumni.edu/badges/job-hunter.svg",
-      "requirements": {"type": "job_applications", "count": 20},
-      "rarity": "common",
-      "points": 100
-    },
-    {
-      "id": "badge-community-leader",
-      "name": "Community Leader",
-      "description": "Create 50 forum posts",
-      "icon_url": "https://cdn.alumni.edu/badges/community-leader.svg",
-      "requirements": {"type": "forum_posts", "count": 50},
-      "rarity": "epic",
-      "points": 300
-    },
-    {
-      "id": "badge-event-enthusiast",
-      "name": "Event Enthusiast",
-      "description": "Attend 15 events",
-      "icon_url": "https://cdn.alumni.edu/badges/event-enthusiast.svg",
-      "requirements": {"type": "events", "count": 15},
-      "rarity": "rare",
-      "points": 150
-    }
-  ],
-
-  "user_badges": [
-    {
-      "id": "ub-110e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "badge_id": "badge-first-login",
-      "earned_at": "2023-03-20T09:15:00Z"
-    },
-    {
-      "id": "ub-220e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "badge_id": "badge-profile-complete",
-      "earned_at": "2023-03-22T14:30:00Z"
-    },
-    {
-      "id": "ub-330e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "badge_id": "badge-active-mentor",
-      "earned_at": "2024-05-15T10:00:00Z"
-    },
-    {
-      "id": "ub-440e8400-e29b-41d4-a716",
-      "user_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "badge_id": "badge-active-mentor",
-      "earned_at": "2024-07-20T11:30:00Z"
-    }
-  ],
-
-  "skill_graph": [
-    {
-      "id": "skill-javascript",
-      "skill_name": "JavaScript",
-      "related_skills": ["TypeScript", "React", "Node.js", "Vue", "Angular"],
-      "industry_connections": ["Web Development", "Software Engineering", "Frontend Development"],
-      "alumni_count": 156,
-      "job_count": 89,
-      "popularity_score": 95.5
-    },
-    {
-      "id": "skill-python",
-      "skill_name": "Python",
-      "related_skills": ["Django", "Flask", "Data Science", "Machine Learning", "TensorFlow"],
-      "industry_connections": ["Software Engineering", "Data Science", "AI/ML", "Backend Development"],
-      "alumni_count": 142,
-      "job_count": 76,
-      "popularity_score": 92.3
-    },
-    {
-      "id": "skill-react",
-      "skill_name": "React",
-      "related_skills": ["JavaScript", "Redux", "Next.js", "HTML", "CSS"],
-      "industry_connections": ["Frontend Development", "Web Development", "Software Engineering"],
-      "alumni_count": 128,
-      "job_count": 82,
-      "popularity_score": 90.8
-    },
-    {
-      "id": "skill-ux-design",
-      "skill_name": "UX Design",
-      "related_skills": ["UI Design", "Figma", "User Research", "Prototyping", "Design Systems"],
-      "industry_connections": ["Product Design", "UX Research", "Interaction Design"],
-      "alumni_count": 67,
-      "job_count": 43,
-      "popularity_score": 78.5
-    },
-    {
-      "id": "skill-machine-learning",
-      "skill_name": "Machine Learning",
-      "related_skills": ["Python", "TensorFlow", "PyTorch", "Data Science", "Deep Learning"],
-      "industry_connections": ["AI/ML", "Data Science", "Research"],
-      "alumni_count": 89,
-      "job_count": 54,
-      "popularity_score": 85.2
-    }
-  ],
-
-  "knowledge_capsules": [
-    {
-      "id": "capsule-110e8400-e29b-41d4-a716",
-      "title": "Building Your First Full-Stack Application",
-      "content": "A comprehensive guide to building a full-stack web application from scratch...\n\n## Planning\nBefore writing any code, spend time planning your application architecture...\n\n## Frontend Development\nStart with setting up React and creating your component structure...\n\n## Backend Development\nBuild RESTful APIs using Node.js and Express...\n\n## Database Design\nChoose between SQL and NoSQL based on your needs...\n\n## Deployment\nLearn how to deploy to platforms like Vercel, Heroku, or AWS...",
-      "author_id": "660e8400-e29b-41d4-a716-446655440001",
-      "category": "technical",
-      "tags": ["full-stack", "web-development", "tutorial", "beginner-friendly"],
-      "duration_minutes": 15,
-      "featured_image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      "likes_count": 84,
-      "views_count": 456,
-      "bookmarks_count": 67,
-      "is_featured": true,
-      "created_at": "2024-12-10T10:00:00Z",
-      "updated_at": "2024-12-27T14:30:00Z"
-    },
-    {
-      "id": "capsule-220e8400-e29b-41d4-a716",
-      "title": "From Engineer to Product Manager: My Journey",
-      "content": "Sharing my experience transitioning from software engineering to product management...\n\n## Why I Made the Switch\nAfter 5 years as a software engineer, I wanted to have broader impact...\n\n## Preparation\nI started by reading PM books and taking on PM responsibilities...\n\n## The Interview Process\nPM interviews are very different from engineering interviews...\n\n## First Year as a PM\nLearning curve was steep but incredibly rewarding...\n\n## Advice for Engineers Considering PM\nYour technical background is a huge advantage...",
-      "author_id": "770e8400-e29b-41d4-a716-446655440002",
-      "category": "career",
-      "tags": ["product-management", "career-transition", "advice"],
-      "duration_minutes": 12,
-      "featured_image": "https://images.unsplash.com/photo-1552664730-d307ca884978",
-      "likes_count": 62,
-      "views_count": 389,
-      "bookmarks_count": 54,
-      "is_featured": true,
-      "created_at": "2024-12-15T11:30:00Z",
-      "updated_at": "2024-12-26T16:20:00Z"
-    },
-    {
-      "id": "capsule-330e8400-e29b-41d4-a716",
-      "title": "Accessibility in Design: Why It Matters",
-      "content": "Understanding and implementing accessible design practices...\n\n## What is Accessibility?\nMaking products usable by everyone, including people with disabilities...\n\n## Common Accessibility Issues\n- Poor color contrast\n- Missing alt text\n- Non-keyboard accessible interfaces\n- Inadequate focus indicators\n\n## How to Design Accessibly\nStart with semantic HTML and proper ARIA labels...\n\n## Tools and Resources\nScreen readers, contrast checkers, and automated testing tools...\n\n## Real-World Impact\nAccessible design benefits everyone, not just people with disabilities...",
-      "author_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "category": "technical",
-      "tags": ["accessibility", "design", "ux", "wcag"],
-      "duration_minutes": 10,
-      "featured_image": "https://images.unsplash.com/photo-1573164713988-8665fc963095",
-      "likes_count": 48,
-      "views_count": 267,
-      "bookmarks_count": 39,
-      "is_featured": false,
-      "created_at": "2024-12-18T09:15:00Z",
-      "updated_at": "2024-12-25T11:45:00Z"
-    }
-  ],
-
-  "geographic_data": [
-    {
-      "id": "geo-sf-bay",
-      "location_name": "San Francisco Bay Area",
-      "country": "United States",
-      "city": "San Francisco",
-      "latitude": 37.7749,
-      "longitude": -122.4194,
-      "alumni_count": 287,
-      "jobs_count": 145,
-      "top_skills": ["JavaScript", "Python", "React", "Machine Learning", "Product Management"],
-      "top_companies": ["Google", "Meta", "Apple", "Salesforce", "Airbnb"],
-      "top_industries": ["Tech", "Software", "AI/ML", "Fintech"],
-      "last_updated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "geo-seattle",
-      "location_name": "Seattle",
-      "country": "United States",
-      "city": "Seattle",
-      "latitude": 47.6062,
-      "longitude": -122.3321,
-      "alumni_count": 156,
-      "jobs_count": 89,
-      "top_skills": ["Python", "Java", "AWS", "Machine Learning", "Data Science"],
-      "top_companies": ["Amazon", "Microsoft", "Boeing", "Starbucks"],
-      "top_industries": ["Tech", "Cloud Computing", "E-commerce", "Aerospace"],
-      "last_updated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "geo-boston",
-      "location_name": "Boston",
-      "country": "United States",
-      "city": "Boston",
-      "latitude": 42.3601,
-      "longitude": -71.0589,
-      "alumni_count": 98,
-      "jobs_count": 67,
-      "top_skills": ["Python", "Machine Learning", "Data Science", "Biotech", "Research"],
-      "top_companies": ["MIT", "Harvard", "Boston Consulting Group", "Wayfair"],
-      "top_industries": ["Education", "Biotech", "Healthcare", "Consulting"],
-      "last_updated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "geo-austin",
-      "location_name": "Austin",
-      "country": "United States",
-      "city": "Austin",
-      "latitude": 30.2672,
-      "longitude": -97.7431,
-      "alumni_count": 76,
-      "jobs_count": 54,
-      "top_skills": ["JavaScript", "React", "Node.js", "Python", "DevOps"],
-      "top_companies": ["Dell", "Tesla", "Oracle", "Indeed"],
-      "top_industries": ["Tech", "Startups", "Hardware", "Software"],
-      "last_updated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "geo-ny",
-      "location_name": "New York",
-      "country": "United States",
-      "city": "New York",
-      "latitude": 40.7128,
-      "longitude": -74.0060,
-      "alumni_count": 189,
-      "jobs_count": 112,
-      "top_skills": ["Python", "Java", "SQL", "Finance", "Data Analysis"],
-      "top_companies": ["Goldman Sachs", "JP Morgan", "Google NYC", "Meta NYC"],
-      "top_industries": ["Finance", "Tech", "Media", "Consulting"],
-      "last_updated": "2024-12-28T10:00:00Z"
-    }
-  ],
-
-  "alumni_cards": [
-    {
-      "id": "card-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "card_number": "ALM-2019-00287",
-      "qr_code_data": "eyJhbHVtbmlfaWQiOiI2NjBlODQwMC1lMjliLTQxZDQtYTcxNi00NDY2NTU0NDAwMDEiLCJuYW1lIjoiU2FyYWggSm9obnNvbiIsImJhdGNoX3llYXIiOjIwMTksInZlcmlmaWVkIjp0cnVlfQ==",
-      "issue_date": "2023-06-15",
-      "expiry_date": "2028-06-15",
-      "is_active": true,
-      "verification_count": 8,
-      "last_verified": "2024-12-15T10:30:00Z",
-      "created_at": "2023-06-15T09:00:00Z",
-      "updated_at": "2024-12-15T10:30:00Z"
-    },
-    {
-      "id": "card-770e8400-e29b-41d4-a716",
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "card_number": "ALM-2018-00156",
-      "qr_code_data": "eyJhbHVtbmlfaWQiOiI3NzBlODQwMC1lMjliLTQxZDQtYTcxNi00NDY2NTU0NDAwMDIiLCJuYW1lIjoiTWljaGFlbCBDaGVuIiwiYmF0Y2hfeWVhciI6MjAxOCwidmVyaWZpZWQiOnRydWV9",
-      "issue_date": "2023-08-20",
-      "expiry_date": "2028-08-20",
-      "is_active": true,
-      "verification_count": 5,
-      "last_verified": "2024-11-22T14:15:00Z",
-      "created_at": "2023-08-20T10:00:00Z",
-      "updated_at": "2024-11-22T14:15:00Z"
-    }
-  ],
-
-  "career_paths": [
-    {
-      "id": "path-001",
-      "starting_role": "Software Engineer",
-      "target_role": "Engineering Manager",
-      "transition_percentage": 35,
-      "avg_years": 5,
-      "common_skills": ["Leadership", "Project Management", "System Design", "Mentoring"],
-      "alumni_count": 42,
-      "success_stories": [
-        {
-          "alumni_id": "770e8400-e29b-41d4-a716-446655440002",
-          "alumni_name": "Michael Chen",
-          "journey": "Started as SWE at startup, became tech lead after 3 years, then EM at Google",
-          "timeline_years": 5
-        }
-      ]
-    },
-    {
-      "id": "path-002",
-      "starting_role": "Software Engineer",
-      "target_role": "Product Manager",
-      "transition_percentage": 18,
-      "avg_years": 4,
-      "common_skills": ["Product Strategy", "User Research", "Communication", "Analytics"],
-      "alumni_count": 28,
-      "success_stories": [
-        {
-          "alumni_id": "660e8400-e29b-41d4-a716-446655440001",
-          "alumni_name": "Sarah Johnson",
-          "journey": "SWE at Google, took PM courses, transitioned to PM role",
-          "timeline_years": 4
-        }
-      ]
-    },
-    {
-      "id": "path-003",
-      "starting_role": "UX Designer",
-      "target_role": "Product Designer",
-      "transition_percentage": 45,
-      "avg_years": 3,
-      "common_skills": ["UI Design", "Design Systems", "Prototyping", "User Testing"],
-      "alumni_count": 35,
-      "success_stories": []
-    },
-    {
-      "id": "path-004",
-      "starting_role": "Data Analyst",
-      "target_role": "Data Scientist",
-      "transition_percentage": 38,
-      "avg_years": 3,
-      "common_skills": ["Machine Learning", "Python", "Statistics", "SQL"],
-      "alumni_count": 31,
-      "success_stories": []
-    },
-    {
-      "id": "path-005",
-      "starting_role": "Frontend Developer",
-      "target_role": "Full Stack Developer",
-      "transition_percentage": 52,
-      "avg_years": 2,
-      "common_skills": ["Backend Development", "Databases", "APIs", "DevOps"],
-      "alumni_count": 58,
-      "success_stories": []
-    }
-  ],
-
-  "leaderboard": [
-    {
-      "rank": 1,
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "name": "Sarah Johnson",
-      "photo_url": "https://i.pravatar.cc/150?img=1",
-      "role": "alumni",
-      "total_score": 2850,
-      "score_breakdown": {
-        "profile_completeness": 500,
-        "mentorship": 850,
-        "forum_activity": 650,
-        "job_applications": 400,
-        "event_participation": 450
-      },
-      "trend": "up",
-      "badges": ["Top Mentor", "Community Champion", "Knowledge Guru"],
-      "this_week_points": 120,
-      "this_month_points": 485
-    },
-    {
-      "rank": 2,
-      "user_id": "770e8400-e29b-41d4-a716-446655440002",
-      "name": "Michael Chen",
-      "photo_url": "https://i.pravatar.cc/150?img=2",
-      "role": "alumni",
-      "total_score": 2640,
-      "score_breakdown": {
-        "profile_completeness": 500,
-        "mentorship": 720,
-        "forum_activity": 580,
-        "job_applications": 380,
-        "event_participation": 460
-      },
-      "trend": "up",
-      "badges": ["Mentor Elite", "Event Host", "Career Helper"],
-      "this_week_points": 98,
-      "this_month_points": 412
-    },
-    {
-      "rank": 3,
-      "user_id": "aa0e8400-e29b-41d4-a716-446655440005",
-      "name": "Priya Patel",
-      "photo_url": "https://i.pravatar.cc/150?img=5",
-      "role": "alumni",
-      "total_score": 2420,
-      "score_breakdown": {
-        "profile_completeness": 500,
-        "mentorship": 650,
-        "forum_activity": 720,
-        "job_applications": 250,
-        "event_participation": 300
-      },
-      "trend": "same",
-      "badges": ["Forum Star", "Helpful Alumni", "Active Member"],
-      "this_week_points": 85,
-      "this_month_points": 378
-    },
-    {
-      "rank": 4,
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "name": "Emily Rodriguez",
-      "photo_url": "https://i.pravatar.cc/150?img=3",
-      "role": "student",
-      "total_score": 1980,
-      "score_breakdown": {
-        "profile_completeness": 450,
-        "mentorship": 380,
-        "forum_activity": 520,
-        "job_applications": 380,
-        "event_participation": 250
-      },
-      "trend": "up",
-      "badges": ["Rising Star", "Active Learner"],
-      "this_week_points": 112,
-      "this_month_points": 445
-    },
-    {
-      "rank": 5,
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "name": "James Wilson",
-      "photo_url": "https://i.pravatar.cc/150?img=6",
-      "role": "student",
-      "total_score": 1750,
-      "score_breakdown": {
-        "profile_completeness": 420,
-        "mentorship": 350,
-        "forum_activity": 480,
-        "job_applications": 300,
-        "event_participation": 200
-      },
-      "trend": "up",
-      "badges": ["Engaged Student", "Job Seeker"],
-      "this_week_points": 95,
-      "this_month_points": 398
-    },
-    {
-      "rank": 6,
-      "user_id": "cc0e8400-e29b-41d4-a716-446655440007",
-      "name": "Lisa Anderson",
-      "photo_url": "https://i.pravatar.cc/150?img=7",
-      "role": "alumni",
-      "total_score": 1620,
-      "score_breakdown": {
-        "profile_completeness": 480,
-        "mentorship": 420,
-        "forum_activity": 380,
-        "job_applications": 180,
-        "event_participation": 160
-      },
-      "trend": "down",
-      "badges": ["Mentor", "Alumni"],
-      "this_week_points": 42,
-      "this_month_points": 156
-    }
-  ],
-
-  "badges": [
-    {
-      "id": "badge-top-mentor",
-      "name": "Top Mentor",
-      "description": "Mentored 10+ students successfully",
-      "icon": "trophy",
-      "rarity": "legendary",
-      "requirement": "Complete 10 mentorship sessions with 4.5+ rating",
-      "unlocked_by": 12
-    },
-    {
-      "id": "badge-community-champion",
-      "name": "Community Champion",
-      "description": "Active contributor to the community",
-      "icon": "star",
-      "rarity": "epic",
-      "requirement": "500+ forum posts and comments with 100+ likes",
-      "unlocked_by": 8
-    },
-    {
-      "id": "badge-knowledge-guru",
-      "name": "Knowledge Guru",
-      "description": "Shared valuable knowledge capsules",
-      "icon": "book",
-      "rarity": "epic",
-      "requirement": "Create 5 knowledge capsules with 50+ likes each",
-      "unlocked_by": 5
-    },
-    {
-      "id": "badge-rising-star",
-      "name": "Rising Star",
-      "description": "Fast-growing community member",
-      "icon": "trending-up",
-      "rarity": "rare",
-      "requirement": "Gain 500+ points in one month",
-      "unlocked_by": 15
-    },
-    {
-      "id": "badge-active-learner",
-      "name": "Active Learner",
-      "description": "Always learning and growing",
-      "icon": "graduation-cap",
-      "rarity": "common",
-      "requirement": "Attend 5+ events and complete 3+ mentorship sessions",
-      "unlocked_by": 45
-    },
-    {
-      "id": "badge-event-host",
-      "name": "Event Host",
-      "description": "Organized successful events",
-      "icon": "calendar",
-      "rarity": "rare",
-      "requirement": "Host 3+ events with 20+ attendees each",
-      "unlocked_by": 7
-    }
-  ],
-
-  "system_config": [
-    {
-      "id": "config-platform-name",
-      "config_key": "platform_name",
-      "config_value": "AlumUnity",
-      "config_type": "string",
-      "description": "Name of the platform",
-      "is_public": true
-    },
-    {
-      "id": "config-max-job-days",
-      "config_key": "max_job_posting_days",
-      "config_value": "90",
-      "config_type": "number",
-      "description": "Maximum days a job posting remains active",
-      "is_public": false
-    },
-    {
-      "id": "config-max-mentees",
-      "config_key": "max_mentees_per_mentor",
-      "config_value": "5",
-      "config_type": "number",
-      "description": "Default maximum mentees per mentor",
-      "is_public": false
-    },
-    {
-      "id": "config-verification-required",
-      "config_key": "profile_verification_required",
-      "config_value": "true",
-      "config_type": "boolean",
-      "description": "Whether profile verification is mandatory",
-      "is_public": true
-    }
-  ],
-
-  "datasetUploads": [
-    {
-      "id": "upload-001",
-      "fileName": "alumni_data_2024_q1.csv",
-      "fileSize": 2548736,
-      "datasetType": "alumni",
-      "description": "Q1 2024 alumni database export with career updates",
-      "uploadedBy": "550e8400-e29b-41d4-a716-446655440000",
-      "uploadedByName": "Admin User",
-      "uploadDate": "2024-12-15T10:30:00Z",
-      "status": "completed",
-      "progress": 100,
-      "currentStage": "stored",
-      "totalRows": 1250,
-      "processedRows": 1250,
-      "validRows": 1235,
-      "errorRows": 15,
-      "processingTime": 145,
-      "dataQualityScore": 98.8,
-      "validationErrors": [
-        {
-          "row": 45,
-          "field": "email",
-          "error": "Invalid email format",
-          "value": "invalid.email"
-        },
-        {
-          "row": 127,
-          "field": "batch_year",
-          "error": "Year out of range",
-          "value": "1899"
-        },
-        {
-          "row": 234,
-          "field": "skills",
-          "error": "Invalid JSON format",
-          "value": "[React, Node.js"
-        }
-      ],
-      "aiSystemsTriggered": [
-        {
-          "system": "Skill Graph AI",
-          "status": "completed",
-          "updatedAt": "2024-12-15T10:35:00Z"
-        },
-        {
-          "system": "Career Prediction",
-          "status": "completed",
-          "updatedAt": "2024-12-15T10:38:00Z"
-        },
-        {
-          "system": "Talent Clustering",
-          "status": "completed",
-          "updatedAt": "2024-12-15T10:40:00Z"
-        }
-      ],
-      "logs": [
-        "2024-12-15T10:30:15 - Upload started",
-        "2024-12-15T10:30:45 - Validation complete: 1235/1250 rows valid",
-        "2024-12-15T10:31:20 - Data cleaning in progress",
-        "2024-12-15T10:32:00 - AI processing triggered",
-        "2024-12-15T10:33:25 - Data stored successfully"
-      ]
-    },
-    {
-      "id": "upload-002",
-      "fileName": "job_market_trends_2024.xlsx",
-      "fileSize": 4123456,
-      "datasetType": "job_market",
-      "description": "External job market data for AI prediction training",
-      "uploadedBy": "550e8400-e29b-41d4-a716-446655440000",
-      "uploadedByName": "Admin User",
-      "uploadDate": "2024-12-20T14:15:00Z",
-      "status": "processing",
-      "progress": 67,
-      "currentStage": "ai_processing",
-      "totalRows": 5000,
-      "processedRows": 3350,
-      "validRows": 3340,
-      "errorRows": 10,
-      "processingTime": 89,
-      "dataQualityScore": 99.7,
-      "validationErrors": [
-        {
-          "row": 89,
-          "field": "salary_range",
-          "error": "Invalid format",
-          "value": "50k-60k dollars"
-        }
-      ],
-      "aiSystemsTriggered": [
-        {
-          "system": "Career Prediction",
-          "status": "processing",
-          "updatedAt": "2024-12-20T14:25:00Z"
-        }
-      ],
-      "logs": [
-        "2024-12-20T14:15:10 - Upload started",
-        "2024-12-20T14:15:45 - Validation complete: 3340/3350 rows valid",
-        "2024-12-20T14:16:30 - Data cleaning completed",
-        "2024-12-20T14:17:00 - AI processing in progress (67%)"
-      ]
-    },
-    {
-      "id": "upload-003",
-      "fileName": "educational_programs.json",
-      "fileSize": 987234,
-      "datasetType": "educational",
-      "description": "Educational programs and courses data",
-      "uploadedBy": "550e8400-e29b-41d4-a716-446655440000",
-      "uploadedByName": "Admin User",
-      "uploadDate": "2024-12-10T09:00:00Z",
-      "status": "completed",
-      "progress": 100,
-      "currentStage": "stored",
-      "totalRows": 450,
-      "processedRows": 450,
-      "validRows": 448,
-      "errorRows": 2,
-      "processingTime": 45,
-      "dataQualityScore": 99.6,
-      "validationErrors": [
-        {
-          "row": 123,
-          "field": "duration",
-          "error": "Missing required field",
-          "value": null
-        }
-      ],
-      "aiSystemsTriggered": [
-        {
-          "system": "Capsule Ranking",
-          "status": "completed",
-          "updatedAt": "2024-12-10T09:05:00Z"
-        }
-      ],
-      "logs": [
-        "2024-12-10T09:00:15 - Upload started",
-        "2024-12-10T09:00:30 - Validation complete: 448/450 rows valid",
-        "2024-12-10T09:00:45 - AI processing completed",
-        "2024-12-10T09:01:00 - Data stored successfully"
-      ]
-    },
-    {
-      "id": "upload-004",
-      "fileName": "alumni_skills_database.csv",
-      "fileSize": 1567890,
-      "datasetType": "alumni",
-      "description": "Comprehensive skills mapping for alumni profiles",
-      "uploadedBy": "550e8400-e29b-41d4-a716-446655440000",
-      "uploadedByName": "Admin User",
-      "uploadDate": "2024-12-05T16:45:00Z",
-      "status": "failed",
-      "progress": 35,
-      "currentStage": "validating",
-      "totalRows": 890,
-      "processedRows": 312,
-      "validRows": 280,
-      "errorRows": 32,
-      "processingTime": 23,
-      "dataQualityScore": 89.7,
-      "validationErrors": [
-        {
-          "row": 45,
-          "field": "user_id",
-          "error": "User not found",
-          "value": "invalid-uuid"
-        },
-        {
-          "row": 67,
-          "field": "skills",
-          "error": "Too many validation errors",
-          "value": "corrupt data"
-        }
-      ],
-      "aiSystemsTriggered": [],
-      "logs": [
-        "2024-12-05T16:45:10 - Upload started",
-        "2024-12-05T16:45:30 - Validation failed: Too many errors (>10%)",
-        "2024-12-05T16:45:35 - Upload aborted"
-      ]
-    },
-    {
-      "id": "upload-005",
-      "fileName": "career_transitions_2023.csv",
-      "fileSize": 3245678,
-      "datasetType": "job_market",
-      "description": "Historical career transition data for ML training",
-      "uploadedBy": "550e8400-e29b-41d4-a716-446655440000",
-      "uploadedByName": "Admin User",
-      "uploadDate": "2024-11-28T11:20:00Z",
-      "status": "completed",
-      "progress": 100,
-      "currentStage": "stored",
-      "totalRows": 2340,
-      "processedRows": 2340,
-      "validRows": 2335,
-      "errorRows": 5,
-      "processingTime": 178,
-      "dataQualityScore": 99.8,
-      "validationErrors": [
-        {
-          "row": 456,
-          "field": "transition_date",
-          "error": "Invalid date format",
-          "value": "2023-13-01"
-        }
-      ],
-      "aiSystemsTriggered": [
-        {
-          "system": "Career Prediction",
-          "status": "completed",
-          "updatedAt": "2024-11-28T11:25:00Z"
-        },
-        {
-          "system": "Skill Graph AI",
-          "status": "completed",
-          "updatedAt": "2024-11-28T11:28:00Z"
-        }
-      ],
-      "logs": [
-        "2024-11-28T11:20:10 - Upload started",
-        "2024-11-28T11:21:00 - Validation complete: 2335/2340 rows valid",
-        "2024-11-28T11:22:15 - Data cleaning completed",
-        "2024-11-28T11:23:00 - AI processing completed",
-        "2024-11-28T11:23:58 - Data stored successfully"
-      ]
-    }
-  ],
-
-  "career_predictions": [
-    {
-      "id": "pred-880e8400-e29b-41d4-a716",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "user_name": "Emily Rodriguez",
-      "user_role": "student",
-      "current_role": "Computer Science Student",
-      "current_skills": ["JavaScript", "React", "Python", "SQL", "Git"],
-      "experience_level": "entry",
-      "predicted_roles": [
-        {
-          "role_name": "Frontend Developer",
-          "probability": 85,
-          "confidence": "high",
-          "timeframe": "6-12 months",
-          "salary_range": "$70,000 - $95,000",
-          "skills_match": ["JavaScript", "React", "Git"],
-          "skills_gap": ["TypeScript", "CSS-in-JS", "Testing (Jest)", "Redux"],
-          "skill_importance": {
-            "TypeScript": "critical",
-            "CSS-in-JS": "high",
-            "Testing (Jest)": "high",
-            "Redux": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "TypeScript",
-              "estimated_time": "4 weeks",
-              "resources": ["TypeScript Documentation", "TypeScript Deep Dive (Book)", "Execute Program"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Advanced React & Redux",
-              "estimated_time": "3 weeks",
-              "resources": ["Redux Toolkit Docs", "Epic React Course", "React Testing Library"],
-              "priority": "high"
-            },
-            {
-              "step": 3,
-              "skill": "Testing with Jest",
-              "estimated_time": "2 weeks",
-              "resources": ["Jest Documentation", "Testing JavaScript Course", "React Testing Library"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "CSS-in-JS (Styled Components/Emotion)",
-              "estimated_time": "1 week",
-              "resources": ["Styled Components Docs", "CSS-in-JS Best Practices"],
-              "priority": "medium"
-            }
-          ],
-          "similar_alumni_count": 45,
-          "transition_success_rate": 88,
-          "avg_transition_duration": "8 months",
-          "industry_insights": "Frontend development continues to be in high demand with strong growth in React ecosystem. Companies are increasingly looking for TypeScript proficiency.",
-          "ai_advice": "Your strong foundation in React and JavaScript puts you in an excellent position for frontend roles. Focus on TypeScript as it's becoming industry standard. Build 2-3 portfolio projects showcasing your React skills with TypeScript. Contributing to open-source React projects will significantly boost your profile."
-        },
-        {
-          "role_name": "Full Stack Developer",
-          "probability": 72,
-          "confidence": "high",
-          "timeframe": "12-18 months",
-          "salary_range": "$80,000 - $110,000",
-          "skills_match": ["JavaScript", "React", "Python", "SQL"],
-          "skills_gap": ["Node.js", "Express", "MongoDB", "REST APIs", "Docker"],
-          "skill_importance": {
-            "Node.js": "critical",
-            "Express": "critical",
-            "REST APIs": "critical",
-            "MongoDB": "high",
-            "Docker": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Node.js & Express",
-              "estimated_time": "6 weeks",
-              "resources": ["Node.js Documentation", "Express.js Guide", "Node.js Design Patterns"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "REST API Development",
-              "estimated_time": "4 weeks",
-              "resources": ["RESTful API Design", "API Security Best Practices", "Postman Learning"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "MongoDB & Database Design",
-              "estimated_time": "3 weeks",
-              "resources": ["MongoDB University", "Database Design Course", "Mongoose Documentation"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "Docker & Containerization",
-              "estimated_time": "2 weeks",
-              "resources": ["Docker Documentation", "Docker Mastery Course", "Docker Best Practices"],
-              "priority": "medium"
-            }
-          ],
-          "similar_alumni_count": 58,
-          "transition_success_rate": 82,
-          "avg_transition_duration": "14 months",
-          "industry_insights": "Full-stack developers are highly sought after. The MERN stack (MongoDB, Express, React, Node.js) is particularly popular among startups and mid-size companies.",
-          "ai_advice": "Your Python and SQL background gives you a head start in backend development. Complement your React skills with Node.js to become a MERN stack developer. Build a complete full-stack application and deploy it to showcase end-to-end capabilities."
-        },
-        {
-          "role_name": "Software Engineer",
-          "probability": 78,
-          "confidence": "high",
-          "timeframe": "12-18 months",
-          "salary_range": "$85,000 - $120,000",
-          "skills_match": ["JavaScript", "Python", "SQL", "Git"],
-          "skills_gap": ["Data Structures & Algorithms", "System Design", "OOP", "Testing"],
-          "skill_importance": {
-            "Data Structures & Algorithms": "critical",
-            "System Design": "high",
-            "OOP": "high",
-            "Testing": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Data Structures & Algorithms",
-              "estimated_time": "8 weeks",
-              "resources": ["LeetCode", "Cracking the Coding Interview", "AlgoExpert"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "System Design Fundamentals",
-              "estimated_time": "6 weeks",
-              "resources": ["System Design Primer", "Designing Data-Intensive Applications", "System Design Interview"],
-              "priority": "high"
-            },
-            {
-              "step": 3,
-              "skill": "Object-Oriented Programming",
-              "estimated_time": "4 weeks",
-              "resources": ["Design Patterns", "Clean Code", "SOLID Principles"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "Testing & TDD",
-              "estimated_time": "3 weeks",
-              "resources": ["Test-Driven Development", "Unit Testing Best Practices", "Integration Testing"],
-              "priority": "medium"
-            }
-          ],
-          "similar_alumni_count": 124,
-          "transition_success_rate": 85,
-          "avg_transition_duration": "15 months",
-          "industry_insights": "Software engineering roles offer diverse opportunities across industries. Strong fundamentals in DSA and system design are key for landing positions at top tech companies.",
-          "ai_advice": "Practice coding problems daily on LeetCode (aim for 200+ problems). Your computer science background gives you theoretical knowledge - now focus on practical application and interview preparation. Join mock interview sessions and contribute to real-world projects."
-        },
-        {
-          "role_name": "Data Analyst",
-          "probability": 65,
-          "confidence": "medium",
-          "timeframe": "9-15 months",
-          "salary_range": "$65,000 - $90,000",
-          "skills_match": ["Python", "SQL"],
-          "skills_gap": ["Data Visualization", "Statistics", "Excel", "Tableau", "pandas"],
-          "skill_importance": {
-            "Data Visualization": "critical",
-            "Statistics": "critical",
-            "pandas": "high",
-            "Tableau": "high",
-            "Excel": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Statistics & Probability",
-              "estimated_time": "5 weeks",
-              "resources": ["Khan Academy Statistics", "Statistics for Data Science", "Practical Statistics"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Data Analysis with pandas",
-              "estimated_time": "4 weeks",
-              "resources": ["pandas Documentation", "Python for Data Analysis", "DataCamp pandas Course"],
-              "priority": "high"
-            },
-            {
-              "step": 3,
-              "skill": "Data Visualization (Tableau/PowerBI)",
-              "estimated_time": "3 weeks",
-              "resources": ["Tableau Public Gallery", "Data Visualization Best Practices", "Storytelling with Data"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "Advanced Excel & Reporting",
-              "estimated_time": "2 weeks",
-              "resources": ["Excel for Data Analysis", "Dashboard Design", "Business Intelligence Fundamentals"],
-              "priority": "medium"
-            }
-          ],
-          "similar_alumni_count": 31,
-          "transition_success_rate": 75,
-          "avg_transition_duration": "12 months",
-          "industry_insights": "Data analyst roles are growing across all industries. Strong SQL and visualization skills are essential. Many companies use this as a stepping stone to data science roles.",
-          "ai_advice": "Your Python and SQL skills provide a solid foundation. Focus on statistical analysis and data visualization. Create a portfolio of data analysis projects with clear insights and visualizations. Consider getting certified in Tableau or PowerBI."
-        },
-        {
-          "role_name": "UI/UX Developer",
-          "probability": 58,
-          "confidence": "medium",
-          "timeframe": "12-18 months",
-          "salary_range": "$70,000 - $100,000",
-          "skills_match": ["JavaScript", "React"],
-          "skills_gap": ["UI Design", "Figma", "CSS/SASS", "Design Systems", "User Research"],
-          "skill_importance": {
-            "UI Design": "critical",
-            "Figma": "critical",
-            "CSS/SASS": "high",
-            "Design Systems": "high",
-            "User Research": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "UI Design Fundamentals",
-              "estimated_time": "6 weeks",
-              "resources": ["Design Principles", "Color Theory", "Typography", "UI Design Patterns"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Figma & Prototyping",
-              "estimated_time": "4 weeks",
-              "resources": ["Figma Tutorial", "Prototyping Best Practices", "Design Handoff"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "Advanced CSS & SASS",
-              "estimated_time": "3 weeks",
-              "resources": ["CSS Grid & Flexbox", "SASS Documentation", "CSS Animation"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "Design Systems",
-              "estimated_time": "3 weeks",
-              "resources": ["Building Design Systems", "Component Libraries", "Storybook"],
-              "priority": "high"
-            }
-          ],
-          "similar_alumni_count": 22,
-          "transition_success_rate": 70,
-          "avg_transition_duration": "15 months",
-          "industry_insights": "UI/UX developer role bridges design and development. Companies value developers who can implement designs with pixel-perfect accuracy while understanding design principles.",
-          "ai_advice": "Combine your React skills with design knowledge. Start by recreating beautiful UI designs, then move to creating your own. Build a design portfolio showcasing both design and implementation skills."
-        }
-      ],
-      "last_updated": "2024-12-28T10:00:00Z",
-      "next_update": "2025-01-28T10:00:00Z"
-    },
-    {
-      "id": "pred-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "user_name": "Sarah Johnson",
-      "user_role": "alumni",
-      "current_role": "Senior Product Manager",
-      "current_skills": ["Product Management", "Agile", "User Research", "Data Analysis", "Roadmapping", "Stakeholder Management"],
-      "experience_level": "senior",
-      "predicted_roles": [
-        {
-          "role_name": "Director of Product",
-          "probability": 82,
-          "confidence": "high",
-          "timeframe": "18-24 months",
-          "salary_range": "$160,000 - $220,000",
-          "skills_match": ["Product Management", "Stakeholder Management", "Roadmapping"],
-          "skills_gap": ["Team Leadership", "P&L Management", "Strategy Development", "Executive Communication"],
-          "skill_importance": {
-            "Team Leadership": "critical",
-            "Strategy Development": "critical",
-            "P&L Management": "high",
-            "Executive Communication": "high"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Team Leadership & Management",
-              "estimated_time": "6 months",
-              "resources": ["Leadership Training", "Managing Product Managers", "High Output Management"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Strategic Product Planning",
-              "estimated_time": "4 months",
-              "resources": ["Product Strategy", "OKRs Masterclass", "Strategic Thinking"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "P&L and Business Metrics",
-              "estimated_time": "3 months",
-              "resources": ["Business Finance for PMs", "Unit Economics", "Financial Modeling"],
-              "priority": "high"
-            },
-            {
-              "step": 4,
-              "skill": "Executive Communication",
-              "estimated_time": "2 months",
-              "resources": ["Executive Presence", "Storytelling for Leaders", "Board Presentations"],
-              "priority": "high"
-            }
-          ],
-          "similar_alumni_count": 18,
-          "transition_success_rate": 78,
-          "avg_transition_duration": "20 months",
-          "industry_insights": "Director roles require proven ability to lead teams and drive product strategy. Experience managing multiple PMs and demonstrating business impact are key.",
-          "ai_advice": "You're well-positioned for this transition with your senior PM experience. Focus on developing leadership skills and taking on more strategic responsibilities. Mentor junior PMs and lead cross-functional initiatives to demonstrate leadership capability."
-        },
-        {
-          "role_name": "VP of Product",
-          "probability": 68,
-          "confidence": "medium",
-          "timeframe": "30-36 months",
-          "salary_range": "$200,000 - $300,000",
-          "skills_match": ["Product Management", "Stakeholder Management", "Strategy"],
-          "skills_gap": ["Executive Leadership", "Org Building", "Vision Setting", "Board Communication", "M&A Experience"],
-          "skill_importance": {
-            "Executive Leadership": "critical",
-            "Vision Setting": "critical",
-            "Org Building": "critical",
-            "Board Communication": "high",
-            "M&A Experience": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Executive Leadership",
-              "estimated_time": "12 months",
-              "resources": ["Executive MBA", "Leadership at Scale", "Executive Coaching"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Product Vision & Strategy",
-              "estimated_time": "6 months",
-              "resources": ["Product Leadership", "Vision Setting Workshops", "Strategic Product Management"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "Organization Building",
-              "estimated_time": "6 months",
-              "resources": ["Building Product Teams", "Org Design", "Scaling Product Organizations"],
-              "priority": "critical"
-            },
-            {
-              "step": 4,
-              "skill": "Board-Level Communication",
-              "estimated_time": "3 months",
-              "resources": ["Board Presentation Skills", "C-Suite Communication", "Executive Storytelling"],
-              "priority": "high"
-            }
-          ],
-          "similar_alumni_count": 8,
-          "transition_success_rate": 65,
-          "avg_transition_duration": "33 months",
-          "industry_insights": "VP Product roles typically require 10+ years of product experience with proven track record of building and scaling product organizations. Often need experience at multiple companies.",
-          "ai_advice": "This is a significant leap requiring extensive leadership experience. Consider the Director path first. Build relationships with executives, take on strategic company-wide initiatives, and develop a strong network in the product community."
-        },
-        {
-          "role_name": "Chief Product Officer (CPO)",
-          "probability": 45,
-          "confidence": "low",
-          "timeframe": "48-60 months",
-          "salary_range": "$250,000 - $400,000+",
-          "skills_match": ["Product Strategy", "Stakeholder Management"],
-          "skills_gap": ["C-Suite Experience", "Board Management", "Company Strategy", "Fundraising", "M&A", "P&L Ownership"],
-          "skill_importance": {
-            "C-Suite Experience": "critical",
-            "Company Strategy": "critical",
-            "Board Management": "critical",
-            "P&L Ownership": "high",
-            "Fundraising": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "C-Level Leadership",
-              "estimated_time": "24 months",
-              "resources": ["Executive MBA", "C-Suite Coaching", "Leadership at Scale"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Company-Level Strategy",
-              "estimated_time": "12 months",
-              "resources": ["Corporate Strategy", "Business Model Innovation", "Strategic Planning"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "Board Relations & Governance",
-              "estimated_time": "6 months",
-              "resources": ["Board Governance", "Investor Relations", "Corporate Governance"],
-              "priority": "critical"
-            }
-          ],
-          "similar_alumni_count": 3,
-          "transition_success_rate": 55,
-          "avg_transition_duration": "54 months",
-          "industry_insights": "CPO roles are rare and highly competitive. Usually requires proven track record as VP or Director at successful companies, often with multiple successful product launches.",
-          "ai_advice": "This is a long-term goal requiring significant experience progression through Director and VP roles first. Focus on building a strong track record of product success and leadership. Consider startup CPO roles as an alternative faster path."
-        }
-      ],
-      "last_updated": "2024-12-28T10:00:00Z",
-      "next_update": "2025-01-28T10:00:00Z"
-    },
-    {
-      "id": "pred-bb0e8400-e29b-41d4-a716",
-      "user_id": "bb0e8400-e29b-41d4-a716-446655440006",
-      "user_name": "James Wilson",
-      "user_role": "student",
-      "current_role": "Business Analytics Student",
-      "current_skills": ["Excel", "SQL", "Python", "Statistics", "Data Visualization"],
-      "experience_level": "entry",
-      "predicted_roles": [
-        {
-          "role_name": "Business Analyst",
-          "probability": 88,
-          "confidence": "high",
-          "timeframe": "6-12 months",
-          "salary_range": "$60,000 - $80,000",
-          "skills_match": ["Excel", "SQL", "Data Visualization"],
-          "skills_gap": ["Business Process Modeling", "Requirements Gathering", "Stakeholder Management", "Agile/Scrum"],
-          "skill_importance": {
-            "Business Process Modeling": "critical",
-            "Requirements Gathering": "critical",
-            "Stakeholder Management": "high",
-            "Agile/Scrum": "high"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Business Analysis Fundamentals",
-              "estimated_time": "4 weeks",
-              "resources": ["BABOK Guide", "Business Analysis Certification", "Requirements Gathering"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Process Modeling & Documentation",
-              "estimated_time": "3 weeks",
-              "resources": ["BPMN", "Process Mapping", "UML Basics"],
-              "priority": "critical"
-            },
-            {
-              "step": 3,
-              "skill": "Agile Methodologies",
-              "estimated_time": "2 weeks",
-              "resources": ["Scrum Guide", "Agile for Business Analysts", "User Stories"],
-              "priority": "high"
-            }
-          ],
-          "similar_alumni_count": 67,
-          "transition_success_rate": 92,
-          "avg_transition_duration": "9 months",
-          "industry_insights": "Business analyst roles bridge business and technology. Strong analytical skills and communication are essential. Entry-level positions are abundant across industries.",
-          "ai_advice": "Your analytical background is perfect for BA roles. Focus on understanding business processes and improving communication skills. Get certified (CBAP or similar) to stand out. Practice writing clear requirements documents."
-        },
-        {
-          "role_name": "Data Analyst",
-          "probability": 85,
-          "confidence": "high",
-          "timeframe": "6-12 months",
-          "salary_range": "$65,000 - $85,000",
-          "skills_match": ["SQL", "Python", "Statistics", "Data Visualization"],
-          "skills_gap": ["Tableau", "pandas", "Advanced Statistics", "A/B Testing"],
-          "skill_importance": {
-            "Tableau": "critical",
-            "pandas": "high",
-            "Advanced Statistics": "high",
-            "A/B Testing": "medium"
-          },
-          "learning_path": [
-            {
-              "step": 1,
-              "skill": "Advanced Data Visualization",
-              "estimated_time": "3 weeks",
-              "resources": ["Tableau Desktop Specialist", "Data Visualization Best Practices", "Dashboard Design"],
-              "priority": "critical"
-            },
-            {
-              "step": 2,
-              "skill": "Python for Data Analysis",
-              "estimated_time": "4 weeks",
-              "resources": ["pandas", "numpy", "matplotlib", "seaborn"],
-              "priority": "high"
-            },
-            {
-              "step": 3,
-              "skill": "Statistical Analysis",
-              "estimated_time": "4 weeks",
-              "resources": ["Inferential Statistics", "Hypothesis Testing", "Regression Analysis"],
-              "priority": "high"
-            }
-          ],
-          "similar_alumni_count": 52,
-          "transition_success_rate": 87,
-          "avg_transition_duration": "8 months",
-          "industry_insights": "Data analyst positions continue growing. Companies value ability to extract insights from data and communicate findings effectively.",
-          "ai_advice": "Your foundation is strong. Build a portfolio of data analysis projects with clear business insights. Master Tableau for visualization. Practice presenting data stories to non-technical audiences."
-        }
-      ],
-      "last_updated": "2024-12-28T10:00:00Z",
-      "next_update": "2025-01-28T10:00:00Z"
-    }
-  ],
-
-  "ai_engagement_insights": [
-    {
-      "id": "ai-eng-660e8400-e29b-41d4-a716",
-      "user_id": "660e8400-e29b-41d4-a716-446655440001",
-      "user_name": "Sarah Johnson",
-      "current_score": 485,
-      "current_rank": 1,
-      "engagement_prediction": {
-        "predicted_trend": "stable",
-        "confidence": 0.87,
-        "predicted_score_7days": 510,
-        "predicted_score_30days": 560,
-        "risk_factors": [],
-        "opportunities": ["Increased forum activity", "Event participation"]
-      },
-      "activity_patterns": {
-        "best_posting_times": [
-          { "day": "Tuesday", "hour": 14, "engagement_boost": 1.45 },
-          { "day": "Wednesday", "hour": 10, "engagement_boost": 1.38 },
-          { "day": "Thursday", "hour": 16, "engagement_boost": 1.32 }
-        ],
-        "most_effective_contributions": [
-          { "type": "mentorship", "avg_points": 48, "effectiveness": "high" },
-          { "type": "forum_posts", "avg_points": 12, "effectiveness": "high" },
-          { "type": "event_participation", "avg_points": 8, "effectiveness": "medium" }
-        ],
-        "peak_activity_periods": [
-          { "period": "Weekday Afternoons", "score": 0.82 },
-          { "period": "Tuesday Mornings", "score": 0.76 }
-        ]
-      },
-      "comparison_with_similar_users": {
-        "percentile": 95,
-        "avg_score_similar_users": 420,
-        "your_advantage": "Strong mentorship engagement",
-        "improvement_areas": ["Event hosting", "Knowledge sharing"]
-      },
-      "smart_suggestions": [
-        {
-          "id": "sug-1",
-          "action": "Host a mentorship session",
-          "impact": "high",
-          "estimated_points": 60,
-          "time_investment": "2 hours",
-          "priority": 1,
-          "reason": "You have high mentor engagement rate. Hosting sessions will maximize your impact."
-        },
-        {
-          "id": "sug-2",
-          "action": "Create a knowledge capsule on Product Management",
-          "impact": "high",
-          "estimated_points": 45,
-          "time_investment": "3 hours",
-          "priority": 2,
-          "reason": "Your expertise is in demand. Share your knowledge to help others and boost engagement."
-        },
-        {
-          "id": "sug-3",
-          "action": "Participate in upcoming Tech Career Fair",
-          "impact": "medium",
-          "estimated_points": 25,
-          "time_investment": "4 hours",
-          "priority": 3,
-          "reason": "Event participation aligns with community engagement goals."
-        },
-        {
-          "id": "sug-4",
-          "action": "Reply to 5 forum posts in your expertise area",
-          "impact": "medium",
-          "estimated_points": 20,
-          "time_investment": "1 hour",
-          "priority": 4,
-          "reason": "Quick wins through meaningful community interaction."
-        }
-      ],
-      "contribution_impact_history": [
-        { "date": "2024-11-28", "points": 12, "type": "forum" },
-        { "date": "2024-11-29", "points": 8, "type": "event" },
-        { "date": "2024-12-01", "points": 48, "type": "mentorship" },
-        { "date": "2024-12-03", "points": 15, "type": "forum" },
-        { "date": "2024-12-05", "points": 32, "type": "mentorship" },
-        { "date": "2024-12-08", "points": 10, "type": "event" },
-        { "date": "2024-12-10", "points": 48, "type": "mentorship" },
-        { "date": "2024-12-12", "points": 18, "type": "forum" },
-        { "date": "2024-12-15", "points": 40, "type": "mentorship" },
-        { "date": "2024-12-17", "points": 12, "type": "event" },
-        { "date": "2024-12-19", "points": 45, "type": "mentorship" },
-        { "date": "2024-12-22", "points": 22, "type": "forum" },
-        { "date": "2024-12-24", "points": 38, "type": "mentorship" },
-        { "date": "2024-12-26", "points": 14, "type": "event" },
-        { "date": "2024-12-28", "points": 50, "type": "mentorship" }
-      ],
-      "last_updated": "2024-12-28T10:00:00Z"
-    },
-    {
-      "id": "ai-eng-880e8400-e29b-41d4-a716",
-      "user_id": "880e8400-e29b-41d4-a716-446655440003",
-      "user_name": "Emily Rodriguez",
-      "current_score": 156,
-      "current_rank": 8,
-      "engagement_prediction": {
-        "predicted_trend": "increasing",
-        "confidence": 0.92,
-        "predicted_score_7days": 175,
-        "predicted_score_30days": 220,
-        "risk_factors": [],
-        "opportunities": ["Job applications", "Mentorship participation", "Forum engagement"]
-      },
-      "activity_patterns": {
-        "best_posting_times": [
-          { "day": "Monday", "hour": 18, "engagement_boost": 1.52 },
-          { "day": "Wednesday", "hour": 20, "engagement_boost": 1.41 },
-          { "day": "Saturday", "hour": 11, "engagement_boost": 1.28 }
-        ],
-        "most_effective_contributions": [
-          { "type": "forum_posts", "avg_points": 15, "effectiveness": "high" },
-          { "type": "job_applications", "avg_points": 10, "effectiveness": "medium" },
-          { "type": "event_participation", "avg_points": 8, "effectiveness": "medium" }
-        ],
-        "peak_activity_periods": [
-          { "period": "Evening Hours", "score": 0.88 },
-          { "period": "Weekend Mornings", "score": 0.72 }
-        ]
-      },
-      "comparison_with_similar_users": {
-        "percentile": 68,
-        "avg_score_similar_users": 145,
-        "your_advantage": "Active forum participation",
-        "improvement_areas": ["Mentorship engagement", "Profile completion"]
-      },
-      "smart_suggestions": [
-        {
-          "id": "sug-1",
-          "action": "Request mentorship from a senior alumni",
-          "impact": "high",
-          "estimated_points": 35,
-          "time_investment": "30 minutes",
-          "priority": 1,
-          "reason": "Students with active mentorship see 2.5x engagement increase."
-        },
-        {
-          "id": "sug-2",
-          "action": "Complete your profile with projects and skills",
-          "impact": "high",
-          "estimated_points": 30,
-          "time_investment": "1 hour",
-          "priority": 2,
-          "reason": "Profile completeness directly boosts visibility and opportunities."
-        },
-        {
-          "id": "sug-3",
-          "action": "Apply to 3 relevant job postings",
-          "impact": "medium",
-          "estimated_points": 24,
-          "time_investment": "2 hours",
-          "priority": 3,
-          "reason": "Active job seeking shows engagement and opens networking opportunities."
-        },
-        {
-          "id": "sug-4",
-          "action": "Share your learning journey in a forum post",
-          "impact": "medium",
-          "estimated_points": 18,
-          "time_investment": "45 minutes",
-          "priority": 4,
-          "reason": "Your recent posts have high engagement. Community values your insights."
-        }
-      ],
-      "contribution_impact_history": [
-        { "date": "2024-11-28", "points": 8, "type": "forum" },
-        { "date": "2024-11-30", "points": 6, "type": "event" },
-        { "date": "2024-12-02", "points": 10, "type": "job_application" },
-        { "date": "2024-12-04", "points": 12, "type": "forum" },
-        { "date": "2024-12-06", "points": 8, "type": "event" },
-        { "date": "2024-12-09", "points": 15, "type": "forum" },
-        { "date": "2024-12-11", "points": 10, "type": "job_application" },
-        { "date": "2024-12-13", "points": 7, "type": "event" },
-        { "date": "2024-12-16", "points": 18, "type": "forum" },
-        { "date": "2024-12-18", "points": 10, "type": "job_application" },
-        { "date": "2024-12-20", "points": 14, "type": "forum" },
-        { "date": "2024-12-23", "points": 8, "type": "event" },
-        { "date": "2024-12-25", "points": 16, "type": "forum" },
-        { "date": "2024-12-27", "points": 10, "type": "job_application" },
-        { "date": "2024-12-28", "points": 4, "type": "profile" }
-      ],
-      "last_updated": "2024-12-28T10:00:00Z"
-    }
-  ]
+  "messages": [],
+  "message_threads": [],
+  "resource_recommendations": [],
+  "achievement_badges": [],
+  "mentor_connections": []
 }

@@ -622,39 +622,85 @@ async def resend_verification(
 
 @router.get("/quick-login-users", response_model=Dict)
 async def get_quick_login_users():
-    """Get list of users for quick login buttons"""
+    """Get list of users for quick login buttons - one per role with rich data"""
     try:
         if USE_MOCK_DB:
-            # Return mock users for demo
-            users = []
+            # Return rich mock users for each role
+            role_users = {
+                "student": None,
+                "alumni": None,
+                "recruiter": None,
+                "admin": None
+            }
+            
+            # Select best user from each role
             for email, user_data in MOCK_USERS.items():
-                users.append({
-                    "email": user_data["email"],
-                    "name": user_data.get("name", ""),
-                    "role": user_data.get("role", "student"),
-                    "avatar": user_data.get("avatar", "")
-                })
-            return {"users": users[:6]}  # Return first 6 users
+                role = user_data.get("role", "student")
+                if role in role_users and role_users[role] is None:
+                    role_users[role] = user_data
+            
+            users = []
+            # Fallback selections if any role is missing
+            role_order = ["student", "recruiter", "alumni", "admin"]
+            for role in role_order:
+                if role_users[role]:
+                    user = role_users[role]
+                    users.append({
+                        "id": user["id"],
+                        "email": user["email"],
+                        "name": user.get("name", ""),
+                        "role": user.get("role", "student"),
+                        "avatar": user.get("avatar", ""),
+                        "headline": user.get("headline", ""),
+                        "bio": user.get("bio", ""),
+                        "company": user.get("company", ""),
+                        "title": user.get("title", ""),
+                        "skills": user.get("skills", [])
+                    })
+            
+            return {"users": users}
         else:
-            # Fetch from database
-            pool = get_db_pool()
+            # Fetch from database - get one rich user per role
+            pool = await get_db_pool()
             if not pool:
                 return {"users": []}
             
             async with pool.acquire() as conn:
                 async with conn.cursor() as cursor:
-                    query = "SELECT id, email, role FROM users LIMIT 6"
-                    await cursor.execute(query)
-                    results = await cursor.fetchall()
-                    
                     users = []
-                    for row in results:
-                        users.append({
-                            "id": row[0],
-                            "email": row[1],
-                            "role": row[2],
-                            "name": row[1].split('@')[0]  # Use email prefix as name if not available
-                        })
+                    roles = ["student", "recruiter", "alumni", "admin"]
+                    
+                    for role in roles:
+                        # Get user with most skills for each role
+                        query = """
+                            SELECT u.id, u.email, u.role, up.name, up.headline, up.bio, 
+                                   up.company, up.title, GROUP_CONCAT(s.name) as skills
+                            FROM users u
+                            LEFT JOIN user_profiles up ON u.id = up.user_id
+                            LEFT JOIN user_skills us ON u.id = us.user_id
+                            LEFT JOIN skills s ON us.skill_id = s.id
+                            WHERE u.role = %s
+                            GROUP BY u.id, u.email, u.role, up.name, up.headline, up.bio, up.company, up.title
+                            ORDER BY COUNT(us.skill_id) DESC
+                            LIMIT 1
+                        """
+                        await cursor.execute(query, (role,))
+                        result = await cursor.fetchone()
+                        
+                        if result:
+                            skills = result[8].split(',') if result[8] else []
+                            users.append({
+                                "id": result[0],
+                                "email": result[1],
+                                "role": result[2],
+                                "name": result[3] or result[1].split('@')[0],
+                                "headline": result[4] or "",
+                                "bio": result[5] or "",
+                                "company": result[6] or "",
+                                "title": result[7] or "",
+                                "skills": skills[:5]  # Top 5 skills
+                            })
+                    
                     return {"users": users}
     except Exception as e:
         logger.error(f"Error fetching quick login users: {str(e)}")

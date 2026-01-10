@@ -40,7 +40,7 @@ const Login = () => {
   useEffect(() => {
     const fetchDatabaseUsers = async () => {
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
         const response = await fetch(`${backendUrl}/api/auth/quick-login-users`, {
           method: 'GET',
           headers: {
@@ -333,34 +333,46 @@ const Login = () => {
               Quick Login as:
             </p>
             <div className="grid grid-cols-2 gap-2">
-              {roleCredentials.map((cred) => {
-                const IconComponent = cred.icon;
-                return (
-                  <Button
-                    key={cred.role}
-                    type="button"
-                    variant="outline"
-                    className={`${cred.bgColor} border-0 transition-all duration-200`}
-                    onClick={() => handleQuickLogin(cred.email, cred.password)}
-                    disabled={loading}
-                    data-testid={`quick-login-${cred.role.toLowerCase()}`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${cred.color} flex items-center justify-center`}>
-                        <IconComponent className="h-4 w-4 text-white" />
-                      </div>
-                      <div className="text-left">
-                        <div className={`text-xs font-semibold ${cred.textColor}`}>
-                          {cred.role}
+              {roleCredentials && roleCredentials.length > 0 ? (
+                roleCredentials.map((cred) => {
+                  const IconComponent = cred.icon;
+                  const role = typeof cred.role === 'string' ? cred.role : cred.role?.charAt(0).toUpperCase() + cred.role?.slice(1);
+                  return (
+                    <Button
+                      key={cred.role}
+                      type="button"
+                      variant="outline"
+                      className={`${cred.bgColor} border-0 transition-all duration-200 h-auto py-3 flex flex-col items-center justify-center`}
+                      onClick={() => handleQuickLogin(cred.email, cred.password)}
+                      disabled={loading || loadingUsers}
+                      data-testid={`quick-login-${cred.role.toLowerCase()}`}
+                      title={`${cred.name} (${cred.company || 'User'})`}
+                    >
+                      <div className="flex flex-col items-center gap-1 w-full">
+                        <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${cred.color} flex items-center justify-center`}>
+                          <IconComponent className="h-4 w-4 text-white" />
                         </div>
+                        <div className={`text-xs font-semibold ${cred.textColor} text-center`}>
+                          {role}
+                        </div>
+                        {cred.headline && (
+                          <div className={`text-[10px] ${cred.textColor} opacity-75 text-center line-clamp-1`}>
+                            {cred.headline}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </Button>
-                );
-              })}
+                    </Button>
+                  );
+                })
+              ) : (
+                // Fallback loading state
+                [1, 2, 3, 4].map((i) => (
+                  <div key={i} className="bg-gray-200 dark:bg-gray-700 rounded-lg h-20 animate-pulse"></div>
+                ))
+              )}
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
-              Click any role button to auto-fill credentials
+              {loadingUsers ? 'Loading users...' : 'Click any role to auto-fill credentials'}
             </p>
           </div>
         </CardContent>
