@@ -271,53 +271,95 @@ class MentorshipService:
                 'total_pages': 0
             }
         
-        pool = await get_db_pool()
-        async with pool.acquire() as conn:
-            async with conn.cursor(aiomysql.DictCursor) as cursor:
-                # Build WHERE clauses
-                where_clauses = []
-                values = []
-                
-                if search_params.available_only:
-                    where_clauses.append("mp.is_available = TRUE")
-                    where_clauses.append("mp.current_mentees_count < mp.max_mentees")
-                
-                if search_params.min_rating:
-                    where_clauses.append("mp.rating >= %s")
-                    values.append(search_params.min_rating)
-                
-                if search_params.expertise:
-                    where_clauses.append("JSON_CONTAINS(mp.expertise_areas, %s)")
-                    values.append(json.dumps(search_params.expertise))
-                
-                where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
-                
-                # Count total results
-                count_query = f"SELECT COUNT(*) as total FROM mentor_profiles mp {where_sql}"
-                await cursor.execute(count_query, values)
-                total_result = await cursor.fetchone()
-                total = total_result['total'] if total_result else 0
-                
-                # Get paginated results with details
-                offset = (search_params.page - 1) * search_params.limit
-                query = f"""
-                SELECT 
-                    mp.id, mp.user_id, mp.is_available, mp.expertise_areas,
-                    mp.max_mentees, mp.current_mentees_count, mp.rating,
-                    mp.total_sessions, mp.total_reviews, mp.mentorship_approach,
-                    mp.created_at, mp.updated_at,
-                    ap.name, ap.photo_url, ap.current_company, ap.current_role,
-                    ap.location, ap.batch_year, ap.bio, ap.headline,
-                    ap.experience_timeline, ap.education_details, ap.skills,
-                    u.email
-                FROM mentor_profiles mp
-                JOIN alumni_profiles ap ON mp.user_id = ap.user_id
-                JOIN users u ON mp.user_id = u.id
-                {where_sql}
-                ORDER BY mp.rating DESC, mp.total_sessions DESC
-                LIMIT %s OFFSET %s
-                """
-                values.extend([search_params.limit, offset])
+        try:
+            pool = await get_db_pool()
+            async with pool.acquire() as conn:
+                async with conn.cursor(aiomysql.DictCursor) as cursor:
+                    # Build WHERE clauses with only existing columns
+                    where_clauses = []
+                    values = []
+                    
+                    if search_params.available_only:
+                        where_clauses.append("mp.is_available = TRUE")
+                    
+                    # Note: rating, current_mentees_count, max_mentees not in actual schema
+                    
+                    if search_params.expertise:
+                        where_clauses.append("mp.expertise LIKE %s")
+                        values.append(f"%{search_params.expertise}%")
+                    
+                    where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
+                    
+                    # Count total results
+                    count_query = f"SELECT COUNT(*) as total FROM mentor_profiles mp {where_sql}"
+                    await cursor.execute(count_query, values)
+                    total_result = await cursor.fetchone()
+                    total = total_result['total'] if total_result else 0
+                    
+                    # Get paginated results with actual schema columns
+                    offset = (search_params.page - 1) * search_params.limit
+                    query = f"""
+                    SELECT 
+                        mp.id, mp.user_id, mp.is_available, mp.expertise,
+                        mp.bio, mp.hourly_rate, mp.availability,
+                        mp.created_at,
+                        ap.name, ap.photo_url, ap.current_company, ap.current_role,
+                        ap.location, ap.bio as alumni_bio,
+                        u.email
+                    FROM mentor_profiles mp
+                    LEFT JOIN alumni_profiles ap ON mp.user_id = ap.user_id
+                    LEFT JOIN users u ON mp.user_id = u.id
+                    {where_sql}
+                    ORDER BY mp.created_at DESC
+                    LIMIT %s OFFSET %s
+                    """
+                    values.extend([search_params.limit, offset])
+                    
+                    await cursor.execute(query, values)
+                    rows = await cursor.fetchall()
+                    
+                    # Create simplified mentor structure
+                    mentors = []
+                    for row in rows:
+                        mentor = {
+                            'id': row.get('id'),
+                            'user_id': row.get('user_id'),
+                            'is_available': row.get('is_available'),
+                            'expertise': row.get('expertise'),
+                            'hourly_rate': str(row.get('hourly_rate', 0)),
+                            'profile': {
+                                'name': row.get('name', ''),
+                                'current_role': row.get('current_role', ''),
+                                'company': row.get('current_company', ''),
+                                'location': row.get('location', ''),
+                                'email': row.get('email', ''),
+                                'photo_url': row.get('photo_url')
+                            },
+                            'rating': 0,  # Not in schema
+                            'total_sessions': 0,  # Not in schema
+                            'expertise_areas': (row.get('expertise') or '').split(',') if row.get('expertise') else []
+                        }
+                        mentors.append(mentor)
+                    
+                    total_pages = (total + search_params.limit - 1) // search_params.limit
+                    
+                    return {
+                        'mentors': mentors,
+                        'total': total,
+                        'page': search_params.page,
+                        'limit': search_params.limit,
+                        'total_pages': total_pages
+                    }
+        except Exception as e:
+            # If query fails, return empty results instead of crashing
+            logger.error(f"Error searching mentors: {e}")
+            return {
+                'mentors': [],
+                'total': 0,
+                'page': search_params.page,
+                'limit': search_params.limit,
+                'total_pages': 0
+            }
                 
                 await cursor.execute(query, values)
                 rows = await cursor.fetchall()
