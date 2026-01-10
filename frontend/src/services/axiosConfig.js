@@ -111,13 +111,19 @@ axiosInstance.interceptors.response.use(
         // Don't log 404s - they're expected when profiles/data don't exist yet
       }
       
+      // Handle 503 Service Unavailable - suppress for admin/stats endpoints (expected when DB unavailable)
+      if (status === 503 && (error.config.url.includes('/admin/') || error.config.url.includes('/stats') || error.config.url.includes('/career-data/'))) {
+        // Silently fail for admin endpoints that need database access
+        return Promise.reject(error);
+      }
+      
       // Handle 500 Server Error
       if (status >= 500) {
         console.error('🔥 Server Error:', status);
       }
       
-      // Log error details in development (skip 404s as they're expected)
-      if (process.env.NODE_ENV === 'development' && status !== 404) {
+      // Log error details in development (skip 404s and expected 503s as they're expected)
+      if (process.env.NODE_ENV === 'development' && status !== 404 && !(status === 503 && (error.config.url.includes('/admin/') || error.config.url.includes('/stats')))) {
         console.error(`❌ API Error: ${error.config.method.toUpperCase()} ${error.config.url}`, {
           status,
           data,
