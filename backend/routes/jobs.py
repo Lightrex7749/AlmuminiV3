@@ -22,6 +22,106 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 
+# Mock Jobs Data for Demo
+MOCK_JOBS = {
+    "job-001": {
+        "id": "job-001",
+        "title": "Senior Software Engineer",
+        "company": "Google",
+        "location": "Mountain View, CA",
+        "salary_min": 180000,
+        "salary_max": 250000,
+        "job_type": "Full-time",
+        "description": "Lead the development of next-generation search infrastructure. Work with a team of exceptional engineers on challenging problems at scale.",
+        "requirements": ["5+ years experience", "System Design", "Python/Go", "Distributed Systems"],
+        "skills": ["Backend", "System Design", "Databases"],
+        "posted_by": "david.kim@techcorp.com",
+        "posted_date": "2024-01-08",
+        "applications_count": 42,
+        "status": "open"
+    },
+    "job-002": {
+        "id": "job-002",
+        "title": "Product Manager - AI/ML",
+        "company": "OpenAI",
+        "location": "San Francisco, CA",
+        "salary_min": 200000,
+        "salary_max": 320000,
+        "job_type": "Full-time",
+        "description": "Drive product strategy for our breakthrough AI products. Partner with research and engineering teams to bring innovative AI capabilities to market.",
+        "requirements": ["3+ years PM experience", "AI/ML background", "Data analysis", "User research"],
+        "skills": ["Product Management", "AI/ML", "Strategy"],
+        "posted_by": "michelle.lee@techcorp.com",
+        "posted_date": "2024-01-07",
+        "applications_count": 28,
+        "status": "open"
+    },
+    "job-003": {
+        "id": "job-003",
+        "title": "UX/UI Designer",
+        "company": "Apple",
+        "location": "Cupertino, CA",
+        "salary_min": 140000,
+        "salary_max": 190000,
+        "job_type": "Full-time",
+        "description": "Design experiences for millions of users. Work on design systems and user interfaces that delight millions worldwide.",
+        "requirements": ["4+ years design experience", "Figma", "Design systems", "Mobile & Web"],
+        "skills": ["UX Design", "UI Design", "Design Systems", "Prototyping"],
+        "posted_by": "david.kim@techcorp.com",
+        "posted_date": "2024-01-06",
+        "applications_count": 35,
+        "status": "open"
+    },
+    "job-004": {
+        "id": "job-004",
+        "title": "Data Scientist",
+        "company": "Netflix",
+        "location": "Los Gatos, CA",
+        "salary_min": 160000,
+        "salary_max": 240000,
+        "job_type": "Full-time",
+        "description": "Work on recommendation algorithms that impact millions of users. Leverage big data to improve content personalization.",
+        "requirements": ["3+ years experience", "Machine Learning", "Python/R", "SQL"],
+        "skills": ["Data Science", "Machine Learning", "Python", "Analytics"],
+        "posted_by": "michelle.lee@techcorp.com",
+        "posted_date": "2024-01-05",
+        "applications_count": 19,
+        "status": "open"
+    },
+    "job-005": {
+        "id": "job-005",
+        "title": "DevOps Engineer",
+        "company": "AWS",
+        "location": "Seattle, WA",
+        "salary_min": 150000,
+        "salary_max": 210000,
+        "job_type": "Full-time",
+        "description": "Build and maintain infrastructure for AWS services. Work on cloud automation and system reliability at massive scale.",
+        "requirements": ["4+ years experience", "Kubernetes", "Cloud platforms", "Infrastructure as Code"],
+        "skills": ["DevOps", "Cloud", "Kubernetes", "CI/CD"],
+        "posted_by": "david.kim@techcorp.com",
+        "posted_date": "2024-01-04",
+        "applications_count": 25,
+        "status": "open"
+    },
+    "job-006": {
+        "id": "job-006",
+        "title": "Business Analyst",
+        "company": "Microsoft",
+        "location": "Seattle, WA",
+        "salary_min": 120000,
+        "salary_max": 160000,
+        "job_type": "Full-time",
+        "description": "Analyze business requirements and translate them into technical solutions. Work with stakeholders to drive product success.",
+        "requirements": ["2+ years experience", "SQL", "Excel", "Data analysis"],
+        "skills": ["Analytics", "SQL", "Business Analysis", "Communication"],
+        "posted_by": "michelle.lee@techcorp.com",
+        "posted_date": "2024-01-03",
+        "applications_count": 31,
+        "status": "open"
+    }
+}
+
 
 @router.post("/create", response_model=dict, status_code=status.HTTP_201_CREATED)
 @router.post("", response_model=dict, status_code=status.HTTP_201_CREATED)

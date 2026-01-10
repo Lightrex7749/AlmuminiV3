@@ -18,6 +18,116 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/messages", tags=["Messaging"])
 messaging_service = MessagingService()
 
+# Mock Messaging Data for Demo
+MOCK_CONVERSATIONS = {
+    "conv-001": {
+        "id": "conv-001",
+        "participant_1_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "participant_1_name": "Emily Rodriguez",
+        "participant_2_id": "660e8400-e29b-41d4-a716-446655440001",
+        "participant_2_name": "Sarah Johnson",
+        "last_message": "That sounds great! Let's schedule a call next week.",
+        "last_message_time": "2024-01-08T15:30:00Z",
+        "unread_count": 0,
+        "created_at": "2024-01-01"
+    },
+    "conv-002": {
+        "id": "conv-002",
+        "participant_1_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "participant_1_name": "Alex Thompson",
+        "participant_2_id": "770e8400-e29b-41d4-a716-446655440002",
+        "participant_2_name": "Michael Chen",
+        "last_message": "I'd love to hear more about your experience with Series A",
+        "last_message_time": "2024-01-08T14:15:00Z",
+        "unread_count": 1,
+        "created_at": "2024-01-02"
+    },
+    "conv-003": {
+        "id": "conv-003",
+        "participant_1_id": "cc0e8400-e29b-41d4-a716-446655440007",
+        "participant_1_name": "Priya Patel",
+        "participant_2_id": "880e8400-e29b-41d4-a716-446655440003",
+        "participant_2_name": "Jessica Garcia",
+        "last_message": "Thanks for the advice on design systems!",
+        "last_message_time": "2024-01-08T12:45:00Z",
+        "unread_count": 0,
+        "created_at": "2024-01-03"
+    }
+}
+
+MOCK_MESSAGES = {
+    "msg-001": {
+        "id": "msg-001",
+        "conversation_id": "conv-001",
+        "sender_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "sender_name": "Emily Rodriguez",
+        "receiver_id": "660e8400-e29b-41d4-a716-446655440001",
+        "content": "Hi Sarah! I was really impressed by your talk at the conference. Would love to discuss a mentorship opportunity.",
+        "timestamp": "2024-01-01T10:00:00Z",
+        "read": True
+    },
+    "msg-002": {
+        "id": "msg-002",
+        "conversation_id": "conv-001",
+        "sender_id": "660e8400-e29b-41d4-a716-446655440001",
+        "sender_name": "Sarah Johnson",
+        "receiver_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "content": "Thank you, Emily! I'd be happy to mentor you. What areas are you most interested in developing?",
+        "timestamp": "2024-01-01T11:30:00Z",
+        "read": True
+    },
+    "msg-003": {
+        "id": "msg-003",
+        "conversation_id": "conv-001",
+        "sender_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "sender_name": "Emily Rodriguez",
+        "receiver_id": "660e8400-e29b-41d4-a716-446655440001",
+        "content": "I'm particularly interested in transitioning to a leadership role. I'd love your insights on that journey.",
+        "timestamp": "2024-01-01T13:00:00Z",
+        "read": True
+    },
+    "msg-004": {
+        "id": "msg-004",
+        "conversation_id": "conv-001",
+        "sender_id": "660e8400-e29b-41d4-a716-446655440001",
+        "sender_name": "Sarah Johnson",
+        "receiver_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "content": "That's excellent! I made that transition myself. Let me share some key lessons I learned. That sounds great! Let's schedule a call next week.",
+        "timestamp": "2024-01-08T15:30:00Z",
+        "read": True
+    },
+    "msg-005": {
+        "id": "msg-005",
+        "conversation_id": "conv-002",
+        "sender_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "sender_name": "Alex Thompson",
+        "receiver_id": "770e8400-e29b-41d4-a716-446655440002",
+        "content": "Hi Michael! I'm planning to raise Series A for my startup. Would love to pick your brain about the process.",
+        "timestamp": "2024-01-06T09:00:00Z",
+        "read": True
+    },
+    "msg-006": {
+        "id": "msg-006",
+        "conversation_id": "conv-002",
+        "sender_id": "770e8400-e29b-41d4-a716-446655440002",
+        "sender_name": "Michael Chen",
+        "receiver_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "content": "Absolutely! I'd be glad to help. Let me share what worked for us and common pitfalls to avoid.",
+        "timestamp": "2024-01-06T10:15:00Z",
+        "read": True
+    },
+    "msg-007": {
+        "id": "msg-007",
+        "conversation_id": "conv-002",
+        "sender_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "sender_name": "Alex Thompson",
+        "receiver_id": "770e8400-e29b-41d4-a716-446655440002",
+        "content": "I'd love to hear more about your experience with Series A",
+        "timestamp": "2024-01-08T14:15:00Z",
+        "read": False
+    }
+}
+
 
 @router.post("/send")
 async def send_message(

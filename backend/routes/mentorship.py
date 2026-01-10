@@ -2,6 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Body
 from typing import Optional
 import aiomysql
+from datetime import datetime, UTC
 
 from database.models import (
     MentorProfileCreate,
@@ -22,6 +23,75 @@ from services.mentorship_service import MentorshipService
 from middleware.auth_middleware import get_current_user, require_role, require_admin
 from database.connection import get_db_pool, USE_MOCK_DB
 import logging
+
+# Mock Mentorship Data for Demo
+MOCK_MENTORSHIPS = {
+    "mentorship-001": {
+        "id": "mentorship-001",
+        "mentor_id": "660e8400-e29b-41d4-a716-446655440001",
+        "mentor_name": "Sarah Johnson",
+        "mentor_title": "VP of Engineering @ Google",
+        "mentee_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "mentee_name": "Emily Rodriguez",
+        "status": "active",
+        "start_date": "2024-01-01",
+        "focus_areas": ["Career Growth", "Technical Leadership", "System Design"],
+        "session_count": 8,
+        "rating": 5.0,
+        "last_session": "2024-01-08"
+    },
+    "mentorship-002": {
+        "id": "mentorship-002",
+        "mentor_id": "770e8400-e29b-41d4-a716-446655440002",
+        "mentor_name": "Michael Chen",
+        "mentor_title": "Senior PM @ Apple | Startup Advisor",
+        "mentee_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "mentee_name": "Alex Thompson",
+        "status": "active",
+        "start_date": "2024-01-02",
+        "focus_areas": ["Product Strategy", "Startup Growth", "Fundraising"],
+        "session_count": 5,
+        "rating": 4.9,
+        "last_session": "2024-01-07"
+    },
+    "mentorship-003": {
+        "id": "mentorship-003",
+        "mentor_id": "880e8400-e29b-41d4-a716-446655440003",
+        "mentor_name": "Jessica Garcia",
+        "mentor_title": "Head of Design @ Microsoft",
+        "mentee_id": "cc0e8400-e29b-41d4-a716-446655440007",
+        "mentee_name": "Priya Patel",
+        "status": "active",
+        "start_date": "2024-01-03",
+        "focus_areas": ["UX/UI Design", "Design Systems", "User Research"],
+        "session_count": 6,
+        "rating": 4.8,
+        "last_session": "2024-01-06"
+    }
+}
+
+MOCK_MENTOR_REQUESTS = {
+    "request-001": {
+        "id": "request-001",
+        "mentor_id": "990e8400-e29b-41d4-a716-446655440004",
+        "mentor_name": "David Kumar",
+        "mentee_id": "dd0e8400-e29b-41d4-a716-446655440008",
+        "mentee_name": "James Wilson",
+        "status": "pending",
+        "message": "Very interested in learning about data science leadership and scaling teams",
+        "requested_at": "2024-01-08"
+    },
+    "request-002": {
+        "id": "request-002",
+        "mentor_id": "660e8400-e29b-41d4-a716-446655440001",
+        "mentor_name": "Sarah Johnson",
+        "mentee_id": "cc0e8400-e29b-41d4-a716-446655440007",
+        "mentee_name": "Priya Patel",
+        "status": "pending",
+        "message": "Seeking guidance on transitioning to engineering leadership",
+        "requested_at": "2024-01-07"
+    }
+}
 
 logger = logging.getLogger(__name__)
 

@@ -22,29 +22,160 @@ router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 _MOCK_CREATED_AT = datetime(2024, 1, 1, 0, 0, 0, tzinfo=UTC)
 
 MOCK_USERS = {
-    "sarah.johnson@alumni.edu": {
-        "id": "660e8400-e29b-41d4-a716-446655440001", "email": "sarah.johnson@alumni.edu", "password": "password123",
-        "name": "Sarah Johnson", "role": "alumni", "is_verified": True,
-        "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
-    },
-    "emily.rodriguez@alumni.edu": {
-        "id": "880e8400-e29b-41d4-a716-446655440003", "email": "emily.rodriguez@alumni.edu", "password": "password123",
-        "name": "Emily Rodriguez", "role": "student", "is_verified": True,
-        "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
-    },
-    "david.kim@techcorp.com": {
-        "id": "990e8400-e29b-41d4-a716-446655440004", "email": "david.kim@techcorp.com", "password": "password123",
-        "name": "David Kim", "role": "recruiter", "is_verified": True,
-        "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
-    },
+    # ADMIN USER
     "admin@alumni.edu": {
         "id": "550e8400-e29b-41d4-a716-446655440000", "email": "admin@alumni.edu", "password": "password123",
         "name": "Admin User", "role": "admin", "is_verified": True,
         "is_active": True, "created_at": _MOCK_CREATED_AT,
-        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin",
+        "bio": "Platform Administrator | Helping connect alumni worldwide",
+        "headline": "Admin - AlumUnity Platform",
+        "location": "San Francisco, CA",
+        "skills": ["Leadership", "Networking", "Mentoring"]
+    },
+    
+    # MENTORS (High-value profiles)
+    "sarah.johnson@alumni.edu": {
+        "id": "660e8400-e29b-41d4-a716-446655440001", "email": "sarah.johnson@alumni.edu", "password": "password123",
+        "name": "Sarah Johnson", "role": "mentor", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+        "bio": "VP of Engineering at Google | 15+ years in tech leadership | Passionate about mentoring early career developers",
+        "headline": "VP Engineering @ Google | Career Mentor",
+        "location": "Mountain View, CA",
+        "company": "Google",
+        "title": "VP of Engineering",
+        "skills": ["Software Engineering", "Leadership", "System Design", "Team Building"],
+        "years_experience": 15,
+        "mentees": 12,
+        "rating": 4.9,
+        "reviews": 28
+    },
+    "michael.chen@alumni.edu": {
+        "id": "770e8400-e29b-41d4-a716-446655440002", "email": "michael.chen@alumni.edu", "password": "password123",
+        "name": "Michael Chen", "role": "mentor", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+        "bio": "Product Manager at Apple | Former startup founder | Help mentees navigate product and startup growth",
+        "headline": "Senior PM @ Apple | Startup Advisor",
+        "location": "Cupertino, CA",
+        "company": "Apple",
+        "title": "Senior Product Manager",
+        "skills": ["Product Management", "Startups", "Strategy", "User Research"],
+        "years_experience": 12,
+        "mentees": 8,
+        "rating": 4.8,
+        "reviews": 19
+    },
+    "jessica.garcia@alumni.edu": {
+        "id": "880e8400-e29b-41d4-a716-446655440003", "email": "jessica.garcia@alumni.edu", "password": "password123",
+        "name": "Jessica Garcia", "role": "mentor", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica",
+        "bio": "Head of Design at Microsoft | UX/UI specialist | Mentoring next generation of product designers",
+        "headline": "Head of Design @ Microsoft",
+        "location": "Seattle, WA",
+        "company": "Microsoft",
+        "title": "Head of Design",
+        "skills": ["UX Design", "UI Design", "Design Systems", "User Research"],
+        "years_experience": 10,
+        "mentees": 15,
+        "rating": 4.9,
+        "reviews": 35
+    },
+    "david.kumar@alumni.edu": {
+        "id": "990e8400-e29b-41d4-a716-446655440004", "email": "david.kumar@alumni.edu", "password": "password123",
+        "name": "David Kumar", "role": "mentor", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+        "bio": "Chief Data Officer at Netflix | Data science leader | Help people launch data careers",
+        "headline": "Chief Data Officer @ Netflix",
+        "location": "Los Gatos, CA",
+        "company": "Netflix",
+        "title": "Chief Data Officer",
+        "skills": ["Data Science", "Machine Learning", "Analytics", "Data Engineering"],
+        "years_experience": 14,
+        "mentees": 10,
+        "rating": 4.8,
+        "reviews": 22
+    },
+    
+    # ACTIVE ALUMNI USERS
+    "emily.rodriguez@alumni.edu": {
+        "id": "aa0e8400-e29b-41d4-a716-446655440005", "email": "emily.rodriguez@alumni.edu", "password": "password123",
+        "name": "Emily Rodriguez", "role": "alumni", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+        "bio": "Software Engineer @ Meta | 5 years experience | Love helping junior devs",
+        "headline": "Software Engineer @ Meta",
+        "location": "Menlo Park, CA",
+        "company": "Meta",
+        "title": "Software Engineer",
+        "skills": ["React", "Python", "System Design", "Databases"],
+        "years_experience": 5
+    },
+    "alex.thompson@alumni.edu": {
+        "id": "bb0e8400-e29b-41d4-a716-446655440006", "email": "alex.thompson@alumni.edu", "password": "password123",
+        "name": "Alex Thompson", "role": "alumni", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+        "bio": "Product Marketing Manager @ Amazon | MBA from Stanford",
+        "headline": "PMM @ Amazon",
+        "location": "Seattle, WA",
+        "company": "Amazon",
+        "title": "Product Marketing Manager",
+        "skills": ["Marketing", "Product Strategy", "Analytics"],
+        "years_experience": 6
+    },
+    "priya.patel@alumni.edu": {
+        "id": "cc0e8400-e29b-41d4-a716-446655440007", "email": "priya.patel@alumni.edu", "password": "password123",
+        "name": "Priya Patel", "role": "alumni", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+        "bio": "Data Analyst @ Airbnb | Passionate about insights and analytics",
+        "headline": "Data Analyst @ Airbnb",
+        "location": "San Francisco, CA",
+        "company": "Airbnb",
+        "title": "Data Analyst",
+        "skills": ["SQL", "Python", "Tableau", "Analytics"],
+        "years_experience": 3
+    },
+    "james.wilson@alumni.edu": {
+        "id": "dd0e8400-e29b-41d4-a716-446655440008", "email": "james.wilson@alumni.edu", "password": "password123",
+        "name": "James Wilson", "role": "alumni", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+        "bio": "Startup Founder - AI/ML SaaS | Previously at Google",
+        "headline": "Founder & CEO | AI/ML Startup",
+        "location": "San Jose, CA",
+        "company": "Quantum AI Labs",
+        "title": "Founder & CEO",
+        "skills": ["AI/ML", "Startups", "Leadership", "Cloud Architecture"],
+        "years_experience": 8
+    },
+    
+    # RECRUITERS
+    "david.kim@techcorp.com": {
+        "id": "ee0e8400-e29b-41d4-a716-446655440009", "email": "david.kim@techcorp.com", "password": "password123",
+        "name": "David Kim", "role": "recruiter", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+        "bio": "Tech Recruiter @ LinkedIn | Hiring for Engineering roles",
+        "headline": "Tech Recruiter @ LinkedIn",
+        "location": "Sunnyvale, CA",
+        "company": "LinkedIn",
+        "skills": ["Recruitment", "Talent Acquisition", "Tech Hiring"]
+    },
+    "michelle.lee@techcorp.com": {
+        "id": "ff0e8400-e29b-41d4-a716-446655440010", "email": "michelle.lee@techcorp.com", "password": "password123",
+        "name": "Michelle Lee", "role": "recruiter", "is_verified": True,
+        "is_active": True, "created_at": _MOCK_CREATED_AT,
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michelle",
+        "bio": "Executive Recruiter | Placing senior tech talent at FAANG companies",
+        "headline": "Executive Recruiter",
+        "location": "New York, NY",
+        "company": "TechHire Partners",
+        "skills": ["Executive Search", "Tech Recruitment", "Leadership Hiring"]
     }
 }
 

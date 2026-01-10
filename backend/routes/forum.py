@@ -2,6 +2,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Query
 from typing import Optional
 import logging
+from datetime import datetime, UTC
 
 from database.models import (
     ForumPostCreate, ForumPostUpdate, ForumPostResponse,
@@ -13,6 +14,119 @@ from middleware.auth_middleware import get_current_user
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/forum", tags=["forum"])
+
+# Mock Forum Data for Demo
+MOCK_FORUM_POSTS = {
+    "post-001": {
+        "id": "post-001",
+        "title": "How to transition from IC to Engineering Manager?",
+        "content": "I've been a senior engineer for 3 years and considering a move into management. Any advice from folks who've made this transition? I'm particularly interested in learning about: 1) How to prepare for the role, 2) What surprised you most, 3) How to maintain technical credibility.",
+        "author_id": "aa0e8400-e29b-41d4-a716-446655440005",
+        "author_name": "Emily Rodriguez",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+        "category": "Career Advice",
+        "tags": ["Career", "Management", "Leadership"],
+        "created_at": "2024-01-07",
+        "updated_at": "2024-01-07",
+        "views": 342,
+        "likes": 28,
+        "comment_count": 12,
+        "is_pinned": True
+    },
+    "post-002": {
+        "id": "post-002",
+        "title": "Best resources for learning System Design?",
+        "content": "Looking to improve my system design skills for interviews. What resources have been most helpful for you? Books, courses, or practice platforms?",
+        "author_id": "bb0e8400-e29b-41d4-a716-446655440006",
+        "author_name": "Alex Thompson",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+        "category": "Learning Resources",
+        "tags": ["System Design", "Interview Prep", "Learning"],
+        "created_at": "2024-01-06",
+        "updated_at": "2024-01-06",
+        "views": 287,
+        "likes": 19,
+        "comment_count": 8
+    },
+    "post-003": {
+        "id": "post-003",
+        "title": "Startup funding rounds explained",
+        "content": "A comprehensive guide to understanding different funding rounds: Seed, Series A, B, C, and beyond. Including typical timelines, investor expectations, and what to focus on at each stage.",
+        "author_id": "dd0e8400-e29b-41d4-a716-446655440008",
+        "author_name": "James Wilson",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+        "category": "Startup Advice",
+        "tags": ["Funding", "Startups", "Business"],
+        "created_at": "2024-01-05",
+        "updated_at": "2024-01-05",
+        "views": 425,
+        "likes": 35,
+        "comment_count": 15
+    },
+    "post-004": {
+        "id": "post-004",
+        "title": "Data Science vs Machine Learning - What's the difference?",
+        "content": "Many people confuse these two fields. Let's break down the key differences, skill requirements, and career paths for each. Plus common misconceptions.",
+        "author_id": "cc0e8400-e29b-41d4-a716-446655440007",
+        "author_name": "Priya Patel",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+        "category": "Tech Fundamentals",
+        "tags": ["Data Science", "Machine Learning", "AI"],
+        "created_at": "2024-01-04",
+        "updated_at": "2024-01-04",
+        "views": 198,
+        "likes": 24,
+        "comment_count": 9
+    },
+    "post-005": {
+        "id": "post-005",
+        "title": "Networking tips for introverts in tech",
+        "content": "It's possible to build a strong professional network even if you're introverted. Here are strategies that work: 1) One-on-one conversations, 2) Online communities, 3) Conference strategies, 4) Following up thoughtfully.",
+        "author_id": "ee0e8400-e29b-41d4-a716-446655440009",
+        "author_name": "David Kim",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+        "category": "Soft Skills",
+        "tags": ["Networking", "Career", "Soft Skills"],
+        "created_at": "2024-01-03",
+        "updated_at": "2024-01-03",
+        "views": 521,
+        "likes": 42,
+        "comment_count": 18
+    }
+}
+
+MOCK_FORUM_COMMENTS = {
+    "comment-001": {
+        "id": "comment-001",
+        "post_id": "post-001",
+        "author_id": "660e8400-e29b-41d4-a716-446655440001",
+        "author_name": "Sarah Johnson",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+        "content": "Great question! I made this transition 5 years ago. The biggest insight: it's not about being the best engineer anymore, it's about helping your team succeed. Definitely take a management course and find a mentor in management.",
+        "created_at": "2024-01-07T10:30:00Z",
+        "likes": 15
+    },
+    "comment-002": {
+        "id": "comment-002",
+        "post_id": "post-001",
+        "author_id": "770e8400-e29b-41d4-a716-446655440002",
+        "author_name": "Michael Chen",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+        "content": "I'd recommend reading 'The Manager's Path' by Camille Fournier. It's the most practical resource I've found. Also, start small - maybe lead a small project or mentoring initiative first.",
+        "created_at": "2024-01-07T11:15:00Z",
+        "likes": 12
+    },
+    "comment-003": {
+        "id": "comment-003",
+        "post_id": "post-003",
+        "author_id": "880e8400-e29b-41d4-a716-446655440003",
+        "author_name": "Jessica Garcia",
+        "author_avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica",
+        "content": "Excellent breakdown! One thing I'd add - investors increasingly care about diversity, inclusion, and sustainability. Make sure your pitch addresses these factors.",
+        "created_at": "2024-01-05T14:20:00Z",
+        "likes": 8
+    }
+}
 
 
 # Helper function to transform post/comment data with nested author object
