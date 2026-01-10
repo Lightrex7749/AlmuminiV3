@@ -73,23 +73,23 @@ async def check_data_quality(conn) -> dict:
     results = {}
     
     async with conn.cursor() as cursor:
-        # Career paths
+        # Career transition matrix
         await cursor.execute("""
             SELECT 
                 COUNT(*) as total,
                 COUNT(CASE WHEN from_role IS NULL THEN 1 END) as null_from_role,
                 COUNT(CASE WHEN to_role IS NULL THEN 1 END) as null_to_role,
-                COUNT(CASE WHEN skills_acquired IS NULL THEN 1 END) as null_skills
-            FROM career_paths
+                COUNT(CASE WHEN probability IS NULL THEN 1 END) as null_probability
+            FROM career_transition_matrix
         """)
-        career_paths = await cursor.fetchone()
+        career_data = await cursor.fetchone()
         
-        results['career_paths'] = {
-            "total": career_paths[0],
-            "null_from_role": career_paths[1],
-            "null_to_role": career_paths[2],
-            "null_skills": career_paths[3],
-            "valid_for_training": career_paths[0] - max(career_paths[1], career_paths[2])
+        results['career_transition_matrix'] = {
+            "total": career_data[0],
+            "null_from_role": career_data[1],
+            "null_to_role": career_data[2],
+            "null_probability": career_data[3],
+            "valid_for_training": career_data[0] - max(career_data[1], career_data[2])
         }
         
         # Career predictions

@@ -33,7 +33,7 @@ async def check_system_status():
             async with conn.cursor() as cursor:
                 await cursor.execute(
                     """
-                    SELECT COUNT(*) FROM career_paths
+                    SELECT COUNT(*) FROM career_transition_matrix
                     WHERE from_role IS NOT NULL AND to_role IS NOT NULL
                     """
                 )
@@ -41,7 +41,7 @@ async def check_system_status():
 
                 await cursor.execute(
                     """
-                    SELECT COUNT(DISTINCT from_role) FROM career_paths
+                    SELECT COUNT(DISTINCT from_role) FROM career_transition_matrix
                     WHERE from_role IS NOT NULL
                     """
                 )
@@ -49,7 +49,7 @@ async def check_system_status():
 
                 await cursor.execute(
                     """
-                    SELECT COUNT(DISTINCT to_role) FROM career_paths
+                    SELECT COUNT(DISTINCT to_role) FROM career_transition_matrix
                     WHERE to_role IS NOT NULL
                     """
                 )
@@ -157,11 +157,10 @@ async def check_system_status():
                 async with conn.cursor() as cursor:
                     await cursor.execute(
                         """
-                        SELECT from_role, to_role, COUNT(*) as count
-                        FROM career_paths
+                        SELECT from_role, to_role, transition_count
+                        FROM career_transition_matrix
                         WHERE from_role IS NOT NULL AND to_role IS NOT NULL
-                        GROUP BY from_role, to_role
-                        ORDER BY count DESC
+                        ORDER BY transition_count DESC
                         LIMIT 5
                         """
                     )

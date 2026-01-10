@@ -41,22 +41,22 @@ async def check_prerequisites(conn):
     logger.info("=" * 70)
     
     async with conn.cursor() as cursor:
-        # Check career_paths table
+        # Check career_transition_matrix table
         await cursor.execute("""
-            SELECT COUNT(*) FROM career_paths 
+            SELECT COUNT(*) FROM career_transition_matrix 
             WHERE from_role IS NOT NULL AND to_role IS NOT NULL
         """)
         transitions = (await cursor.fetchone())[0]
         
         # Check unique roles
         await cursor.execute("""
-            SELECT COUNT(DISTINCT from_role) FROM career_paths
+            SELECT COUNT(DISTINCT from_role) FROM career_transition_matrix
             WHERE from_role IS NOT NULL
         """)
         unique_from_roles = (await cursor.fetchone())[0]
         
         await cursor.execute("""
-            SELECT COUNT(DISTINCT to_role) FROM career_paths
+            SELECT COUNT(DISTINCT to_role) FROM career_transition_matrix
             WHERE to_role IS NOT NULL
         """)
         unique_to_roles = (await cursor.fetchone())[0]
