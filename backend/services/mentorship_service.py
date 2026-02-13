@@ -360,52 +360,6 @@ class MentorshipService:
                 'limit': search_params.limit,
                 'total_pages': 0
             }
-                
-                await cursor.execute(query, values)
-                rows = await cursor.fetchall()
-                
-                # Parse JSON fields and create nested structure
-                mentors = []
-                for row in rows:
-                    row = MentorshipService._parse_json_fields(row, [
-                        'expertise_areas', 'experience_timeline', 'education_details', 'skills'
-                    ])
-                    
-                    mentor = {
-                        'id': row['id'],
-                        'user_id': row['user_id'],
-                        'is_available': bool(row['is_available']),
-                        'expertise_areas': row['expertise_areas'],
-                        'max_mentees': int(row['max_mentees']) if row['max_mentees'] else 0,
-                        'current_mentees_count': int(row['current_mentees_count']) if row['current_mentees_count'] else 0,
-                        'rating': float(row['rating']) if row['rating'] is not None else 0.0,
-                        'total_sessions': int(row['total_sessions']) if row['total_sessions'] else 0,
-                        'total_reviews': int(row['total_reviews']) if row['total_reviews'] else 0,
-                        'mentorship_approach': row['mentorship_approach'],
-                        'profile': {
-                            'user_id': row['user_id'],
-                            'name': row['name'],
-                            'photo_url': row['photo_url'],
-                            'bio': row['bio'],
-                            'headline': row['headline'],
-                            'current_company': row['current_company'],
-                            'current_role': row['current_role'],
-                            'location': row['location'],
-                            'batch_year': row['batch_year'],
-                            'experience_timeline': row['experience_timeline'],
-                            'education_details': row['education_details'],
-                            'skills': row['skills']
-                        }
-                    }
-                    mentors.append(mentor)
-                
-                return {
-                    "mentors": mentors,
-                    "total": total,
-                    "page": search_params.page,
-                    "limit": search_params.limit,
-                    "total_pages": (total + search_params.limit - 1) // search_params.limit
-                }
     
     @staticmethod
     async def get_mentor_statistics(user_id: str) -> Dict[str, Any]:
