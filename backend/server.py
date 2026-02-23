@@ -10,6 +10,8 @@ from pathlib import Path
 import os
 import logging
 import asyncio
+from routes.burnout_routes import burnout_router
+app.include_router(burnout_router, prefix="/api/burnout", tags=["burnout"])
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent
