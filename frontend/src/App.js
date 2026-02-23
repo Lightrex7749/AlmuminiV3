@@ -22,6 +22,10 @@ import ServerError from '@/pages/error/ServerError';
 // Main Pages
 import Home from '@/page/Home';
 
+import BurnoutDashboard from "./page/BurnoutDashboard";
+
+
+
 // Lazy load other pages for performance
 const AlumniDirectory = lazy(() => import('@/page/AlumniDirectory'));
 const ProfileView = lazy(() => import('@/page/ProfileView'));
@@ -117,9 +121,9 @@ import '@/App.css';
 const DashboardRouter = () => {
   const userData = localStorage.getItem('user');
   if (!userData) return <Navigate to="/login" replace />;
-  
+
   const user = JSON.parse(userData);
-  
+
   switch (user.role) {
     case 'student':
       return <Navigate to="/dashboard/student" replace />;
@@ -143,591 +147,600 @@ function App() {
           <Toaster position="top-right" richColors />
           <Suspense fallback={<FullPageSkeleton />}>
             <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/verify-email" element={<VerifyEmail />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-          {/* Alumni Directory - Protected */}
-          <Route
-            path="/directory"
-            element={
-              <ProtectedRoute>
-                <AlumniDirectory />
-              </ProtectedRoute>
-            }
-          />
-          {/* Redirect /profile/edit to /profile (Profile page handles editing) */}
-          <Route
-            path="/profile/edit"
-            element={
-              <Navigate to="/profile" replace />
-            }
-          />
-          <Route
-            path="/profile/:userId"
-            element={
-              <ProtectedRoute>
-                <ProfileView />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/messages/:userId"
-            element={
-              <ProtectedRoute>
-                <MessagingPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/messages"
-            element={
-              <ProtectedRoute>
-                <ConversationsList />
-              </ProtectedRoute>
-            }
-          />
-          
-          {/* User Profile & Settings - Protected */}
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
+              {/* Alumni Directory - Protected */}
+              <Route
+                path="/directory"
+                element={
+                  <ProtectedRoute>
+                    <AlumniDirectory />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Redirect /profile/edit to /profile (Profile page handles editing) */}
+              <Route
+                path="/profile/edit"
+                element={
+                  <Navigate to="/profile" replace />
+                }
+              />
+              <Route
+                path="/profile/:userId"
+                element={
+                  <ProtectedRoute>
+                    <ProfileView />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/messages/:userId"
+                element={
+                  <ProtectedRoute>
+                    <MessagingPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/messages"
+                element={
+                  <ProtectedRoute>
+                    <ConversationsList />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Job Routes - Protected */}
-          <Route
-            path="/jobs"
-            element={
-              <ProtectedRoute>
-                <Jobs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/:jobId"
-            element={
-              <ProtectedRoute>
-                <JobDetails />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/my-applications"
-            element={
-              <ProtectedRoute>
-                <MyApplications />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/post"
-            element={
-              <ProtectedRoute>
-                <PostJob />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/edit/:jobId"
-            element={
-              <ProtectedRoute>
-                <EditJob />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/manage"
-            element={
-              <ProtectedRoute>
-                <ManageJobs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/jobs/:jobId/applications"
-            element={
-              <ProtectedRoute>
-                <ApplicationsManager />
-              </ProtectedRoute>
-            }
-          />
-          {/* <Route
-            path="/jobs/all-applications"
-            element={
-              <ProtectedRoute>
-                <AllApplications />
-              </ProtectedRoute>
-            }
-          /> */}
+              {/* User Profile & Settings - Protected */}
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Mentorship Routes - Protected */}
-          <Route
-            path="/mentorship"
-            element={
-              <ProtectedRoute>
-                <Navigate to="/mentorship/find" replace />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentorship/find"
-            element={
-              <ProtectedRoute>
-                <FindMentors />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentorship/mentor/:userId"
-            element={
-              <ProtectedRoute>
-                <MentorProfile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentorship/dashboard"
-            element={
-              <ProtectedRoute>
-                <MentorshipDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentorship/manage"
-            element={
-              <ProtectedRoute>
-                <MentorManagement />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentorship/sessions/:sessionId"
-            element={
-              <ProtectedRoute>
-                <SessionDetails />
-              </ProtectedRoute>
-            }
-          />
+              {/* Job Routes - Protected */}
+              <Route
+                path="/jobs"
+                element={
+                  <ProtectedRoute>
+                    <Jobs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/:jobId"
+                element={
+                  <ProtectedRoute>
+                    <JobDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/my-applications"
+                element={
+                  <ProtectedRoute>
+                    <MyApplications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/post"
+                element={
+                  <ProtectedRoute>
+                    <PostJob />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/edit/:jobId"
+                element={
+                  <ProtectedRoute>
+                    <EditJob />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/manage"
+                element={
+                  <ProtectedRoute>
+                    <ManageJobs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/:jobId/applications"
+                element={
+                  <ProtectedRoute>
+                    <ApplicationsManager />
+                  </ProtectedRoute>
+                }
+              />
+              {<Route
+                path="/jobs/all-applications"
+                element={
+                  <ProtectedRoute>
+                    <AllApplications />
+                  </ProtectedRoute>
+                }
+              />}
 
-          {/* Event Routes - Protected */}
-          <Route
-            path="/events"
-            element={
-              <ProtectedRoute>
-                <Events />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/create"
-            element={
-              <ProtectedRoute>
-                <CreateEvent />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/manage"
-            element={
-              <ProtectedRoute>
-                <ManageEvents />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/:eventId/edit"
-            element={
-              <ProtectedRoute>
-                <EditEvent />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/:eventId/attendees"
-            element={
-              <ProtectedRoute>
-                <EventAttendees />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/:eventId"
-            element={
-              <ProtectedRoute>
-                <EventDetails />
-              </ProtectedRoute>
-            }
-          />
+              {/* Mentorship Routes - Protected */}
+              <Route
+                path="/mentorship"
+                element={
+                  <ProtectedRoute>
+                    <Navigate to="/mentorship/find" replace />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mentorship/find"
+                element={
+                  <ProtectedRoute>
+                    <FindMentors />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mentorship/mentor/:userId"
+                element={
+                  <ProtectedRoute>
+                    <MentorProfile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mentorship/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <MentorshipDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mentorship/manage"
+                element={
+                  <ProtectedRoute>
+                    <MentorManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mentorship/sessions/:sessionId"
+                element={
+                  <ProtectedRoute>
+                    <SessionDetails />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Forum Routes - Protected */}
-          <Route
-            path="/forum"
-            element={
-              <ProtectedRoute>
-                <Forum />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/forum/manage"
-            element={
-              <ProtectedRoute>
-                <ManagePosts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/forum/posts/:postId"
-            element={
-              <ProtectedRoute>
-                <PostDetails />
-              </ProtectedRoute>
-            }
-          />
+              {/* Event Routes - Protected */}
+              <Route
+                path="/events"
+                element={
+                  <ProtectedRoute>
+                    <Events />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/create"
+                element={
+                  <ProtectedRoute>
+                    <CreateEvent />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/manage"
+                element={
+                  <ProtectedRoute>
+                    <ManageEvents />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Notification Routes - Protected */}
-          <Route
-            path="/notifications"
-            element={
-              <ProtectedRoute>
-                <Notifications />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings/notifications"
-            element={
-              <ProtectedRoute>
-                <NotificationPreferences />
-              </ProtectedRoute>
-            }
-          />
+              <Route
+                path="/burnout"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <BurnoutDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/:eventId/edit"
+                element={
+                  <ProtectedRoute>
+                    <EditEvent />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/:eventId/attendees"
+                element={
+                  <ProtectedRoute>
+                    <EventAttendees />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/events/:eventId"
+                element={
+                  <ProtectedRoute>
+                    <EventDetails />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Protected Dashboard Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardRouter />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/student"
-            element={
-              <ProtectedRoute allowedRoles={['student']}>
-                <StudentDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/alumni"
-            element={
-              <ProtectedRoute allowedRoles={['alumni']}>
-                <AlumniDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/recruiter"
-            element={
-              <ProtectedRoute allowedRoles={['recruiter']}>
-                <RecruiterDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/admin"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+              {/* Forum Routes - Protected */}
+              <Route
+                path="/forum"
+                element={
+                  <ProtectedRoute>
+                    <Forum />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/forum/manage"
+                element={
+                  <ProtectedRoute>
+                    <ManagePosts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/forum/posts/:postId"
+                element={
+                  <ProtectedRoute>
+                    <PostDetails />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Admin Routes - Protected (Admin Only) */}
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminUsers />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/verifications"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminVerifications />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/moderation"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminModeration />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/analytics"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminAnalytics />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/settings"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminSettings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/jobs"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminJobs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/events"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminEvents />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/mentorship"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminMentorship />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/badges"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminBadges />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/knowledge-capsules"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminKnowledgeCapsules />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/email-queue"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminEmailQueue />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/audit-logs"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminAuditLogs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/file-uploads"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminFileUploads />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/notifications"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminNotifications />
-              </ProtectedRoute>
-            }
-          />
+              {/* Notification Routes - Protected */}
+              <Route
+                path="/notifications"
+                element={
+                  <ProtectedRoute>
+                    <Notifications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings/notifications"
+                element={
+                  <ProtectedRoute>
+                    <NotificationPreferences />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Phase 11.1: Dataset Upload Routes - Protected (Admin Only) */}
-          <Route
-            path="/admin/datasets/upload"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <DatasetUpload />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/datasets/upload/:uploadId/progress"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <DatasetProgress />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/datasets/upload/:uploadId/report"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <DatasetReport />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/datasets/history"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <DatasetHistory />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/career-data-upload"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminCareerDataUpload />
-              </ProtectedRoute>
-            }
-          />
+              {/* Protected Dashboard Routes */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardRouter />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard/student"
+                element={
+                  <ProtectedRoute allowedRoles={['student']}>
+                    <StudentDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard/alumni"
+                element={
+                  <ProtectedRoute allowedRoles={['alumni']}>
+                    <AlumniDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard/recruiter"
+                element={
+                  <ProtectedRoute allowedRoles={['recruiter']}>
+                    <RecruiterDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard/admin"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Phase 11.5: Card Verification Management (Admin) */}
-          <Route
-            path="/admin/card-verifications"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminCardVerifications />
-              </ProtectedRoute>
-            }
-          />
+              {/* Admin Routes - Protected (Admin Only) */}
+              <Route
+                path="/admin/users"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminUsers />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/verifications"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminVerifications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/moderation"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminModeration />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/analytics"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminAnalytics />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/settings"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminSettings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/jobs"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminJobs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/events"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminEvents />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/mentorship"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminMentorship />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/badges"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminBadges />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/knowledge-capsules"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminKnowledgeCapsules />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/email-queue"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminEmailQueue />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/audit-logs"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminAuditLogs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/file-uploads"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminFileUploads />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/notifications"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminNotifications />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Phase 11.8: AI System Health Monitor (Admin) */}
-          <Route
-            path="/admin/ai/monitor"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminAIMonitor />
-              </ProtectedRoute>
-            }
-          />
+              {/* Phase 11.1: Dataset Upload Routes - Protected (Admin Only) */}
+              <Route
+                path="/admin/datasets/upload"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <DatasetUpload />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/datasets/upload/:uploadId/progress"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <DatasetProgress />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/datasets/upload/:uploadId/report"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <DatasetReport />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/datasets/history"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <DatasetHistory />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/career-data-upload"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminCareerDataUpload />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Phase 9: Advanced Features Routes - Protected */}
-          <Route
-            path="/skills/graph"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <SkillGraph />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/career/paths"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <CareerPaths />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/career/insights"
-            element={
-              <ProtectedRoute allowedRoles={['alumni', 'student']}>
-                <CareerInsights />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/leaderboard"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student']}>
-                <Leaderboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/alumni-card"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni']}>
-                <AlumniCard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/heatmap"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <TalentHeatmap />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/knowledge"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <KnowledgeCapsules />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/knowledge/create"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni']}>
-                <CreateKnowledgeCapsule />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/knowledge/learning-path"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <LearningPath />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/knowledge/:capsuleId"
-            element={
-              <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
-                <KnowledgeCapsuleDetail />
-              </ProtectedRoute>
-            }
-          />
+              {/* Phase 11.5: Card Verification Management (Admin) */}
+              <Route
+                path="/admin/card-verifications"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminCardVerifications />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Error Pages */}
-          <Route path="/500" element={<ServerError />} />
-          
-          {/* Redirect unknown routes to 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        </Suspense>
-      </AuthProvider>
+              {/* Phase 11.8: AI System Health Monitor (Admin) */}
+              <Route
+                path="/admin/ai/monitor"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminAIMonitor />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Phase 9: Advanced Features Routes - Protected */}
+              <Route
+                path="/skills/graph"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <SkillGraph />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/career/paths"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <CareerPaths />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/career/insights"
+                element={
+                  <ProtectedRoute allowedRoles={['alumni', 'student']}>
+                    <CareerInsights />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/leaderboard"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student']}>
+                    <Leaderboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/alumni-card"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni']}>
+                    <AlumniCard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/heatmap"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <TalentHeatmap />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/knowledge"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <KnowledgeCapsules />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/knowledge/create"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni']}>
+                    <CreateKnowledgeCapsule />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/knowledge/learning-path"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <LearningPath />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/knowledge/:capsuleId"
+                element={
+                  <ProtectedRoute allowedRoles={['admin', 'alumni', 'student', 'recruiter']}>
+                    <KnowledgeCapsuleDetail />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Error Pages */}
+              <Route path="/500" element={<ServerError />} />
+
+              {/* Redirect unknown routes to 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </AuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
