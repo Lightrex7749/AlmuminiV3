@@ -12,12 +12,12 @@ logger = logging.getLogger(__name__)
 
 # Import Gemini SDK
 try:
-    import google.generativeai as genai
-    from google.generativeai.types import HarmCategory, HarmBlockThreshold
+    import google.genai as genai
+    from google.genai.types import HarmCategory, HarmBlockThreshold
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
-    logger.warning("google-generativeai not installed. LLM advice will be disabled")
+    logger.warning("google-genai not installed. LLM advice will be disabled")
 
 
 class CareerLLMAdvisor:

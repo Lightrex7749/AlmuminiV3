@@ -10,8 +10,7 @@ from pathlib import Path
 import os
 import logging
 import asyncio
-from routes.burnout_routes import burnout_router
-app.include_router(burnout_router, prefix="/api/burnout", tags=["burnout"])
+
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent
@@ -130,7 +129,7 @@ app = FastAPI(
 )
 
 # Startup event
-@app.on_event("startup")
+@app.lifespan("startup")
 async def startup_event():
     """Initialize database and services on startup"""
     try:
@@ -159,7 +158,7 @@ async def startup_event():
         raise
 
 # Shutdown event
-@app.on_event("shutdown")
+@app.lifespan("shutdown")
 async def shutdown_event():
     """Clean up resources on shutdown"""
     try:
@@ -316,6 +315,10 @@ app.include_router(capsule_ranking_wrapper_router)
 app.include_router(recommendations_wrapper_router)
 app.include_router(leaderboard_wrapper_router)
 app.include_router(alumni_card_admin_router)
+
+# Include Burnout Routes
+from routes.burnout_routes import burnout_router
+app.include_router(burnout_router, prefix="/api/burnout", tags=["burnout"])
 
 # Include API router in main app
 app.include_router(api_router)
