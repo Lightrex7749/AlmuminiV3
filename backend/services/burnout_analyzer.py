@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class BurnoutAnalyzer:
     
-    def __init__(self):
+    def __init__(other):
         self.api_key = os.getenv('OPENAI_API_KEY')
         if not self.api_key:
             logger.warning("⚠️ OpenAI API key not found. Burnout analysis will use fallback logic.")
