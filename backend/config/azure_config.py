@@ -3,7 +3,7 @@ Azure Configuration Module
 Handles all Azure service connections and configurations
 """
 
-import s
+import os
 import logging
 from functools import lru_cache
 from typing import Optional
